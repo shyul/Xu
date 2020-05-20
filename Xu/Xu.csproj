@@ -1,0 +1,1075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C405F46D-C5B1-4AFF-A335-8BC0760770B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xu</RootNamespace>
+    <AssemblyName>Xu</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Main\Icons.cs" />
+    <Compile Include="Source\Mathematics\Chart\Data\ITable.cs" />
+    <Compile Include="Source\Mathematics\Chart\Data\ObjectColumn.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\Types\CandleStickType.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\Types\IAdvanceDeclineSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\Types\IRangeSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\Types\ITagSeries.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\TagInfo.cs" />
+    <Compile Include="Source\Types\Frequency.cs" />
+    <Compile Include="Source\Types\MultiPeriod.cs" />
+    <Compile Include="Source\Types\Period.cs" />
+    <Compile Include="Source\Types\QueueValue.cs" />
+    <Compile Include="Source\Types\Scheduler\CommandContainer.cs" />
+    <Compile Include="Source\Types\Scheduler\CommandHandler.cs" />
+    <Compile Include="Source\Types\Scheduler\EventContainer.cs" />
+    <Compile Include="Source\Types\Scheduler\Scheduler.cs" />
+    <Compile Include="Source\Types\Scheduler\ScheduledTask.cs" />
+    <Compile Include="Source\Types\Scheduler\Status.cs" />
+    <Compile Include="Source\Types\Scheduler\StatusContainer.cs" />
+    <Compile Include="Source\Types\WorkHours.cs" />
+    <Compile Include="Source\Mathematics\Chart\Area\IArea.cs" />
+    <Compile Include="Source\Mathematics\Chart\Area\Area.cs" />
+    <Compile Include="Source\Mathematics\Chart\Area\OscillatorArea.cs" />
+    <Compile Include="Source\Mathematics\Chart\Axis\ContinuousAxis.cs" />
+    <Compile Include="Source\Mathematics\Chart\Axis\DiscreteAxis.cs" />
+    <Compile Include="Source\Mathematics\Chart\Area\Legend.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\DotSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\AdColumnSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\ChartWidget.cs" />
+    <Compile Include="Source\UserInterface\Shared\CodeEdit\CodeEdit.cs" />
+    <Compile Include="Source\UserInterface\Shared\EventView\EventView.cs" />
+    <Compile Include="Source\UserInterface\Shared\Miscellaneous\TextEdit.cs" />
+    <Compile Include="Source\UserInterface\Shared\TreeView\TreeView.cs" />
+    <Compile Include="Source\Mathematics\Chart\Data\NumericColumn.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\Types\Series.cs" />
+    <Compile Include="Source\Mathematics\Chart\Overlay.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\AreaSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\BandSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\OhlcSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\CloudSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\ColumnSeries.cs" />
+    <Compile Include="Source\Mathematics\Chart\Series\LineSeries.cs" />
+    <Compile Include="Source\UserInterface\Shared\Grid\GridColumn.cs" />
+    <Compile Include="Source\UserInterface\Shared\Grid\GridWidget.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\GUI.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\ICoordinatable.cs" />
+    <Compile Include="Source\Types\Interfaces\IDependable.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\IStackable.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\00_Form\CaptionBar.cs" />
+    <Compile Include="Source\UserInterface\Shared\Miscellaneous\Click.cs" />
+    <Compile Include="Source\Main\Main.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\01_Basic\ContextDropMenu.cs" />
+    <Compile Include="Source\UserInterface\Shared\Miscellaneous\ToggleWidget.cs" />
+    <Compile Include="Source\Tools\Collections.cs" />
+    <Compile Include="Source\Tools\Reflection.cs" />
+    <Compile Include="Source\Mathematics\Chart\Axis\AxisTickStyle.cs" />
+    <Compile Include="Source\Mathematics\Decade.cs" />
+    <Compile Include="Source\Mathematics\Interpolation.cs" />
+    <Compile Include="Source\Types\Scheduler\Event.cs" />
+    <Compile Include="Source\Types\Interfaces\IItem.cs" />
+    <Compile Include="Source\UserInterface\Shared\GUI.cs" />
+    <Compile Include="Source\Mathematics\FFT\FFT.cs" />
+    <Compile Include="Source\Mathematics\FFT\Waveform.cs" />
+    <Compile Include="Source\Mathematics\FFT\WindowFunctions.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\11_GridDockPane.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\12_SideDockPane.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\21_GridDockContainer.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\22_SideDockContainer.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\DockForms\01_EventDockPanel.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\03_RibbonTabContainer.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\01_RibbonTabContextHost.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\02_RibbonTabItem.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\04_RibbonTabPanel.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\05_RibbonPane.cs" />
+    <Compile Include="Source\UserInterface\Shared\Miscellaneous\ButtonWidget.cs" />
+    <Compile Include="Source\UserInterface\Shared\Tab\TabItem.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\ColorTheme.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\Shapes.cs" />
+    <Compile Include="Source\Types\Scheduler\Command.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\01_Basic\ContextPane.cs" />
+    <Compile Include="Source\Types\Contact.cs" />
+    <Compile Include="Source\Types\Range.cs" />
+    <Compile Include="Source\UserInterface\Shared\Text.cs" />
+    <Compile Include="Source\Types\Time.cs" />
+    <Compile Include="Source\Types\ShortcutKey.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\Controls\RibbonToggleButton.cs" />
+    <Compile Include="Source\UserInterface\Windows\NativeMethods\DWMAPI.cs" />
+    <Compile Include="Source\UserInterface\Windows\NativeMethods\Gdi32.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\DeviceCap.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\DrawText.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\Graphics.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\MouseHitTest.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\SysCommands.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\TernaryRasterOperations.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\Types.cs" />
+    <Compile Include="Source\UserInterface\Shared\Color.cs" />
+    <Compile Include="Source\UserInterface\Shared\Shape.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\01_Basic\HelperOverlay.cs" />
+    <Compile Include="Source\UserInterface\Shared\Types\IResizable.cs" />
+    <Compile Include="Source\UserInterface\Shared\Tab\Tab.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\20_DockContainer.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\00_DockCanvas.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\30_DockForm.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\10_DockPane.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\00_Form\MosaicForm.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\00_Form\OrbMenu.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\00_Ribbon.cs" />
+    <Compile Include="Source\UserInterface\Shared\Miscellaneous\Widget.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\03_Ribbon\Controls\RibbonButton.cs" />
+    <Compile Include="Source\UserInterface\Mosaic\02_Dock\DockForms\02_StatusPane.cs" />
+    <Compile Include="Source\UserInterface\Shared\AppTheme.cs" />
+    <Compile Include="Source\Tools\Serialization.cs" />
+    <Compile Include="Source\UserInterface\Shared\Icon.cs" />
+    <Compile Include="Source\Types\Scheduler\Connectivity.cs" />
+    <Compile Include="Source\Mathematics\Numbers.cs" />
+    <Compile Include="Source\Tools\Text.cs" />
+    <Compile Include="Source\Tools\Time.cs" />
+    <Compile Include="Source\UserInterface\Windows\NativeMethods\User32.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\WindowsHook.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\WindowsMessages.cs" />
+    <Compile Include="Source\UserInterface\Windows\Types\WindowStyles.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Source\Mathematics\Filters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bottle_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bottle_Label_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bottle_Label_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Box_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Box_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calculator_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calculator_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_ArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_ArrowLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_ArrowRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_ArrowUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_Bars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_Dot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_DotPointDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_DotPointUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_Maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PinSet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PinUnset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointPlusDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointPlusLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointPlusRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointPlusUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_PointUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_Question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Caption_RestoreNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Card_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Card_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Card_Id_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Card_Id_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Category_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Circles_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Copy_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Copy_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Copy_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Cut_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Cut_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Cut_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Cut_Blue_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Paste_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Paste_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_Paste_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_Picker_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_Swatch_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_Swatch_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_Swatch_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Compile_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Counter_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Counter_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Counter_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Counter_Zero_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Credit_Card_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Credit_CardGreen_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Currency_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Currency_Euro_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Currency_Pound_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Currency_Yn_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cursor_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cursor_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database_Export_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database_Import_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dir_Down_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dir_Left_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dir_Right_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dir_Up_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Doc_Richtext_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Doc_Table_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Doc_Table_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Doc_Text_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dock_Bottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dock_Center.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dock_Guide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dock_Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dock_Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dock_Top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_Horizontal_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_Horizontal_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Equalizer_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Equalizer_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Eraser_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Eraser_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_Blue_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Eye_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Feed_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_New_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_New_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_New_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_Save_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_Save_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_Save_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\File_Save_Black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_Open_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_Open_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_Open_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gear_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globe_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Heart_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Key_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_Enter_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_Enter_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_Enter_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_Space_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_Space_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard_Space_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lens_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lock_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lock_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lock_SSL_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lock_SSL_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Fail_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Fail_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Fail_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Fire_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Fire_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Fire_Big_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Info_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Info_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Info_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Pass_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Pass_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Pass_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Plus_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Plus_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Question_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Question_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Question_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Radiation_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Stop_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Stop_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Stop_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Wafer_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Wafer_Gold_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Warning_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Warning_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Warning_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnet_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnet_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnet_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnifier_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnifier_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnifier_Zoom_In_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnifier_Zoom_In_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnifier_Zoom_Out_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnifier_Zoom_Out_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map_Mark_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map_Mark_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Megaphone_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Megaphone_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Message_Yellow_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Message_Yellow_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Message_Yellow_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Microphone_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Microphone_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minus_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minus_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minus_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Monitor_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Monitor_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Movie_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Movie_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Movie_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_Back_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_Back_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_Next_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_Next_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Newspaper_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Newspaper_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notebook_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notebook_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notebook_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notebooks_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PaneCornerButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pencil_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pencil_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PowerUnit_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PowerUnit_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Receipt_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Receipt_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Receipt_Text_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rescue_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rescue_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ruler_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ruler_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ruler_Triangle_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Script_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Script_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Script_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Script_Text_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Script_Text_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Script_Text_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Server_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Server_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tablet_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tablet_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tablet_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_Blue_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_Blue_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_Blue_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Target_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Target_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Terminal_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Terminal_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ticket_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ticket_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Trash_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wall_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wall_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Area_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Area_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Area_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_045_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_135_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_225_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_315_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Down_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Down_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Down_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Left_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Left_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Left_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Right_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Right_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Right_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Up_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Up_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_Up_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battery_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battery_Charging_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battery_Empty_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battery_Full_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battery_Low_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battery_Plug_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bell_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blank_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blank_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blank_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Blue_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Brown_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bookmark_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bookmark_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bookmark_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bottle_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Plus_16.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

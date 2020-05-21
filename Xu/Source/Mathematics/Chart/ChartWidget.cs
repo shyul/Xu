@@ -92,7 +92,13 @@ namespace Xu.Chart
                 a.Order = i;
                 if (a.Order == order) a.Order++;
             }
-            if (!Areas.Contains(area)) Areas.Add(area);
+
+            if (!Areas.Contains(area)) 
+            { 
+                Areas.Add(area);
+                //Console.WriteLine("Adding area: " + area.Name);
+            }
+
             T ca = (T)Areas.Where(n => n == area).First();
             ca.Order = order;
             Areas.Sort((t1, t2) => t1.Order.CompareTo(t2.Order));
@@ -123,11 +129,6 @@ namespace Xu.Chart
         }*/
 
         public virtual T AddArea<T>(T area) where T : Area => AddArea(area, Areas.Count);
-        /*
-        public virtual bool ContainsArea(string areaName)
-        {
-            return Areas.Where(n => n.Name == areaName).Count() > 0;
-        }*/
 
         public Area this[string areaName]
         {

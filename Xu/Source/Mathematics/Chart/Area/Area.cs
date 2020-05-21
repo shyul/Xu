@@ -43,7 +43,7 @@ namespace Xu.Chart
 
         public override int GetHashCode() => Name.GetHashCode();
 
-        public bool Equals(Area other) => GetHashCode() == other.GetHashCode();
+        public bool Equals(Area other) => other is Area a && Name == a.Name;
 
         public override bool Equals(object obj) => (obj is Area a) ? Equals(a) : false;
 

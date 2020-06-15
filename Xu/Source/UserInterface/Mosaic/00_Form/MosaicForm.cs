@@ -371,7 +371,7 @@ namespace Xu
                             {
                                 m_painting = true;
                                 PAINTSTRUCT ps = new PAINTSTRUCT();
-                                //IntPtr hdc = User32.BeginPaint(m.HWnd, ref ps);
+                                IntPtr hdc = User32.BeginPaint(m.HWnd, ref ps);
                                 //int w = ps.rcPaint.Right;
                                 //int h = ps.rcPaint.Bottom;
                                 //IntPtr backbuffDC = NativeMethods.CreateCompatibleDC(hdc);

@@ -26,7 +26,7 @@ namespace Xu
         /// </summary>
         private static readonly char[] m_charsToTrimEnd = { ',', '.', ' ' };
 
-        private static string CleanUpNumString(string input) => Regex.Replace(input, "[^0-9.E-]", "").TrimEnd(m_charsToTrimEnd).Trim();
+        private static string CleanUpNumString(string input) => Regex.Replace(input, "[^0-9.Ee-]", "").TrimEnd(m_charsToTrimEnd).Trim();
 
         /// <summary>
         /// 
@@ -54,7 +54,7 @@ namespace Xu
         }
 
         /// <summary>
-        /// 
+        /// TODO: Fix "8.9e-05", "6.0e-05", 5.0e-05, 2.0e-05
         /// </summary>
         /// <param name="input"></param>
         /// <param name="defaultValue"></param>

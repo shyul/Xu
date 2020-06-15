@@ -28,14 +28,13 @@ namespace Xu.Chart
     public class OhlcSeries : Series, IAdvanceDeclineSeries, ITagSeries
     {
         public OhlcSeries(NumericColumn open_Column, NumericColumn high_Column, NumericColumn low_Column, NumericColumn close_Column,
-            NumericColumn percent_Column, ObjectColumn candleStickTypes_Column, OhlcType type = OhlcType.Candlestick)
+            NumericColumn percent_Column, OhlcType type = OhlcType.Candlestick)
         {
             Open_Column = open_Column;
             High_Column = high_Column;
             Low_Column = low_Column;
             Close_Column = close_Column;
             Percent_Column = percent_Column;
-            CandleStickTypes_Column = candleStickTypes_Column;
 
             Type = type;
 
@@ -57,8 +56,6 @@ namespace Xu.Chart
         public NumericColumn Percent_Column { get; }
 
         public NumericColumn Gain_Column => Percent_Column;
-
-        public ObjectColumn CandleStickTypes_Column { get; }
 
         #region Color Theme
 
@@ -109,7 +106,7 @@ namespace Xu.Chart
         /// <summary>
         /// Series Tags
         /// </summary>
-        public virtual List<ObjectColumn> TagColumns { get; } = new List<ObjectColumn>();
+        public virtual List<TagColumn> TagColumns { get; } = new List<TagColumn>();
 
 
 
@@ -155,7 +152,7 @@ namespace Xu.Chart
             text = (!double.IsNaN(close) && !double.IsNaN(percent)) ? Close_Column.Label + ": " + close.ToString(LegendLabelFormat) + " ( " + percent.ToString("0.##") + "% )" : string.Empty;
 
             if (text.Length > 0) labels.Add((text, Main.Theme.Font, (percent < 0) ? Legend.LabelBrush(DownTheme) : Legend.LabelBrush(Theme)));
-
+            /*
             if (CandleStickTypes_Column is ObjectColumn && CandleStickTypes_Column.Type == typeof(List<CandleStickType>))
             {
                 if (table[pt, CandleStickTypes_Column] is List<CandleStickType> list)
@@ -164,7 +161,7 @@ namespace Xu.Chart
                     if (text.Length > 0) labels.Add(("  " + text, Main.Theme.Font, (percent < 0) ? Legend.LabelBrush(DownTheme) : Legend.LabelBrush(Theme)));
                 }
             }
-
+            */
             return labels;
         }
 

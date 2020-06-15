@@ -41,7 +41,7 @@ namespace Xu.Chart
         /// <summary>
         /// Series Tags
         /// </summary>
-        public virtual List<ObjectColumn> TagColumns { get; } = new List<ObjectColumn>();
+        public virtual List<TagColumn> TagColumns { get; } = new List<TagColumn>();
 
         public override void RefreshAxis(IArea area, ITable table)
         {

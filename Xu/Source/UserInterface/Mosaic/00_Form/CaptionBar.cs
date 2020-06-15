@@ -142,13 +142,11 @@ namespace Xu
             DrawSeparator(g, 5, sepY1, sepY2);
             DrawSeparator(g, CaptionTitleLocation.X - 6, sepY1, sepY2);
 
-            using (SolidBrush textBrush = new SolidBrush(ForeColor))
-            {
-                g.DrawString(MoForm.Text,
-                    Main.Theme.FontBold,
-                    textBrush,
-                    CaptionTitleLocation);
-            }
+            using SolidBrush textBrush = new SolidBrush(ForeColor);
+            g.DrawString(MoForm.Text,
+                Main.Theme.FontBold,
+                textBrush,
+                CaptionTitleLocation);
         }
 
         public virtual MouseState MouseState { get; protected set; }

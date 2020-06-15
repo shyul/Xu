@@ -55,8 +55,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\Main\Icons.cs" />
+    <Compile Include="Source\Mathematics\Chart\Data\Column.cs" />
     <Compile Include="Source\Mathematics\Chart\Data\ITable.cs" />
-    <Compile Include="Source\Mathematics\Chart\Data\ObjectColumn.cs" />
+    <Compile Include="Source\Mathematics\Chart\Data\TagColumn.cs" />
     <Compile Include="Source\Mathematics\Chart\Series\Types\CandleStickType.cs" />
     <Compile Include="Source\Mathematics\Chart\Series\Types\IAdvanceDeclineSeries.cs" />
     <Compile Include="Source\Mathematics\Chart\Series\Types\IRangeSeries.cs" />

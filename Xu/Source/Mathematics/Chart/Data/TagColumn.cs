@@ -8,11 +8,11 @@ using System;
 
 namespace Xu
 {
-    public class NumericColumn : Column
+    public class TagColumn : Column
     {
-        public NumericColumn(string name) => Name = name;
+        public TagColumn(string name) => Name = name;
 
-        public NumericColumn(string name, string label)
+        public TagColumn(string name, string label)
         {
             Name = name;
             Label = label;

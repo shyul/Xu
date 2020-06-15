@@ -45,7 +45,7 @@ namespace Xu.Chart
 
         public bool Equals(Area other) => other is Area a && Name == a.Name;
 
-        public override bool Equals(object obj) => (obj is Area a) ? Equals(a) : false;
+        public override bool Equals(object obj) => (obj is Area a) && Equals(a);
 
         public static bool operator !=(Area s1, Area s2) => !s1.Equals(s2);
         public static bool operator ==(Area s1, Area s2) => s1.Equals(s2);

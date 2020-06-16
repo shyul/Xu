@@ -46,6 +46,10 @@ namespace Xu.Chart
 
         public Importance Importance { get; protected set; }
 
+        public bool Enabled { get; set; } = true;
+
+        public int Order { get; set; }
+
         public AlignType Side { get; protected set; }
 
         public virtual ColorTheme Theme => Area.Theme;

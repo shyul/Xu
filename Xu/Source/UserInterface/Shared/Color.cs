@@ -95,21 +95,15 @@ namespace Xu
             int iX = ((X + m) * 255).ToInt32();
             int i0 = (m * 255).ToInt32();
 
-            switch (index)
+            return index switch
             {
-                case 1:
-                    return Color.FromArgb(alpha, iX, iC, i0);
-                case 2:
-                    return Color.FromArgb(alpha, i0, iC, iX);
-                case 3:
-                    return Color.FromArgb(alpha, i0, iX, iC);
-                case 4:
-                    return Color.FromArgb(alpha, iX, i0, iC);
-                case 5:
-                    return Color.FromArgb(alpha, iC, i0, iX);
-                default:
-                    return Color.FromArgb(alpha, iC, iX, i0);
-            }
+                1 => Color.FromArgb(alpha, iX, iC, i0),
+                2 => Color.FromArgb(alpha, i0, iC, iX),
+                3 => Color.FromArgb(alpha, i0, iX, iC),
+                4 => Color.FromArgb(alpha, iX, i0, iC),
+                5 => Color.FromArgb(alpha, iC, i0, iX),
+                _ => Color.FromArgb(alpha, iC, iX, i0),
+            };
         }
     }
 }

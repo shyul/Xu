@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace Xu.Chart
 {
-    public abstract class Series : IItem, IEquatable<Series>, IDependable
+    public abstract class Series : IOrdered, IEquatable<Series>, IDependable
     {
         public virtual void Dispose() { }
 
@@ -37,8 +37,6 @@ namespace Xu.Chart
         public bool Enabled { get; set; } = true;
 
         public int Order { get; set; }
-
-        public HashSet<string> Tags { get; set; } = new HashSet<string>();
 
         public void Remove(bool recursive) { }
 
@@ -73,8 +71,6 @@ namespace Xu.Chart
                 Theme.EdgeColor = value;
             }
         }
-
-        public ulong Uid { get; set; }
 
         /// <summary>
         /// Size of the graphics objects

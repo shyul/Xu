@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     [Serializable, DataContract]
-    public class Command : IItem, IDisposable
+    public class Command : IOrdered, IDisposable
     {
         #region Dispose
         ~Command() => Dispose();
@@ -30,7 +30,7 @@ namespace Xu
         // Defined as doing nothing.
         [DataMember, Browsable(true), ReadOnly(false)]
         [Description("Action")]
-        public CommandHandler Action { get; set; } = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cancellationToken) => { };
+        public CommandHandler Action { get; set; } = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cancellationToken) => { };
 
         // Percent of executions -- can be use as Period or total counts
         // N
@@ -49,7 +49,7 @@ namespace Xu
         protected CancellationTokenSource Cts { get; set; } = new CancellationTokenSource();
 
         // Methods
-        public virtual void Start(IItem sender = null, string[] args = null)
+        public virtual void Start(IOrdered sender = null, string[] args = null)
         {
             if (Enabled)
             {
@@ -68,9 +68,6 @@ namespace Xu
         [Description("Order")]
         public int Order { get; set; } = 0;
 
-        [DataMember, Browsable(true), ReadOnly(false)]
-        [Description("Id")]
-        public ulong Uid { get; set; } = 0;
 
         [DataMember, Browsable(true), ReadOnly(false)]
         [Description("Label")]
@@ -85,9 +82,7 @@ namespace Xu
         public string Description { get; set; } = "This is a default command description, please modify.";
 
         [DataMember, Browsable(true), ReadOnly(false)]
-        [Description("Tags")]
-        public HashSet<string> Tags { get; set; } = new HashSet<string>();
-        //public LifeCycle LifeCycle { get; set; }
+        [Description("Importance")]
         public Importance Importance { get; set; } = Importance.Minor;
 
         [DataMember, Browsable(true), ReadOnly(false)]
@@ -97,8 +92,6 @@ namespace Xu
         [DataMember, Browsable(true), ReadOnly(false)]
         [Description("Color Theme")]
         public ColorTheme Theme { get; set; } = new ColorTheme();
-
-
 
         [DataMember]
         public Dictionary<IconType, Dictionary<Size, Bitmap>> IconList { get; set; } = new Dictionary<IconType, Dictionary<Size, Bitmap>>()

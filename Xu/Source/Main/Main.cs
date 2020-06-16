@@ -61,7 +61,7 @@ namespace Xu
                     { IconType.Normal, Icons.Nav_Back },
                 },
 
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Backward is clicked");
             },
@@ -75,7 +75,7 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.Nav_Next },
                 },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 foreach (object o in args) { }
                 ObsoletedEvent.Debug("Forward is clicked");
@@ -91,7 +91,7 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.Undo },
                 },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 foreach (object o in args) { }
                 ObsoletedEvent.Debug("Undo is clicked");
@@ -108,7 +108,7 @@ namespace Xu
                     { IconType.Normal, Icons.Redo },
                 },
 
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Redo is clicked");
             },
@@ -122,7 +122,7 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.File_Open },
                 },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Open is clicked");
             },
@@ -136,7 +136,7 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.File_Save },
                 },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Save is clicked");
             },
@@ -147,7 +147,7 @@ namespace Xu
             //Enabled = false,
             Label = "Copy",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Copy } },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Copy is clicked");
             },
@@ -158,7 +158,7 @@ namespace Xu
             //Enabled = false,
             Label = "Cut",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Cut } },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Cut is clicked");
             },
@@ -169,7 +169,7 @@ namespace Xu
             //Enabled = false,
             Label = "Paste",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Paste } },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Paste is clicked");
             },
@@ -180,7 +180,7 @@ namespace Xu
             //Enabled = false,
             Label = "Delete",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Delete } },
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => 
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => 
             {
                 ObsoletedEvent.Debug("Delete is clicked");
             },

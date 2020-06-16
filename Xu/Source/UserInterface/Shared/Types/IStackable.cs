@@ -10,7 +10,7 @@ using System.Drawing.Text;
 
 namespace Xu
 {
-    public interface IStackable : IItem, ICoordinatable
+    public interface IStackable : IOrdered, ICoordinatable
     {
         Point DropMenuOriginPoint { get; }
 

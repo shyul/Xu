@@ -21,9 +21,9 @@ namespace Xu.Chart
     /// 3. Labels following the cursor
     /// 4. Detect Mouse movement and Invalidate itelf only
     /// </summary>
-    public class Overlay : Widget
+    public class ChartOverlay : Widget
     {
-        public Overlay(ChartWidget chart)
+        public ChartOverlay(ChartWidget chart)
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             Chart = chart;

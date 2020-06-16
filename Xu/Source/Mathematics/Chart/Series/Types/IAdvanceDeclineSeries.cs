@@ -15,7 +15,7 @@ namespace Xu.Chart
     /// <summary>
     /// Advance and decline series
     /// </summary>
-    public interface IAdvanceDeclineSeries : IItem
+    public interface IAdvanceDeclineSeries : IOrdered
     {
         /// <summary>
         /// Gain data column

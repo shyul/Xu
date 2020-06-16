@@ -49,7 +49,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Minimize },
                 },
-                Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 { WindowState = FormWindowState.Minimized; },
             };
 
@@ -60,7 +60,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Maximize },
                 },
-                Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     if (WindowState != FormWindowState.Maximized)
                     {
@@ -76,7 +76,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Restore },
                 },
-                Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     if (WindowState != FormWindowState.Normal)
                     {
@@ -92,7 +92,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Close },
                 },
-                Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     Close(); // Should be app exit...
                 },
@@ -160,7 +160,7 @@ namespace Xu
         public static Command Command_HelpLink = new Command()
         {
             Theme = new ColorTheme(Color.DimGray, Color.Gray),
-            Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 System.Diagnostics.Process.Start(HelpLink);
             },

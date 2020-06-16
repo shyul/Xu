@@ -15,7 +15,7 @@ namespace Xu.Chart
     /// <summary>
     /// Band series with high and low bonds
     /// </summary>
-    public interface IRangeSeries : IItem
+    public interface IRangeSeries : IOrdered
     {
         /// <summary>
         /// higher bond data column

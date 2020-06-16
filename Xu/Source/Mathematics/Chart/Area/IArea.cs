@@ -6,10 +6,8 @@
 
 namespace Xu.Chart
 {
-    public interface IArea : ICoordinatable
+    public interface IArea : IOrdered, ICoordinatable
     {
-        string Name { get; set; }
-
         ColorTheme Theme { get; }
 
         int StopPt { get; }

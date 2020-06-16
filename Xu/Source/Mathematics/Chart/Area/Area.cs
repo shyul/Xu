@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Xu.Chart
 {
-    public class Area : IArea, IItem, IEquatable<Area>
+    public class Area : IArea, IEquatable<Area>
     {
         public Area(ChartWidget chart, string name, int heightRatio)
         {
@@ -45,7 +45,7 @@ namespace Xu.Chart
 
         public bool Equals(Area other) => other is Area a && Name == a.Name;
 
-        public override bool Equals(object obj) => (obj is Area a) && Equals(a);
+        public override bool Equals(object other) => other is Area a && Equals(a);
 
         public static bool operator !=(Area s1, Area s2) => !s1.Equals(s2);
         public static bool operator ==(Area s1, Area s2) => s1.Equals(s2);
@@ -54,8 +54,6 @@ namespace Xu.Chart
 
         public string Label { get; set; }
 
-        public string Description { get; set; }
-
         public Importance Importance { get; set; } = Importance.Minor;
 
         public bool Enabled { get; set; } = true;
@@ -63,10 +61,6 @@ namespace Xu.Chart
         public bool Visible { get; set; } = true;
 
         public int Order { get; set; }
-
-        public HashSet<string> Tags { get; set; } = new HashSet<string>();
-
-        public ulong Uid { get; set; }
 
         public virtual ColorTheme Theme { get; } = new ColorTheme(Color.FromArgb(112, 112, 112), Color.Transparent, Color.FromArgb(192, 192, 192));
 

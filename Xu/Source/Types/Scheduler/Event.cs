@@ -28,21 +28,25 @@ namespace Xu
     /// Status is the arm, Event is the trigger.
     /// </summary>
     [Serializable, DataContract]
-    public class Event : IItem
+    public class Event : IOrdered
     {
         public EventType Type { get; set; }
+
         public DateTime Time { get; set; }
-        public IItem Source { get; set; }
+
+        public IOrdered Source { get; set; }
 
         public string Name { get; set; }
+
         public string Label { get; set; }
+
         public string Description { get; set; }
-        public ColorTheme Theme { get; set; }
+
         public Importance Importance { get; set; }
+
         public bool Enabled { get; set; }
+
         public int Order { get; set; }
-        public HashSet<string> Tags { get; set; }
-        public ulong Uid { get; set; }
 
     }
 

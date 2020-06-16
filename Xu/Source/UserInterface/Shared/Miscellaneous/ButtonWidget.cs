@@ -36,7 +36,7 @@ namespace Xu
 
         protected Command Command { get; set; }
 
-        public virtual void Execute(IItem sender = null, string[] args = null)
+        public virtual void Execute(IOrdered sender = null, string[] args = null)
         {
             Command.Start(sender, args);
         }

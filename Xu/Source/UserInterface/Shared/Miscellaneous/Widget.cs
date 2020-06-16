@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     [DesignerCategory("Code")]
-    public abstract class Widget : UserControl, IItem
+    public abstract class Widget : UserControl, IOrdered
     {
         protected Widget(int order = 0, Importance importance = Importance.Minor)
         {
@@ -37,8 +37,6 @@ namespace Xu
 
         public virtual string Description { get; set; }
 
-        public virtual ColorTheme Theme { get; protected set; } = new ColorTheme();
-
         public virtual Importance Importance
         {
             get { return m_Importance; }
@@ -48,9 +46,7 @@ namespace Xu
 
         public virtual int Order { get; set; }
 
-        public HashSet<string> Tags { get; set; }
 
-        public virtual ulong Uid { get; set; }
 
         #endregion
 

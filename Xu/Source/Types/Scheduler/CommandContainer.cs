@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     [Serializable, DataContract]
-    public class CommandContainer : IItem, IDisposable
+    public class CommandContainer : IOrdered, IDisposable
     {
         public virtual void Dispose()
         {
@@ -38,12 +38,12 @@ namespace Xu
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public ColorTheme Theme { get; set; }
+
+
         public Importance Importance { get; set; }
         public bool Enabled { get; set; }
         public int Order { get; set; }
-        public HashSet<string> Tags { get; set; }
-        public ulong Uid { get; set; }
+
         #endregion
     }
 }

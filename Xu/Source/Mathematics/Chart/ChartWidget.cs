@@ -19,7 +19,7 @@ namespace Xu.Chart
         protected ChartWidget(string name) : base(name)
         {
             AxisX = new DiscreteAxis(this);
-            Overlay = new Overlay(this);
+            Overlay = new ChartOverlay(this);
             Controls.Add(Overlay);
         }
 
@@ -78,7 +78,7 @@ namespace Xu.Chart
             }
         }
 
-        protected Overlay Overlay { get; }
+        protected ChartOverlay Overlay { get; }
 
         public virtual List<Area> Areas { get; } = new List<Area>(); // Scan Maze m and yield this list
 

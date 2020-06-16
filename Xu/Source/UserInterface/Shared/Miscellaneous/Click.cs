@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Xu
 {
-    public class Click : IItem, IStackable
+    public class Click : IOrdered, IStackable
     {
         public Click(Command cmd)
         {
@@ -26,17 +26,11 @@ namespace Xu
 
         public string Description { get => Command.Description; set { Command.Description = value; } }
 
-        public ColorTheme Theme => Command.Theme;
-
         public Importance Importance { get => Command.Importance; set { Command.Importance = value; } }
 
         public bool Enabled { get => Command.Enabled; set { Command.Enabled = value; } }
 
         public int Order { get => Command.Order; set { Command.Order = value; } }
-
-        public HashSet<string> Tags => Command.Tags;
-
-        public ulong Uid { get => Command.Uid; set { Command.Uid = value; } }
 
         public bool IsSectionEnd { get { return (m_IsSectionEnd || Importance > Importance.Minor || (IsLineEnd && StackedY >= 2)); } set { m_IsSectionEnd = value; } }
         protected bool m_IsSectionEnd = false;

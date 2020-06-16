@@ -104,13 +104,14 @@ namespace Xu.Chart
                     DrawColumn(g, pen, brush, p.X, p.Y, ref_pix, tickWidth);
                 }
 
-                foreach (var (index, p, _) in pointList) 
-                {
-                    var tagList = GetTags(table, TagColumns, index);
+                if (table is ITagTable itag)
+                    foreach (var (index, p, _) in pointList)
+                    {
+                        var tagList = GetTags(itag, TagColumns, index);
 
-                    if (tagList.Count() > 0)
-                        DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
-                }
+                        if (tagList.Count() > 0)
+                            DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
+                    }
             }
 
             // Reset antialiasing.

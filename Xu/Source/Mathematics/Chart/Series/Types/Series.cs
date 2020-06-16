@@ -227,7 +227,7 @@ namespace Xu.Chart
             return (points, pt, min_y, max_y);
         }
 
-        public static IEnumerable<TagInfo> GetTags(ITable table, IEnumerable<TagColumn> columns, int index) 
+        public static IEnumerable<TagInfo> GetTags(ITagTable table, IEnumerable<TagColumn> columns, int index) 
             => columns.Select(n => table[index, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
 
         public static void DrawTag(Graphics g, IEnumerable<TagInfo> list, int x, int middle) => DrawTag(g, list, x, middle, middle);

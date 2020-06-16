@@ -88,13 +88,14 @@ namespace Xu.Chart
                 foreach (var (_, p) in pointList)
                     DrawDot(g, Theme, p, width);
 
-                foreach (var (index, p) in pointList)
-                {
-                    var tagList = GetTags(table, TagColumns, index);
+                if (table is ITagTable itag)
+                    foreach (var (index, p) in pointList)
+                    {
+                        var tagList = GetTags(itag, TagColumns, index);
 
-                    if (tagList.Count() > 0)
-                        DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
-                }
+                        if (tagList.Count() > 0)
+                            DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
+                    }
             }
             // Reset antialiasing.
             g.SmoothingMode = SmoothingMode.Default;

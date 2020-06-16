@@ -9,12 +9,8 @@ using System.Collections.Generic;
 
 namespace Xu
 {
-    public interface ITable : IDependable
+    public interface ITagTable : ITable
     {
-        int Count { get; }
-
-        double this[int i, NumericColumn column] { get; }
-
-        object DataObjectLock { get; }
+        TagInfo this[int i, TagColumn column] { get; }
     }
 }

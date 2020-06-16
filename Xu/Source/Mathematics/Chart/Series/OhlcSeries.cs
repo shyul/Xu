@@ -212,10 +212,13 @@ namespace Xu.Chart
                         else if (Type == OhlcType.Bar)
                             DrawBar(g, edgePen, p.X, open_pix, high_pix, low_pix, close_pix, tickWidth);
 
-                        var tagList = GetTags(table, TagColumns, points[i].index);
+                        if (table is ITagTable itag)
+                        {
+                            var tagList = GetTags(itag, TagColumns, points[i].index);
 
-                        if (tagList.Count() > 0)
-                            DrawTag(g, tagList, points[i].point.X, high_pix, low_pix);
+                            if (tagList.Count() > 0)
+                                DrawTag(g, tagList, points[i].point.X, high_pix, low_pix);
+                        }
                     }
                 }
                 else if (Type == OhlcType.Line || Type == OhlcType.Area || tickWidth < 3)
@@ -232,16 +235,7 @@ namespace Xu.Chart
                     {
                         if (Type == OhlcType.Area)
                         {
-                            //List<Point> c_points = new List<Point>();
                             var c_points = points.Skip(1).Select(n => n.point).ToList();
-                            /*
-                            for (int i = 1; i < points.Count; i++)
-                            {
-                                var (p, gain) = points[i];
-                                //var (p_last, _) = points[i - 1];
-
-                                c_points.Add(p);
-                            }*/
 
                             int first_x = c_points[0].X;
                             int last_x = c_points[c_points.Count - 1].X + 1;
@@ -268,19 +262,26 @@ namespace Xu.Chart
                             Pen edgePen = (gain < 0 && Type != OhlcType.Area) ? DownTheme.EdgePen : Theme.EdgePen;
                             g.DrawLine(edgePen, p_1, p);
 
-                            var tagList = GetTags(table, TagColumns, index); // TagColumns.Select(n => table[index, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
+                            if (table is ITagTable itag)
+                            {
+                                var tagList = GetTags(itag, TagColumns, index); // TagColumns.Select(n => table[index, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
 
-                            if (tagList.Count() > 0)
-                                DrawTag(g, tagList, points[i].point.X, p.Y);
+                                if (tagList.Count() > 0)
+                                    DrawTag(g, tagList, points[i].point.X, p.Y);
+                            }
                         }
                     }
                     else
                     {
                         DotSeries.DrawDot(g, Theme, points[0].point, 3);
-                        var tagList = GetTags(table, TagColumns, 0); // .Select(n => table[0, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
 
-                        if (tagList.Count() > 0)
-                            DrawTag(g, tagList, points[0].point.X, points[0].index, points[0].point.Y);
+                        if (table is ITagTable itag)
+                        {
+                            var tagList = GetTags(itag, TagColumns, 0); // .Select(n => table[0, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
+
+                            if (tagList.Count() > 0)
+                                DrawTag(g, tagList, points[0].point.X, points[0].index, points[0].point.Y);
+                        }
                     }
                 }
                 Width = orignal_edge_width;

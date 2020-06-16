@@ -81,13 +81,14 @@ namespace Xu.Chart
                 // Draw the line itself.
                 DrawLine(g, Theme, line, points, Width, LineType);
 
-                foreach (var (index, p) in pointList)
-                {
-                    var tagList = GetTags(table, TagColumns, index);
+                if (table is ITagTable itag)
+                    foreach (var (index, p) in pointList)
+                    {
+                        var tagList = GetTags(itag, TagColumns, index);
 
-                    if (tagList.Count() > 0)
-                        DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
-                }
+                        if (tagList.Count() > 0)
+                            DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
+                    }
             }
 
             // Reset antialiasing.

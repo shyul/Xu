@@ -11,5 +11,6 @@ namespace Xu
 {
     public interface IRow
     {
+        object this[Column column] { get; }
     }
 }

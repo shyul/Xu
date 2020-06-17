@@ -25,9 +25,12 @@ namespace Xu.GridView
 
         public virtual string Description { get; set; }
 
+
+        public abstract ITable Table { get; }
+
         #region Rows
 
-        public abstract int DataCount { get; }
+        public virtual int DataCount => Table.Count;
 
         public virtual int StartPt { get; set; } = 0;
 
@@ -178,7 +181,7 @@ namespace Xu.GridView
                         {
                             int x = stripe.Actual_X;
                             Rectangle cellBox = new Rectangle(x, y, stripe.ActualWidth, ActualCellHeight);
-                            stripe.Draw(g, cellBox, i);
+                            stripe.Draw(g, cellBox, Table, i);
                         }
                         y += ActualCellHeight;
                     }

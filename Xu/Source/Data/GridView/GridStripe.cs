@@ -67,7 +67,7 @@ namespace Xu.GridView
 
         #region Draw / Renderer
 
-        public abstract void Draw(Graphics g, Rectangle bound, int index);
+        public abstract void Draw(Graphics g, Rectangle bound, ITable table, int index);
 
         #endregion Draw / Renderer
 

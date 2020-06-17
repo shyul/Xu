@@ -55,6 +55,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\Data\GridView\GridStripe.cs" />
+    <Compile Include="Source\Data\GridView\Stripe\NumberGridStripe.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
     <Compile Include="Source\Data\Table\Types\IRow.cs" />
     <Compile Include="Source\Data\Table\Types\IStringTable.cs" />
@@ -65,10 +66,10 @@
     <Compile Include="Source\Data\Table\Types\ITagTable.cs" />
     <Compile Include="Source\Data\Table\Column\Types\TagColumn.cs" />
     <Compile Include="Source\Data\GridView\GridWidget.cs" />
-    <Compile Include="Source\Data\Chart\Series\Types\CandleStickType.cs" />
-    <Compile Include="Source\Data\Chart\Series\Types\IAdvanceDeclineSeries.cs" />
-    <Compile Include="Source\Data\Chart\Series\Types\IRangeSeries.cs" />
-    <Compile Include="Source\Data\Chart\Series\Types\ITagSeries.cs" />
+    <Compile Include="Source\Data\Chart\Types\CandleStickType.cs" />
+    <Compile Include="Source\Data\Chart\Types\IAdvanceDeclineSeries.cs" />
+    <Compile Include="Source\Data\Chart\Types\IRangeSeries.cs" />
+    <Compile Include="Source\Data\Chart\Types\ITagSeries.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />
     <Compile Include="Source\Types\Interfaces\ITagged.cs" />
     <Compile Include="Source\Types\Interfaces\IUid.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="Source\UserInterface\Shared\Miscellaneous\TextEdit.cs" />
     <Compile Include="Source\UserInterface\Shared\TreeView\TreeView.cs" />
     <Compile Include="Source\Data\Table\Column\Types\NumericColumn.cs" />
-    <Compile Include="Source\Data\Chart\Series\Types\Series.cs" />
+    <Compile Include="Source\Data\Chart\Types\Series.cs" />
     <Compile Include="Source\Data\Chart\ChartOverlay.cs" />
     <Compile Include="Source\Data\Chart\Series\AreaSeries.cs" />
     <Compile Include="Source\Data\Chart\Series\BandSeries.cs" />
@@ -193,7 +194,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\Data\GridView\Stripe\" />
     <Folder Include="Source\Mathematics\Filters\" />
   </ItemGroup>
   <ItemGroup>

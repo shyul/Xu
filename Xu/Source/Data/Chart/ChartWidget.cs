@@ -246,32 +246,29 @@ namespace Xu.Chart
                 g.DrawString("Preparing Data... Stand By.", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
 
-            if (IsActive && ReadyToShow && Table is ITable t)
+            if (IsActive && ReadyToShow && ChartBounds.Width > 0 && Table is ITable t)
             {
                 lock (t.DataObjectLock)
                     lock (GraphicsObjectLock)
                     {
-                        if (ChartBounds.Width > 0)
+                        for (int i = 0; i < Areas.Count; i++)
                         {
-                            for (int i = 0; i < Areas.Count; i++)
+                            Area ca = Areas[i];
+                            if (ca.Visible && ca.Enabled)
                             {
-                                Area ca = Areas[i];
-                                if (ca.Visible && ca.Enabled)
+                                ca.Draw(g);
+                                if (ca.HasXAxisBar)
                                 {
-                                    ca.Draw(g);
-                                    if (ca.HasXAxisBar)
+                                    for (int j = 0; j < IndexCount; j++)
                                     {
-                                        for (int j = 0; j < IndexCount; j++)
-                                        {
-                                            int x = IndexToPixel(j);
-                                            int y = ca.Bottom;
-                                            g.DrawLine(ca.Theme.EdgePen, x, y, x, y + 1);
+                                        int x = IndexToPixel(j);
+                                        int y = ca.Bottom;
+                                        g.DrawLine(ca.Theme.EdgePen, x, y, x, y + 1);
 
-                                            if (i < Areas.Count - 1)
-                                            {
-                                                y = Areas[i + 1].Top;
-                                                g.DrawLine(ca.Theme.EdgePen, x, y, x, y - 1);
-                                            }
+                                        if (i < Areas.Count - 1)
+                                        {
+                                            y = Areas[i + 1].Top;
+                                            g.DrawLine(ca.Theme.EdgePen, x, y, x, y - 1);
                                         }
                                     }
                                 }

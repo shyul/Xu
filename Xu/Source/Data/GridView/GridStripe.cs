@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
+using System.Windows.Media.TextFormatting;
 
 namespace Xu.GridView
 {
@@ -21,24 +22,36 @@ namespace Xu.GridView
 
         public virtual string Description { get; set; } = string.Empty;
 
+        protected virtual ColorTheme Theme { get; } = new ColorTheme();
+
+        protected virtual ColorTheme TextTheme { get; } = new ColorTheme();
+
+        #region Sort
+
         public virtual bool Enabled { get; set; } = true;
 
         public virtual int Order { get; set; } = 0;
 
         public virtual Importance Importance { get; set; }
 
+        public virtual int SortOrder { get; set; } = 0;
 
-        protected virtual ColorTheme Theme { get; } = new ColorTheme();
+        public virtual Func<IRow, IComparable> SortFunc { get; set; }
 
-        protected virtual ColorTheme TextTheme { get; } = new ColorTheme();
+        #endregion Sort
 
         #region Coordinate
+
+        public virtual int MinimumCellHeight { get; set; } = 22;
 
         public virtual bool AutoWidth { get; set; } = false;
 
         public virtual int Width { get; set; }
 
-        public virtual int MinimumCellHeight { get; set; } = 22;
+        /// <summary>
+        /// Set by GridWidget Coordinate
+        /// </summary>
+        public virtual int ActualWidth { get; set; }
 
         /// <summary>
         /// Set by GridWidget Coordinate
@@ -48,16 +61,15 @@ namespace Xu.GridView
         /// <summary>
         /// Set by GridWidget Coordinate
         /// </summary>
-        public virtual int ActualWidth { get; set; }
-
-        public virtual int ActualHeight { get; set; }
-
-        /// <summary>
-        /// Set by GridWidget Coordinate
-        /// </summary>
         public virtual int Actual_X { get; set; }
 
         #endregion Coordinate
+
+        #region Draw / Renderer
+
+        public abstract void Draw(Graphics g, Rectangle bound, int index);
+
+        #endregion Draw / Renderer
 
         #region Dependable
 

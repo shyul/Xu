@@ -45,7 +45,7 @@ namespace Xu
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
-            if(!(Parent is null) && !(Parent is DockContainer)) 
+            if (!(Parent is null) && !(Parent is DockContainer))
             {
                 throw new Exception("DockForm can only be exsiting in DockContainer / Parent: " + Parent.GetType().ToString());
             }
@@ -75,7 +75,7 @@ namespace Xu
         {
             get
             {
-                if (Width < 1) 
+                if (Width < 1)
                     return false;
                 else if (!(Parent is null) && !(HostContainer is null))
                 {

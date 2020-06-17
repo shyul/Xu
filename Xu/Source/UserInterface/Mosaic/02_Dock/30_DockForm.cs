@@ -9,6 +9,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
 
 namespace Xu
 {
@@ -74,7 +75,9 @@ namespace Xu
         {
             get
             {
-                if (!(Parent is null) && !(HostContainer is null))
+                if (Width < 1) 
+                    return false;
+                else if (!(Parent is null) && !(HostContainer is null))
                 {
                     if (HostContainer.ActiveTab != this) return false;
                 }

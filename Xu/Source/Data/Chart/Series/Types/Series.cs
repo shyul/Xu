@@ -16,33 +16,27 @@ using System.Windows.Forms;
 
 namespace Xu.Chart
 {
-    public abstract class Series : IOrdered, IEquatable<Series>, IDependable
+    public abstract class Series : IObject, IOrdered, IDependable, IEquatable<Series>
     {
-        public virtual void Dispose() { }
-
         public string Name { get; set; } = "Default";
 
         public string Label { get; set; }
 
         public string Description { get; set; }
 
-        // Should use protected, but the interface requirement
-        public virtual ColorTheme Theme { get; } = new ColorTheme();
 
-        // Should use protected, but the interface requirement
-        public virtual ColorTheme TextTheme { get; } = new ColorTheme();
-
-        public Importance Importance { get; set; } = Importance.Minor;
 
         public bool Enabled { get; set; } = true;
 
         public int Order { get; set; }
 
-        public void Remove(bool recursive) { }
+        public Importance Importance { get; set; } = Importance.Minor;
 
-        public virtual ICollection<IDependable> Children { get; } = new HashSet<IDependable>();
 
-        public virtual ICollection<IDependable> Parents { get; } = new HashSet<IDependable>();
+
+        protected virtual ColorTheme Theme { get; } = new ColorTheme();
+
+        protected virtual ColorTheme TextTheme { get; } = new ColorTheme();
 
         public virtual Color Color
         {
@@ -142,30 +136,6 @@ namespace Xu.Chart
         /// </summary>
         /// <param name="g">Graphics handle for this drawing event</param>
         public virtual void DrawCursor(Graphics g, Area area, ITable table) { }
-
-        #region Equality
-
-        public override int GetHashCode() => Name.GetHashCode();
-
-        public bool Equals(Series other) => GetHashCode() == other.GetHashCode();
-
-        public override bool Equals(object obj)
-        {
-            /*
-            if (object.ReferenceEquals(person1, null))
-                return object.ReferenceEquals(person2, null);
-                https://stackoverflow.com/questions/4219261/overriding-operator-how-to-compare-to-null
-             */
-            if (obj is Series ser)
-                return Equals(ser);
-            else
-                return false;
-        }
-
-        public static bool operator !=(Series s1, Series s2) => !s1.Equals(s2);
-        public static bool operator ==(Series s1, Series s2) => s1.Equals(s2);
-
-        #endregion Equality
 
         public static (List<(int index, Point point)>, int, int, int) GetPixel(ITable table, NumericColumn column, IArea area, AlignType side)
         {
@@ -296,5 +266,43 @@ namespace Xu.Chart
                 g.DrawString(text, Main.Theme.Font, tag.Theme.ForeBrush, c, AppTheme.TextAlignCenter);
             }
         }
+
+
+
+
+
+        #region Dependable
+
+        public void Remove(bool recursive) { }
+
+        public virtual ICollection<IDependable> Children { get; } = new HashSet<IDependable>();
+
+        public virtual ICollection<IDependable> Parents { get; } = new HashSet<IDependable>();
+
+        #endregion Dependable
+
+        #region Equality
+
+        public override int GetHashCode() => Name.GetHashCode();
+
+        public bool Equals(Series other) => Name == other.Name;
+
+        public override bool Equals(object other)
+        {
+            /*
+            if (object.ReferenceEquals(person1, null))
+                return object.ReferenceEquals(person2, null);
+                https://stackoverflow.com/questions/4219261/overriding-operator-how-to-compare-to-null
+             */
+            if (other is Series ser)
+                return Equals(ser);
+            else
+                return false;
+        }
+
+        public static bool operator !=(Series s1, Series s2) => !s1.Equals(s2);
+        public static bool operator ==(Series s1, Series s2) => s1.Equals(s2);
+
+        #endregion Equality
     }
 }

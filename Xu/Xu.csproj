@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Data\GridView\Stripe\Types\GridStripe.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
     <Compile Include="Source\Data\Table\Types\IStringTable.cs" />
     <Compile Include="Source\Main\Icons.cs" />
@@ -105,8 +106,6 @@
     <Compile Include="Source\Data\Chart\Series\CloudSeries.cs" />
     <Compile Include="Source\Data\Chart\Series\ColumnSeries.cs" />
     <Compile Include="Source\Data\Chart\Series\LineSeries.cs" />
-    <Compile Include="Source\UserInterface\Shared\Grid\GridColumn.cs" />
-    <Compile Include="Source\UserInterface\Shared\Grid\GridWidget.cs" />
     <Compile Include="Source\UserInterface\Shared\Types\GUI.cs" />
     <Compile Include="Source\UserInterface\Shared\Types\ICoordinatable.cs" />
     <Compile Include="Source\Types\Interfaces\IDependable.cs" />
@@ -193,7 +192,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\Data\GridView\Stripe\" />
     <Folder Include="Source\Mathematics\Filters\" />
   </ItemGroup>
   <ItemGroup>

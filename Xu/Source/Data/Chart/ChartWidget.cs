@@ -245,6 +245,7 @@ namespace Xu.Chart
             {
                 g.DrawString("Preparing Data... Stand By.", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
+
             if (IsActive && ReadyToShow && Table is ITable t)
             {
                 lock (t.DataObjectLock)

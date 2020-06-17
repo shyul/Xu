@@ -8,23 +8,11 @@ using System;
 
 namespace Xu
 {
-    public abstract class Column : IObject, IOrdered, IEquatable<Column>
+    public abstract class Column : IEquatable<Column>
     {
         public virtual string Name { get; set; } = string.Empty;
 
         public virtual string Label { get; set; } = string.Empty;
-
-        public virtual string Description { get; set; } = string.Empty;
-
-        public virtual bool Enabled { get; set; } = true;
-
-        public virtual int Order { get; set; } = 0;
-
-        public virtual Importance Importance { get; set; }
-
-        public virtual bool AutoWidth { get; set; } = false;
-
-        public virtual int Width { get; set; }
 
         #region Equality
 

@@ -106,28 +106,6 @@ namespace Xu.Chart
             return ca;
         }
 
-        /*
-        public virtual Area AddArea(string areaName, int order)
-        {
-            var areaList = Areas.Where(n => n.Name == areaName);
-
-            if (areaList.Count() > 0) return areaList.First();
-
-
-            for (int i = 0; i < Areas.Count; i++)
-            {
-                Area a = Areas[i];
-                a.Order = i;
-                if (a.Order == order) a.Order++;
-            }
-            if (!Areas.Contains(area)) Areas.Add(area);
-            T ca = (T)Areas.Where(n => n == area).First();
-            ca.Order = order;
-            Areas.Sort((t1, t2) => t1.Order.CompareTo(t2.Order));
-
-            return ca;
-        }*/
-
         public virtual T AddArea<T>(T area) where T : Area => AddArea(area, Areas.Count);
 
         public Area this[string areaName]
@@ -250,27 +228,9 @@ namespace Xu.Chart
             PerformLayout();
         }
 
-        #endregion
+        #endregion Coordinate
 
         #region Paint
-
-        public readonly object GraphicsObjectLock = new object();
-
-        public virtual bool IsActive
-        {
-            get
-            {
-                if (!(Parent is null) && !(HostContainer is null))
-                {
-                    if (HostContainer.ActiveTab != this) return false;
-                }
-                else if (Parent is null || HostContainer is null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
 
         protected override void OnPaint(PaintEventArgs pe)
         {

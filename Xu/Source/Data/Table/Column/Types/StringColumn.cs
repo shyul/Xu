@@ -4,15 +4,13 @@
 /// 
 /// ***************************************************************************
 
-using System;
-
 namespace Xu
 {
-    public class TagColumn : Column
+    public class StringColumn : Column
     {
-        public TagColumn(string name) => Name = name;
+        public StringColumn(string name) => Name = name;
 
-        public TagColumn(string name, string label)
+        public StringColumn(string name, string label)
         {
             Name = name;
             Label = label;

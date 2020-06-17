@@ -29,8 +29,30 @@ namespace Xu.Chart
 
         public abstract ITable Table { get; }
 
+        public virtual int DataCount => Table.Count;
+
+        public virtual int StartPt => StopPt - IndexCount;
+
+        public virtual int StopPt { get; set; } // = 295;
+
+        public virtual int IndexCount { get; set; } = 295;
+
+        #region Coordinate
+
+        public bool ReadyToShow { get; set; } = false;
+
+        protected override void CoordinateLayout()
+        {
+            ResumeLayout(true);
+            if (IsActive && ReadyToShow && Table is ITable)
+                lock (GraphicsObjectLock)
+                {
 
 
+                }
+            PerformLayout();
+        }
 
+        #endregion Coordinate
     }
 }

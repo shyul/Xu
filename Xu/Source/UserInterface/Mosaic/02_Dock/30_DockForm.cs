@@ -70,6 +70,22 @@ namespace Xu
 
         #region Coordinate
 
+        public virtual bool IsActive
+        {
+            get
+            {
+                if (!(Parent is null) && !(HostContainer is null))
+                {
+                    if (HostContainer.ActiveTab != this) return false;
+                }
+                else if (Parent is null || HostContainer is null)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
         #endregion
 
         #region Docking
@@ -86,6 +102,8 @@ namespace Xu
         #endregion
 
         #region Paint
+
+        public readonly object GraphicsObjectLock = new object();
 
         #endregion
     }

@@ -54,16 +54,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
+    <Compile Include="Source\Data\Table\Types\IStringTable.cs" />
     <Compile Include="Source\Main\Icons.cs" />
-    <Compile Include="Source\Mathematics\Chart\Data\Column.cs" />
-    <Compile Include="Source\Mathematics\Chart\Data\ITable.cs" />
-    <Compile Include="Source\Mathematics\Chart\Data\ITagTable.cs" />
-    <Compile Include="Source\Mathematics\Chart\Data\TagColumn.cs" />
-    <Compile Include="Source\Mathematics\Chart\GridWidget.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\Types\CandleStickType.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\Types\IAdvanceDeclineSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\Types\IRangeSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\Types\ITagSeries.cs" />
+    <Compile Include="Source\Data\Table\Column\Column.cs" />
+    <Compile Include="Source\Data\Table\Column\RenderColumn.cs" />
+    <Compile Include="Source\Data\Table\Types\ITable.cs" />
+    <Compile Include="Source\Data\Table\Types\ITagTable.cs" />
+    <Compile Include="Source\Data\Table\Column\Types\TagColumn.cs" />
+    <Compile Include="Source\Data\GridView\GridWidget.cs" />
+    <Compile Include="Source\Data\Chart\Series\Types\CandleStickType.cs" />
+    <Compile Include="Source\Data\Chart\Series\Types\IAdvanceDeclineSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\Types\IRangeSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\Types\ITagSeries.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />
     <Compile Include="Source\Types\Interfaces\ITagged.cs" />
     <Compile Include="Source\Types\Interfaces\IUid.cs" />
@@ -80,28 +83,28 @@
     <Compile Include="Source\Types\Scheduler\Status.cs" />
     <Compile Include="Source\Types\Scheduler\StatusContainer.cs" />
     <Compile Include="Source\Types\WorkHours.cs" />
-    <Compile Include="Source\Mathematics\Chart\Area\IArea.cs" />
-    <Compile Include="Source\Mathematics\Chart\Area\Area.cs" />
-    <Compile Include="Source\Mathematics\Chart\Area\OscillatorArea.cs" />
-    <Compile Include="Source\Mathematics\Chart\Axis\ContinuousAxis.cs" />
-    <Compile Include="Source\Mathematics\Chart\Axis\DiscreteAxis.cs" />
-    <Compile Include="Source\Mathematics\Chart\Area\Legend.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\DotSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\AdColumnSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\ChartWidget.cs" />
+    <Compile Include="Source\Data\Chart\Area\IArea.cs" />
+    <Compile Include="Source\Data\Chart\Area\Area.cs" />
+    <Compile Include="Source\Data\Chart\Area\OscillatorArea.cs" />
+    <Compile Include="Source\Data\Chart\Axis\ContinuousAxis.cs" />
+    <Compile Include="Source\Data\Chart\Axis\DiscreteAxis.cs" />
+    <Compile Include="Source\Data\Chart\Area\Legend.cs" />
+    <Compile Include="Source\Data\Chart\Series\DotSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\AdColumnSeries.cs" />
+    <Compile Include="Source\Data\Chart\ChartWidget.cs" />
     <Compile Include="Source\UserInterface\Shared\CodeEdit\CodeEdit.cs" />
     <Compile Include="Source\UserInterface\Shared\EventView\EventView.cs" />
     <Compile Include="Source\UserInterface\Shared\Miscellaneous\TextEdit.cs" />
     <Compile Include="Source\UserInterface\Shared\TreeView\TreeView.cs" />
-    <Compile Include="Source\Mathematics\Chart\Data\NumericColumn.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\Types\Series.cs" />
-    <Compile Include="Source\Mathematics\Chart\ChartOverlay.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\AreaSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\BandSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\OhlcSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\CloudSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\ColumnSeries.cs" />
-    <Compile Include="Source\Mathematics\Chart\Series\LineSeries.cs" />
+    <Compile Include="Source\Data\Table\Column\Types\NumericColumn.cs" />
+    <Compile Include="Source\Data\Chart\Series\Types\Series.cs" />
+    <Compile Include="Source\Data\Chart\ChartOverlay.cs" />
+    <Compile Include="Source\Data\Chart\Series\AreaSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\BandSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\OhlcSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\CloudSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\ColumnSeries.cs" />
+    <Compile Include="Source\Data\Chart\Series\LineSeries.cs" />
     <Compile Include="Source\UserInterface\Shared\Grid\GridColumn.cs" />
     <Compile Include="Source\UserInterface\Shared\Grid\GridWidget.cs" />
     <Compile Include="Source\UserInterface\Shared\Types\GUI.cs" />
@@ -115,7 +118,7 @@
     <Compile Include="Source\UserInterface\Shared\Miscellaneous\ToggleWidget.cs" />
     <Compile Include="Source\Tools\Collections.cs" />
     <Compile Include="Source\Tools\Reflection.cs" />
-    <Compile Include="Source\Mathematics\Chart\Axis\AxisTickStyle.cs" />
+    <Compile Include="Source\Data\Chart\Axis\AxisTickStyle.cs" />
     <Compile Include="Source\Mathematics\Decade.cs" />
     <Compile Include="Source\Mathematics\Interpolation.cs" />
     <Compile Include="Source\Types\Scheduler\Event.cs" />
@@ -190,6 +193,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Source\Data\GridView\Stripe\" />
     <Folder Include="Source\Mathematics\Filters\" />
   </ItemGroup>
   <ItemGroup>

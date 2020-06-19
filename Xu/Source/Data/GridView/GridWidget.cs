@@ -77,7 +77,7 @@ namespace Xu.GridView
                 lock (GraphicsObjectLock)
                 {
                     ActualCellHeight = Math.Max(CellHeight, Stripes.Select(n => n.MinimumCellHeight).Max());
-                    IndexCount = Math.Floor((GridBounds.Height - StripeTitleHeight) * 1.0f / ActualCellHeight).ToInt32(1);
+                    IndexCount = Math.Ceiling((GridBounds.Height - StripeTitleHeight) * 1.0f / ActualCellHeight).ToInt32(1);
                     foreach (var stripe in Stripes)
                     {
                         stripe.Visible = stripe.Enabled;

@@ -8,7 +8,7 @@ namespace Xu
 {
     public class TagColumn : Column
     {
-        public TagColumn(string name) => Name = name;
+        public TagColumn(string name) => Name = Label = name;
 
         public TagColumn(string name, string label)
         {

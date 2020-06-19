@@ -8,7 +8,7 @@ namespace Xu
 {
     public class NumericColumn : Column
     {
-        public NumericColumn(string name) => Name = name;
+        public NumericColumn(string name) => Name = Label = name;
 
         public NumericColumn(string name, string label)
         {

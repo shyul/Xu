@@ -8,7 +8,7 @@ namespace Xu
 {
     public class StringColumn : Column
     {
-        public StringColumn(string name) => Name = name;
+        public StringColumn(string name) => Name = Label = name;
 
         public StringColumn(string name, string label)
         {

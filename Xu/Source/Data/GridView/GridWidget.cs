@@ -63,7 +63,7 @@ namespace Xu.GridView
 
         #region Coordinate
 
-        public virtual Rectangle GridBounds { get; protected set; }
+        public virtual Rectangle GridBounds { get; }
 
         public virtual int StripeTitleHeight { get; set; } = 21;
 
@@ -166,7 +166,7 @@ namespace Xu.GridView
                         }
 
                         Rectangle titleBox = new Rectangle(x, top, stripe.ActualWidth, StripeTitleHeight);
-                        g.DrawString(stripe.Name, Main.Theme.FontBold, Theme.ForeBrush, titleBox.Location);
+                        g.DrawString(stripe.Name, Main.Theme.FontBold, Theme.ForeBrush, titleBox);
 
                         i++;
                     }
@@ -175,13 +175,15 @@ namespace Xu.GridView
 
                     for (i = StartPt; i < IndexCount; i++)
                     {
-                        g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, right));
+                        g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
 
                         foreach (var stripe in VisibleStripes)
                         {
                             int x = stripe.Actual_X;
                             Rectangle cellBox = new Rectangle(x, y, stripe.ActualWidth, ActualCellHeight);
-                            stripe.Draw(g, cellBox, Table, i);
+
+                            if (i < DataCount)
+                                stripe.Draw(g, cellBox, Table, i);
                         }
                         y += ActualCellHeight;
                     }

@@ -9,7 +9,8 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using System.Windows.Media.Animation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Xu
 {
@@ -27,9 +28,15 @@ namespace Xu
     public abstract class DockTab : TabItem
     {
         #region Ctor
-        protected DockTab(string formName) : base(formName)
+        protected DockTab(string formName, bool enableUiUpdate = false) : base(formName)
         {
             Name = formName;
+
+            if (enableUiUpdate)
+            {
+                UpdateUITask = new Task(() => UpdateUIWorker(), UpdateUITask_Cts.Token);
+                UpdateUITask.Start();
+            }
         }
         #endregion
 
@@ -62,12 +69,59 @@ namespace Xu
         public override void Close()
         {
             ObsoletedEvent.Debug(TabName + ": The Tab is closing");
-            DockContainer.RemoveForm(this);
+            UpdateUITask_Cts.Cancel();
+            HostContainer.Remove(this);
             Dispose();
             while (Disposing) ;
         }
 
         #endregion
+
+        #region Update UI
+
+        public virtual bool ReadyToShow { get => IsActive && m_ReadyToShow; set { m_ReadyToShow = value; } }
+
+        protected bool m_ReadyToShow = false;
+
+        public readonly Task UpdateUITask;
+
+        public readonly CancellationTokenSource UpdateUITask_Cts = new CancellationTokenSource();
+
+        public void SetRefreshUI() => m_RefreshUI = true;
+
+        protected bool m_RefreshUI = false;
+
+        protected virtual void UpdateUIWorker()
+        {
+            while (!UpdateUITask_Cts.IsCancellationRequested)
+            {
+                if (m_RefreshUI)
+                {
+                    UpdateUI();
+                    m_RefreshUI = false;
+                }
+                Thread.Sleep(5);
+            }
+        }
+
+        public virtual void UpdateUI()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    CoordinateLayout();
+                    Invalidate(true);
+                });
+            }
+            else
+            {
+                CoordinateLayout();
+                Invalidate(true);
+            }
+        }
+
+        #endregion Update UI
 
         #region Coordinate
 

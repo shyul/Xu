@@ -192,6 +192,6 @@ namespace Xu.Chart
             }
         }
 
-        #endregion
+        #endregion Mouse
     }
 }

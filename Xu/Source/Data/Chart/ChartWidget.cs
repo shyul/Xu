@@ -10,13 +10,14 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Xu.Chart
 {
-    public abstract class ChartWidget : DockTab
+    public abstract class ChartWidget : DockTab, IDataView
     {
-        protected ChartWidget(string name) : base(name)
+        protected ChartWidget(string name) : base(name, true)
         {
             AxisX = new DiscreteAxis(this);
             Overlay = new ChartOverlay(this);
@@ -41,7 +42,7 @@ namespace Xu.Chart
 
         public virtual int DataCount => Table.Count;
 
-        public virtual int StartPt => StopPt - IndexCount;
+        public virtual int StartPt { get => StopPt - IndexCount; set { } }
 
         public virtual int StopPt { get; set; } // = 295;
 
@@ -52,8 +53,7 @@ namespace Xu.Chart
             if ((StartPt + num > -limit) && (StopPt + num - DataCount < limit))
             {
                 StopPt += num;
-                Coordinate();
-                Invalidate(true);
+                UpdateUI(); // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
             }
         }
 
@@ -62,8 +62,7 @@ namespace Xu.Chart
             if (StopPt - (StartPt + num) > 1)
             {
                 IndexCount += num;
-                Coordinate();
-                Invalidate(true);
+                UpdateUI();
             }
         }
 
@@ -73,8 +72,7 @@ namespace Xu.Chart
             {
                 StopPt += num;
                 IndexCount += num;
-                Coordinate();
-                Invalidate(true);
+                UpdateUI();
             }
         }
 
@@ -172,8 +170,6 @@ namespace Xu.Chart
         public virtual bool AutoScaleFit { get; set; } = true;
 
         public virtual Rectangle ChartBounds { get; protected set; }
-
-        public bool ReadyToShow { get; set; } = false;
 
         protected override void CoordinateLayout()
         {
@@ -279,5 +275,30 @@ namespace Xu.Chart
         }
 
         #endregion
+
+        protected override void UpdateUIWorker()
+        {
+            while (!UpdateUITask_Cts.IsCancellationRequested)
+            {
+                if (m_RefreshUI)
+                {
+                    if (InvokeRequired)
+                        Invoke((MethodInvoker)delegate
+                        {
+                            CoordinateLayout();
+                            Invalidate(true); 
+                        });
+                    else
+                    {
+                        CoordinateLayout();
+                        Invalidate(true);
+                    }
+             
+
+                    m_RefreshUI = false;
+                }
+                Thread.Sleep(5);
+            }
+        }
     }
 }

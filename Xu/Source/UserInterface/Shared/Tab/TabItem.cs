@@ -214,22 +214,25 @@ namespace Xu
         /// </summary>
         public Rectangle IconRect { get; set; }
 
-        protected virtual void CoordinateLayout() 
+        protected virtual void CoordinateLayout()
         {
             ResumeLayout(true);
             PerformLayout();
         }
 
-        protected delegate void CoordinateDelegate();
+        //protected delegate void CoordinateDelegate();
 
         /// <summary>
         /// 
         /// </summary>
-        public void Coordinate() 
+        public virtual void Coordinate()
         {
             if (InvokeRequired)
             {
-                Invoke(new CoordinateDelegate(() => { CoordinateLayout(); }));
+                Invoke((MethodInvoker)delegate
+                { 
+                    CoordinateLayout(); 
+                });
             }
             else
             {

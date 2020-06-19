@@ -58,6 +58,7 @@
     <Compile Include="Source\Data\GridView\Stripe\NumberGridStripe.cs" />
     <Compile Include="Source\Data\GridView\Stripe\StringGridStripe.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
+    <Compile Include="Source\Data\Table\Types\IDataView.cs" />
     <Compile Include="Source\Data\Table\Types\IRow.cs" />
     <Compile Include="Source\Data\Table\Types\IStringTable.cs" />
     <Compile Include="Source\Main\Icons.cs" />

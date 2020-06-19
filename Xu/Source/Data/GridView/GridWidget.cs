@@ -6,17 +6,24 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
+
+
 using System.Windows.Forms;
 
 namespace Xu.GridView
 {
-    public abstract class GridWidget : DockTab
+    /// <summary>
+    /// TODO: Add mouse scroll
+    /// TODO: Default color theme
+    /// </summary>
+    public abstract class GridWidget : DockTab, IDataView, IDisposable
     {
-        protected GridWidget(string name) : base(name)
+        protected GridWidget(string name) : base(name, true)
         {
 
         }
@@ -24,7 +31,6 @@ namespace Xu.GridView
         public virtual string Label { get; set; }
 
         public virtual string Description { get; set; }
-
 
         public abstract ITable Table { get; }
 
@@ -34,9 +40,18 @@ namespace Xu.GridView
 
         public virtual int StartPt { get; set; } = 0;
 
-        public virtual int StopPt => StartPt + IndexCount;
+        public virtual int StopPt { get => StartPt + IndexCount; set { } }
 
         public virtual int IndexCount { get; protected set; }
+
+        public virtual void ShiftPt(int num)
+        {
+            if ((StartPt + num >= 0) && (StopPt + num < DataCount))
+            {
+                StartPt += num;
+
+            }
+        }
 
         /// <summary>
         /// Minimum Cell Height
@@ -66,8 +81,6 @@ namespace Xu.GridView
         public virtual Rectangle GridBounds { get; }
 
         public virtual int StripeTitleHeight { get; set; } = 21;
-
-        public virtual bool ReadyToShow => IsActive;
 
         protected override void CoordinateLayout()
         {
@@ -191,5 +204,24 @@ namespace Xu.GridView
         }
 
         #endregion
+
+        #region Mouse
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (ReadyToShow)
+            {
+                int num = -e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+
+                if (num != 0)
+                {
+                    ShiftPt(num);
+                    //Chart.SelectedIndex = Chart.PixelToIndex(e.X);
+                    UpdateUI();
+                }
+            }
+        }
+
+        #endregion Mouse
     }
 }

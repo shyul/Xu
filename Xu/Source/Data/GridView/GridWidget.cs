@@ -21,6 +21,9 @@ namespace Xu.GridView
     /// TODO: Fix mouse scroll
     /// TODO: Select Row
     /// TODO: Default color theme
+    /// TODO: Group By
+    /// TODO: Sort By
+    /// TODO: Format
     /// </summary>
     public abstract class GridWidget : DockTab, IDataView, IDisposable
     {

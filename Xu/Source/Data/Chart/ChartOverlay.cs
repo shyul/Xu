@@ -67,7 +67,7 @@ namespace Xu.Chart
                         }
                     }
 
-                    if (Chart.SelectedIndex > -1)
+                    if (Chart.HoverIndex > -1)
                     {
                         // Draw cursor on X Axis
                         int x = Chart.SelectedIndexPixel;
@@ -95,7 +95,7 @@ namespace Xu.Chart
                                         g.DrawPath(Main.Theme.ActiveCursor.EdgePen, gp);
                                     }
 
-                                    g.DrawString(Chart[Chart.SelectedIndex], tagFont, Main.Theme.ActiveCursor.EdgeBrush, tagLocation, AppTheme.TextAlignCenter);
+                                    g.DrawString(Chart[Chart.HoverIndex], tagFont, Main.Theme.ActiveCursor.EdgeBrush, tagLocation, AppTheme.TextAlignCenter);
                                 }
 
                                 // Draw cursor belongs to each series
@@ -141,7 +141,7 @@ namespace Xu.Chart
                     MouseState = MouseState.Out;
                 //int x = e.X - Chart.ChartBounds.Left;
 
-                Chart.SelectedIndex = Chart.PixelToIndex(e.X);
+                Chart.HoverIndex = Chart.PixelToIndex(e.X);
 
                 foreach (Area ca in Areas) ca.UpdateLegend();
 
@@ -174,7 +174,7 @@ namespace Xu.Chart
                         Chart.ShiftPt(num, limit.ToInt32());
                     }
 
-                    Chart.SelectedIndex = Chart.PixelToIndex(e.X);
+                    Chart.HoverIndex = Chart.PixelToIndex(e.X);
 
                     Coordinate();
                 }
@@ -183,7 +183,7 @@ namespace Xu.Chart
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            Chart.SelectedIndex = -1;
+            Chart.HoverIndex = -1;
 
             if (Chart.ReadyToShow)
                 foreach (Area ca in Areas)

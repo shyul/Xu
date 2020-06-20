@@ -122,9 +122,9 @@ namespace Xu.Chart
 
         public DiscreteAxis AxisX { get; }
 
-        public int SelectedIndex { get; set; } = -1;
+        public int HoverIndex { get; set; } = -1;
 
-        public int SelectedIndexPixel => IndexToPixel(SelectedIndex);
+        public int SelectedIndexPixel => IndexToPixel(HoverIndex);
 
         /// <summary>
         /// Will give -1 if the selected data point is out of range
@@ -133,7 +133,7 @@ namespace Xu.Chart
         {
             get
             {
-                int pt = (SelectedIndex > 0) ? SelectedIndex + StartPt : -1;
+                int pt = (HoverIndex > 0) ? HoverIndex + StartPt : -1;
                 if (pt >= DataCount) pt = -1;
                 return pt;
             }
@@ -146,7 +146,7 @@ namespace Xu.Chart
         {
             get
             {
-                int pt = (SelectedIndex > 0) ? SelectedIndex + StartPt : StopPt - 1;
+                int pt = (HoverIndex > 0) ? HoverIndex + StartPt : StopPt - 1;
                 if (pt >= DataCount) pt = DataCount - 1;
                 else if (pt < 0) pt = 0;
                 return pt;

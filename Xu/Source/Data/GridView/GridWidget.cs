@@ -163,13 +163,28 @@ namespace Xu.GridView
                     int left = GridBounds.Left;
                     int right = GridBounds.Right;
 
-                    int y = top;
-
-                    g.DrawRectangle(Theme.EdgePen, GridBounds);
+                    int y = top + StripeTitleHeight;
 
                     int i = 0;
 
+                    for (i = StartPt; i < IndexCount; i++)
+                    {
+                        if (i == HoverIndex)
+                        {
+                            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, CellHeight));
+                        }
+                        else if (i == SelectedIndex)
+                        {
+
+                            g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, CellHeight));
+                        }
+                        y += ActualCellHeight;
+                    }
+
+                    g.DrawRectangle(Theme.EdgePen, GridBounds);
+
                     // Draw Vertical Grid Lines
+                    i = 0;
                     foreach (var stripe in VisibleStripes)
                     {
                         int x = stripe.Actual_X;
@@ -185,20 +200,10 @@ namespace Xu.GridView
                         i++;
                     }
 
-                    y += StripeTitleHeight;
+                    y = top + StripeTitleHeight;
 
                     for (i = StartPt; i < IndexCount; i++)
                     {
-                        if(i == HoverIndex) 
-                        {
-                            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, CellHeight));
-                        }
-                        else if(i == SelectedIndex) 
-                        {
-
-                            g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, CellHeight));
-                        }
-
                         g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
 
                         foreach (var stripe in VisibleStripes)
@@ -217,9 +222,9 @@ namespace Xu.GridView
         #endregion
 
         #region Mouse
-        int HoverIndex = -1;
-        int SelectedIndex = -1;
 
+        public virtual int HoverIndex { get; set; } = -1;
+        public virtual int SelectedIndex { get; set; } = -1;
         public virtual Point MousePoint { get; protected set; }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -230,7 +235,7 @@ namespace Xu.GridView
 
                 HoverIndex = Math.Floor(1.0 * (e.Y - Top) / CellHeight).ToInt32(0) + StartPt;
 
-                Console.WriteLine(">>>>>>>>>>>>>>>>>>> HoverIndex = " + HoverIndex);
+                //Console.WriteLine(">>>>>>>>>>>>>>>>>>> HoverIndex = " + HoverIndex);
 
                 Invalidate();
             }

@@ -94,7 +94,7 @@ namespace Xu.Chart
         }
         public int SelectedIndexPixel => Chart.SelectedIndexPixel;
 
-        public int SelectedIndex => Chart.SelectedIndex;
+        public int SelectedIndex => Chart.HoverIndex;
 
         public int SelectedDataPoint => Chart.SelectedDataPoint;
 

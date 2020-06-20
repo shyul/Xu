@@ -21,7 +21,7 @@ namespace Xu
     /// Time Only: DateTime without Date
     /// </summary>
     [Serializable, DataContract]
-    public struct Time : IEquatable<Time>, IEquatable<DateTime>
+    public struct Time : IEquatable<Time>, IEquatable<DateTime>, IComparable<Time>
     {
         public Time(int hour, int minute = 0, int second = 0, int millisecond = 0)
         {
@@ -79,6 +79,9 @@ namespace Xu
         }
 
         [IgnoreDataMember]
+        public int TotalMillisecond => 1000 * (Hour * 3600 + Minute * 60 + Second) + Millisecond;
+
+        [IgnoreDataMember]
         public double TotalSeconds => Hour * 3600 + Minute * 60 + Second + Millisecond / 1000.0;
 
         [IgnoreDataMember]
@@ -89,18 +92,19 @@ namespace Xu
 
         #region Operators
 
-        public static bool operator >(Time t1, Time t2) => t1.TotalSeconds > t2.TotalSeconds;
-        public static bool operator <(Time t1, Time t2) => t1.TotalSeconds < t2.TotalSeconds;
-        public static bool operator >=(Time t1, Time t2) => t1.TotalSeconds >= t2.TotalSeconds;
-        public static bool operator <=(Time t1, Time t2) => t1.TotalSeconds <= t2.TotalSeconds;
+        public int CompareTo(Time other) => TotalMillisecond - other.TotalMillisecond;
+        public static bool operator >(Time t1, Time t2) => t1.CompareTo(t2) > 0;
+        public static bool operator <(Time t1, Time t2) => t1.CompareTo(t2) < 0;
+        public static bool operator >=(Time t1, Time t2) => t1.CompareTo(t2) >= 0;
+        public static bool operator <=(Time t1, Time t2) => t1.CompareTo(t2) <= 0;
 
         #endregion Operators
 
-        public bool Equals(Time other) => (Hour == other.Hour && Minute == other.Minute && Second == other.Second && Millisecond == other.Millisecond);
+        public bool Equals(Time other) => Hour == other.Hour && Minute == other.Minute && Second == other.Second && Millisecond == other.Millisecond;
         public static bool operator ==(Time s1, Time s2) => s1.Equals(s2);
         public static bool operator !=(Time s1, Time s2) => !s1.Equals(s2);
 
-        public bool Equals(DateTime other) => (Hour == other.Hour && Minute == other.Minute && Second == other.Second && Millisecond == other.Millisecond);
+        public bool Equals(DateTime other) => Hour == other.Hour && Minute == other.Minute && Second == other.Second && Millisecond == other.Millisecond;
         public static bool operator ==(Time s1, DateTime s2) => s1.Equals(s2);
         public static bool operator !=(Time s1, DateTime s2) => !s1.Equals(s2);
 
@@ -114,6 +118,6 @@ namespace Xu
                 return false;
         }
 
-        public override int GetHashCode() => Hour.GetHashCode() ^ Minute.GetHashCode() ^ Second.GetHashCode() ^ Millisecond.GetHashCode();
+        public override int GetHashCode() => TotalMillisecond;
     }
 }

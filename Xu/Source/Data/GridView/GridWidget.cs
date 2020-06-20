@@ -18,7 +18,8 @@ using System.Windows.Forms;
 namespace Xu.GridView
 {
     /// <summary>
-    /// TODO: Add mouse scroll
+    /// TODO: Fix mouse scroll
+    /// TODO: Select Row
     /// TODO: Default color theme
     /// </summary>
     public abstract class GridWidget : DockTab, IDataView, IDisposable
@@ -154,7 +155,7 @@ namespace Xu.GridView
                 g.DrawString("Preparing Data... Stand By.", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
 
-            if (IsActive && ReadyToShow && GridBounds.Width > 0)
+            if (ReadyToShow && GridBounds.Width > 0)
                 lock (GraphicsObjectLock)
                 {
                     int top = GridBounds.Top;
@@ -188,6 +189,16 @@ namespace Xu.GridView
 
                     for (i = StartPt; i < IndexCount; i++)
                     {
+                        if(i == HoverIndex) 
+                        {
+                            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, CellHeight));
+                        }
+                        else if(i == SelectedIndex) 
+                        {
+
+                            g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, CellHeight));
+                        }
+
                         g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
 
                         foreach (var stripe in VisibleStripes)
@@ -206,6 +217,36 @@ namespace Xu.GridView
         #endregion
 
         #region Mouse
+        int HoverIndex = -1;
+        int SelectedIndex = -1;
+
+        public virtual Point MousePoint { get; protected set; }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (ReadyToShow)
+            {
+                MousePoint = new Point(e.X, e.Y);
+
+                HoverIndex = Math.Floor(1.0 * (e.Y - Top) / CellHeight).ToInt32(0) + StartPt;
+
+                Console.WriteLine(">>>>>>>>>>>>>>>>>>> HoverIndex = " + HoverIndex);
+
+                Invalidate();
+            }
+        }
+
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            if (ReadyToShow)
+            {
+                MousePoint = new Point(e.X, e.Y);
+                SelectedIndex = HoverIndex;
+                Invalidate();
+            }
+
+            base.OnMouseClick(e);
+        }
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
@@ -220,6 +261,15 @@ namespace Xu.GridView
                     UpdateUI();
                 }
             }
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            HoverIndex = -1;
+
+
+
+            base.OnMouseLeave(e);
         }
 
         #endregion Mouse

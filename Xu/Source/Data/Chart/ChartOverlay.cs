@@ -156,17 +156,6 @@ namespace Xu.Chart
             }
         }
 
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            Chart.SelectedIndex = -1;
-
-            if (Chart.ReadyToShow)
-                foreach (Area ca in Areas)
-                    ca.UpdateLegend();
-
-            base.OnMouseLeave(e);
-        }
-
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (Chart.ReadyToShow) 
@@ -190,6 +179,17 @@ namespace Xu.Chart
                     Coordinate();
                 }
             }
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            Chart.SelectedIndex = -1;
+
+            if (Chart.ReadyToShow)
+                foreach (Area ca in Areas)
+                    ca.UpdateLegend();
+
+            base.OnMouseLeave(e);
         }
 
         #endregion Mouse

@@ -50,7 +50,6 @@ namespace Xu.GridView
             if ((StartPt + num >= 0) && (StopPt + num < DataCount))
             {
                 StartPt += num;
-
             }
         }
 
@@ -167,7 +166,7 @@ namespace Xu.GridView
 
                     int i = 0;
 
-                    for (i = StartPt; i < IndexCount; i++)
+                    for (i = StartPt; i < StopPt; i++)
                     {
                         if (i == HoverIndex)
                         {
@@ -202,7 +201,7 @@ namespace Xu.GridView
 
                     y = top + StripeTitleHeight;
 
-                    for (i = StartPt; i < IndexCount; i++)
+                    for (i = StartPt; i < StopPt; i++)
                     {
                         g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
 
@@ -262,8 +261,7 @@ namespace Xu.GridView
                 if (num != 0)
                 {
                     ShiftPt(num);
-                    //Chart.SelectedIndex = Chart.PixelToIndex(e.X);
-                    UpdateUI();
+                    Invalidate();
                 }
             }
         }
@@ -271,7 +269,7 @@ namespace Xu.GridView
         protected override void OnMouseLeave(EventArgs e)
         {
             HoverIndex = -1;
-
+            Invalidate();
 
 
             base.OnMouseLeave(e);

@@ -145,13 +145,6 @@ namespace Xu.Chart
 
                 foreach (Area ca in Areas) ca.UpdateLegend();
 
-                /*
-                for (int i = 0; i < Areas.Count; i++)
-                {
-                    Area ca = Areas.ElementAt(i); // Areas[i];
-                    ca.UpdateLegend();
-                }*/
-
                 Invalidate();
             }
         }

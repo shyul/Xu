@@ -68,7 +68,6 @@
     <Compile Include="Source\Data\Table\Types\ITagTable.cs" />
     <Compile Include="Source\Data\Table\Column\Types\TagColumn.cs" />
     <Compile Include="Source\Data\GridView\GridWidget.cs" />
-    <Compile Include="Source\Data\Chart\Types\CandleStickType.cs" />
     <Compile Include="Source\Data\Chart\Types\IAdvanceDeclineSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\IRangeSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\ITagSeries.cs" />

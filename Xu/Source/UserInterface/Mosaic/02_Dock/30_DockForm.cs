@@ -160,7 +160,7 @@ namespace Xu
 
         #region Paint
 
-        public readonly object GraphicsObjectLock = new object();
+        public readonly object GraphicsLockObject = new object();
 
         #endregion
     }

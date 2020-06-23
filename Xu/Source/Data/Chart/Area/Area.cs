@@ -254,7 +254,7 @@ namespace Xu.Chart
 
         public virtual void UpdateLegend()
         {
-            lock (Chart.GraphicsObjectLock)
+            lock (Chart.GraphicsLockObject)
             {
                 Size LegendMargin = new Size(5, 3);
 

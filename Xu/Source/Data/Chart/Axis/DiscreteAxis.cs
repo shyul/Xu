@@ -41,7 +41,7 @@ namespace Xu.Chart
 
         public int IndexToPixel(int i)
         {
-            lock (Chart.GraphicsObjectLock)
+            lock (Chart.GraphicsLockObject)
             {
                 if (i >= indexToPixel.Length)
                     return indexToPixel.Last();

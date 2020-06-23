@@ -15,6 +15,6 @@ namespace Xu
 
         double this[int i, NumericColumn column] { get; }
 
-        object DataObjectLock { get; }
+        object DataLockObject { get; }
     }
 }

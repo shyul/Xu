@@ -175,7 +175,7 @@ namespace Xu.Chart
         {
             ResumeLayout(true);
             if (IsActive && ReadyToShow && Table is ITable)
-                lock (GraphicsObjectLock)
+                lock (GraphicsLockObject)
                 {
                     ChartBounds = new Rectangle(
                             LeftYAxisLabelWidth + Margin.Left,
@@ -244,8 +244,8 @@ namespace Xu.Chart
 
             if (IsActive && ReadyToShow && ChartBounds.Width > 0 && Table is ITable t)
             {
-                lock (t.DataObjectLock)
-                    lock (GraphicsObjectLock)
+                lock (t.DataLockObject)
+                    lock (GraphicsLockObject)
                     {
                         for (int i = 0; i < Areas.Count; i++)
                         {

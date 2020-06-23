@@ -48,7 +48,7 @@ namespace Xu.Chart
         protected override void OnPaint(PaintEventArgs pe)
         {
             if (Chart.ReadyToShow)
-                lock (Chart.GraphicsObjectLock)
+                lock (Chart.GraphicsLockObject)
                 {
                     Graphics g = pe.Graphics;
                     g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;

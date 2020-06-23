@@ -90,7 +90,7 @@ namespace Xu.GridView
             ResumeLayout(true);
 
             if (ReadyToShow && GridBounds.Width > 0)
-                lock (GraphicsObjectLock)
+                lock (GraphicsLockObject)
                 {
                     ActualCellHeight = Math.Max(CellHeight, Stripes.Select(n => n.MinimumCellHeight).Max());
                     IndexCount = Math.Ceiling((GridBounds.Height - StripeTitleHeight) * 1.0f / ActualCellHeight).ToInt32(1);
@@ -158,7 +158,7 @@ namespace Xu.GridView
             }
 
             if (ReadyToShow && GridBounds.Width > 0)
-                lock (GraphicsObjectLock)
+                lock (GraphicsLockObject)
                 {
                     int top = GridBounds.Top;
                     int bottom = GridBounds.Bottom;

@@ -204,6 +204,7 @@ namespace Xu
 
             return new Period[] { s1 };
         }
+
         /*
         public static Period[] operator +(ICollection<Period> s1, ICollection<Period> s2)
         {
@@ -222,6 +223,7 @@ namespace Xu
             return mp.Values;
         }
         */
+
         public static IEnumerable<Period> operator -(Period s1, ICollection<Period> s2)
         {
             MultiPeriod mp = new MultiPeriod { s1 };

@@ -49,6 +49,34 @@ namespace Xu
             }
         }
 
+        [IgnoreDataMember]
+        public DateTime Start
+        {
+            get
+            {
+                var res = PeriodList.OrderBy(n => n.Start);
+                if (res.Count() > 0)
+                {
+                    return res.First().Start;
+                }
+                return DateTime.MaxValue;
+            }
+        }
+
+        [IgnoreDataMember]
+        public DateTime Stop
+        {
+            get
+            {
+                var res = PeriodList.OrderBy(n => n.Stop);
+                if (res.Count() > 0)
+                {
+                    return res.Last().Stop;
+                }
+                return DateTime.MinValue;
+            }
+        }
+
         public void Clear() => PeriodList.Clear();
 
         public void Add(Period pd)

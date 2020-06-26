@@ -11,6 +11,11 @@ namespace Xu
 {
     public interface IRow
     {
+        /// <summary>
+        /// TODO: Is this really useful?
+        /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
         object this[Column column] { get; }
     }
 }

@@ -43,10 +43,17 @@ namespace Xu.Chart
         {
             lock (Chart.GraphicsLockObject)
             {
-                if (i >= indexToPixel.Length)
-                    return indexToPixel.Last();
-                return
-                      indexToPixel[i];
+                if (indexToPixel is int[])
+                {
+                    if (i >= indexToPixel.Length)
+                        return indexToPixel.Last();
+                    else if (i < 0)
+                        return indexToPixel.First();
+                    else
+                        return indexToPixel[i];
+                }
+                else
+                    return -1;
             }
         }
 
@@ -54,7 +61,7 @@ namespace Xu.Chart
 
         public int PixelToIndex(int x)
         {
-            if (x < pixelToIndex.Length && x >= 0)
+            if (pixelToIndex is int[] && x < pixelToIndex.Length && x >= 0)
             {
                 int i = pixelToIndex[x];
                 return (i > -1) ? i : -1;

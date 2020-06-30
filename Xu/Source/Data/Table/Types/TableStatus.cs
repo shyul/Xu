@@ -4,19 +4,28 @@
 /// 
 /// ***************************************************************************
 
-using System;
-using System.Collections.Generic;
-
 namespace Xu
 {
-    public interface ITable
+    public enum TableStatus : int
     {
-        int Count { get; }
+        Ready = 0,
 
-        double this[int i, NumericColumn column] { get; }
+        Loading = 1,
 
-        TableStatus Status { get; set; }
+        Downloading = 2,
 
-        object DataLockObject { get; }
+        Calculating = 3,
+
+        Ticking = 4,
+
+        Saving = 6,
+
+        Maintaining = 7,
+
+        LoadFinished = 10,
+
+        TickingFinished = 11,
+
+        CalculateFinished = 12,
     }
 }

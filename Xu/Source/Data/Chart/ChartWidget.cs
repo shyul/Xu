@@ -282,6 +282,8 @@ namespace Xu.Chart
             {
                 if (m_RefreshUI)
                 {
+                    ReadyToShow = Table.Status == TableStatus.Ready;
+
                     if (InvokeRequired)
                         Invoke((MethodInvoker)delegate
                         {
@@ -293,7 +295,6 @@ namespace Xu.Chart
                         CoordinateLayout();
                         Invalidate(true);
                     }
-             
 
                     m_RefreshUI = false;
                 }

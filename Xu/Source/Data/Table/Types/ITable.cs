@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Xu
 {
-    public interface ITable : IDependable
+    public interface ITable
     {
         int Count { get; }
 

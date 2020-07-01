@@ -71,8 +71,9 @@ namespace Xu
             ObsoletedEvent.Debug(TabName + ": The Tab is closing");
             UpdateUITask_Cts.Cancel();
             HostContainer.Remove(this);
+            /*
             Dispose();
-            while (Disposing) ;
+            while (Disposing) ;*/
         }
 
         #endregion

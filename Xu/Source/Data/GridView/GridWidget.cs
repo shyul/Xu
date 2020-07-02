@@ -53,7 +53,7 @@ namespace Xu.GridView
             if ((StartPt + num >= 0) && (StopPt + num < DataCount))
             {
                 StartPt += num;
-                UpdateUI(); // real time update
+                SetAsyncUpdateUI(); // UpdateUI(); // real time update
             }
         }
 
@@ -61,7 +61,7 @@ namespace Xu.GridView
         {
             if (Table is ITable t)
             {
-                StopPt = t.Count - 1;
+                StopPt = t.Count;
                 SetAsyncUpdateUI(); // async update
             }
             else
@@ -74,7 +74,7 @@ namespace Xu.GridView
         {
             if (Table is ITable t && StopPt > t.Count - 3)
             {
-                StopPt = t.Count - 1;
+                StopPt = t.Count;
                 SetAsyncUpdateUI();
             }
             else

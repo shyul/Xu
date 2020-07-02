@@ -53,7 +53,7 @@ namespace Xu.Chart
             if ((StartPt + num > -limit) && (StopPt + num - DataCount < limit))
             {
                 StopPt += num;
-                UpdateUI(); // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
+                SetAsyncUpdateUI(); //UpdateUI(); // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
             }
         }
 
@@ -62,7 +62,7 @@ namespace Xu.Chart
             if (StopPt - (StartPt + num) > 1)
             {
                 IndexCount += num;
-                UpdateUI();
+                SetAsyncUpdateUI(); //UpdateUI();
             }
         }
 
@@ -72,7 +72,7 @@ namespace Xu.Chart
             {
                 StopPt += num;
                 IndexCount += num;
-                UpdateUI(); // real time update
+                SetAsyncUpdateUI(); //UpdateUI(); // real time update
             }
         }
 
@@ -80,7 +80,7 @@ namespace Xu.Chart
         {
             if (Table is ITable t)
             {
-                StopPt = t.Count - 1;
+                StopPt = t.Count;
                 SetAsyncUpdateUI(); // async update
             }
             else
@@ -93,7 +93,7 @@ namespace Xu.Chart
         {
             if (Table is ITable t && StopPt > t.Count - 3)
             {
-                StopPt = t.Count - 1;
+                StopPt = t.Count;
                 SetAsyncUpdateUI();
             }
             else
@@ -117,8 +117,8 @@ namespace Xu.Chart
                 if (a.Order == order) a.Order++;
             }
 
-            if (!Areas.Contains(area)) 
-            { 
+            if (!Areas.Contains(area))
+            {
                 Areas.Add(area);
                 //Console.WriteLine("Adding area: " + area.Name);
             }
@@ -308,13 +308,13 @@ namespace Xu.Chart
             {
                 if (m_AsyncUpdateUI)
                 {
-                    ReadyToShow = Table.Status == TableStatus.Ready;
+                    //ReadyToShow = Table.Status == TableStatus.Ready;
 
                     if (InvokeRequired)
                         Invoke((MethodInvoker)delegate
                         {
                             CoordinateLayout();
-                            Invalidate(true); 
+                            Invalidate(true);
                         });
                     else
                     {

@@ -72,7 +72,33 @@ namespace Xu.Chart
             {
                 StopPt += num;
                 IndexCount += num;
-                UpdateUI();
+                UpdateUI(); // real time update
+            }
+        }
+
+        public virtual void PointerToEnd()
+        {
+            if (Table is ITable t)
+            {
+                StopPt = t.Count - 1;
+                SetAsyncUpdateUI(); // async update
+            }
+            else
+            {
+                StopPt = 0;
+            }
+        }
+
+        public virtual void PointerToNextTick()
+        {
+            if (Table is ITable t && StopPt > t.Count - 3)
+            {
+                StopPt = t.Count - 1;
+                SetAsyncUpdateUI();
+            }
+            else
+            {
+                StopPt = 0;
             }
         }
 
@@ -276,11 +302,11 @@ namespace Xu.Chart
 
         #endregion
 
-        protected override void UpdateUIWorker()
+        protected override void AsyncUpdateUIWorker()
         {
-            while (!UpdateUITask_Cts.IsCancellationRequested)
+            while (!AsyncUpdateUITask_Cts.IsCancellationRequested)
             {
-                if (m_RefreshUI)
+                if (m_AsyncUpdateUI)
                 {
                     ReadyToShow = Table.Status == TableStatus.Ready;
 
@@ -296,7 +322,7 @@ namespace Xu.Chart
                         Invalidate(true);
                     }
 
-                    m_RefreshUI = false;
+                    m_AsyncUpdateUI = false;
                 }
                 Thread.Sleep(5);
             }

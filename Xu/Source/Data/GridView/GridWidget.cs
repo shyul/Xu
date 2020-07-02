@@ -53,6 +53,33 @@ namespace Xu.GridView
             if ((StartPt + num >= 0) && (StopPt + num < DataCount))
             {
                 StartPt += num;
+                UpdateUI(); // real time update
+            }
+        }
+
+        public virtual void PointerToEnd()
+        {
+            if (Table is ITable t)
+            {
+                StopPt = t.Count - 1;
+                SetAsyncUpdateUI(); // async update
+            }
+            else
+            {
+                StopPt = 0;
+            }
+        }
+
+        public virtual void PointerToNextTick()
+        {
+            if (Table is ITable t && StopPt > t.Count - 3)
+            {
+                StopPt = t.Count - 1;
+                SetAsyncUpdateUI();
+            }
+            else
+            {
+                StopPt = 0;
             }
         }
 

@@ -8,7 +8,9 @@ namespace Xu
 {
     public enum TableStatus : int
     {
-        Ready = 0,
+        Default = 0,
+
+        Ready = 100,
 
         Loading = 1,
 

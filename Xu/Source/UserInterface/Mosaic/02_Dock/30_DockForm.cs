@@ -34,8 +34,8 @@ namespace Xu
 
             if (enableUiUpdate)
             {
-                UpdateUITask = new Task(() => UpdateUIWorker(), UpdateUITask_Cts.Token);
-                UpdateUITask.Start();
+                AsyncUpdateUITask = new Task(() => AsyncUpdateUIWorker(), AsyncUpdateUITask_Cts.Token);
+                AsyncUpdateUITask.Start();
             }
         }
         #endregion
@@ -69,7 +69,7 @@ namespace Xu
         public override void Close()
         {
             ObsoletedEvent.Debug(TabName + ": The Tab is closing");
-            UpdateUITask_Cts.Cancel();
+            AsyncUpdateUITask_Cts.Cancel();
             HostContainer.Remove(this);
             /*
             Dispose();
@@ -84,22 +84,22 @@ namespace Xu
 
         protected bool m_ReadyToShow = false;
 
-        public readonly Task UpdateUITask;
+        public readonly Task AsyncUpdateUITask;
 
-        public readonly CancellationTokenSource UpdateUITask_Cts = new CancellationTokenSource();
+        public readonly CancellationTokenSource AsyncUpdateUITask_Cts = new CancellationTokenSource();
 
-        public void SetRefreshUI() => m_RefreshUI = true;
+        public void SetAsyncUpdateUI() => m_AsyncUpdateUI = true;
 
-        protected bool m_RefreshUI = false;
+        protected bool m_AsyncUpdateUI = false;
 
-        protected virtual void UpdateUIWorker()
+        protected virtual void AsyncUpdateUIWorker()
         {
-            while (!UpdateUITask_Cts.IsCancellationRequested)
+            while (!AsyncUpdateUITask_Cts.IsCancellationRequested)
             {
-                if (m_RefreshUI)
+                if (m_AsyncUpdateUI)
                 {
                     UpdateUI();
-                    m_RefreshUI = false;
+                    m_AsyncUpdateUI = false;
                 }
                 Thread.Sleep(5);
             }

@@ -304,18 +304,18 @@ namespace Xu
 
         public static void SerializeJsonFile<T>(this T source, string fileName)
         {
-            string backup_filename =  fileName +"_backup";
+            string backup_fileName = fileName + "_backup";
 
-            if (File.Exists(backup_filename))
-                File.Delete(backup_filename);
+            if (File.Exists(backup_fileName))
+                File.Delete(backup_fileName);
 
             if (File.Exists(fileName))
-                File.Move(fileName, backup_filename);
+                File.Move(fileName, backup_fileName);
 
             File.WriteAllBytes(fileName, source.SerializeJson());
 
-            if (File.Exists(backup_filename))
-                File.Delete(backup_filename);
+            if (File.Exists(backup_fileName))
+                File.Delete(backup_fileName);
         }
 
         /// <summary>
@@ -329,11 +329,17 @@ namespace Xu
         }
         public static T DeserializeJsonFile<T>(string fileName)
         {
+            string backup_fileName = fileName + "_backup";
+
+            if (!File.Exists(fileName) && File.Exists(backup_fileName))
+                File.Move(backup_fileName, fileName);
+
+            if (File.Exists(backup_fileName))
+                File.Delete(backup_fileName);
+
             if (File.Exists(fileName))
                 using (FileStream stream = File.OpenRead(fileName))
-                {
                     return DeserializeJson<T>(File.ReadAllBytes(fileName));
-                }
             else
                 return default;
         }

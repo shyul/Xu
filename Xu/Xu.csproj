@@ -72,6 +72,7 @@
     <Compile Include="Source\Data\Chart\Types\IAdvanceDeclineSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\IRangeSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\ITagSeries.cs" />
+    <Compile Include="Source\Tools\Task.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />
     <Compile Include="Source\Types\Interfaces\ITagged.cs" />
     <Compile Include="Source\Types\Interfaces\IUid.cs" />

@@ -43,11 +43,13 @@ namespace Xu.Chart
 
         public virtual Rectangle ChartBounds => Chart.ChartBounds;
 
+        public virtual bool ReadyToShow => Table is ITable && Chart.DataCount > 0 && Chart.ReadyToShow && ChartBounds.Width > 0;
+
         public override void Coordinate() { }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            if (Chart.ReadyToShow)
+            if (ReadyToShow)
                 lock (Chart.GraphicsLockObject)
                 {
                     Graphics g = pe.Graphics;
@@ -151,7 +153,7 @@ namespace Xu.Chart
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
-            if (Chart.ReadyToShow) 
+            if (Chart.ReadyToShow)
             {
                 int num = -e.Delta * SystemInformation.MouseWheelScrollLines / 120;
 

@@ -202,7 +202,7 @@ namespace Xu.Chart
         protected override void CoordinateLayout()
         {
             ResumeLayout(true);
-            if (IsActive && ReadyToShow && Table is ITable)
+            if (ReadyToShow && Table is ITable)
                 lock (GraphicsLockObject)
                 {
                     ChartBounds = new Rectangle(
@@ -261,7 +261,7 @@ namespace Xu.Chart
             Graphics g = pe.Graphics;
             g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
-            if (DataCount < 1)
+            if (Table is null || DataCount < 1)
             {
                 g.DrawString("No Data", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
@@ -269,8 +269,7 @@ namespace Xu.Chart
             {
                 g.DrawString("Preparing Data... Stand By.", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
-
-            if (IsActive && ReadyToShow && ChartBounds.Width > 0 && Table is ITable t)
+            else if (ReadyToShow && ChartBounds.Width > 0 && Table is ITable t)
             {
                 lock (t.DataLockObject)
                     lock (GraphicsLockObject)

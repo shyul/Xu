@@ -81,25 +81,27 @@ namespace Xu.Chart
             if (Table is ITable t)
             {
                 StopPt = t.Count;
-                SetAsyncUpdateUI(); // async update
             }
             else
             {
                 StopPt = 0;
             }
+
+            SetAsyncUpdateUI(); // async update
         }
 
         public virtual void PointerToNextTick()
         {
-            if (Table is ITable t && StopPt > t.Count - 3)
+            if (Table is ITable t && StopPt > t.Count - 2 && StopPt < t.Count + 2)
             {
                 StopPt = t.Count;
-                SetAsyncUpdateUI();
             }
-            else
-            {
-                StopPt = 0;
-            }
+            //else
+            //{
+            //    StopPt = 0;
+            //}
+
+            SetAsyncUpdateUI();
         }
 
         protected ChartOverlay Overlay { get; }

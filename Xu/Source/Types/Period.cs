@@ -24,7 +24,11 @@ namespace Xu
     [Serializable, DataContract]
     public struct Period : IEquatable<Period>, IEquatable<DateTime>, IComparer<Period>, IComparable<Period>, IComparable<DateTime>
     {
+        [IgnoreDataMember, XmlIgnore]
         public static Period Full => new Period(DateTime.MinValue, DateTime.MaxValue);
+
+        [IgnoreDataMember, XmlIgnore]
+        public static Period Empty => new Period(DateTime.MinValue, DateTime.MinValue);
 
         #region Ctor
 
@@ -442,7 +446,5 @@ namespace Xu
 
         #endregion Equality
 
-        [IgnoreDataMember, XmlIgnore]
-        public static readonly Period Empty = new Period(new DateTime(1900, 1, 1), false);
     }
 }

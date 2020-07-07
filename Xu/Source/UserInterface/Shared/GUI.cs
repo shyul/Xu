@@ -54,6 +54,21 @@ namespace Xu
 
         }
 
+        public static void Invoke(this Control c, Action action)
+        {
+            if (c.InvokeRequired)
+            {
+                c.Invoke((MethodInvoker)delegate
+                {
+                    action?.Invoke();
+                });
+            }
+            else
+            {
+                action?.Invoke();
+            }
+        }
+
         public static void Add<T>(this ComboBox.ObjectCollection items) where T : Enum // struct, IConvertible
         {
             foreach (T item in (T[])Enum.GetValues(typeof(T)))

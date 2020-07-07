@@ -96,10 +96,6 @@ namespace Xu.Chart
             {
                 StopPt = t.Count;
             }
-            //else
-            //{
-            //    StopPt = 0;
-            //}
 
             SetAsyncUpdateUI();
         }
@@ -305,24 +301,14 @@ namespace Xu.Chart
 
         protected override void AsyncUpdateUIWorker()
         {
-            while (!AsyncUpdateUITask_Cts.IsCancellationRequested)
+            while (AsyncUpdateUITask_Cts.Continue())
             {
                 if (m_AsyncUpdateUI)
                 {
-                    //ReadyToShow = Table.Status == TableStatus.Ready;
-
-                    if (InvokeRequired)
-                        Invoke((MethodInvoker)delegate
-                        {
-                            CoordinateLayout();
-                            Invalidate(true);
-                        });
-                    else
-                    {
+                    this?.Invoke(() => {
                         CoordinateLayout();
                         Invalidate(true);
-                    }
-
+                    });
                     m_AsyncUpdateUI = false;
                 }
                 Thread.Sleep(5);

@@ -94,31 +94,17 @@ namespace Xu
 
         protected virtual void AsyncUpdateUIWorker()
         {
-            while (!AsyncUpdateUITask_Cts.IsCancellationRequested)
+            while (AsyncUpdateUITask_Cts.Continue())
             {
                 if (m_AsyncUpdateUI)
                 {
-                    UpdateUI();
+                    this?.Invoke(() => {
+                        CoordinateLayout();
+                        Invalidate(true);
+                    });
                     m_AsyncUpdateUI = false;
                 }
                 Thread.Sleep(5);
-            }
-        }
-
-        public virtual void UpdateUI()
-        {
-            if (InvokeRequired)
-            {
-                Invoke((MethodInvoker)delegate
-                {
-                    CoordinateLayout();
-                    Invalidate(true);
-                });
-            }
-            else
-            {
-                CoordinateLayout();
-                Invalidate(true);
             }
         }
 

@@ -14,7 +14,7 @@ namespace Xu.Chart
 {
     public class OscillatorArea : Area
     {
-        public OscillatorArea(ChartWidget chart, string name, int heightRatio)
+        public OscillatorArea(ChartWidget chart, string name, float heightRatio)
         {
             Name = name;
             HeightRatio = heightRatio;

@@ -14,7 +14,7 @@ namespace Xu.Chart
 {
     public class Area : IArea, IEquatable<Area>
     {
-        public Area(ChartWidget chart, string name, int heightRatio)
+        public Area(ChartWidget chart, string name, float heightRatio)
         {
             Name = name;
             HeightRatio = heightRatio;
@@ -66,7 +66,7 @@ namespace Xu.Chart
 
         public bool HasXAxisBar { get; set; } = false;
 
-        public int HeightRatio { get; set; }
+        public float HeightRatio { get; set; }
 
         public ChartWidget Chart { get; protected set; }
 

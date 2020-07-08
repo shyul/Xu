@@ -108,7 +108,7 @@ namespace Xu.Chart
 
         public virtual List<Area> Areas { get; } = new List<Area>(); // Scan Maze m and yield this list
 
-        public virtual int TotalAreaHeightRatio => Areas.Where(n => n.Visible && n.Enabled).Select(n => n.HeightRatio).Sum();
+        public virtual float TotalAreaHeightRatio => Areas.Where(n => n.Visible && n.Enabled).Select(n => n.HeightRatio).Sum();
 
         public virtual T AddArea<T>(T area, int order) where T : Area
         {
@@ -217,7 +217,8 @@ namespace Xu.Chart
                         AxisX.IndexCount = IndexCount;
                         AxisX.Coordinate(ChartBounds.Width - RightBlankAreaWidth);
 
-                        int ptY = ChartBounds.Top, totalY = TotalAreaHeightRatio;
+                        int ptY = ChartBounds.Top;
+                        float totalY = TotalAreaHeightRatio;
 
                         if (AutoScaleFit)
                         {
@@ -227,13 +228,13 @@ namespace Xu.Chart
                                 {
                                     if (ca.HasXAxisBar)
                                     {
-                                        ca.Bounds = new Rectangle(ChartBounds.X, ptY, ChartBounds.Width, ChartBounds.Height * ca.HeightRatio / totalY - AxisXLabelHeight);
+                                        ca.Bounds = new Rectangle(ChartBounds.X, ptY, ChartBounds.Width, (ChartBounds.Height * ca.HeightRatio / totalY - AxisXLabelHeight).ToInt32());
                                         ptY += ca.Bounds.Height + AxisXLabelHeight;
                                         ca.TimeLabelY = ca.Bounds.Bottom + AxisXLabelHeight / 2 + 1;
                                     }
                                     else
                                     {
-                                        ca.Bounds = new Rectangle(ChartBounds.X, ptY, ChartBounds.Width, ChartBounds.Height * ca.HeightRatio / totalY);
+                                        ca.Bounds = new Rectangle(ChartBounds.X, ptY, ChartBounds.Width, (ChartBounds.Height * ca.HeightRatio / totalY).ToInt32());
                                         ptY += ca.Bounds.Height;
                                     }
                                     ca.Coordinate();

@@ -25,11 +25,13 @@ namespace Xu.GridView
     /// TODO: Sort By
     /// TODO: Format
     /// </summary>
-    public abstract class GridWidget : DockTab, IDataView, IDisposable
+    public abstract class GridWidget : DockForm, IDataView, IDisposable
     {
         protected GridWidget(string name) : base(name, true)
         {
-
+            HasIcon = true;
+            Btn_Pin.Enabled = true;
+            Btn_Close.Enabled = true;
         }
 
         public virtual string Label { get; set; }

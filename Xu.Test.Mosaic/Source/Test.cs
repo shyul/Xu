@@ -182,7 +182,7 @@ namespace Mosaic
                     { new Size(16, 16), Mosaic.Properties.Resources.StockChart_16 },
                     { new Size(32, 32), Mosaic.Properties.Resources.StockChart_32 }
                 } } },
-                Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => { ObsoletedEvent.Debug("StockChart is clicked"); },
+                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => { ObsoletedEvent.Debug("StockChart is clicked"); },
             };
 
             Command c_Power = new Command()
@@ -194,7 +194,7 @@ namespace Mosaic
                     //{ new Size(24, 24), Xu.Properties.Resources.PowerUnit_16},
                     { new Size(33, 33), Xu.Properties.Resources.PowerUnit_32 } ///??????
                 } } },
-                Action = (IItem sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => { ObsoletedEvent.Debug("Power Unit is clicked"); },
+                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => { ObsoletedEvent.Debug("Power Unit is clicked"); },
             };
 
             RibbonButton rbtn_1 = new RibbonButton(Main.Command_File_Open, 0, Importance.Major);

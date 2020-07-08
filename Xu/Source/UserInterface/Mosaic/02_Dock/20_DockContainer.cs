@@ -27,7 +27,7 @@ namespace Xu
         {
             // Components
             Btn_ShowTabContextDropMenu.Command.Action =
-                (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     ShowMenu();
                 };
@@ -49,7 +49,7 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        protected DockTab ActiveForm => (DockTab)ActiveTab;
+        protected DockForm ActiveForm => (DockForm)ActiveTab;
 
         /// <summary>
         /// 
@@ -149,13 +149,13 @@ namespace Xu
         /// </summary>
         /// <param name="side"></param>
         /// <param name="df"></param>
-        public abstract void AddForm(DockStyle side, DockTab df);
+        public abstract void AddForm(DockStyle side, DockForm df);
 
         /// <summary>
         /// This is when it runs merge/promote the check
         /// </summary>
         /// <param name="df"></param>
-        public virtual void RemoveForm(DockTab df)
+        public virtual void RemoveForm(DockForm df)
         {
             if (Remove(df))
             {
@@ -221,7 +221,7 @@ namespace Xu
             lock (Tabs)
                 for (int i = 0; i < Count; i++)
                 {
-                    DockTab df = (DockTab)Tabs[i];
+                    DockForm df = (DockForm)Tabs[i];
                     ToolStripMenuItem t = new ToolStripMenuItem()
                     {
                         Name = "ContainerMenuItem_" + i.ToString(),
@@ -497,7 +497,7 @@ namespace Xu
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    DockTab df = (DockTab)Tabs[i];
+                    DockForm df = (DockForm)Tabs[i];
                     //df.Bounds = _tabPanelBound;
                     int baseOffset = offset;
                     offset += c_tabMargin;
@@ -573,7 +573,7 @@ namespace Xu
                         {
                             lock (Tabs)
                             {
-                                foreach (DockTab df in Tabs)
+                                foreach (DockForm df in Tabs)
                                 {
                                     Rectangle tabRect = df.TabRect;
                                     if (tabRect.Contains(pt))
@@ -654,7 +654,7 @@ namespace Xu
                             MouseState = MouseState.Hover;
                             lock (Tabs)
                             {
-                                foreach (DockTab df in Tabs)
+                                foreach (DockForm df in Tabs)
                                 {
                                     Rectangle tabRect = df.TabRect;
                                     if (df.MouseState != MouseState.Drag && df.MouseState != MouseState.Down && df.ShowTab)

@@ -121,7 +121,7 @@ namespace Xu
         /// </summary>
         /// <param name="side"></param>
         /// <param name="df"></param>
-        public override void AddForm(DockStyle side, DockTab df)
+        public override void AddForm(DockStyle side, DockForm df)
         {
             if (SubPane != null) throw new Exception("Can not add DockForm directly to a container with SubPane enabled, check how do you even get this container!");
             if (side == DockStyle.None) return;
@@ -240,7 +240,7 @@ namespace Xu
         /// This is when it runs merge/promote the check
         /// </summary>
         /// <param name="df"></param>
-        public override void RemoveForm(DockTab df)
+        public override void RemoveForm(DockForm df)
         {
             if (SubPane != null) throw new Exception("Can not remove DockForm from a container with SubPane enabled, check how do you even get this container!");
             if (Remove(df))
@@ -386,7 +386,7 @@ namespace Xu
                 lock (Tabs)
                     for (int i = 0; i < Count; i++)
                     {
-                        DockTab df = (DockTab)Tabs[i];
+                        DockForm df = (DockForm)Tabs[i];
                         if (!df.ShowTab) isOverFlow = true;
                         if (df.ShowTab || df.Order == 0)
                             if (df == ActiveTab)

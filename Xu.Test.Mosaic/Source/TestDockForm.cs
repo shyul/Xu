@@ -12,7 +12,7 @@ using Xu;
 namespace Mosaic
 {
     [DesignerCategory("Code")]
-    public class TestDockForm : DockTab
+    public class TestDockForm : DockForm
     {
         public TestDockForm(string formName) : base(formName)
         {

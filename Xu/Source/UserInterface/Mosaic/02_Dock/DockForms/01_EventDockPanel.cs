@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     [DesignerCategory("Code")]
-    public class EventDockPanel : DockTab
+    public class EventDockPanel : DockForm
     {
         public EventDockPanel(string formName) : base(formName)
         {

@@ -25,10 +25,10 @@ namespace Xu
     }
 
     [DesignerCategory("Code")]
-    public abstract class DockTab : TabItem
+    public abstract class DockForm : TabItem
     {
         #region Ctor
-        protected DockTab(string formName, bool enableUiUpdate = false) : base(formName)
+        protected DockForm(string formName, bool enableUiUpdate = false) : base(formName)
         {
             Name = formName;
 
@@ -41,8 +41,8 @@ namespace Xu
         #endregion
 
         #region Components
-        protected DockCanvas DockControl { get { return (((DockContainer)HostContainer).DockControl); } }
-        protected DockContainer DockContainer { get { return ((DockContainer)HostContainer); } }
+        protected DockCanvas DockCanvas => DockContainer.DockControl;
+        protected DockContainer DockContainer => (DockContainer)HostContainer;
 
         // To be deloyed to the RibbonTab
         public RibbonTabItem RibbonTabItem { get; set; }
@@ -63,7 +63,7 @@ namespace Xu
             base.OnGotFocus(e);
             DockCanvas.ActiveDockForm = this;
             if (Parent != null) DockCanvas.ActiveContainer = (DockContainer)Parent;
-            if (DockControl != null) DockControl.Invalidate(true);
+            if (DockCanvas != null) DockCanvas.Invalidate(true);
         }
 
         public override void Close()

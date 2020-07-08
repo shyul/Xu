@@ -76,7 +76,7 @@ namespace Xu
         protected SideDockPane TopPane { get; set; }
         protected GridDockPane GridPane { get; set; }
 
-        public void AddForm(DockStyle postion, int index, DockTab df)
+        public void AddForm(DockStyle postion, int index, DockForm df)
         {
             switch (postion)
             {
@@ -136,7 +136,7 @@ namespace Xu
                 ActiveFormPic = null;
             }
         }
-        public static DockTab ActiveDockForm
+        public static DockForm ActiveDockForm
         {
             get
             {
@@ -148,7 +148,7 @@ namespace Xu
                 ObsoletedEvent.Debug("Activate Form: " + m_activeDockForm.TabName);
             }
         }
-        private static DockTab m_activeDockForm = null;
+        private static DockForm m_activeDockForm = null;
 
         public static DockContainer ActiveContainer
         {

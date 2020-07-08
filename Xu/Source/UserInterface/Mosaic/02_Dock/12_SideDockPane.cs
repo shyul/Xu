@@ -59,7 +59,7 @@ namespace Xu
         /// </summary>
         /// <param name="index"></param>
         /// <param name="df"></param>
-        public override void AddForm(int index, DockTab df)
+        public override void AddForm(int index, DockForm df)
         {
             if (index >= Count)
             {
@@ -449,7 +449,7 @@ namespace Xu
                                     lock (dc.Tabs)
                                         for (int j = 0; j < dc.Count; j++)
                                         {
-                                            DockTab df = (DockTab)dc.Tabs[j];
+                                            DockForm df = (DockForm)dc.Tabs[j];
                                             int textWidth = df.TabNameWidth + hiddenTabTextMargin;
                                             if (textWidth < c_hiddenContainerTabMinimum) textWidth = c_hiddenContainerTabMinimum;
                                             df.TabNameRect = new Rectangle(hiddenTabBase, hiddenTabTextFixed, textWidth, hiddenTabTextSize);
@@ -475,7 +475,7 @@ namespace Xu
                                     lock (dc.Tabs)
                                         for (int j = 0; j < dc.Count; j++)
                                         {
-                                            DockTab df = (DockTab)dc.Tabs[j];
+                                            DockForm df = (DockForm)dc.Tabs[j];
                                             int textWidth = df.TabNameWidth + hiddenTabTextMargin;
                                             if (textWidth < c_hiddenContainerTabMinimum) textWidth = c_hiddenContainerTabMinimum;
                                             df.TabNameRect = new Rectangle(hiddenTabBase, hiddenTabTextFixed, textWidth, hiddenTabTextSize);
@@ -499,7 +499,7 @@ namespace Xu
                                     lock (dc.Tabs)
                                         for (int j = 0; j < dc.Count; j++)
                                         {
-                                            DockTab df = (DockTab)dc.Tabs[j];
+                                            DockForm df = (DockForm)dc.Tabs[j];
                                             int textWidth = df.TabNameWidth + hiddenTabTextMargin;
                                             if (textWidth < c_hiddenContainerTabMinimum) textWidth = c_hiddenContainerTabMinimum;
                                             df.TabNameRect = new Rectangle(hiddenTabTextFixed, hiddenTabBase, hiddenTabTextSize, textWidth);
@@ -525,7 +525,7 @@ namespace Xu
                                     lock (dc.Tabs)
                                         for (int j = 0; j < dc.Count; j++)
                                         {
-                                            DockTab df = (DockTab)dc.Tabs[j];
+                                            DockForm df = (DockForm)dc.Tabs[j];
                                             int textWidth = df.TabNameWidth + hiddenTabTextMargin;
                                             if (textWidth < c_hiddenContainerTabMinimum) textWidth = c_hiddenContainerTabMinimum;
                                             df.TabNameRect = new Rectangle(hiddenTabTextFixed, hiddenTabBase, hiddenTabTextSize, textWidth);
@@ -820,7 +820,7 @@ namespace Xu
                                         lock (dc.Tabs)
                                             for (int j = 0; j < dc.Count; j++)
                                             {
-                                                DockTab df = (DockTab)dc.Tabs[j];
+                                                DockForm df = (DockForm)dc.Tabs[j];
                                                 Rectangle tempR = df.TabRect;
                                                 tempR = new Rectangle(tempR.X + 4, tempR.Y, tempR.Width - 8, MarkerRectSize);
 
@@ -864,7 +864,7 @@ namespace Xu
                                         lock (dc.Tabs)
                                             for (int j = 0; j < dc.Count; j++)
                                             {
-                                                DockTab df = (DockTab)dc.Tabs[j];
+                                                DockForm df = (DockForm)dc.Tabs[j];
                                                 Rectangle tempR = df.TabRect;
                                                 tempR = new Rectangle(tempR.X + 4, tempR.Bottom - MarkerRectSize + 1, tempR.Width - 8, MarkerRectSize);
 
@@ -907,7 +907,7 @@ namespace Xu
                                         lock (dc.Tabs)
                                             for (int j = 0; j < dc.Count; j++)
                                             {
-                                                DockTab df = (DockTab)dc.Tabs[j];
+                                                DockForm df = (DockForm)dc.Tabs[j];
                                                 Rectangle tempR = df.TabRect;
                                                 tempR = new Rectangle(0, tempR.Y + 4, MarkerRectSize, tempR.Height - 8);
 
@@ -970,7 +970,7 @@ namespace Xu
                                         lock (dc.Tabs)
                                             for (int j = 0; j < dc.Count; j++)
                                             {
-                                                DockTab df = (DockTab)dc.Tabs[j];
+                                                DockForm df = (DockForm)dc.Tabs[j];
                                                 Rectangle tempR = df.TabRect;
                                                 tempR = new Rectangle(tempR.Right - MarkerRectSize + 1, tempR.Y + 4, MarkerRectSize, tempR.Height - 8);
 
@@ -1044,7 +1044,7 @@ namespace Xu
                                 {
                                     if (!dc.ShowTab)
                                         lock (dc.Tabs)
-                                            foreach (DockTab df in dc.Tabs)
+                                            foreach (DockForm df in dc.Tabs)
                                             {
                                                 Rectangle tabRect = df.TabRect;
                                                 if (tabRect.Contains(pt))
@@ -1127,7 +1127,7 @@ namespace Xu
                                 {
                                     if (!dc.ShowTab)
                                         lock (dc.Tabs)
-                                            foreach (DockTab df in dc.Tabs)
+                                            foreach (DockForm df in dc.Tabs)
                                             {
                                                 Rectangle tabRect = df.TabRect;
                                                 if (df.MouseState != MouseState.Drag && df.MouseState != MouseState.Down)
@@ -1166,7 +1166,7 @@ namespace Xu
                     {
                         if (!dc.ShowTab)
                             lock (dc.Tabs)
-                                foreach (DockTab df in dc.Tabs)
+                                foreach (DockForm df in dc.Tabs)
                                 {
                                     Rectangle tabRect = df.TabRect;
                                     if (df.MouseState != MouseState.Drag && df.MouseState != MouseState.Down)
@@ -1204,7 +1204,7 @@ namespace Xu
                             lock (dc.Tabs)
                                 for (int i = 0; i < dc.Count; i++)
                                 {
-                                    DockTab df = (DockTab)dc.Tabs[i];
+                                    DockForm df = (DockForm)dc.Tabs[i];
                                     if (df.MouseState == MouseState.Hover)
                                     {
                                         df.MouseState = MouseState.Down;
@@ -1277,7 +1277,7 @@ namespace Xu
                             lock (dc.Tabs)
                                 for (int i = 0; i < dc.Count; i++)
                                 {
-                                    DockTab df = (DockTab)dc.Tabs[i];
+                                    DockForm df = (DockForm)dc.Tabs[i];
                                     Rectangle tabRect = df.TabRect;
                                     df.MouseState = (tabRect.Contains(pt)) ? MouseState.Hover : MouseState.Out;
                                 }

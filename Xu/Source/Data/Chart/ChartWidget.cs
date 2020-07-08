@@ -15,10 +15,14 @@ using System.Windows.Forms;
 
 namespace Xu.Chart
 {
-    public abstract class ChartWidget : DockTab, IDataView
+    public abstract class ChartWidget : DockForm, IDataView
     {
         protected ChartWidget(string name) : base(name, true)
         {
+            HasIcon = true;
+            Btn_Pin.Enabled = true;
+            Btn_Close.Enabled = true;
+
             AxisX = new DiscreteAxis(this);
             Overlay = new ChartOverlay(this);
             Controls.Add(Overlay);
@@ -314,5 +318,7 @@ namespace Xu.Chart
                 Thread.Sleep(5);
             }
         }
+
+        public void GetFocus() => OnGotFocus(new EventArgs());
     }
 }

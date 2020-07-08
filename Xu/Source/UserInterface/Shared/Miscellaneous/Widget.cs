@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     [DesignerCategory("Code")]
-    public abstract class Widget : UserControl, IOrdered
+    public abstract class Widget : UserControl, IObject, IOrdered
     {
         protected Widget(int order = 0, Importance importance = Importance.Minor)
         {

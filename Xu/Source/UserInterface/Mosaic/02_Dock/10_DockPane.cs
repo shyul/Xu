@@ -73,7 +73,7 @@ namespace Xu
             Coordinate();
         }
 
-        public abstract void AddForm(int index, DockTab df);
+        public abstract void AddForm(int index, DockForm df);
 
         public virtual void RemoveContainer(DockContainer dc)
         {

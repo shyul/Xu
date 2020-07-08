@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     public delegate void CommandHandler(
-        IOrdered sender = null, 
+        IObject sender = null, 
         string[] args = null, 
         Progress<Event> progress = null, 
         CancellationTokenSource cancellationToken = null

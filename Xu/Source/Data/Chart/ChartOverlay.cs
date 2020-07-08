@@ -151,6 +151,17 @@ namespace Xu.Chart
             }
         }
 
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            if (ReadyToShow)
+            {
+                Chart.GetFocus();
+                //Invalidate();
+            }
+
+            base.OnMouseClick(e);
+        }
+
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (Chart.ReadyToShow)

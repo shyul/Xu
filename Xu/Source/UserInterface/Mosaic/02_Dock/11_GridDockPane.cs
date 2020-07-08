@@ -77,7 +77,7 @@ namespace Xu
         /// </summary>
         /// <param name="index"></param>
         /// <param name="df"></param>
-        public override void AddForm(int index, DockTab df)
+        public override void AddForm(int index, DockForm df)
         {
             if (index >= Count)
             {

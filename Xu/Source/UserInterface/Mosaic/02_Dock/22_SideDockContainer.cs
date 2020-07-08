@@ -57,7 +57,7 @@ namespace Xu
         /// </summary>
         /// <param name="side"></param>
         /// <param name="df"></param>
-        public override void AddForm(DockStyle side, DockTab df)
+        public override void AddForm(DockStyle side, DockForm df)
         {
             if (side == DockStyle.None) return;
             df.MouseState = MouseState.Out;
@@ -124,7 +124,7 @@ namespace Xu
         /// 
         /// </summary>
         /// <param name="df"></param>
-        public override void RemoveForm(DockTab df)
+        public override void RemoveForm(DockForm df)
         {
             if (Remove(df))
             {
@@ -464,7 +464,7 @@ namespace Xu
                             break;
                     }
                     lock (Tabs)
-                        foreach (DockTab df in Tabs)
+                        foreach (DockForm df in Tabs)
                         {
                             df.Bounds = m_tabPanelBound;
                         }
@@ -490,7 +490,7 @@ namespace Xu
             lock (Tabs)
                 for (int i = 0; i < Count; i++)
                 {
-                    DockTab df = (DockTab)Tabs[i];
+                    DockForm df = (DockForm)Tabs[i];
                     df.Bounds = m_tabPanelBound;
                     int baseOffset = offset;
                     offset += c_tabMargin;
@@ -584,7 +584,7 @@ namespace Xu
                     {
                         List<Point> tabLine = new List<Point>() { new Point(m_edgeRect.Left, Height - DockCanvas.SideTabHeight) };
                         lock (Tabs)
-                            foreach (DockTab df in Tabs)
+                            foreach (DockForm df in Tabs)
                             {
                                 if (df.Visible)
                                 {

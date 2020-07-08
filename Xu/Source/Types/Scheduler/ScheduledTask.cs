@@ -108,7 +108,7 @@ namespace Xu
         public bool IsBusy => Status == TaskStatus.Running;
 
         // If is task is running, then let it run ? or kill and restart??
-        public override void Start(IOrdered sender = null, string[] args = null)
+        public override void Start(IObject sender = null, string[] args = null)
         {
             // If Task is Runnning
 
@@ -129,7 +129,7 @@ namespace Xu
             //while (Status == TaskStatus.Running) ;
         }
 
-        public virtual bool Check(DateTime now, IOrdered sender = null, string[] args = null)
+        public virtual bool Check(DateTime now, IObject sender = null, string[] args = null)
         {
             bool isTerminated = false;
             switch (Type)

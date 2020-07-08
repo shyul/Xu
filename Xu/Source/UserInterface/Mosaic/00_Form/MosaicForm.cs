@@ -49,7 +49,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Minimize },
                 },
-                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 { WindowState = FormWindowState.Minimized; },
             };
 
@@ -60,7 +60,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Maximize },
                 },
-                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     if (WindowState != FormWindowState.Maximized)
                     {
@@ -76,7 +76,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Restore },
                 },
-                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     if (WindowState != FormWindowState.Normal)
                     {
@@ -92,7 +92,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Close },
                 },
-                Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
                 {
                     Close(); // Should be app exit...
                 },
@@ -160,7 +160,7 @@ namespace Xu
         public static Command Command_HelpLink = new Command()
         {
             Theme = new ColorTheme(Color.DimGray, Color.Gray),
-            Action = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 System.Diagnostics.Process.Start(HelpLink);
             },
@@ -182,9 +182,9 @@ namespace Xu
         public StatusStrip StatusPane { get; protected set; }
         public DockCanvas DockControl { get; protected set; }
 
-        public void AddForm(DockTab df) => DockControl.AddForm(DockStyle.Fill, 0, df);
-        public void AddForm(DockStyle postion, DockTab df) => DockControl.AddForm(postion, 0, df);
-        public void AddForm(DockStyle postion, int index, DockTab df) => DockControl.AddForm(postion, index, df);
+        public void AddForm(DockForm df) => DockControl.AddForm(DockStyle.Fill, 0, df);
+        public void AddForm(DockStyle postion, DockForm df) => DockControl.AddForm(postion, 0, df);
+        public void AddForm(DockStyle postion, int index, DockForm df) => DockControl.AddForm(postion, index, df);
 
         #region Drop Menus ####################################################################### t.b.d
         public static ContextPane ContextPane { get; } = new ContextPane();

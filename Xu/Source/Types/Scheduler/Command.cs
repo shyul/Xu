@@ -30,7 +30,7 @@ namespace Xu
         // Defined as doing nothing.
         [DataMember, Browsable(true), ReadOnly(false)]
         [Description("Action")]
-        public CommandHandler Action { get; set; } = (IOrdered sender, string[] args, Progress<Event> progress, CancellationTokenSource cancellationToken) => { };
+        public CommandHandler Action { get; set; } = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cancellationToken) => { };
 
         // Percent of executions -- can be use as Period or total counts
         // N
@@ -49,7 +49,7 @@ namespace Xu
         protected CancellationTokenSource Cts { get; set; } = new CancellationTokenSource();
 
         // Methods
-        public virtual void Start(IOrdered sender = null, string[] args = null)
+        public virtual void Start(IObject sender = null, string[] args = null)
         {
             if (Enabled)
             {

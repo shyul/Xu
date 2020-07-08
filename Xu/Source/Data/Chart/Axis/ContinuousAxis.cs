@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Xu.Chart
 {
@@ -114,7 +117,7 @@ namespace Xu.Chart
 
         public virtual void Draw(Graphics g, Rectangle bounds, int labelOffset)
         {
-            foreach (var tk in TickList)
+            foreach (var tk in TickList.OrderBy(n => n.Value.Importance))
             {
                 AxisTickStyle style = Style[tk.Value.Importance];
                 int location = ValueToPixel(tk.Key);
@@ -127,17 +130,41 @@ namespace Xu.Chart
                     {
                         g.DrawLine(Area.Theme.EdgePen, bounds.Left, location, bounds.Left - 2, location);
 
-                        if (style.HasLabel)
+                        if (style.HasLabel) 
+                        {
+                            if(tk.Value.Importance > Importance.Minor) 
+                            {
+                            
+                            }
+
                             g.DrawString(tk.Value.Label, style.Font, style.Theme.ForeBrush,
-                               new Point(bounds.Left - labelOffset, location), AppTheme.TextAlignRight);
+                                new Point(bounds.Left - labelOffset, location), AppTheme.TextAlignRight);
+
+
+                        }
+     
                     }
                     else
                     {
                         g.DrawLine(Area.Theme.EdgePen, bounds.Right, location, bounds.Right + 2, location);
 
-                        if (style.HasLabel)
-                            g.DrawString(tk.Value.Label, style.Font, style.Theme.ForeBrush,
-                            new Point(bounds.Right + labelOffset, location), AppTheme.TextAlignLeft);
+                        if (style.HasLabel) 
+                        {
+                            if (tk.Value.Importance > Importance.Minor)
+                            {
+                                Size text_size = TextRenderer.MeasureText(tk.Value.Label, style.Font);
+                                using GraphicsPath gp = ShapeTool.Tag(new Point(bounds.Right + labelOffset - 1 + text_size.Width / 2, location - 1), new Size(text_size.Width - 2, text_size.Height - 2), 1);
+                                g.FillPath(Area.Chart.Theme.FillBrush, gp);
+                                g.DrawPath(Area.Theme.EdgePen, gp);
+                                g.DrawString(tk.Value.Label, style.Font, style.Theme.ForeBrush, new Point(bounds.Right + labelOffset, location), AppTheme.TextAlignLeft);
+                            }
+                            else
+                            {
+                                g.DrawString(tk.Value.Label, style.Font, style.Theme.ForeBrush,
+                                    new Point(bounds.Right + labelOffset, location), AppTheme.TextAlignLeft);
+                            }
+                        }
+                    
                     }
             }
         }

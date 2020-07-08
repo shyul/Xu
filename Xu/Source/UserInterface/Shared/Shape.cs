@@ -588,7 +588,7 @@ namespace Xu
 
             return path;
         }
-
+        /*
         public static GraphicsPath Tag(Point location, Size size, int corner)
         {
             int half_width = (size.Width / 2.0).ToInt32();
@@ -610,6 +610,35 @@ namespace Xu
                 new Point (location.X - half_width, location.Y + half_height - corner),
 
                 new Point (location.X - half_width, location.Y - half_height + corner),
+            };
+
+            GraphicsPath path = new GraphicsPath();
+            path.AddLines(pts);
+
+            return path;
+        }
+        */
+        
+        public static GraphicsPath Tag(Point location, Size size, int corner)
+        {
+            int half_width = (size.Width / 2.0).ToInt32();
+            int half_height = (size.Height / 2.0).ToInt32();
+
+            //location.X += half_width + arrowSize.Height;
+            //location.X += 1;
+            Point[] pts = new Point[8]
+            {
+                new Point (location.X - half_width + corner, location.Y - half_height),
+                new Point (location.X + half_width - corner, location.Y - half_height),
+
+                new Point (location.X + half_width, location.Y - half_height + corner),
+                new Point (location.X + half_width, location.Y + half_height - corner),
+
+                new Point (location.X + half_width - corner, location.Y + half_height),
+                new Point (location.X - half_width + corner, location.Y + half_height),
+
+                new Point (location.X - half_width, location.Y + half_height - corner),
+                new Point (location.X - half_width, location.Y - half_height + corner)
             };
 
             GraphicsPath path = new GraphicsPath();

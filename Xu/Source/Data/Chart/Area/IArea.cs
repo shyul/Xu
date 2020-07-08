@@ -8,6 +8,8 @@ namespace Xu.Chart
 {
     public interface IArea : IOrdered, ICoordinatable
     {
+        ChartWidget Chart { get; }
+
         ColorTheme Theme { get; }
 
         int StopPt { get; }

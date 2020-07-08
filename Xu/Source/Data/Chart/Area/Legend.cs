@@ -37,6 +37,8 @@ namespace Xu.Chart
             Bounds = new Rectangle(new Point(), size);
         }
 
+        public ChartWidget Chart => Area.Chart;
+
         protected Area Area;
 
         // Should generalize the drawing function in each series type to make it possible for Legend Icon.

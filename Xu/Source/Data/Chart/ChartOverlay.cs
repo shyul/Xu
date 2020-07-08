@@ -43,9 +43,9 @@ namespace Xu.Chart
 
         public virtual Rectangle ChartBounds => Chart.ChartBounds;
 
-        public virtual bool ReadyToShow => Table is ITable && Chart.DataCount > 0 && Chart.ReadyToShow && ChartBounds.Width > 0;
+        public bool ReadyToShow => Table is ITable && Chart.DataCount > 0 && Chart.ReadyToShow && ChartBounds.Width > 0;
 
-        public override void Coordinate() { }
+        public override void Coordinate() => Chart.CoordinateOverlay();
 
         protected override void OnPaint(PaintEventArgs pe)
         {

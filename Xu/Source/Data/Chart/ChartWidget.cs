@@ -199,6 +199,8 @@ namespace Xu.Chart
 
         public virtual Rectangle ChartBounds { get; protected set; }
 
+        public abstract void CoordinateOverlay();
+
         protected override void CoordinateLayout()
         {
             ResumeLayout(true);
@@ -303,22 +305,6 @@ namespace Xu.Chart
         }
 
         #endregion
-
-        protected override void AsyncUpdateUIWorker()
-        {
-            while (AsyncUpdateUITask_Cts.Continue())
-            {
-                if (m_AsyncUpdateUI)
-                {
-                    this?.Invoke(() => {
-                        CoordinateLayout();
-                        Invalidate(true);
-                    });
-                    m_AsyncUpdateUI = false;
-                }
-                Thread.Sleep(5);
-            }
-        }
 
         public void GetFocus() => OnGotFocus(new EventArgs());
     }

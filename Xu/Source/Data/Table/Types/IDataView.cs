@@ -11,8 +11,6 @@ namespace Xu
 {
     public interface IDataView
     {
-        //bool ReadyToShow { get; set; }
-
         int StartPt { get; set; }
 
         int StopPt { get; set; }

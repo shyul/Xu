@@ -7,11 +7,9 @@
 /// ***************************************************************************
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -167,7 +165,7 @@ namespace Xu
             m_start = DateTime.MaxValue;
         }
 
-        public List<Period> Split(Frequency freq) 
+        public List<Period> Split(Frequency freq)
         {
             Frequency unit = new Frequency(freq.Unit);
             DateTime start = unit.Align(m_start, -1);
@@ -175,7 +173,7 @@ namespace Xu
 
             List<Period> result = new List<Period>();
 
-            while(start < stop) 
+            while (start < stop)
             {
                 Period pd = new Period(start, start + freq);
                 start = pd.Stop;
@@ -377,7 +375,7 @@ namespace Xu
                     }
                 }
             }
-            catch (Exception e) when ( e is ArgumentNullException || e is FormatException)
+            catch (Exception e) when (e is ArgumentNullException || e is FormatException)
             { }
 
             return new Period();

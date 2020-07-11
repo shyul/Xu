@@ -6,11 +6,9 @@
 /// 
 /// ***************************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Linq;
 
 namespace Xu.Chart
@@ -25,7 +23,7 @@ namespace Xu.Chart
             Width = width;
             Tension = tension;
             LineType = type;
-            
+
             Color = ShadeColor = LowColor = LowShadeColor = color;
             FillColor = color.Opaque(64);
         }

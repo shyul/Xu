@@ -119,7 +119,7 @@ namespace Xu
         {
             lock (PeriodList)
             {
-                lock (source) 
+                lock (source)
                 {
                     source.ToList().ForEach(n => Add(n));
                 }

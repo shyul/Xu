@@ -5,7 +5,6 @@
 /// ***************************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -618,7 +617,7 @@ namespace Xu
             return path;
         }
         */
-        
+
         public static GraphicsPath Tag(Point location, Size size, int corner)
         {
             int half_width = (size.Width / 2.0).ToInt32();

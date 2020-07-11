@@ -66,7 +66,7 @@ namespace Xu
             try
             {
                 string str = CleanUpNumString(input);
-                if (string.IsNullOrWhiteSpace(str)) 
+                if (string.IsNullOrWhiteSpace(str))
                     return defaultValue;
                 else
                     return double.Parse(str, NumberStyles.Float | NumberStyles.Number | NumberStyles.AllowExponent); //return Convert.ToDouble(decimal.Parse(str));

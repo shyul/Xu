@@ -5,8 +5,6 @@
 /// ***************************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 //using System.
 
@@ -21,7 +19,7 @@ namespace Xu
         Hightlight = 1,
         Progress = 10,
         Completion = 100,
-       
+
     }
 
     /// <summary>

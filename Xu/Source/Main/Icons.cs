@@ -6,15 +6,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Linq;
 using System.Runtime.Serialization;
-using System.Threading;
 
 namespace Xu
 {
@@ -99,9 +93,9 @@ namespace Xu
             { new Size(32, 32), Properties.Resources.Clip_Paste_32 }
         };
 
-    #endregion
+        #endregion
 
-    #region Utility Symbols
+        #region Utility Symbols
 
         public static readonly Dictionary<Size, Bitmap> Undo = new Dictionary<Size, Bitmap>() {
             { new Size(16, 16), Properties.Resources.Undo_16 },

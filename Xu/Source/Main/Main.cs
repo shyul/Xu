@@ -6,13 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Runtime.Serialization;
 using System.Threading;
 
@@ -180,7 +174,7 @@ namespace Xu
             //Enabled = false,
             Label = "Delete",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Delete } },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) => 
+            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
             {
                 ObsoletedEvent.Debug("Delete is clicked");
             },

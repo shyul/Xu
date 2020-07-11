@@ -66,7 +66,7 @@ namespace Xu
                     IsRoot = false;
                     Dkc = gdc.HostPane.Dkc;// ((GridDockContainer)Parent).HostPane.Dkc;
                 }
-                else 
+                else
                     throw new Exception("GridDockPane can only be exsiting in Mosaic or GridDockContainer / Parent: " + Parent.GetType().ToString());
             }
             else Dkc = null;

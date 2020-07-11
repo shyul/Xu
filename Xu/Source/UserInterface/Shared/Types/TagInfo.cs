@@ -5,17 +5,13 @@
 /// ***************************************************************************
 /// 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Xu
 {
     public class TagInfo : IEquatable<TagInfo>
     {
-        public TagInfo(int index, string text, DockStyle style, ColorTheme theme) 
+        public TagInfo(int index, string text, DockStyle style, ColorTheme theme)
         {
             Index = index;
             Text = text;
@@ -43,8 +39,8 @@ namespace Xu
                 return false;
         }
 
-        public static bool operator ==(TagInfo left, TagInfo right)=> left.Equals(right);
-        public static bool operator !=(TagInfo left, TagInfo right)=> !left.Equals(right);
+        public static bool operator ==(TagInfo left, TagInfo right) => left.Equals(right);
+        public static bool operator !=(TagInfo left, TagInfo right) => !left.Equals(right);
 
     }
 }

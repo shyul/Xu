@@ -4,12 +4,11 @@
 /// 
 /// ***************************************************************************
 
-using System;
 
 namespace Xu
 {
     public interface IObject
-    {        
+    {
         /// <summary>
         /// For Identification
         /// </summary>
@@ -19,7 +18,7 @@ namespace Xu
         /// For Graphics Display
         /// </summary>
         string Label { get; } // a.k.a Comment
-        
+
         /// <summary>
         /// For Documentation
         /// </summary>

@@ -160,7 +160,7 @@ namespace Xu
         #region Paint
         protected override void OnPaint(PaintEventArgs pe)
         {
-            if(!(ActiveTab is null)) 
+            if (!(ActiveTab is null))
             {
                 Graphics g = pe.Graphics;
                 g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;

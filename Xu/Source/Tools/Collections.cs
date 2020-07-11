@@ -9,8 +9,8 @@
 /// ***************************************************************************
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Xu
 {
@@ -172,7 +172,7 @@ namespace Xu
             return parents;
         }
 
-        public static void AddChild(this IDependable current, IDependable newChild) 
+        public static void AddChild(this IDependable current, IDependable newChild)
         {
             current.Children.CheckAdd(newChild);
             newChild.Parents.CheckAdd(current);

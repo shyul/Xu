@@ -10,14 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Linq;
 
 namespace Xu.Chart
 {
     public class AreaSeries : LineSeries
     {
-        public AreaSeries(NumericColumn data_column, bool isGradient, 
+        public AreaSeries(NumericColumn data_column, bool isGradient,
             LineType type = LineType.Default, int width = 1, float tension = 0)
         {
             Data_Column = data_column;
@@ -28,11 +27,11 @@ namespace Xu.Chart
             Color = ShadeColor = FillColor = Color.Gray;
         }
 
-        public AreaSeries(NumericColumn data_column, Color color, bool isGradient, 
+        public AreaSeries(NumericColumn data_column, Color color, bool isGradient,
             LineType type = LineType.Default, int width = 1, float tension = 0)
             : this(data_column, color, color, isGradient, type, width, tension) { }
 
-        public AreaSeries(NumericColumn data_column, Color color, Color fillColor, bool isGradient, 
+        public AreaSeries(NumericColumn data_column, Color color, Color fillColor, bool isGradient,
             LineType type = LineType.Default, int width = 1, float tension = 0)
         {
             Data_Column = data_column;
@@ -44,8 +43,8 @@ namespace Xu.Chart
             Color = ShadeColor = color;
         }
 
-        public AreaSeries(NumericColumn data_column, 
-            Color color, Color shadeColor, Color fillColor, bool isGradient, 
+        public AreaSeries(NumericColumn data_column,
+            Color color, Color shadeColor, Color fillColor, bool isGradient,
             LineType type = LineType.Default, int width = 1, float tension = 0)
         {
             Data_Column = data_column;
@@ -94,7 +93,7 @@ namespace Xu.Chart
             g.SmoothingMode = SmoothingMode.Default;
         }
 
-        public static void DrawArea(Graphics g, IArea area, ColorTheme theme, IEnumerable<Point> points, int tickWidth, int max_y, 
+        public static void DrawArea(Graphics g, IArea area, ColorTheme theme, IEnumerable<Point> points, int tickWidth, int max_y,
             bool isGradient, float width, float tension, LineType type = LineType.Default)
         {
             using GraphicsPath line = GetLinePath(points, type, tension, tickWidth);

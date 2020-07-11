@@ -5,11 +5,8 @@
 /// ***************************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -135,7 +132,7 @@ namespace Xu
             switch (Type)
             {
                 case (ScheduledTaskType.OneTime):
-                    if(now > LastExecTime && !IsBusy)
+                    if (now > LastExecTime && !IsBusy)
                     {
                         isTerminated = true;
                     }
@@ -146,7 +143,7 @@ namespace Xu
                     }
                     break;
                 case (ScheduledTaskType.Period):
-                    if(Period == now && !IsBusy)
+                    if (Period == now && !IsBusy)
                     {
                         LastExecTime = now;
                         Start(sender, args);

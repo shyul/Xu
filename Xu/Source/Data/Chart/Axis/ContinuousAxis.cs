@@ -4,11 +4,9 @@
 /// 
 /// ***************************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -130,11 +128,11 @@ namespace Xu.Chart
                     {
                         g.DrawLine(Area.Theme.EdgePen, bounds.Left, location, bounds.Left - 2, location);
 
-                        if (style.HasLabel) 
+                        if (style.HasLabel)
                         {
-                            if(tk.Value.Importance > Importance.Minor) 
+                            if (tk.Value.Importance > Importance.Minor)
                             {
-                            
+
                             }
 
                             g.DrawString(tk.Value.Label, style.Font, style.Theme.ForeBrush,
@@ -142,13 +140,13 @@ namespace Xu.Chart
 
 
                         }
-     
+
                     }
                     else
                     {
                         g.DrawLine(Area.Theme.EdgePen, bounds.Right, location, bounds.Right + 2, location);
 
-                        if (style.HasLabel) 
+                        if (style.HasLabel)
                         {
                             if (tk.Value.Importance > Importance.Minor)
                             {
@@ -164,7 +162,7 @@ namespace Xu.Chart
                                     new Point(bounds.Right + labelOffset, location), AppTheme.TextAlignLeft);
                             }
                         }
-                    
+
                     }
             }
         }

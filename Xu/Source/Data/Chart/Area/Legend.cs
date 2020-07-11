@@ -4,13 +4,9 @@
 /// 
 /// ***************************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
 
 namespace Xu.Chart

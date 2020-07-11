@@ -5,10 +5,8 @@
 /// ***************************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 
 namespace Xu.Chart
 {
@@ -218,7 +216,7 @@ namespace Xu.Chart
                     AxisLeft.Range.Insert(val);
                 }
             }
-            else if (AxisLeft.Delta == 0) 
+            else if (AxisLeft.Delta == 0)
             {
                 AxisLeft.Range.Insert(1);
                 AxisLeft.Range.Insert(-1);

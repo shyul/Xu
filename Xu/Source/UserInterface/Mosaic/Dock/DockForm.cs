@@ -8,9 +8,9 @@
 
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Xu
 {
@@ -98,7 +98,8 @@ namespace Xu
             {
                 if (m_AsyncUpdateUI)
                 {
-                    this?.Invoke(() => {
+                    this?.Invoke(() =>
+                    {
                         CoordinateLayout();
                         Invalidate(true);
                     });

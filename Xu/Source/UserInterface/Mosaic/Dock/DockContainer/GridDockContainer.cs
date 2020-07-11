@@ -412,7 +412,7 @@ namespace Xu
                                         Console.WriteLine("$$$$$$$ Do not draw GridDockContainer if it is not shown!!! " + e.Message);
                                     }
                                 }
-                                
+
                             }
                             else
                             {

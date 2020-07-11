@@ -230,8 +230,8 @@ namespace Xu
             if (InvokeRequired)
             {
                 Invoke((MethodInvoker)delegate
-                { 
-                    CoordinateLayout(); 
+                {
+                    CoordinateLayout();
                 });
             }
             else

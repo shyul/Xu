@@ -5,12 +5,10 @@
 /// ***************************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Xu
@@ -55,7 +53,7 @@ namespace Xu
                 Height = 13
             };
             //Controls.Add(SearchBox);
-           // Coordinate();
+            // Coordinate();
 
             ResumeLayout(false);
             PerformLayout();

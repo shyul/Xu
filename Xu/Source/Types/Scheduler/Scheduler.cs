@@ -7,12 +7,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Xu
 {
@@ -41,7 +37,7 @@ namespace Xu
 
         public virtual void Sort()
         {
-            if(Count > 1)
+            if (Count > 1)
             {
                 TaskList.Sort((f1, f2) => f1.Order.CompareTo(f2.Order));
                 for (int i = 0; i < Count; i++)
@@ -93,7 +89,8 @@ namespace Xu
         public virtual void Start()
         {
             Cts = new CancellationTokenSource();
-            RunTask = new Task(() => {
+            RunTask = new Task(() =>
+            {
                 while (!Cts.IsCancellationRequested)
                 {
                     if (!Hold) RunTasks();

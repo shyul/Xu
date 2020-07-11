@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Linq;
 
 namespace Xu.Chart
@@ -69,7 +68,7 @@ namespace Xu.Chart
 
             // Don't even bother if the data column has no data.
             if (h_pointsList.Count > 0 && l_pointsList.Count > 0 && h_pt > 0 && l_pt > 0)
-            {                
+            {
                 // Turn on the antialiasing if it is required and always turn it off in the end.
                 g.SmoothingMode = (IsAntialiasing || Tension > 0.5f) ? SmoothingMode.HighQuality : SmoothingMode.Default;
 

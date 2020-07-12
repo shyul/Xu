@@ -166,7 +166,7 @@ namespace Xu.Chart
             }
             else
             {
-                Console.WriteLine("\nWow, we already have this series: " + ser.Name);
+                Console.WriteLine("\nChart | Area | AddSeries(Series ser): Wow, we already have this series: " + ser.Name);
             }
         }
 

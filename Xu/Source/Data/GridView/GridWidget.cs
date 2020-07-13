@@ -36,7 +36,7 @@ namespace Xu.GridView
 
         public virtual string Description { get; set; }
 
-        public abstract ITable Table { get; }
+        public abstract ITable Table { get; set; }
 
         #region Rows
 

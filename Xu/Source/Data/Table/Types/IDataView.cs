@@ -13,7 +13,7 @@ namespace Xu
 
         int StopPt { get; set; }
 
-        ITable Table { get; }
+        ITable Table { get; set; }
 
         void SetAsyncUpdateUI();
 

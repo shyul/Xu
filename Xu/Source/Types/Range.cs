@@ -132,7 +132,7 @@ namespace Xu
         }
         */
         public override string ToString() => "Minimum: " + Minimum + " | Maximum: " + Maximum;
-        public string ToStringShort() => Minimum + "~" + Maximum;
+        public string ToStringShort() => Minimum + "-" + Maximum;
         public override int GetHashCode() => Maximum.GetHashCode() ^ Minimum.GetHashCode();
 
         [IgnoreDataMember, Browsable(false)]

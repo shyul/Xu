@@ -40,11 +40,11 @@ namespace Xu.Chart
 
         public double FixedTickStep_Left { get; set; } = double.NaN;
 
-        public double Reference { get; set; } = 0;
+        public virtual double Reference { get; set; } = 0;
 
-        public double UpperLimit { get; set; } = double.NaN;
+        public virtual double UpperLimit { get; set; } = double.NaN;
 
-        public double LowerLimit { get; set; } = double.NaN;
+        public virtual double LowerLimit { get; set; } = double.NaN;
 
         public Color UpperColor
         {

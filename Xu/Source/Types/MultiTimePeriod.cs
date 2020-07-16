@@ -18,46 +18,109 @@ namespace Xu
     /// A list of times.
     /// </summary>
     [Serializable, DataContract]
-    public class MultiTimePeriod : ICollection<Time>
+    public class MultiTimePeriod : ICollection<TimePeriod>
     {
-        public int Count => throw new NotImplementedException();
 
-        public bool IsReadOnly => throw new NotImplementedException();
 
-        public void Add(Time item)
+        [DataMember]
+        private HashSet<TimePeriod> PeriodList { get; } = new HashSet<TimePeriod>();
+
+        [IgnoreDataMember]
+        public int Count => PeriodList.Count;
+
+        [DataMember]
+        public bool IsReadOnly { get; set; } = false;
+
+
+
+        public void Clear() => PeriodList.Clear();
+
+        public void Add(TimePeriod pd)
         {
-            throw new NotImplementedException();
+            if (!IsReadOnly)
+                lock (PeriodList)
+                {
+                    List<TimePeriod> ToRemove = new List<TimePeriod>();
+                    foreach (TimePeriod item in PeriodList)
+                    {
+                        if (item.Intersect(pd))
+                        {
+                            ToRemove.Add(item);
+                            pd += item;
+                        }
+                    }
+                    foreach (TimePeriod item in ToRemove) PeriodList.Remove(item);
+                    PeriodList.Add(pd);
+                }
         }
 
-        public void Clear()
+        public bool Contains(TimePeriod pd)
         {
-            throw new NotImplementedException();
+            lock (PeriodList)
+            {
+                if (PeriodList.Contains(pd)) return true;
+                foreach (TimePeriod item in PeriodList) if (item.Contains(pd)) return true;
+                return false;
+                //return Get(pd).Count() > 0;
+            }
         }
 
-        public bool Contains(Time item)
+
+
+
+
+        public bool Remove(TimePeriod pd)
         {
-            throw new NotImplementedException();
+            bool isModified = false;
+
+            if (!IsReadOnly)
+                lock (PeriodList)
+                {
+                    if (PeriodList.Contains(pd))
+                    {
+                        isModified = true;
+                        PeriodList.Remove(pd);
+                    }
+                    else
+                    {
+                        List<TimePeriod> toRemove = new List<TimePeriod>();
+                        List<TimePeriod> toAdd = new List<TimePeriod>();
+
+                        foreach (TimePeriod item in PeriodList)
+                        {
+                            if (pd.Intersect(item))
+                            {
+                                isModified = true;
+
+                                toRemove.CheckAdd(item);
+
+                                TimePeriod[] res = item - pd;
+                                foreach (TimePeriod resPd in res)
+                                {
+                                    if (!resPd.IsEmpty) toAdd.Add(resPd);
+                                }
+                            }
+                        }
+
+                        foreach (TimePeriod item in toRemove) PeriodList.Remove(item);
+                        foreach (TimePeriod item in toAdd) PeriodList.CheckAdd(item);
+                    }
+                }
+
+            return isModified;
         }
 
-        public void CopyTo(Time[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<TimePeriod> Values => PeriodList.ToArray();
 
-        public IEnumerator<Time> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<TimePeriod> Get(TimePeriod pd) => PeriodList.Where(n => n.Contains(pd));
 
-        public bool Remove(Time item)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<TimePeriod> Get(DateTime time) => PeriodList.Where(n => n.Contains(time));
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerator<TimePeriod> GetEnumerator() => PeriodList.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => PeriodList.GetEnumerator();
+
+        public void CopyTo(TimePeriod[] array, int arrayIndex) => PeriodList.CopyTo(array, arrayIndex);
     }
 
 

@@ -28,13 +28,13 @@ namespace Xu
         }
 
         [DataMember]
-        private HashSet<Period> PeriodList { get; set; } = new HashSet<Period>();
+        public bool IsReadOnly { get; set; } = false;
+
+        [DataMember]
+        private HashSet<Period> PeriodList { get; } = new HashSet<Period>();
 
         [IgnoreDataMember]
         public int Count => PeriodList.Count;
-
-        [DataMember]
-        public bool IsReadOnly { get; set; } = false;
 
         [IgnoreDataMember]
         public bool IsCurrent

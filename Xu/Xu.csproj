@@ -77,6 +77,8 @@
     <Compile Include="Source\Types\Interfaces\ITagged.cs" />
     <Compile Include="Source\Types\Interfaces\IUid.cs" />
     <Compile Include="Source\Types\MultiPeriod_Type.cs" />
+    <Compile Include="Source\Types\MultiTimePeriod.cs" />
+    <Compile Include="Source\Types\TimePeriod.cs" />
     <Compile Include="Source\UserInterface\Shared\Types\TagInfo.cs" />
     <Compile Include="Source\Types\Frequency.cs" />
     <Compile Include="Source\Types\MultiPeriod.cs" />

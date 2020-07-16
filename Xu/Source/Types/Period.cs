@@ -240,8 +240,8 @@ namespace Xu
 
         public static int operator /(Period p, Frequency f) => p.Span / f;
 
-        public bool Contains(DateTime time) => (time >= Start && time < Stop);
-        public bool Contains(Period pd) => (pd.Start >= Start && pd.Stop <= Stop);
+        public bool Contains(DateTime time) => time >= Start && time < Stop;
+        public bool Contains(Period pd) => pd.Start >= Start && pd.Stop <= Stop;
         public bool Intersect(Period pd) => (pd.Start >= Start && pd.Start <= Stop) || (pd.Stop >= Start && pd.Stop <= Stop) || (Start >= pd.Start && Start <= pd.Stop) || (Stop >= pd.Start && Stop <= pd.Stop);
 
         //public bool Intersect(Period pd)
@@ -335,7 +335,7 @@ namespace Xu
 
         public override string ToString() => ToString(Format);
 
-        public string ToString(string formatString, char spliter = Xu.TextTool.ValueSeparator)
+        public string ToString(string formatString, char spliter = TextTool.ValueSeparator)
         {
             return m_start.ToString(formatString) + spliter + m_stop.ToString(formatString);
         }
@@ -430,19 +430,18 @@ namespace Xu
         public static bool operator ==(Period s1, Period s2) => s1.Equals(s2);
         public static bool operator !=(Period s1, Period s2) => !s1.Equals(s2);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object other)
         {
-            if (obj.GetType() == typeof(Period))
-                return Equals((Period)obj);
-            else if (obj.GetType() == typeof(DateTime))
-                return Equals((DateTime)obj);
+            if (other is Period pd)
+                return Equals(pd);
+            else if (other is DateTime dt)
+                return Equals(dt);
             else
                 return false;
         }
 
-        public override int GetHashCode() => (IsCurrent) ? m_time.GetHashCode() : m_start.GetHashCode() ^ m_stop.GetHashCode();
+        public override int GetHashCode() => IsCurrent ? m_time.GetHashCode() : m_start.GetHashCode() ^ m_stop.GetHashCode();
 
         #endregion Equality
-
     }
 }

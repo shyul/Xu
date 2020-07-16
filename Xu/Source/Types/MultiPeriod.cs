@@ -13,9 +13,10 @@ using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Xu
-{    /// <summary>
-     /// A list of periods.
-     /// </summary>
+{
+    /// <summary>
+    /// A list of periods.
+    /// </summary>
     [Serializable, DataContract]
     public class MultiPeriod : ICollection<Period>
     {

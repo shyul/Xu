@@ -20,7 +20,15 @@ namespace Xu
     [Serializable, DataContract]
     public class MultiTimePeriod : ICollection<TimePeriod>
     {
+        public MultiTimePeriod() { }
 
+        public MultiTimePeriod(TimePeriod pd)
+        {
+            PeriodList.Add(pd);
+        }
+
+        [DataMember]
+        public bool IsReadOnly { get; set; } = false;
 
         [DataMember]
         private HashSet<TimePeriod> PeriodList { get; } = new HashSet<TimePeriod>();
@@ -28,12 +36,48 @@ namespace Xu
         [IgnoreDataMember]
         public int Count => PeriodList.Count;
 
-        [DataMember]
-        public bool IsReadOnly { get; set; } = false;
-
-
-
         public void Clear() => PeriodList.Clear();
+
+        //[IgnoreDataMember]
+        //public IEnumerable<TimePeriod> Values => PeriodList.ToArray();
+        public IEnumerable<TimePeriod> Get(Time time) => PeriodList.Where(n => n.Contains(time));
+        public IEnumerable<TimePeriod> Get(DateTime time) => PeriodList.Where(n => n.Contains(time));
+        public IEnumerable<TimePeriod> Get(TimePeriod pd) => PeriodList.Where(n => n.Contains(pd));
+        public IEnumerator<TimePeriod> GetEnumerator() => PeriodList.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => PeriodList.GetEnumerator();
+
+        public void CopyTo(TimePeriod[] array, int arrayIndex) => PeriodList.CopyTo(array, arrayIndex);
+
+        public bool Contains(Time time)
+        {
+            lock (PeriodList)
+            {
+                foreach (TimePeriod item in PeriodList) if (item.Contains(time)) return true;
+                return false;
+                //return Get(time).Count() > 0;
+            }
+        }
+
+        public bool Contains(DateTime time)
+        {
+            lock (PeriodList)
+            {
+                foreach (TimePeriod item in PeriodList) if (item.Contains(time)) return true;
+                return false;
+                //return Get(time).Count() > 0;
+            }
+        }
+
+        public bool Contains(TimePeriod pd)
+        {
+            lock (PeriodList)
+            {
+                if (PeriodList.Contains(pd)) return true;
+                foreach (TimePeriod item in PeriodList) if (item.Contains(pd)) return true;
+                return false;
+                //return Get(pd).Count() > 0;
+            }
+        }
 
         public void Add(TimePeriod pd)
         {
@@ -53,21 +97,6 @@ namespace Xu
                     PeriodList.Add(pd);
                 }
         }
-
-        public bool Contains(TimePeriod pd)
-        {
-            lock (PeriodList)
-            {
-                if (PeriodList.Contains(pd)) return true;
-                foreach (TimePeriod item in PeriodList) if (item.Contains(pd)) return true;
-                return false;
-                //return Get(pd).Count() > 0;
-            }
-        }
-
-
-
-
 
         public bool Remove(TimePeriod pd)
         {
@@ -110,17 +139,7 @@ namespace Xu
             return isModified;
         }
 
-        public IEnumerable<TimePeriod> Values => PeriodList.ToArray();
 
-        public IEnumerable<TimePeriod> Get(TimePeriod pd) => PeriodList.Where(n => n.Contains(pd));
-
-        public IEnumerable<TimePeriod> Get(DateTime time) => PeriodList.Where(n => n.Contains(time));
-
-        public IEnumerator<TimePeriod> GetEnumerator() => PeriodList.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => PeriodList.GetEnumerator();
-
-        public void CopyTo(TimePeriod[] array, int arrayIndex) => PeriodList.CopyTo(array, arrayIndex);
     }
 
 

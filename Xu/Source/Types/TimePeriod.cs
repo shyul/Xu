@@ -136,7 +136,7 @@ namespace Xu
         [IgnoreDataMember, XmlIgnore]
         public bool IsEmpty => !IsCurrent && (Start == Stop || (m_stop == Time.MinValue && m_start == Time.MaxValue));
 
-
+        public bool Contains(Time time) => Start <= time && Stop > time;
         public bool Contains(DateTime time) => Start <= time && Stop > time;
         public bool Contains(TimePeriod pd) => pd.Start >= Start && pd.Stop <= Stop;
         public bool Intersect(TimePeriod pd) => (pd.Start >= Start && pd.Start <= Stop) || (pd.Stop >= Start && pd.Stop <= Stop) || (Start >= pd.Start && Start <= pd.Stop) || (Stop >= pd.Start && Stop <= pd.Stop);
@@ -252,7 +252,7 @@ namespace Xu
                 mp.Remove(pd);
             }
 
-            return mp.Values;
+            return mp; //.Values;
         }
 
         //public static int operator /(Period p, Frequency f) => p.Span / f;

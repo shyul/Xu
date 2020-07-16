@@ -36,49 +36,41 @@ namespace Xu
         [IgnoreDataMember]
         public int Count => PeriodList.Count;
 
-        [IgnoreDataMember]
-        public bool IsCurrent
-        {
-            get
-            {
-                var res = PeriodList.OrderBy(n => n.Start);
-                if (res.Count() > 0)
-                {
-                    return res.Last().IsCurrent;
-                }
-                return false;
-            }
-        }
-
-        [IgnoreDataMember]
-        public DateTime Start
-        {
-            get
-            {
-                var res = PeriodList.OrderBy(n => n.Start);
-                if (res.Count() > 0)
-                {
-                    return res.First().Start;
-                }
-                return DateTime.MaxValue;
-            }
-        }
-
-        [IgnoreDataMember]
-        public DateTime Stop
-        {
-            get
-            {
-                var res = PeriodList.OrderBy(n => n.Stop);
-                if (res.Count() > 0)
-                {
-                    return res.Last().Stop;
-                }
-                return DateTime.MinValue;
-            }
-        }
-
         public void Clear() => PeriodList.Clear();
+
+        [IgnoreDataMember]
+        public IEnumerable<Period> Values => PeriodList.ToArray();
+
+        public IEnumerable<Period> Get(Period pd) => PeriodList.Where(n => n.Contains(pd));
+
+        public IEnumerable<Period> Get(DateTime time) => PeriodList.Where(n => n.Contains(time));
+
+        public IEnumerator<Period> GetEnumerator() => PeriodList.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => PeriodList.GetEnumerator();
+
+        public void CopyTo(Period[] array, int arrayIndex) => PeriodList.CopyTo(array, arrayIndex);
+
+        public bool Contains(DateTime time)
+        {
+            lock (PeriodList)
+            {
+                foreach (Period item in PeriodList) if (item.Contains(time)) return true;
+                return false;
+                //return Get(time).Count() > 0;
+            }
+        }
+
+        public bool Contains(Period pd)
+        {
+            lock (PeriodList)
+            {
+                if (PeriodList.Contains(pd)) return true;
+                foreach (Period item in PeriodList) if (item.Contains(pd)) return true;
+                return false;
+                //return Get(pd).Count() > 0;
+            }
+        }
 
         public void Add(Period pd)
         {
@@ -140,37 +132,56 @@ namespace Xu
             return isModified;
         }
 
-        public bool Contains(Period pd)
+
+
+        [IgnoreDataMember]
+        public bool IsCurrent
         {
-            lock (PeriodList)
+            get
             {
-                if (PeriodList.Contains(pd)) return true;
-                foreach (Period item in PeriodList) if (item.Contains(pd)) return true;
+                var res = PeriodList.OrderBy(n => n.Start);
+                if (res.Count() > 0)
+                {
+                    return res.Last().IsCurrent;
+                }
                 return false;
-                //return Get(pd).Count() > 0;
             }
         }
 
-        public bool Contains(DateTime time)
+        [IgnoreDataMember]
+        public DateTime Start
         {
-            lock (PeriodList)
+            get
             {
-                foreach (Period item in PeriodList) if (item.Contains(time)) return true;
-                return false;
-                //return Get(time).Count() > 0;
+                var res = PeriodList.OrderBy(n => n.Start);
+                if (res.Count() > 0)
+                {
+                    return res.First().Start;
+                }
+                return DateTime.MaxValue;
             }
         }
 
-        public IEnumerable<Period> Values => PeriodList.ToArray();
+        [IgnoreDataMember]
+        public DateTime Stop
+        {
+            get
+            {
+                var res = PeriodList.OrderBy(n => n.Stop);
+                if (res.Count() > 0)
+                {
+                    return res.Last().Stop;
+                }
+                return DateTime.MinValue;
+            }
+        }
 
-        public IEnumerable<Period> Get(Period pd) => PeriodList.Where(n => n.Contains(pd));
 
-        public IEnumerable<Period> Get(DateTime time) => PeriodList.Where(n => n.Contains(time));
 
-        public IEnumerator<Period> GetEnumerator() => PeriodList.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => PeriodList.GetEnumerator();
 
-        public void CopyTo(Period[] array, int arrayIndex) => PeriodList.CopyTo(array, arrayIndex);
+
+
+
     }
 }

@@ -56,28 +56,52 @@ namespace Xu
         [DataMember]
         public int Millisecond { get; private set; }
 
-        public Time AddHours(int value) => AddMilliseconds(value * 60 * 60 * 1000);
+        public Time AddHours(int value)
+        {
+            int n_Hour = Hour + value;
+            n_Hour %= 24;
 
-        public Time AddMinutes(int value) => AddMilliseconds(value * 60 * 1000);
+            return new Time(n_Hour, Minute, Second, Millisecond);
+        }
 
-        public Time AddSeconds(int value) => AddMilliseconds(value * 1000);
+        public Time AddMinutes(int value)
+        {
+            int total_Minute = Minute + value;
+            int n_Minute = total_Minute % 60;
+
+            int n_Hour = Hour + Math.Floor(total_Minute / 60D).ToInt32(0);
+            n_Hour %= 24;
+
+            return new Time(n_Hour, n_Minute, Second, Millisecond);
+        }
+
+        public Time AddSeconds(int value)
+        {
+            int total_Second = Second + value;
+            int n_Second = total_Second % 60;
+
+            int total_Minute = Minute + Math.Floor(total_Second / 60D).ToInt32(0);
+            int n_Minute = total_Minute % 60;
+
+            int n_Hour = Hour + Math.Floor(total_Minute / 60D).ToInt32(0);
+            n_Hour %= 24;
+
+            return new Time(n_Hour, n_Minute, n_Second, Millisecond);
+        }
 
         public Time AddMilliseconds(int value)
         {
-            int total_ms = TotalMilliseconds + value;
+            int total_ms = Millisecond + value;
+            int n_Millisecond = total_ms % 1000;
 
-            double totalHour = total_ms / 3600000;
-            int hour = Math.Floor(totalHour).ToInt32(0);
-            int n_Hour = hour % 24;
+            int total_Second = Second + Math.Floor(total_ms / 1000D).ToInt32(0);
+            int n_Second = total_Second % 60;
 
-            double totalMinute = (totalHour - hour) * 60;
-            int n_Minute = Math.Floor(totalMinute).ToInt32(0);
+            int total_Minute = Minute + Math.Floor(total_Second / 60D).ToInt32(0);
+            int n_Minute = total_Minute % 60;
 
-            double totalSecond = (totalMinute - Minute) * 60;
-            int n_Second = Math.Floor(totalSecond).ToInt32(0);
-
-            double ms = (totalSecond - Second) * 1000;
-            int n_Millisecond = Math.Floor(ms).ToInt32(0);
+            int n_Hour = Hour + Math.Floor(total_Minute / 60D).ToInt32(0);
+            n_Hour %= 24;
 
             return new Time(n_Hour, n_Minute, n_Second, n_Millisecond);
         }
@@ -133,6 +157,8 @@ namespace Xu
         public override int GetHashCode() => TotalMilliseconds;
 
         #endregion Equality
+
+        public override string ToString() => Hour.ToString("00") + ":" + Minute.ToString("00") + ":" + Second.ToString("00") + "," + (Millisecond != 0 ? Millisecond.ToString("000") : string.Empty);
 
         public static Time FromDateTime(DateTime dt) => new Time(dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
 

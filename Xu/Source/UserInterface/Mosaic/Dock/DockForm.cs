@@ -41,8 +41,8 @@ namespace Xu
         #endregion
 
         #region Components
-        protected DockCanvas DockCanvas => DockContainer.DockControl;
-        protected DockContainer DockContainer => (DockContainer)HostContainer;
+        protected DockCanvas DockCanvas => DockContainer is DockContainer dc ? dc.DockCanvas : null;
+        protected DockContainer DockContainer => HostContainer is DockContainer dc ? dc : null;
 
         // To be deloyed to the RibbonTab
         public RibbonTabItem RibbonTabItem { get; set; }

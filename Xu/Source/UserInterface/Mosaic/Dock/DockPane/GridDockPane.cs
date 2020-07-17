@@ -55,7 +55,7 @@ namespace Xu
                     Console.WriteLine("Again GridDockPane Parent is: " + Parent.GetType().ToString());
                     Dock = DockStyle.Fill;
                     IsRoot = true;
-                    Dkc = dkc; // (DockCanvas)Parent;
+                    DockCanvas = dkc; // (DockCanvas)Parent;
                 }
                 //else if ((typeof(GridDockContainer)).IsAssignableFrom(Parent.GetType()))
                 else if (Parent is GridDockContainer gdc)
@@ -64,12 +64,12 @@ namespace Xu
                     Dock = DockStyle.None;
                     Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
                     IsRoot = false;
-                    Dkc = gdc.HostPane.Dkc;// ((GridDockContainer)Parent).HostPane.Dkc;
+                    DockCanvas = gdc.HostDockPane.DockCanvas;// ((GridDockContainer)Parent).HostPane.Dkc;
                 }
                 else
                     throw new Exception("GridDockPane can only be exsiting in Mosaic or GridDockContainer / Parent: " + Parent.GetType().ToString());
             }
-            else Dkc = null;
+            else DockCanvas = null;
         }
 
         /// <summary>

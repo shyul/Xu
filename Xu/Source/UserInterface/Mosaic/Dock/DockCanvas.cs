@@ -30,11 +30,6 @@ namespace Xu
             // Components
             components = new Container();
 
-            GridPane = new GridDockPane();
-            LeftPane = new SideDockPane(DockStyle.Left);
-            RightPane = new SideDockPane(DockStyle.Right);
-            BottomPane = new SideDockPane(DockStyle.Bottom);
-            TopPane = new SideDockPane(DockStyle.Top);
             // Control Settings
             SuspendLayout();
             DoubleBuffered = true;
@@ -42,16 +37,16 @@ namespace Xu
             Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left;
             SetStyle(ControlStyles.ResizeRedraw, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            Text = String.Empty;
+            Text = string.Empty;
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             ClientSize = new Size(1600, 1100);
             BackColor = Main.Theme.Panel.FillColor;
             // Add Controls
-            Controls.Add(GridPane);
-            Controls.Add(LeftPane);
-            Controls.Add(RightPane);
-            Controls.Add(BottomPane);
-            Controls.Add(TopPane);
+            Controls.Add(CenterDockPane = new GridDockPane());
+            Controls.Add(LeftDockPane = new SideDockPane(DockStyle.Left));
+            Controls.Add(RightDockPane = new SideDockPane(DockStyle.Right));
+            Controls.Add(BottomDockPane = new SideDockPane(DockStyle.Bottom));
+            Controls.Add(TopDockPane = new SideDockPane(DockStyle.Top));
             ResumeLayout(false);
             PerformLayout();
         }
@@ -68,30 +63,30 @@ namespace Xu
             base.Dispose(disposing);
         }
 
-        protected SideDockPane LeftPane { get; set; }
-        protected SideDockPane RightPane { get; set; }
-        protected SideDockPane BottomPane { get; set; }
-        protected SideDockPane TopPane { get; set; }
-        protected GridDockPane GridPane { get; set; }
+        protected SideDockPane LeftDockPane { get; set; }
+        protected SideDockPane RightDockPane { get; set; }
+        protected SideDockPane BottomDockPane { get; set; }
+        protected SideDockPane TopDockPane { get; set; }
+        protected GridDockPane CenterDockPane { get; set; }
 
         public void AddForm(DockStyle postion, int index, DockForm df)
         {
             switch (postion)
             {
                 case (DockStyle.Top):
-                    TopPane.AddForm(index, df);
+                    TopDockPane.AddForm(index, df);
                     break;
                 case (DockStyle.Bottom):
-                    BottomPane.AddForm(index, df);
+                    BottomDockPane.AddForm(index, df);
                     break;
                 case (DockStyle.Left):
-                    LeftPane.AddForm(index, df);
+                    LeftDockPane.AddForm(index, df);
                     break;
                 case (DockStyle.Right):
-                    RightPane.AddForm(index, df);
+                    RightDockPane.AddForm(index, df);
                     break;
                 default:
-                    GridPane.AddForm(index, df);
+                    CenterDockPane.AddForm(index, df);
                     break;
             }
         }

@@ -46,12 +46,12 @@ namespace Xu
                 if (Parent is DockCanvas dkc)
                 {
                     Console.WriteLine("### ### Again SideDockPane Parent is: " + Parent.GetType().ToString());
-                    Dkc = dkc;
+                    DockCanvas = dkc;
                 } // (DockCanvas)Parent;
                 else
                     throw new Exception("SideDockPane can only be exsiting in Mosaic / Parent: " + Parent.GetType().ToString());
             }
-            else Dkc = null;
+            else DockCanvas = null;
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Xu
         public void Hide(SideDockContainer dc)
         {
             SuspendLayout();
-            Dkc.SuspendLayout();
+            DockCanvas.SuspendLayout();
             dc.HideContainer();
             switch (Dock)
             {
@@ -253,9 +253,9 @@ namespace Xu
                     }
                     break;
             }
-            Dkc.Controls.Add(dc);
+            DockCanvas.Controls.Add(dc);
             Coordinate();
-            Dkc.ResumeLayout(true);
+            DockCanvas.ResumeLayout(true);
             ResumeLayout(true);
             Invalidate(true);
         }
@@ -263,7 +263,7 @@ namespace Xu
         public void Unhide(SideDockContainer dc)
         {
             SuspendLayout();
-            Dkc.SuspendLayout();
+            DockCanvas.SuspendLayout();
             dc.Anchor = AnchorStyles.None;
             dc.UnhideContainer();
             switch (Dock)
@@ -293,7 +293,7 @@ namespace Xu
             Controls.Add(dc);
             m_tabOnly = (ShownContainerCount == 0);
             Coordinate();
-            Dkc.ResumeLayout(true);
+            DockCanvas.ResumeLayout(true);
             ResumeLayout(true);
             Invalidate(true);
         }
@@ -347,7 +347,7 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        public Control Canvas { get { return Dkc; } }
+        public Control Canvas { get { return DockCanvas; } }
 
         public void OnGetSize(int size)
         {
@@ -1082,7 +1082,7 @@ namespace Xu
                         {
                             if (e.Button == MouseButtons.Left)
                                 // Work on Dock here;
-                                DockCanvas.RefreshDock(Dkc); // pt, 
+                                DockCanvas.RefreshDock(DockCanvas); // pt, 
                             else
                             {
                                 DockCanvas.FinishDock();

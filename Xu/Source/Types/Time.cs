@@ -158,7 +158,11 @@ namespace Xu
 
         #endregion Equality
 
-        public override string ToString() => Hour.ToString("00") + ":" + Minute.ToString("00") + ":" + Second.ToString("00") + "," + (Millisecond != 0 ? Millisecond.ToString("000") : string.Empty);
+        public override string ToString() =>
+            Hour.ToString("00") +
+            ":" + Minute.ToString("00") +
+            ((Second != 0 || Millisecond != 0) ? ":" + Second.ToString("00") : string.Empty) +
+            (Millisecond != 0 ? "," + Millisecond.ToString("000") : string.Empty);
 
         public static Time FromDateTime(DateTime dt) => new Time(dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
 

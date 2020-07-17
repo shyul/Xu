@@ -31,7 +31,7 @@ namespace Xu
         public bool IsReadOnly { get; set; } = false;
 
         [DataMember]
-        private HashSet<Period> PeriodList { get; } = new HashSet<Period>();
+        private HashSet<Period> PeriodList { get; set; } = new HashSet<Period>();
 
         [IgnoreDataMember]
         public int Count => PeriodList.Count;
@@ -132,8 +132,6 @@ namespace Xu
             return isModified;
         }
 
-
-
         [IgnoreDataMember]
         public bool IsCurrent
         {
@@ -175,13 +173,5 @@ namespace Xu
                 return DateTime.MinValue;
             }
         }
-
-
-
-
-
-
-
-
     }
 }

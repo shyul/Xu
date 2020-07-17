@@ -304,6 +304,6 @@ namespace Xu
 
         #endregion Equality
 
-
+        public override string ToString() => m_start.ToString() + TextTool.ValueSeparator + m_stop.ToString();
     }
 }

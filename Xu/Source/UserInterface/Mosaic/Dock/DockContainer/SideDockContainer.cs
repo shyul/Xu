@@ -77,8 +77,8 @@ namespace Xu
                 //if ((typeof(SideDockContainer)).IsAssignableFrom(original_dc.GetType()) && !original_dc.ShowTab)
                 if (original_dc is SideDockContainer && !original_dc.ShowTab)
                 {
-                    original_dc.HostPane.Coordinate();
-                    original_dc.HostPane.Invalidate(true);
+                    original_dc.HostDockPane.Coordinate();
+                    original_dc.HostDockPane.Invalidate(true);
                 }
             }
 
@@ -89,29 +89,29 @@ namespace Xu
             }
             else
             {
-                HostPane.SuspendLayout();
+                HostDockPane.SuspendLayout();
                 SideDockContainer dc_new;
                 switch (side)
                 {
                     case (DockStyle.Top):
                     case (DockStyle.Left):
-                        dc_new = ((SideDockPane)HostPane).CreateContainer(Order);
+                        dc_new = ((SideDockPane)HostDockPane).CreateContainer(Order);
                         break;
                     case (DockStyle.Bottom):
                     case (DockStyle.Right):
                     default:
-                        dc_new = ((SideDockPane)HostPane).CreateContainer(Order + 1);
+                        dc_new = ((SideDockPane)HostDockPane).CreateContainer(Order + 1);
                         break;
                 }
                 dc_new.Add(df);
-                HostPane.ResumeLayout(true);
+                HostDockPane.ResumeLayout(true);
             }
 
             if (original_dc != null && dc_valid_remove && original_dc.IsEmpty)
                 original_dc.Close();
 
-            if (HostPane != null)
-                HostPane.CleanUp();
+            if (HostDockPane != null)
+                HostDockPane.CleanUp();
 
             Coordinate();
             //if (HostPane != null && !HostPane.Visible) HostPane.Visible = true;
@@ -129,8 +129,8 @@ namespace Xu
             {
                 if (!ShowTab)
                 {
-                    HostPane.Coordinate();
-                    HostPane.Invalidate(true);
+                    HostDockPane.Coordinate();
+                    HostDockPane.Invalidate(true);
                 }
                 if (IsEmpty) Close();
             }
@@ -145,7 +145,7 @@ namespace Xu
         public void HideContainer()
         {
             Visible = false;
-            m_canvas = HostPane.Dkc;
+            m_canvas = HostDockPane.DockCanvas;
             m_showTab = false;
             Coordinate();
         }
@@ -155,7 +155,7 @@ namespace Xu
         /// </summary>
         public void UnhideContainer()
         {
-            m_canvas = HostPane;
+            m_canvas = HostDockPane;
             m_showTab = true;
             Visible = true;
             Coordinate();
@@ -173,7 +173,7 @@ namespace Xu
             {
                 if (ShowTab)
                 {
-                    switch (HostPane.Dock)
+                    switch (HostDockPane.Dock)
                     {
                         case (DockStyle.Left):
                         case (DockStyle.Right):
@@ -200,7 +200,7 @@ namespace Xu
             {
                 if (ShowTab)
                 {
-                    switch (HostPane.Dock)
+                    switch (HostDockPane.Dock)
                     {
                         case (DockStyle.Left):
                         case (DockStyle.Right):
@@ -213,7 +213,7 @@ namespace Xu
                 }
                 else
                 {
-                    switch (HostPane.Dock)
+                    switch (HostDockPane.Dock)
                     {
                         case (DockStyle.Left):
                         case (DockStyle.Right):
@@ -231,7 +231,7 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        public override Control Canvas { get { if (m_canvas == null) return HostPane; else return m_canvas; } }
+        public override Control Canvas { get { if (m_canvas == null) return HostDockPane; else return m_canvas; } }
 
         /// <summary>
         /// 
@@ -247,10 +247,10 @@ namespace Xu
             if (ShowTab)
             {
                 ChangeSize(size);
-                HostPane.Coordinate();
+                HostDockPane.Coordinate();
                 Point ct = new Point((SizeGrip.Left + SizeGrip.Right) / 2, (SizeGrip.Top + SizeGrip.Bottom) / 2);
                 ct = PointToScreen(ct);
-                switch (HostPane.Dock)
+                switch (HostDockPane.Dock)
                 {
                     case (DockStyle.Left):
                     case (DockStyle.Right):
@@ -265,7 +265,7 @@ namespace Xu
             }
             else
             {
-                switch (HostPane.Dock)
+                switch (HostDockPane.Dock)
                 {
                     case (DockStyle.Left):
                         Size = new Size(Width + size, Height);
@@ -282,7 +282,7 @@ namespace Xu
                     default:
                         break;
                 }
-                ((SideDockPane)HostPane).CoordinateHidenContainer(this);
+                ((SideDockPane)HostDockPane).CoordinateHidenContainer(this);
             }
         }
 
@@ -391,7 +391,7 @@ namespace Xu
         /// </summary>
         public override void Coordinate()
         {
-            if (HostPane != null)
+            if (HostDockPane != null)
             {
                 int splitMargin = (Unlocked) ? MosaicForm.PaneGripMargin : 0;
 
@@ -403,11 +403,11 @@ namespace Xu
                         tabSize = DockCanvas.SideTabHeight;
                     }
 
-                    if (this == ((SideDockPane)HostPane).FirstHiddenContainer)
+                    if (this == ((SideDockPane)HostDockPane).FirstHiddenContainer)
                     {
                         splitMargin = 0;
                     }
-                    switch (HostPane.Dock)
+                    switch (HostDockPane.Dock)
                     {
                         case (DockStyle.Left):
                         case (DockStyle.Right):
@@ -434,7 +434,7 @@ namespace Xu
                 }
                 else
                 {
-                    switch (HostPane.Dock)
+                    switch (HostDockPane.Dock)
                     {
                         case (DockStyle.Left):
                             SizeGrip = new Rectangle(Width - splitMargin, 0, splitMargin, Height);
@@ -756,8 +756,8 @@ namespace Xu
             if (Btn_CaptionPin.MouseUp(pt, e.Button))
             {
                 Invalidate();
-                if (ShowTab) ((SideDockPane)HostPane).Hide(this);
-                else ((SideDockPane)HostPane).Unhide(this);
+                if (ShowTab) ((SideDockPane)HostDockPane).Hide(this);
+                else ((SideDockPane)HostDockPane).Unhide(this);
                 return true;
             }
             return false;

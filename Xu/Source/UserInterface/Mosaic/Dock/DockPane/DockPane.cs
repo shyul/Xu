@@ -46,9 +46,9 @@ namespace Xu
             base.Dispose(disposing);
         }
 
-        public DockCanvas Dkc { get; protected set; }
-
         public override Color BackColor => Main.Theme.Panel.FillColor;
+
+        public DockCanvas DockCanvas { get; protected set; }
 
         public readonly List<DockContainer> DockContainers = new List<DockContainer>();
 

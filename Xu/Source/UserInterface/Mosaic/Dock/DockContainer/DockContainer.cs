@@ -36,30 +36,14 @@ namespace Xu
 
         #region Components
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public DockPane HostPane { get; private set; }
+        public DockPane HostDockPane { get; private set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public DockCanvas DockControl { get { if (HostPane != null) return HostPane.Dkc; else return null; } }
+        public DockCanvas DockCanvas => HostDockPane is DockPane dp ? dp.DockCanvas : null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected DockForm ActiveForm => (DockForm)ActiveTab;
+        protected DockForm ActiveDockForm => ActiveTab is DockForm df ? df : null;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public abstract bool IsRoot { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
         public override void ActivateTab(int index)
         {
             base.ActivateTab(index);
@@ -67,14 +51,7 @@ namespace Xu
             UpdateGraphics();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void UpdateGraphics()
-        {
-            //if (!(DockControl is null)) DockControl.Invalidate(true)
-            DockControl?.Invalidate(true);
-        }
+        protected override void UpdateGraphics() => DockCanvas?.Invalidate(true);
 
         /// <summary>
         /// 
@@ -98,13 +75,13 @@ namespace Xu
                 //if ((typeof(DockPane)).IsAssignableFrom(Parent.GetType()))
                 if (Parent is DockPane dkp)
                 {
-                    HostPane = dkp; // (DockPane)Parent;
+                    HostDockPane = dkp; // (DockPane)Parent;
                 }
                 // else if ((typeof(DockCanvas)).IsAssignableFrom(Parent.GetType()))
                 else if (Parent is DockCanvas)// dkc)
                 {
                     //Log.Debug("Containers is assigned to Mosaic now!");
-                    HostPane = null;
+                    HostDockPane = null;
                 }
                 else
                     throw new Exception("DockContainer can only be exsiting in DockPane / Parent: " + Parent.GetType().ToString());
@@ -123,9 +100,9 @@ namespace Xu
             set
             {
                 m_order = value;
-                lock (HostPane.DockContainers)
+                lock (HostDockPane.DockContainers)
                 {
-                    HostPane.Sort();
+                    HostDockPane.Sort();
                 }
             }
         }
@@ -174,7 +151,7 @@ namespace Xu
         public virtual void Close()
         {
             if (IsEmpty)
-                HostPane.RemoveContainer(this);
+                HostDockPane.RemoveContainer(this);
             else
                 throw new Exception("Can not close an non-zero container.");
         }
@@ -282,7 +259,7 @@ namespace Xu
         {
             if (Order >= 1)
             {
-                DockContainer adjacentContainer = HostPane.DockContainers[Order - 1];
+                DockContainer adjacentContainer = HostDockPane.DockContainers[Order - 1];
                 double r1 = adjacentContainer.Ratio;
                 double r2 = Ratio;
                 switch (LayoutType)
@@ -318,7 +295,7 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        public virtual LayoutType LayoutType => HostPane.LayoutType;
+        public virtual LayoutType LayoutType => HostDockPane.LayoutType;
 
         /// <summary>
         /// 
@@ -327,8 +304,8 @@ namespace Xu
         {
             get
             {
-                if (HostPane != null && HostPane.Count > 0)
-                    return (Unlocked & (this != HostPane.DockContainers[0]));
+                if (HostDockPane != null && HostDockPane.Count > 0)
+                    return (Unlocked & (this != HostDockPane.DockContainers[0]));
                 else
                     return false;
             }
@@ -579,11 +556,11 @@ namespace Xu
                                     if (tabRect.Contains(pt))
                                     {
                                         ActiveFormNewOrder = df.Order;
-                                        if (df != ActiveForm) df.MouseState = MouseState.Hover;
+                                        if (df != ActiveDockForm) df.MouseState = MouseState.Hover;
                                     }
                                     else
                                     {
-                                        if (df != ActiveForm) df.MouseState = MouseState.Out;
+                                        if (df != ActiveDockForm) df.MouseState = MouseState.Out;
                                     }
                                 }
                                 Invalidate();
@@ -609,7 +586,7 @@ namespace Xu
                         {
                             if (e.Button == MouseButtons.Left)
                                 // Work on Dock here;
-                                DockCanvas.RefreshDock(DockControl); // pt, 
+                                DockCanvas.RefreshDock(DockCanvas); // pt, 
                             else
                             {
                                 DockCanvas.FinishDock();
@@ -732,14 +709,14 @@ namespace Xu
             switch (LayoutState)
             {
                 case (LayoutStatus.Drag):
-                    if (ActiveForm != null)
+                    if (ActiveDockForm != null)
                     {
                         lock (Tabs)
                         {
-                            if (ActiveForm.Order > ActiveFormNewOrder) ActiveFormNewOrder--;
-                            else if (ActiveForm.Order < ActiveFormNewOrder) ActiveFormNewOrder++;
-                            ObsoletedEvent.Debug("Old: " + ActiveForm.Order + " New: " + ActiveFormNewOrder);
-                            ActiveForm.Order = ActiveFormNewOrder;
+                            if (ActiveDockForm.Order > ActiveFormNewOrder) ActiveFormNewOrder--;
+                            else if (ActiveDockForm.Order < ActiveFormNewOrder) ActiveFormNewOrder++;
+                            ObsoletedEvent.Debug("Old: " + ActiveDockForm.Order + " New: " + ActiveFormNewOrder);
+                            ActiveDockForm.Order = ActiveFormNewOrder;
                             Sort();
                             Coordinate();
                         }

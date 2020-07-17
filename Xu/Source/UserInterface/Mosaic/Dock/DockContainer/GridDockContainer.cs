@@ -48,7 +48,7 @@ namespace Xu
                 //if (HostPane is null)
                 //    return false;
                 //else 
-                if (HostPane is GridDockPane gdp)
+                if (HostDockPane is GridDockPane gdp)
                     return gdp.IsRoot;
                 else
                     return false;
@@ -101,7 +101,7 @@ namespace Xu
                 }
                 else // If the only container is using SubPane, transfer up and merge
                 {
-                    ((GridDockPane)HostPane).InsertRange(Order, dc_only.SubPane);
+                    ((GridDockPane)HostDockPane).InsertRange(Order, dc_only.SubPane);
                     dc_only.SubPane.Dispose();
                 }
                 dc_only.Dispose();
@@ -113,7 +113,7 @@ namespace Xu
                 if (Count == 0) Close();
             }
 
-            if (HostPane != null) HostPane.CleanUp();
+            if (HostDockPane != null) HostDockPane.CleanUp();
         }
 
         /// <summary>
@@ -139,8 +139,8 @@ namespace Xu
                 dc_valid_remove = original_dc.Remove(df);
                 if ((typeof(SideDockContainer)).IsAssignableFrom(original_dc.GetType()) && !original_dc.ShowTab)
                 {
-                    original_dc.HostPane.Coordinate();
-                    original_dc.HostPane.Invalidate(true);
+                    original_dc.HostDockPane.Coordinate();
+                    original_dc.HostDockPane.Invalidate(true);
                 }
             }
 
@@ -152,28 +152,28 @@ namespace Xu
             }
             else
             {
-                HostPane.SuspendLayout();
+                HostDockPane.SuspendLayout();
                 GridDockContainer dc_new;
-                if (HostPane.Count <= 1) // There is no way HostPane's Count could be 0 here.
+                if (HostDockPane.Count <= 1) // There is no way HostPane's Count could be 0 here.
                 {
                     switch (side)
                     {
                         case (DockStyle.Top):
-                            HostPane.LayoutType = LayoutType.Vertical;
-                            dc_new = ((GridDockPane)HostPane).CreateContainer(0);
+                            HostDockPane.LayoutType = LayoutType.Vertical;
+                            dc_new = ((GridDockPane)HostDockPane).CreateContainer(0);
                             break;
                         case (DockStyle.Bottom):
-                            HostPane.LayoutType = LayoutType.Vertical;
-                            dc_new = ((GridDockPane)HostPane).CreateContainer(1);
+                            HostDockPane.LayoutType = LayoutType.Vertical;
+                            dc_new = ((GridDockPane)HostDockPane).CreateContainer(1);
                             break;
                         case (DockStyle.Left):
-                            HostPane.LayoutType = LayoutType.Horizontal;
-                            dc_new = ((GridDockPane)HostPane).CreateContainer(0);
+                            HostDockPane.LayoutType = LayoutType.Horizontal;
+                            dc_new = ((GridDockPane)HostDockPane).CreateContainer(0);
                             break;
                         case (DockStyle.Right):
                         default:
-                            HostPane.LayoutType = LayoutType.Horizontal;
-                            dc_new = ((GridDockPane)HostPane).CreateContainer(1);
+                            HostDockPane.LayoutType = LayoutType.Horizontal;
+                            dc_new = ((GridDockPane)HostDockPane).CreateContainer(1);
                             break;
                     }
                 }
@@ -185,10 +185,10 @@ namespace Xu
                             switch (side)
                             {
                                 case (DockStyle.Top):
-                                    dc_new = ((GridDockPane)HostPane).CreateContainer(Order);
+                                    dc_new = ((GridDockPane)HostDockPane).CreateContainer(Order);
                                     break;
                                 case (DockStyle.Bottom):
-                                    dc_new = ((GridDockPane)HostPane).CreateContainer(Order + 1);
+                                    dc_new = ((GridDockPane)HostDockPane).CreateContainer(Order + 1);
                                     break;
                                 case (DockStyle.Left):
                                     dc_new = EnableSubPane(0);
@@ -210,25 +210,25 @@ namespace Xu
                                     dc_new = EnableSubPane(1);
                                     break;
                                 case (DockStyle.Left):
-                                    dc_new = ((GridDockPane)HostPane).CreateContainer(Order);
+                                    dc_new = ((GridDockPane)HostDockPane).CreateContainer(Order);
                                     break;
                                 case (DockStyle.Right):
                                 default:
-                                    dc_new = ((GridDockPane)HostPane).CreateContainer(Order + 1);
+                                    dc_new = ((GridDockPane)HostDockPane).CreateContainer(Order + 1);
                                     break;
                             }
                             break;
                     }
                 }
                 dc_new.Add(df);
-                HostPane.ResumeLayout(true);
+                HostDockPane.ResumeLayout(true);
             }
 
             if (original_dc != null && dc_valid_remove && original_dc.IsEmpty)
                 original_dc.Close();
 
-            if (HostPane != null)
-                HostPane.CleanUp();
+            if (HostDockPane != null)
+                HostDockPane.CleanUp();
 
             Coordinate();
             //if (HostPane != null && !HostPane.Visible) HostPane.Visible = true;
@@ -276,7 +276,7 @@ namespace Xu
         public override void OnGetSize(int size)
         {
             ChangeSize(size);
-            HostPane.Coordinate();
+            HostDockPane.Coordinate();
             Point ct = new Point((SizeGrip.Left + SizeGrip.Right) / 2, (SizeGrip.Top + SizeGrip.Bottom) / 2);
             ct = PointToScreen(ct);
             switch (LayoutType)

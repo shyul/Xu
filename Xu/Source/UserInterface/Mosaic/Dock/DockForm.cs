@@ -62,7 +62,7 @@ namespace Xu
         {
             base.OnGotFocus(e);
             DockCanvas.ActiveDockForm = this;
-            if (Parent != null) DockCanvas.ActiveContainer = (DockContainer)Parent;
+            if (Parent != null) DockCanvas.ActiveDockContainer = (DockContainer)Parent;
             if (DockCanvas != null) DockCanvas.Invalidate(true);
         }
 

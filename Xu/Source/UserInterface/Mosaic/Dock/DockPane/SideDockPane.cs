@@ -1208,9 +1208,9 @@ namespace Xu
                                     if (df.MouseState == MouseState.Hover)
                                     {
                                         df.MouseState = MouseState.Down;
-                                        if (DockCanvas.ActiveContainer != dc || DockCanvas.ActiveDockForm != df)
+                                        if (DockCanvas.ActiveDockContainer != dc || DockCanvas.ActiveDockForm != df)
                                         {
-                                            DockCanvas.ActiveContainer = dc;
+                                            DockCanvas.ActiveDockContainer = dc;
                                             DockCanvas.ActiveDockForm = df;
                                             CoordinateHidenContainer(dc);
                                             dc.Visible = true;
@@ -1219,8 +1219,8 @@ namespace Xu
                                         }
                                         else // Click again to close any shown container
                                         {
-                                            if (DockCanvas.ActiveContainer == dc) DockCanvas.ActiveContainer.Visible = false;
-                                            DockCanvas.ActiveContainer = null;
+                                            if (DockCanvas.ActiveDockContainer == dc) DockCanvas.ActiveDockContainer.Visible = false;
+                                            DockCanvas.ActiveDockContainer = null;
                                         }
                                     }
                                 }
@@ -1240,9 +1240,9 @@ namespace Xu
                 case (LayoutStatus.Drag):
                     if (DockCanvas.ActiveDockForm != null && DockCanvas.NextContainer != null && HasHiddenContainer && !DockCanvas.NextContainer.ShowTab)
                     {
-                        if (DockCanvas.ActiveContainer == DockCanvas.NextContainer)
+                        if (DockCanvas.ActiveDockContainer == DockCanvas.NextContainer)
                         {
-                            lock (DockCanvas.ActiveContainer.Tabs)
+                            lock (DockCanvas.ActiveDockContainer.Tabs)
                             {
                                 if (DockCanvas.ActiveDockForm.Order > ActiveFormNewOrder) ActiveFormNewOrder--;
                                 else if (DockCanvas.ActiveDockForm.Order < ActiveFormNewOrder) ActiveFormNewOrder++;

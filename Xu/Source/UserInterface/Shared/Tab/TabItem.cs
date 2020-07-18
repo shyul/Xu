@@ -94,7 +94,7 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        public Bitmap Icon { get; set; } = Xu.Properties.Resources.Blank_16;
+        public virtual Bitmap Icon { get; set; } = Xu.Properties.Resources.Blank_16;
 
         /// <summary>
         /// 

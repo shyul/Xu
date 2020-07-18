@@ -56,7 +56,7 @@ namespace Mosaic
                 DockContainer topx = (DockContainer)HostContainer;
                 while (!topx.IsRoot)
                 {
-                    topx = (DockContainer)topx.HostPane.Parent;
+                    topx = (DockContainer)topx.HostDockPane.Parent;
                     level++;
                 }
 

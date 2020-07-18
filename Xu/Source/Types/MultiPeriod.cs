@@ -38,9 +38,6 @@ namespace Xu
 
         public void Clear() => PeriodList.Clear();
 
-        [IgnoreDataMember]
-        public IEnumerable<Period> Values => PeriodList.ToArray();
-
         public IEnumerable<Period> Get(Period pd) => PeriodList.Where(n => n.Contains(pd));
 
         public IEnumerable<Period> Get(DateTime time) => PeriodList.Where(n => n.Contains(time));

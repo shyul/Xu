@@ -59,7 +59,7 @@ namespace Xu
         /// <param name="e"></param>
         protected override void OnGotFocus(EventArgs e)
         {
-            DockCanvas.ActiveContainer = this;
+            DockCanvas.ActiveDockContainer = this;
             base.OnGotFocus(e);
         }
 
@@ -678,7 +678,7 @@ namespace Xu
         /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            DockCanvas.ActiveContainer = this;
+            DockCanvas.ActiveDockContainer = this;
             if (!ShowTab)
             {
                 Focus();

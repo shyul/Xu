@@ -235,7 +235,7 @@ namespace Xu
                 mp.Remove(pd);
             }
 
-            return mp.Values;
+            return mp;
         }
 
         public static int operator /(Period p, Frequency f) => p.Span / f;

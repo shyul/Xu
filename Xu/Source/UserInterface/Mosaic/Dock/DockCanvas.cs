@@ -143,31 +143,31 @@ namespace Xu
         }
         private static DockForm m_activeDockForm = null;
 
-        public static DockContainer ActiveContainer
+        public static DockContainer ActiveDockContainer
         {
             get
             {
-                return m_activeContainer;
+                return m_activeDockContainer;
             }
             set
             {
                 HideOtherSideContainer(value);
-                m_activeContainer = value;
-                if (m_activeContainer != null)
-                    ObsoletedEvent.Debug("Activate Container: " + m_activeContainer.Count.ToString() + " / isRoot:" + m_activeContainer.IsRoot);
+                m_activeDockContainer = value;
+                if (m_activeDockContainer != null)
+                    ObsoletedEvent.Debug("Activate Container: " + m_activeDockContainer.Count.ToString() + " / isRoot:" + m_activeDockContainer.IsRoot);
             }
         }
-        private static DockContainer m_activeContainer = null;
+        private static DockContainer m_activeDockContainer = null;
 
         public static void HideOtherSideContainer(DockContainer dc)
         {
-            if (m_activeContainer != null
-                && (typeof(SideDockContainer)).IsAssignableFrom(m_activeContainer.GetType())
-                && !m_activeContainer.ShowTab
-                && m_activeContainer != dc
+            if (m_activeDockContainer != null
+                && (typeof(SideDockContainer)).IsAssignableFrom(m_activeDockContainer.GetType())
+                && !m_activeDockContainer.ShowTab
+                && m_activeDockContainer != dc
                 )
             {
-                m_activeContainer.Visible = false;
+                m_activeDockContainer.Visible = false;
             }
         }
 
@@ -217,7 +217,7 @@ namespace Xu
                 }
                 HelperOverlay.Invalidate();
             }
-            if (ActiveContainer != null) ActiveContainer.Invalidate();
+            if (ActiveDockContainer != null) ActiveDockContainer.Invalidate();
         }
 
         internal static DockStyle FinishDock()
@@ -254,7 +254,7 @@ namespace Xu
             Graphics g = e.Graphics;
             //Point pt = HelperOverlay.PointToClient(Control.MousePosition);
 
-            if (NextContainer != null && !(NextContainer == ActiveContainer && ActiveContainer.Count < 2))
+            if (NextContainer != null && !(NextContainer == ActiveDockContainer && ActiveDockContainer.Count < 2))
             {
                 Rectangle ContainerRect = NextContainer.DockEdge;
                 Rectangle TampRect; // = Rectangle.Empty;
@@ -287,7 +287,7 @@ namespace Xu
 
             g.DrawImage(ActiveFormPic, Control.MousePosition);
 
-            if (NextContainer != null && !(NextContainer == ActiveContainer && ActiveContainer.Count < 2))
+            if (NextContainer != null && !(NextContainer == ActiveDockContainer && ActiveDockContainer.Count < 2))
             {
                 if (NextContainer.Dock_C != Rectangle.Empty) g.DrawImage(Xu.Properties.Resources.Dock_Center, NextContainer.Dock_C);
                 if (NextContainer.Dock_T != Rectangle.Empty) g.DrawImage(Xu.Properties.Resources.Dock_Top, NextContainer.Dock_T);

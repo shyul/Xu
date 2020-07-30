@@ -21,11 +21,21 @@ namespace Xu
     public class MultiTimePeriod : ICollection<TimePeriod>
     {
         public MultiTimePeriod() { }
+        /*
+      
+
+        public MultiTimePeriod(IEnumerable<TimePeriod> pds) 
+        {
+            foreach(var pd in pds) 
+            {
+                PeriodList.CheckAdd(pd);
+            }
+        }
 
         public MultiTimePeriod(TimePeriod pd)
         {
             PeriodList.Add(pd);
-        }
+        }*/
 
         [DataMember]
         public bool IsReadOnly { get; set; } = false;

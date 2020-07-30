@@ -18,7 +18,7 @@ namespace Xu
     [Serializable, DataContract]
     public class WorkHours
     {
-        public WorkHours(string timeZoneName, Dictionary<DayOfWeek, List<(Time Start, Time Stop)>> list)
+        public WorkHours(string timeZoneName, Dictionary<DayOfWeek, MultiTimePeriod> list)
         {
             TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timeZoneName);
             List = list;
@@ -27,21 +27,14 @@ namespace Xu
         [DataMember]
         public TimeZoneInfo TimeZoneInfo { get; private set; }
 
-        public Dictionary<DayOfWeek, List<(Time Start, Time Stop)>> List;
+        public Dictionary<DayOfWeek, MultiTimePeriod> List;
 
         public bool IsWorkDate(DateTime time) => List.ContainsKey(time.DayOfWeek);
 
         public bool IsWorkTime(DateTime time)
         {
             if (List.ContainsKey(time.DayOfWeek))
-            {
-                Time t = new Time(time);
-                foreach ((Time Start, Time Stop) in List[time.DayOfWeek])
-                {
-                    if (t >= Start && t < Stop) return true;
-                }
-                return false;
-            }
+                return List[time.DayOfWeek].Contains(time);
             else
                 return false;
         }

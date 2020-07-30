@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
@@ -226,15 +227,13 @@ namespace Xu
         }
         */
 
-        public static IEnumerable<Period> operator -(Period s1, ICollection<Period> s2)
+        public static IEnumerable<Period> operator -(Period s1, IEnumerable<Period> s2)
         {
             MultiPeriod mp = new MultiPeriod { s1 };
 
             foreach (Period pd in s2)
-            {
                 mp.Remove(pd);
-            }
-
+            
             return mp;
         }
 

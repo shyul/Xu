@@ -112,12 +112,6 @@ namespace Xu
                 else if (time > m_stop) m_stop = time;
             }
         }
-        /*
-        public void Insert(Period pd)
-        {
-            Insert(pd.Start);
-            Insert(pd.Stop);
-        }*/
 
         public void SetStart(DateTime time)
         {
@@ -227,13 +221,13 @@ namespace Xu
         }
         */
 
-        public static IEnumerable<Period> operator -(Period s1, IEnumerable<Period> s2)
+        public static MultiPeriod operator -(Period s1, IEnumerable<Period> s2)
         {
             MultiPeriod mp = new MultiPeriod { s1 };
 
             foreach (Period pd in s2)
                 mp.Remove(pd);
-            
+
             return mp;
         }
 

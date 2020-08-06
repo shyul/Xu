@@ -166,7 +166,9 @@ namespace Xu.Chart
         {
             if (Chart.ReadyToShow)
             {
-                int num = -e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+                int num = -e.Delta * SystemInformation.MouseWheelScrollLines / 360;
+                //int num = e.Delta > 0 ? 1 : -1;
+                //if (e.Delta == 0) num = 0;
 
                 if (num != 0)
                 {

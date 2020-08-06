@@ -160,7 +160,7 @@ namespace Xu.Chart
                         if (data_pix > min_y) min_y = data_pix;
                     }
                 }
-                pt++;
+                pt++; 
             }
 
             return (points, pt, min_y, max_y);

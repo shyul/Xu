@@ -33,9 +33,9 @@ namespace Xu.Chart
 
 
 
-        protected virtual ColorTheme Theme { get; } = new ColorTheme();
+        public virtual ColorTheme Theme { get; } = new ColorTheme();
 
-        protected virtual ColorTheme TextTheme { get; } = new ColorTheme();
+        public virtual ColorTheme TextTheme { get; } = new ColorTheme();
 
         public virtual Color Color
         {

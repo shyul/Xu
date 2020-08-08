@@ -14,11 +14,13 @@ namespace Xu.Chart
 {
     public class AdColumnSeries : ColumnSeries, IAdvanceDeclineSeries
     {
-        public AdColumnSeries(NumericColumn data_column, NumericColumn gain_Column, int width, int reference = 0)
+        public AdColumnSeries(NumericColumn data_column, NumericColumn gain_Column, int width, int reference = 0, double gain_threshold = 0)
         {
             Data_Column = data_column;
             Gain_Column = gain_Column;
             Reference = reference;
+            Gain_Threshold = gain_threshold;
+
             Width = width;
 
             ShadeColor = Color.White.Brightness(-0.8f).Opaque(70);
@@ -29,6 +31,8 @@ namespace Xu.Chart
         }
 
         protected AdColumnSeries() { }
+
+        public double Gain_Threshold { get; } = 0;
 
         public NumericColumn Gain_Column { get; protected set; }
 
@@ -95,8 +99,8 @@ namespace Xu.Chart
 
                 foreach (var (_, p, gain) in pointList)
                 {
-                    SolidBrush brush = (gain < 0) ? DownTheme.FillBrush : Theme.FillBrush;
-                    Pen pen = (gain < 0) ? DownTheme.EdgePen : Theme.EdgePen;
+                    SolidBrush brush = (gain < Gain_Threshold) ? DownTheme.FillBrush : Theme.FillBrush;
+                    Pen pen = (gain < Gain_Threshold) ? DownTheme.EdgePen : Theme.EdgePen;
                     //DrawColumn(g, pen, brush, p, new Point(p.X, ref_pix), tickWidth);
                     DrawColumn(g, pen, brush, p.X, p.Y, ref_pix, tickWidth);
                 }

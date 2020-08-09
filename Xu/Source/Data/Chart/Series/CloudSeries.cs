@@ -28,7 +28,7 @@ namespace Xu.Chart
             Color = EdgeColor = Color.Teal;
             FillColor = Color.Teal.Opaque(64);
 
-            LowColor = LowShadeColor = Color.Orange;
+            LowerColor = LowerEdgeColor = Color.Orange;
             LowFillColor = Color.Peru.Opaque(64);
         }
 

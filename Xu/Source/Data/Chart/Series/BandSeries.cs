@@ -24,7 +24,7 @@ namespace Xu.Chart
             Tension = tension;
             LineType = type;
 
-            Color = EdgeColor = LowColor = LowShadeColor = color;
+            Color = EdgeColor = LowerColor = LowerEdgeColor = color;
             FillColor = color.Opaque(64);
         }
 
@@ -51,7 +51,7 @@ namespace Xu.Chart
             }
         }
 
-        public virtual Color LowColor
+        public virtual Color LowerColor
         {
             get
             {
@@ -65,7 +65,7 @@ namespace Xu.Chart
             }
         }
 
-        public virtual Color LowShadeColor
+        public virtual Color LowerEdgeColor
         {
             get
             {

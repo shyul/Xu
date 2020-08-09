@@ -85,7 +85,7 @@ namespace Xu.Chart
                         var tagList = GetTags(itag, TagColumns, index);
 
                         if (tagList.Count() > 0)
-                            DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
+                            DrawTag(g, tagList, p.X, p.Y);
                     }
             }
 

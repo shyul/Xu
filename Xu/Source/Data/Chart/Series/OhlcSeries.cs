@@ -306,11 +306,17 @@ namespace Xu.Chart
             {
                 ContinuousAxis axisY = area.AxisY(Side);
                 Point location = new Point(area.RightCursorX, axisY.ValueToPixel(data));
-
+                
                 if (percent < 0)
                     DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("G3") + "%", DownTextTheme, location);
                 else
                     DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("G3") + "%", TextTheme, location);
+                
+                /*
+                if (percent < 0)
+                    DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("P"), DownTextTheme, location);
+                else
+                    DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("P"), TextTheme, location);*/
             }
         }
 

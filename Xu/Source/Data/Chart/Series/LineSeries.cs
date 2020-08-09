@@ -31,7 +31,7 @@ namespace Xu.Chart
             Width = width;
             Tension = tension;
             LineType = type;
-            Color = ShadeColor = Color.Magenta;
+            Color = EdgeColor = Color.Magenta;
         }
 
         public LineSeries(NumericColumn data_column, Color color,
@@ -45,7 +45,7 @@ namespace Xu.Chart
             Width = width;
             Tension = tension;
             LineType = type;
-            ShadeColor = shadeColor;
+            EdgeColor = shadeColor;
             Color = color;
         }
 

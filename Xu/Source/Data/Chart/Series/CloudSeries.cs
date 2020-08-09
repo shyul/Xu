@@ -25,7 +25,7 @@ namespace Xu.Chart
             Tension = tension;
             LineType = type;
 
-            Color = ShadeColor = Color.Teal;
+            Color = EdgeColor = Color.Teal;
             FillColor = Color.Teal.Opaque(64);
 
             LowColor = LowShadeColor = Color.Orange;

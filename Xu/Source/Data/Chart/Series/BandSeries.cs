@@ -24,7 +24,7 @@ namespace Xu.Chart
             Tension = tension;
             LineType = type;
 
-            Color = ShadeColor = LowColor = LowShadeColor = color;
+            Color = EdgeColor = LowColor = LowShadeColor = color;
             FillColor = color.Opaque(64);
         }
 

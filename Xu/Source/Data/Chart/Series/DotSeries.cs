@@ -19,7 +19,7 @@ namespace Xu.Chart
         {
             Data_Column = data_column;
             Width = width;
-            Color = ShadeColor = Color.Red;
+            Color = EdgeColor = Color.Red;
         }
 
         public DotSeries(NumericColumn data_column, Color color, float width = 3) : this(data_column, color, color, width) { }
@@ -28,7 +28,7 @@ namespace Xu.Chart
         {
             Data_Column = data_column;
             Width = width;
-            ShadeColor = shadeColor;
+            EdgeColor = shadeColor;
             Color = color;
         }
 
@@ -92,7 +92,7 @@ namespace Xu.Chart
                         var tagList = GetTags(itag, TagColumns, index);
 
                         if (tagList.Count() > 0)
-                            DrawTag(g, tagList, area.IndexToPixel(index), p.Y);
+                            DrawTag(g, tagList, p.X, p.Y);
                     }
             }
             // Reset antialiasing.

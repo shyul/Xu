@@ -61,38 +61,38 @@ namespace Xu.Chart
         // Down side color theme
         // =======================
 
-        public ColorTheme DownTheme { get; } = new ColorTheme(Color.FromArgb(208, 16, 48), Color.FromArgb(208, 16, 48));
+        public ColorTheme LowerTheme { get; } = new ColorTheme(Color.FromArgb(208, 16, 48), Color.FromArgb(208, 16, 48));
 
-        public ColorTheme DownTextTheme { get; } = new ColorTheme(Color.FromArgb(255, 255, 253, 245), Color.HotPink, Color.DarkOrchid);
+        public ColorTheme LowerTextTheme { get; } = new ColorTheme(Color.FromArgb(255, 255, 253, 245), Color.HotPink, Color.DarkOrchid);
 
         // Fill color for the column
-        public Color DownColor
+        public Color LowerColor
         {
             get
             {
-                return DownTheme.FillColor;
+                return LowerTheme.FillColor;
             }
             set
             {
-                DownTheme.ForeColor = value;
-                DownTheme.FillColor = value;
+                LowerTheme.ForeColor = value;
+                LowerTheme.FillColor = value;
 
-                DownTextTheme.ForeColor = Color.White;
-                DownTextTheme.FillColor = value.Opaque(255);
+                LowerTextTheme.ForeColor = Color.White;
+                LowerTextTheme.FillColor = value.Opaque(255);
             }
         }
 
         // Edge color for the column
-        public Color DownShadeColor
+        public Color LowerEdgeColor
         {
             get
             {
-                return DownTheme.EdgeColor;
+                return LowerTheme.EdgeColor;
             }
             set
             {
-                DownTheme.EdgeColor = value;
-                DownTextTheme.EdgeColor = value.Opaque(255);
+                LowerTheme.EdgeColor = value;
+                LowerTextTheme.EdgeColor = value.Opaque(255);
             }
         }
 
@@ -100,7 +100,7 @@ namespace Xu.Chart
 
         public OhlcType Type { get; set; }
 
-        public override float Width { get { return m_Width; } set { m_Width = Theme.ForePen.Width = Theme.EdgePen.Width = DownTheme.ForePen.Width = DownTheme.EdgePen.Width = value; } }
+        public override float Width { get { return m_Width; } set { m_Width = Theme.ForePen.Width = Theme.EdgePen.Width = LowerTheme.ForePen.Width = LowerTheme.EdgePen.Width = value; } }
 
         /// <summary>
         /// Series Tags
@@ -150,7 +150,7 @@ namespace Xu.Chart
 
             text = (!double.IsNaN(close) && !double.IsNaN(percent)) ? Close_Column.Label + ": " + close.ToString(LegendLabelFormat) + " ( " + percent.ToString("0.##") + "% )" : string.Empty;
 
-            if (text.Length > 0) labels.Add((text, Main.Theme.Font, (percent < 0) ? Legend.LabelBrush(DownTheme) : Legend.LabelBrush(Theme)));
+            if (text.Length > 0) labels.Add((text, Main.Theme.Font, (percent < 0) ? Legend.LabelBrush(LowerTheme) : Legend.LabelBrush(Theme)));
             /*
             if (CandleStickTypes_Column is ObjectColumn && CandleStickTypes_Column.Type == typeof(List<CandleStickType>))
             {
@@ -188,7 +188,7 @@ namespace Xu.Chart
 
                     if (tickWidth > 6 || (tickWidth > 3 && Type == OhlcType.Bar))
                     {
-                        Theme.ForePen.Width = Theme.EdgePen.Width = DownTheme.ForePen.Width = DownTheme.EdgePen.Width = 2 * m_Width;
+                        Theme.ForePen.Width = Theme.EdgePen.Width = LowerTheme.ForePen.Width = LowerTheme.EdgePen.Width = 2 * m_Width;
                     }
 
                     for (int i = 0; i < points.Count; i++)
@@ -200,10 +200,10 @@ namespace Xu.Chart
                         int open_pix = o_points[i].point.Y;
                         int close_pix = p.Y;
 
-                        Pen edgePen = (gain < 0) ? DownTheme.EdgePen : Theme.EdgePen;
+                        Pen edgePen = (gain < 0) ? LowerTheme.EdgePen : Theme.EdgePen;
 
                         SolidBrush fillBrush = (gain < 0) ?
-                            ((close_pix > open_pix) ? DownTheme.FillBrush : Theme.FillBrush) :
+                            ((close_pix > open_pix) ? LowerTheme.FillBrush : Theme.FillBrush) :
                             ((close_pix > open_pix) ? Theme.EdgeBrush : Theme.FillBrush);
 
                         if (Type == OhlcType.Candlestick || Type == OhlcType.HollowCandles)
@@ -227,7 +227,7 @@ namespace Xu.Chart
 
                     if (tickWidth > 1)
                     {
-                        Theme.ForePen.Width = Theme.EdgePen.Width = DownTheme.ForePen.Width = DownTheme.EdgePen.Width = 2 * m_Width;
+                        Theme.ForePen.Width = Theme.EdgePen.Width = LowerTheme.ForePen.Width = LowerTheme.EdgePen.Width = 2 * m_Width;
                     }
 
                     if (pt > 1)
@@ -258,7 +258,7 @@ namespace Xu.Chart
                         {
                             var (index, p, gain) = points[i];
                             var (_, p_1, _) = points[i - 1];
-                            Pen edgePen = (gain < 0 && Type != OhlcType.Area) ? DownTheme.EdgePen : Theme.EdgePen;
+                            Pen edgePen = (gain < 0 && Type != OhlcType.Area) ? LowerTheme.EdgePen : Theme.EdgePen;
                             g.DrawLine(edgePen, p_1, p);
 
                             if (table is ITagTable itag)
@@ -306,12 +306,12 @@ namespace Xu.Chart
             {
                 ContinuousAxis axisY = area.AxisY(Side);
                 Point location = new Point(area.RightCursorX, axisY.ValueToPixel(data));
-                
+
                 if (percent < 0)
-                    DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("G3") + "%", DownTextTheme, location);
+                    DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("G3") + "%", LowerTextTheme, location);
                 else
                     DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("G3") + "%", TextTheme, location);
-                
+
                 /*
                 if (percent < 0)
                     DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("P"), DownTextTheme, location);

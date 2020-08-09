@@ -53,7 +53,7 @@ namespace Xu.Chart
             }
         }
 
-        public virtual Color ShadeColor
+        public virtual Color EdgeColor
         {
             get
             {

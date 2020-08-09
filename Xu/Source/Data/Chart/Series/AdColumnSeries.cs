@@ -23,11 +23,11 @@ namespace Xu.Chart
 
             Width = width;
 
-            ShadeColor = Color.White.Brightness(-0.8f).Opaque(70);
+            EdgeColor = Color.White.Brightness(-0.8f).Opaque(70);
             Color = Color.White.Brightness(-0.3f).Opaque(70);
 
-            DownShadeColor = Color.FromArgb(208, 16, 48).Brightness(-0.8f).Opaque(70);
-            DownColor = Color.FromArgb(208, 16, 48).Opaque(70);
+            LowerEdgeColor = Color.FromArgb(208, 16, 48).Brightness(-0.8f).Opaque(70);
+            LowerColor = Color.FromArgb(208, 16, 48).Opaque(70);
         }
 
         protected AdColumnSeries() { }
@@ -36,40 +36,40 @@ namespace Xu.Chart
 
         public NumericColumn Gain_Column { get; protected set; }
 
-        public ColorTheme DownTheme { get; } = new ColorTheme();
+        public ColorTheme LowerTheme { get; } = new ColorTheme();
 
-        public ColorTheme DownTextTheme { get; } = new ColorTheme();
+        public ColorTheme LowerTextTheme { get; } = new ColorTheme();
 
-        public override float Width { get { return m_Width; } set { m_Width = Theme.ForePen.Width = Theme.EdgePen.Width = DownTheme.ForePen.Width = DownTheme.EdgePen.Width = value; } }
+        public override float Width { get { return m_Width; } set { m_Width = Theme.ForePen.Width = Theme.EdgePen.Width = LowerTheme.ForePen.Width = LowerTheme.EdgePen.Width = value; } }
 
         // Fill color for the column
-        public Color DownColor
+        public Color LowerColor
         {
             get
             {
-                return DownTheme.FillColor;
+                return LowerTheme.FillColor;
             }
             set
             {
-                DownTheme.ForeColor = value;
-                DownTheme.FillColor = value;
+                LowerTheme.ForeColor = value;
+                LowerTheme.FillColor = value;
 
-                DownTextTheme.ForeColor = Color.White;
-                DownTextTheme.FillColor = value.Opaque(255);
+                LowerTextTheme.ForeColor = Color.White;
+                LowerTextTheme.FillColor = value.Opaque(255);
             }
         }
 
         // Edge color for the column
-        public Color DownShadeColor
+        public Color LowerEdgeColor
         {
             get
             {
-                return DownTheme.EdgeColor;
+                return LowerTheme.EdgeColor;
             }
             set
             {
-                DownTheme.EdgeColor = value;
-                DownTextTheme.EdgeColor = value.Opaque(255);
+                LowerTheme.EdgeColor = value;
+                LowerTextTheme.EdgeColor = value.Opaque(255);
             }
         }
 
@@ -89,18 +89,18 @@ namespace Xu.Chart
                 if (tickWidth > 30)
                 {
                     Theme.EdgePen.Width = 2;
-                    DownTheme.EdgePen.Width = 2;
+                    LowerTheme.EdgePen.Width = 2;
                 }
                 else
                 {
                     Theme.EdgePen.Width = 1;
-                    DownTheme.EdgePen.Width = 1;
+                    LowerTheme.EdgePen.Width = 1;
                 }
 
                 foreach (var (_, p, gain) in pointList)
                 {
-                    SolidBrush brush = (gain < Gain_Threshold) ? DownTheme.FillBrush : Theme.FillBrush;
-                    Pen pen = (gain < Gain_Threshold) ? DownTheme.EdgePen : Theme.EdgePen;
+                    SolidBrush brush = (gain < Gain_Threshold) ? LowerTheme.FillBrush : Theme.FillBrush;
+                    Pen pen = (gain < Gain_Threshold) ? LowerTheme.EdgePen : Theme.EdgePen;
                     //DrawColumn(g, pen, brush, p, new Point(p.X, ref_pix), tickWidth);
                     DrawColumn(g, pen, brush, p.X, p.Y, ref_pix, tickWidth);
                 }
@@ -136,7 +136,7 @@ namespace Xu.Chart
                 int y = area.AxisY(Side).ValueToPixel(data);
                 if (y >= area.Top && y <= area.Bottom)
                     g.DrawLeftCursor(data.ToSINumberString("G4").String, Main.Theme.Font,
-                        (gain < 0) ? DownTextTheme : TextTheme, new Point(area.RightCursorX, y), 11, 32);
+                        (gain < 0) ? LowerTextTheme : TextTheme, new Point(area.RightCursorX, y), 11, 32);
             }
         }
     }

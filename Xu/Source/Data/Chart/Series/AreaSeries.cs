@@ -24,7 +24,7 @@ namespace Xu.Chart
             Width = width;
             Tension = tension;
             LineType = type;
-            Color = ShadeColor = FillColor = Color.Gray;
+            Color = EdgeColor = FillColor = Color.Gray;
         }
 
         public AreaSeries(NumericColumn data_column, Color color, bool isGradient,
@@ -40,7 +40,7 @@ namespace Xu.Chart
             Tension = tension;
             LineType = type;
             FillColor = fillColor;
-            Color = ShadeColor = color;
+            Color = EdgeColor = color;
         }
 
         public AreaSeries(NumericColumn data_column,
@@ -52,7 +52,7 @@ namespace Xu.Chart
             Width = width;
             Tension = tension;
             LineType = type;
-            ShadeColor = shadeColor;
+            EdgeColor = shadeColor;
             FillColor = fillColor;
             Color = color;
         }

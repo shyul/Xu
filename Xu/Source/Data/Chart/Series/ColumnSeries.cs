@@ -21,18 +21,18 @@ namespace Xu.Chart
             Reference = reference;
             Width = maxWidth;
             Color = Color.FromArgb(88, 168, 208); // Edge Color
-            ShadeColor = Color.FromArgb(32, 104, 136); // Fill Color
+            EdgeColor = Color.FromArgb(32, 104, 136); // Fill Color
         }
 
         public ColumnSeries(NumericColumn data_column, Color color, int maxWidth, int reference = 0) : this(data_column, color, color, maxWidth, reference) { }
 
-        public ColumnSeries(NumericColumn data_column, Color color, Color shadeColor, int maxWidth, int reference = 0)
+        public ColumnSeries(NumericColumn data_column, Color color, Color edgeColor, int maxWidth, int reference = 0)
         {
             Data_Column = data_column;
             Reference = reference;
             Width = maxWidth;
             Color = color;
-            ShadeColor = shadeColor;
+            EdgeColor = edgeColor;
         }
 
         protected ColumnSeries() { }
@@ -55,7 +55,7 @@ namespace Xu.Chart
         }
 
         // Edge color for the column
-        public override Color ShadeColor
+        public override Color EdgeColor
         {
             get
             {

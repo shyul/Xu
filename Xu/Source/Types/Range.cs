@@ -47,7 +47,7 @@ namespace Xu
 
         public bool Insert(T value)
         {
-            bool hasSet = false;
+            bool modified = false;
             //Console.WriteLine("\n\nInsert: " + value.ToString());
 
             if (value.CompareTo(Maximum) > 0)
@@ -55,7 +55,7 @@ namespace Xu
                 //Console.WriteLine("Before Max = " + Maximum.ToString());
                 Maximum = value;
                 //Console.WriteLine("Max = " + Maximum.ToString());
-                hasSet = true;
+                modified = true;
             }
 
             if (value.CompareTo(Minimum) < 0)
@@ -63,10 +63,10 @@ namespace Xu
 
                 Minimum = value;
                 //Console.WriteLine("Min = " + Minimum.ToString());
-                hasSet = true;
+                modified = true;
             }
 
-            return hasSet;
+            return modified;
         }
 
         public bool Insert(ICollection<T> values)

@@ -15,6 +15,8 @@ namespace Xu
 
         ITable Table { get; set; }
 
+        bool ReadyToShow { get; set; }
+
         void SetAsyncUpdateUI();
 
         void PointerToEnd();

@@ -85,7 +85,7 @@ namespace Xu.Chart
             indexToPixel = new int[tickNum];
             pixelToIndex = new int[size];
 
-            double half = size / (tickNum * 2.0); //   TickAreaWidth / 2.0;
+            double half = size / (tickNum * 2.0);
             HalfTickWidth = half.ToInt32();
 
             for (int i = 0; i < tickNum; i++)
@@ -93,8 +93,8 @@ namespace Xu.Chart
                 double pix = size * ((0.5D + i) / tickNum);
                 indexToPixel[i] = pix.ToInt32();
 
-                int pix_left = (int)(Math.Floor(pix - half));
-                int pix_right = (int)(Math.Ceiling(pix + half));
+                int pix_left = Math.Floor(pix - half).ToInt32();
+                int pix_right = Math.Ceiling(pix + half).ToInt32();
 
                 if (pix_left < 0) pix_left = 0;
 

@@ -46,7 +46,7 @@ namespace Xu.Chart
 
         public virtual int StartPt { get => StopPt - IndexCount; set { } }
 
-        public virtual int StopPt { get; set; } // = 295;
+        public virtual int StopPt { get; set; }
 
         public virtual int IndexCount { get; set; } = 295;
 

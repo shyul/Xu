@@ -32,7 +32,7 @@ namespace Xu.Chart
 
         public IArea Area { get; protected set; }
 
-        public readonly Range<double> Range = new Range<double>(double.MaxValue, double.MinValue);
+        public Range<double> Range { get; } = new Range<double>(double.MaxValue, double.MinValue);
 
         public double Delta => Range.Maximum - Range.Minimum;
 
@@ -42,7 +42,7 @@ namespace Xu.Chart
 
         public AlignType LabelSide { get; protected set; } = AlignType.Left;
 
-        public readonly Dictionary<double, (Importance Importance, string Label)> TickList = new Dictionary<double, (Importance Importance, string Label)>();
+        public Dictionary<double, (Importance Importance, string Label)> TickList { get; } = new Dictionary<double, (Importance Importance, string Label)>();
 
         public virtual void Reset()
         {

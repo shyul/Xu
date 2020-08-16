@@ -52,6 +52,7 @@ namespace Xu
                 }
                 else
                 {
+                    HostContainer = null;
                     throw new Exception("TabPanel can only be exsiting in TabPanelContainer / Parent: " + Parent.GetType().ToString());
                 }
             }

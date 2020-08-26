@@ -45,9 +45,9 @@ namespace Xu
 
             if (Parent != null)
             {
-                if (Parent is Tab tb) // (typeof(Tab)).IsAssignableFrom(Parent.GetType()))
+                if (Parent is Tab tb)
                 {
-                    HostContainer = tb; // (Tab)Parent;
+                    HostContainer = tb;
                     Font = HostContainer.Font;
                 }
                 else

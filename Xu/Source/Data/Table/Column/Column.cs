@@ -16,7 +16,7 @@ namespace Xu
 
         #region Equality
 
-        public override int GetHashCode() => Name.GetHashCode();
+        public override int GetHashCode() => Name.GetHashCode() ^ GetType().GetHashCode();
 
         public virtual bool Equals(Column other) => GetType() == other.GetType() && Name == other.Name;
 

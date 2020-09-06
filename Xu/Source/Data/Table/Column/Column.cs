@@ -18,7 +18,7 @@ namespace Xu
 
         public override int GetHashCode() => Name.GetHashCode();
 
-        public virtual bool Equals(Column other) => Name == other.Name;
+        public virtual bool Equals(Column other) => GetType() == other.GetType() && Name == other.Name;
 
         public override bool Equals(object other)
         {

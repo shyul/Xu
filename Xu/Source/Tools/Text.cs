@@ -179,7 +179,7 @@ namespace Xu
 
         public static string TrimCsvValueField(this string value)
         {
-            if (value != null)
+            if (!string.IsNullOrWhiteSpace(value))
                 return value.Replace("\"", "").Trim();
             else
                 return string.Empty;

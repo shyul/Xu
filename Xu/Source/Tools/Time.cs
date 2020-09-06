@@ -15,6 +15,8 @@ namespace Xu
     {
         public static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
+        public static double ToEpoch(this DateTime time) => (time.ToUtc() - Epoch).TotalSeconds;
+
         public static DateTime FromEpoch(long epoch) => Epoch.AddSeconds(epoch);
 
         public static (bool valid, DateTime time) ToDateTime(this string input, string format = "")

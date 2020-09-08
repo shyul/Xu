@@ -59,13 +59,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Source\Data\GridView\GridStripe.cs" />
-    <Compile Include="Source\Data\GridView\Stripe\NumberGridStripe.cs" />
-    <Compile Include="Source\Data\GridView\Stripe\StringGridStripe.cs" />
+    <Compile Include="Source\Data\GridView\GridColumn.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
     <Compile Include="Source\Data\Table\Types\IDataView.cs" />
     <Compile Include="Source\Data\Table\Types\IRow.cs" />
-    <Compile Include="Source\Data\Table\Types\IStringTable.cs" />
     <Compile Include="Source\Data\Table\Types\TableStatus.cs" />
     <Compile Include="Source\Main\Icons.cs" />
     <Compile Include="Source\Data\Table\Column\Column.cs" />
@@ -205,6 +202,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Source\Data\GridView\Renderer\" />
     <Folder Include="Source\Mathematics\Filters\" />
   </ItemGroup>
   <ItemGroup>

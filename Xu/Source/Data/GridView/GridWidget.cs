@@ -9,8 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
-
-
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Xu.GridView
@@ -23,24 +22,64 @@ namespace Xu.GridView
     /// TODO: Sort By
     /// TODO: Format
     /// </summary>
-    public abstract class GridWidget : DockForm, IDataView, IDisposable
+    public abstract class GridWidget<T> : DockForm, IDisposable
     {
-        protected GridWidget(string name) : base(name, true)
+        protected GridWidget(string name) : base(name, true) 
         {
             HasIcon = true;
             Btn_Pin.Enabled = true;
             Btn_Close.Enabled = true;
+
+            foreach (PropertyInfo pi in typeof(T).GetProperties())
+            {
+                foreach (object obj in pi.GetCustomAttributes(true))
+                {
+                    if (obj is GridColumnAttribute gca)
+                    {
+                        ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi, gca));
+                        break;
+                    }
+                }
+            }
         }
 
-        public virtual string Label { get; set; }
+        public virtual void Update(IEnumerable<T> rows)
+        {
+            var pi = ColumnConfigurations.Where(n => n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
 
-        public virtual string Description { get; set; }
+            if (pi.Count() > 0)
+            {
+                var orderedList = rows.OrderBy(n => pi.First().GetValue(n, null));
 
-        public abstract ITable Table { get; set; }
+                if (pi.Count() > 1)
+                {
+                    foreach (PropertyInfo p in pi.Skip(1))
+                    {
+                        orderedList = orderedList.ThenBy(n => p.GetValue(n, null));
+                    }
+                }
+
+                lock (GraphicsLockObject)
+                {
+                    Rows = orderedList.ToArray();
+                }
+            }
+            else
+            {
+                lock (GraphicsLockObject)
+                {
+                    Rows = rows.ToArray();
+                }
+            }
+
+            SetAsyncUpdateUI();
+        }
 
         #region Rows
 
-        public virtual int DataCount => Table.Count;
+        public virtual T[] Rows { get; protected set; }
+
+        public virtual int DataCount => (Rows is T[] rows) ? rows.Count() : 0;
 
         public virtual int StartPt { get; set; } = 0;
 
@@ -59,9 +98,9 @@ namespace Xu.GridView
 
         public virtual void PointerToEnd()
         {
-            if (Table is ITable t)
+            if (Rows is IEnumerable<T> t)
             {
-                StopPt = t.Count;
+                StopPt = t.Count();
                 SetAsyncUpdateUI(); // async update
             }
             else
@@ -72,9 +111,9 @@ namespace Xu.GridView
 
         public virtual void PointerToNextTick()
         {
-            if (Table is ITable t && StopPt > t.Count - 3)
+            if (Rows is IEnumerable<T> t && StopPt > t.Count() - 3)
             {
-                StopPt = t.Count;
+                StopPt = t.Count();
                 SetAsyncUpdateUI();
             }
             else
@@ -94,15 +133,25 @@ namespace Xu.GridView
 
         #region Stripes / Columns
 
-        public virtual GridStripe SortStripe { get; set; }
+        public Dictionary<PropertyInfo, GridColumnConfiguration> ColumnConfigurations { get; } = new Dictionary<PropertyInfo, GridColumnConfiguration>();
 
-        public abstract IEnumerable<GridStripe> Stripes { get; }
+        public GridColumnConfiguration GetColumnConfiguration(string name) //nameof(Label)
+        {
+            PropertyInfo result = typeof(T).GetProperty(name);
 
-        protected virtual IEnumerable<GridStripe> EnabledStripes => Stripes.Where(n => n.Enabled).OrderBy(n => n.Order);
+            if (ColumnConfigurations.ContainsKey(result))
+                return ColumnConfigurations[result];
+            else
+                return null;
+        }
 
-        protected virtual IEnumerable<GridStripe> VisibleStripes => Stripes.Where(n => n.Enabled && n.Visible);
+        public virtual IEnumerable<GridColumnConfiguration> Columns => ColumnConfigurations.Select(n => n.Value).Where(n => n.Enabled);
 
-        protected int TotalStripesWidth => VisibleStripes.Select(n => n.Width).Sum();
+        protected virtual IEnumerable<GridColumnConfiguration> EnabledColumns => Columns.OrderBy(n => n.DisplayOrder);
+
+        protected virtual IEnumerable<GridColumnConfiguration> VisibleColumns => Columns.Where(n => n.Visible);
+
+        protected int TotalStripesWidth => VisibleColumns.Select(n => n.DataCellRenderer.Width).Sum();
 
         #endregion Stripes / Columns
 
@@ -112,6 +161,8 @@ namespace Xu.GridView
 
         public virtual int StripeTitleHeight { get; set; } = 21;
 
+        public virtual Dictionary<int, (int Y, int Height)> RowBounds { get; } = new Dictionary<int, (int Y, int Height)>();
+
         protected override void CoordinateLayout()
         {
             ResumeLayout(true);
@@ -119,36 +170,37 @@ namespace Xu.GridView
             if (ReadyToShow && GridBounds.Width > 0)
                 lock (GraphicsLockObject)
                 {
-                    ActualCellHeight = Math.Max(CellHeight, Stripes.Select(n => n.MinimumCellHeight).Max());
+                    ActualCellHeight = Math.Max(CellHeight, Columns.Select(n => n.DataCellRenderer.MinimumHeight).Max());
                     IndexCount = Math.Ceiling((GridBounds.Height - StripeTitleHeight) * 1.0f / ActualCellHeight).ToInt32(1);
-                    foreach (var stripe in Stripes)
+
+                    foreach (var col in Columns)
                     {
-                        stripe.Visible = stripe.Enabled;
-                        stripe.ActualWidth = stripe.Width;
+                        col.Visible = col.Enabled;
+                        col.ActualWidth = col.DataCellRenderer.Width;
                     }
 
                     while (TotalStripesWidth > Width)
-                        VisibleStripes.OrderByDescending(n => n.Importance).ThenBy(n => n.Order).Last().Visible = false;
+                        VisibleColumns.OrderBy(n => n.DisplayPriority).ThenBy(n => n.DisplayOrder).Last().Visible = false;
 
-                    var autoWidthStripes = VisibleStripes.Where(n => n.AutoWidth);
+                    var autoWidthStripes = VisibleColumns.Where(n => n.DataCellRenderer.AutoWidth);
                     if (autoWidthStripes.Count() > 0) // Need to scale up?
                     {
-                        int totalAutoWidth = autoWidthStripes.Select(n => n.Width).Sum();
+                        int totalAutoWidth = autoWidthStripes.Select(n => n.DataCellRenderer.Width).Sum();
                         if (totalAutoWidth > 0)
                         {
                             int totalFixedWidth = TotalStripesWidth - totalAutoWidth;
                             int availableTotalAutoWidth = GridBounds.Width - totalFixedWidth;
                             double scale = 1.0 * availableTotalAutoWidth / totalAutoWidth;
-                            foreach (var stripe in autoWidthStripes)
+                            foreach (var col in autoWidthStripes)
                             {
-                                stripe.ActualWidth = (stripe.Width * scale).ToInt32();
+                                col.ActualWidth = (col.DataCellRenderer.Width * scale).ToInt32();
                             }
                         }
                     }
 
                     int X = GridBounds.Left;
 
-                    foreach (var stripe in VisibleStripes)
+                    foreach (var stripe in VisibleColumns)
                     {
                         stripe.Actual_X = X;
                         X += stripe.ActualWidth;
@@ -158,6 +210,15 @@ namespace Xu.GridView
                             stripe.ActualWidth = GridBounds.Right - stripe.Actual_X;
                             break;
                         }
+                    }
+
+                    RowBounds.Clear();
+                    int y = GridBounds.Top + StripeTitleHeight;
+                    for (int i = StartPt; i < StopPt; i++)
+                    {
+                        int height = ActualCellHeight;
+                        RowBounds[i] = (y, height);
+                        y += height;
                     }
                 }
 
@@ -192,29 +253,27 @@ namespace Xu.GridView
                     int left = GridBounds.Left;
                     int right = GridBounds.Right;
 
-                    int y = top + StripeTitleHeight;
-
                     int i = 0;
 
                     for (i = StartPt; i < StopPt; i++)
                     {
+                        var (y, height) = RowBounds[i];
                         if (i == HoverIndex)
                         {
-                            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, CellHeight));
+                            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, height));
                         }
                         else if (i == SelectedIndex)
                         {
 
-                            g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, CellHeight));
+                            g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, height));
                         }
-                        y += ActualCellHeight;
                     }
 
                     g.DrawRectangle(Theme.EdgePen, GridBounds);
 
                     // Draw Vertical Grid Lines
                     i = 0;
-                    foreach (var stripe in VisibleStripes)
+                    foreach (var stripe in VisibleColumns)
                     {
                         int x = stripe.Actual_X;
 
@@ -229,21 +288,24 @@ namespace Xu.GridView
                         i++;
                     }
 
-                    y = top + StripeTitleHeight;
+                    //y = top + StripeTitleHeight;
 
                     for (i = StartPt; i < StopPt; i++)
                     {
+                        var (y, height) = RowBounds[i];
+
                         g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
 
-                        foreach (var stripe in VisibleStripes)
+                        foreach (GridColumnConfiguration col in VisibleColumns)
                         {
-                            int x = stripe.Actual_X;
-                            Rectangle cellBox = new Rectangle(x, y, stripe.ActualWidth, ActualCellHeight);
+                            int x = col.Actual_X;
+                            Rectangle cellBox = new Rectangle(x, y, col.ActualWidth, height);
 
-                            if (i < DataCount)
-                                stripe.Draw(g, cellBox, Table, i);
+                            if (i < DataCount) 
+                            {
+                                col.DataCellRenderer.Draw(g, cellBox, col.PropertyInfo.GetValue(Rows[i]));
+                            }
                         }
-                        y += ActualCellHeight;
                     }
                 }
         }
@@ -276,6 +338,9 @@ namespace Xu.GridView
             {
                 MousePoint = new Point(e.X, e.Y);
                 SelectedIndex = HoverIndex;
+
+                Console.WriteLine("Selected Index = " + SelectedIndex + ((SelectedIndex >= 0 && SelectedIndex < DataCount) ? Rows[SelectedIndex].ToString() : string.Empty));
+
                 Invalidate();
             }
 

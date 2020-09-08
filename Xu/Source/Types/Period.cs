@@ -31,6 +31,15 @@ namespace Xu
 
         #region Ctor
 
+        public Period(Period period)
+        {
+            m_stop = period.Stop;
+            m_start = period.Start;
+
+            m_time = period.Start;
+            IsCurrent = period.IsCurrent;
+        }
+
         public Period(DateTime time, bool isCurrent = false)
         {
             m_stop = time;

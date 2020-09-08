@@ -228,6 +228,10 @@ namespace Xu
             return new Rectangle(rect.X + value, rect.Y + value, rect.Width - 2 * value, rect.Height - 2 * value);
         }
 
+        public static Point Center(this Rectangle rect) => new Point((rect.X + (rect.Width / 2f)).ToInt32(), (rect.Y + (rect.Height / 2f)).ToInt32());
+
+        public static PointF Center(this RectangleF rect) => new PointF(rect.X + (rect.Width / 2f), rect.Y + (rect.Height / 2f));
+
         /// <summary>
         /// 
         /// </summary>

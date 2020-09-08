@@ -34,7 +34,7 @@ namespace Xu.GridView
         public void Draw(Graphics g, Rectangle bound, object obj)
         {
             string s = (obj is double d && (!double.IsNaN(d))) ? d.ToString(Format) : "-";
-            g.DrawString(s, Main.Theme.Font, Theme.ForeBrush, bound.Location);
+            g.DrawString(s, Main.Theme.Font, Theme.ForeBrush, bound.Center(), AppTheme.TextAlignCenter);
         }
     }
 }

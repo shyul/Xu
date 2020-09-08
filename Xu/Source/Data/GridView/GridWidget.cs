@@ -5,6 +5,7 @@
 /// ***************************************************************************
 
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -34,9 +35,9 @@ namespace Xu.GridView
             {
                 foreach (object obj in pi.GetCustomAttributes(true))
                 {
-                    if (obj is GridColumnAttribute gca)
+                    if (obj is BrowsableAttribute bra && bra.Browsable)
                     {
-                        ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi, gca));
+                        ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi));
                         break;
                     }
                 }

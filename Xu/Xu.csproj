@@ -63,6 +63,7 @@
     <Compile Include="Source\Data\GridView\GridColumnConfiguration.cs" />
     <Compile Include="Source\Data\GridView\GridColumnOrder.cs" />
     <Compile Include="Source\Data\GridView\IDataCellRenderer.cs" />
+    <Compile Include="Source\Data\GridView\Renderer\NumberCellRenderer.cs" />
     <Compile Include="Source\Data\GridView\Renderer\TextCellRenderer.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
     <Compile Include="Source\Data\Table\Types\IDataView.cs" />

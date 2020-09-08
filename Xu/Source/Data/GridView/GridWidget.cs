@@ -25,7 +25,7 @@ namespace Xu.GridView
     /// </summary>
     public abstract class GridWidget<T> : DockForm, IDisposable
     {
-        protected GridWidget(string name) : base(name, true) 
+        protected GridWidget(string name) : base(name, true)
         {
             HasIcon = true;
             Btn_Pin.Enabled = true;
@@ -46,8 +46,8 @@ namespace Xu.GridView
 
         public virtual void Update(IEnumerable<T> rows)
         {
-            var pi = ColumnConfigurations.Where(n => n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
-
+            var pi = ColumnConfigurations.Where(n => typeof(IComparable).IsAssignableFrom(n.Key.PropertyType) && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
+            //var pi = ColumnConfigurations.Where(n => n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
             if (pi.Count() > 0)
             {
                 var orderedList = rows.OrderBy(n => pi.First().GetValue(n, null));
@@ -93,6 +93,10 @@ namespace Xu.GridView
             if ((StartPt + num >= 0) && (StopPt + num < DataCount))
             {
                 StartPt += num;
+
+                lock (GraphicsLockObject)
+                    CoordinateRows();
+
                 SetAsyncUpdateUI(); // UpdateUI(); // real time update
             }
         }
@@ -102,6 +106,10 @@ namespace Xu.GridView
             if (Rows is IEnumerable<T> t)
             {
                 StopPt = t.Count();
+
+                lock (GraphicsLockObject)
+                    CoordinateRows();
+
                 SetAsyncUpdateUI(); // async update
             }
             else
@@ -115,6 +123,10 @@ namespace Xu.GridView
             if (Rows is IEnumerable<T> t && StopPt > t.Count() - 3)
             {
                 StopPt = t.Count();
+
+                lock (GraphicsLockObject)
+                    CoordinateRows();
+
                 SetAsyncUpdateUI();
             }
             else
@@ -148,9 +160,9 @@ namespace Xu.GridView
 
         public virtual IEnumerable<GridColumnConfiguration> Columns => ColumnConfigurations.Select(n => n.Value).Where(n => n.Enabled);
 
-        protected virtual IEnumerable<GridColumnConfiguration> EnabledColumns => Columns.OrderBy(n => n.DisplayOrder);
+        //protected virtual IEnumerable<GridColumnConfiguration> EnabledColumns => Columns.OrderBy(n => n.DisplayOrder);
 
-        protected virtual IEnumerable<GridColumnConfiguration> VisibleColumns => Columns.Where(n => n.Visible);
+        protected virtual IEnumerable<GridColumnConfiguration> VisibleColumns => Columns.Where(n => n.Visible).OrderBy(n => n.DisplayOrder);
 
         protected int TotalStripesWidth => VisibleColumns.Select(n => n.DataCellRenderer.Width).Sum();
 
@@ -213,17 +225,22 @@ namespace Xu.GridView
                         }
                     }
 
-                    RowBounds.Clear();
-                    int y = GridBounds.Top + StripeTitleHeight;
-                    for (int i = StartPt; i < StopPt; i++)
-                    {
-                        int height = ActualCellHeight;
-                        RowBounds[i] = (y, height);
-                        y += height;
-                    }
+                    CoordinateRows();
                 }
 
             PerformLayout();
+        }
+
+        protected virtual void CoordinateRows()
+        {
+            RowBounds.Clear();
+            int y = GridBounds.Top + StripeTitleHeight;
+            for (int i = StartPt; i < StopPt; i++)
+            {
+                int height = ActualCellHeight;
+                RowBounds[i] = (y, height);
+                y += height;
+            }
         }
 
         #endregion Coordinate
@@ -302,7 +319,7 @@ namespace Xu.GridView
                             int x = col.Actual_X;
                             Rectangle cellBox = new Rectangle(x, y, col.ActualWidth, height);
 
-                            if (i < DataCount) 
+                            if (i < DataCount)
                             {
                                 col.DataCellRenderer.Draw(g, cellBox, col.PropertyInfo.GetValue(Rows[i]));
                             }
@@ -357,7 +374,7 @@ namespace Xu.GridView
                 if (num != 0)
                 {
                     ShiftPt(num);
-                    Invalidate();
+                    //Invalidate();
                 }
             }
         }

@@ -71,7 +71,7 @@ namespace Xu
 
         public static void Add<T>(this ComboBox.ObjectCollection items) where T : Enum // struct, IConvertible
         {
-            foreach (T item in (T[])Enum.GetValues(typeof(T)))
+            foreach (T item in ReflectionTool.ToArray<T>())
             {
                 items.Add(item);
             }

@@ -45,8 +45,6 @@ namespace Xu
                 return str.Substring(str.Length - len);
         }
 
-        public static T ParseEnum<T>(this string value) where T : struct, IConvertible => (T)Enum.Parse(typeof(T), value.Trim());
-
         #region Text Files
 
         public static string ReadAllText(string path)

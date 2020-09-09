@@ -169,13 +169,13 @@ namespace Xu
 
             return Unit switch
             {
-                (TimeUnit.Years) => new Period(start, start.AddYears(Length)),
-                (TimeUnit.Months) => new Period(start, start.AddMonths(Length)),
-                (TimeUnit.Weeks) => new Period(start, start.AddDays(Length * 7)),
-                (TimeUnit.Days) => new Period(start, start.AddDays(Length)),
-                (TimeUnit.Hours) => new Period(start, start.AddHours(Length)),
-                (TimeUnit.Minutes) => new Period(start, start.AddMinutes(Length)),
-                (TimeUnit.Seconds) => new Period(start, start.AddSeconds(Length)),
+                TimeUnit.Years => new Period(start, start.AddYears(Length)),
+                TimeUnit.Months => new Period(start, start.AddMonths(Length)),
+                TimeUnit.Weeks => new Period(start, start.AddDays(Length * 7)),
+                TimeUnit.Days => new Period(start, start.AddDays(Length)),
+                TimeUnit.Hours => new Period(start, start.AddHours(Length)),
+                TimeUnit.Minutes => new Period(start, start.AddMinutes(Length)),
+                TimeUnit.Seconds => new Period(start, start.AddSeconds(Length)),
                 _ => throw new Exception("Invalid TimeInterval Type!"),
             };
         }
@@ -187,14 +187,14 @@ namespace Xu
             int cnt = Convert.ToInt32(f.Length);
             return f.Unit switch
             {
-                (TimeUnit.Years) => time.AddYears(cnt),
-                (TimeUnit.Months) => time.AddMonths(cnt),
-                (TimeUnit.Weeks) => time.AddDays(cnt * 7),
-                (TimeUnit.Days) => time.AddDays(cnt),
-                (TimeUnit.Hours) => time.AddHours(cnt),
-                (TimeUnit.Minutes) => time.AddMinutes(cnt),
-                (TimeUnit.Seconds) => time.AddSeconds(cnt),
-                (TimeUnit.None) => time,
+                TimeUnit.Years => time.AddYears(cnt),
+                TimeUnit.Months => time.AddMonths(cnt),
+                TimeUnit.Weeks => time.AddDays(cnt * 7),
+                TimeUnit.Days => time.AddDays(cnt),
+                TimeUnit.Hours => time.AddHours(cnt),
+                TimeUnit.Minutes => time.AddMinutes(cnt),
+                TimeUnit.Seconds => time.AddSeconds(cnt),
+                TimeUnit.None => time,
                 _ => throw new Exception("Invalid TimeInterval Type!"),
             };
         }
@@ -203,17 +203,18 @@ namespace Xu
             int cnt = (-1) * Convert.ToInt32(f.Length);
             return f.Unit switch
             {
-                (TimeUnit.Years) => time.AddYears(cnt),
-                (TimeUnit.Months) => time.AddMonths(cnt),
-                (TimeUnit.Weeks) => time.AddDays(cnt * 7),
-                (TimeUnit.Days) => time.AddDays(cnt),
-                (TimeUnit.Hours) => time.AddHours(cnt),
-                (TimeUnit.Minutes) => time.AddMinutes(cnt),
-                (TimeUnit.Seconds) => time.AddSeconds(cnt),
-                (TimeUnit.None) => time,
+                TimeUnit.Years => time.AddYears(cnt),
+                TimeUnit.Months => time.AddMonths(cnt),
+                TimeUnit.Weeks => time.AddDays(cnt * 7),
+                TimeUnit.Days => time.AddDays(cnt),
+                TimeUnit.Hours => time.AddHours(cnt),
+                TimeUnit.Minutes => time.AddMinutes(cnt),
+                TimeUnit.Seconds => time.AddSeconds(cnt),
+                TimeUnit.None => time,
                 _ => throw new Exception("Invalid TimeInterval Type!"),
             };
         }
+
         public static int operator /(Period p, Frequency f)
         {
             return p.Span / f;
@@ -222,14 +223,14 @@ namespace Xu
         {
             return f.Unit switch
             {
-                (TimeUnit.Years) => Convert.ToInt32((sp.TotalDays / (365 * f.Length)).ToInt64()),
-                (TimeUnit.Months) => Convert.ToInt32((sp.TotalDays / (30 * f.Length)).ToInt64()),
-                (TimeUnit.Weeks) => Convert.ToInt32((sp.TotalDays / (7 * f.Length)).ToInt64()),
-                (TimeUnit.Days) => Convert.ToInt32((sp.TotalDays / f.Length).ToInt64()),
-                (TimeUnit.Hours) => Convert.ToInt32((sp.TotalHours / f.Length).ToInt64()),
-                (TimeUnit.Minutes) => Convert.ToInt32((sp.TotalMinutes / f.Length).ToInt64()),
-                (TimeUnit.Seconds) => Convert.ToInt32((sp.TotalSeconds / f.Length).ToInt64()),
-                (TimeUnit.None) => 0,
+                TimeUnit.Years => Convert.ToInt32((sp.TotalDays / (365 * f.Length)).ToInt64()),
+                TimeUnit.Months => Convert.ToInt32((sp.TotalDays / (30 * f.Length)).ToInt64()),
+                TimeUnit.Weeks => Convert.ToInt32((sp.TotalDays / (7 * f.Length)).ToInt64()),
+                TimeUnit.Days => Convert.ToInt32((sp.TotalDays / f.Length).ToInt64()),
+                TimeUnit.Hours => Convert.ToInt32((sp.TotalHours / f.Length).ToInt64()),
+                TimeUnit.Minutes => Convert.ToInt32((sp.TotalMinutes / f.Length).ToInt64()),
+                TimeUnit.Seconds => Convert.ToInt32((sp.TotalSeconds / f.Length).ToInt64()),
+                TimeUnit.None => 0,
                 _ => throw new Exception("Invalid TimeInterval Type!"),
             };
         }

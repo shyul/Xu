@@ -33,6 +33,12 @@ namespace Xu.GridView
 
             foreach (PropertyInfo pi in typeof(T).GetProperties())
             {
+                if (pi.GetAttribute<BrowsableAttribute>() is BrowsableAttribute bra && bra.Browsable)
+                {
+                    ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi));
+                }
+
+                /*
                 foreach (object obj in pi.GetCustomAttributes(true))
                 {
                     if (obj is BrowsableAttribute bra && bra.Browsable)
@@ -40,7 +46,7 @@ namespace Xu.GridView
                         ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi));
                         break;
                     }
-                }
+                }*/
             }
         }
 

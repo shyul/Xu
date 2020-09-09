@@ -22,6 +22,7 @@ namespace Xu
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+        /*
         public static (bool IsValid, T Result) GetAttribute<T>(this object value) where T : Attribute
         {
             MemberInfo[] memberInfo = value.GetType().GetMember(value.ToString());
@@ -31,8 +32,19 @@ namespace Xu
                 if (res != null) return (IsValid: true, Result: res);
             }
             return (IsValid: false, Result: null);
+        }*/
+
+        public static T GetAttribute<T>(this object value) where T : Attribute
+        {
+            MemberInfo[] memberInfo = value.GetType().GetMember(value.ToString()); // memberInfo.FirstOrDefault(m => m.DeclaringType == type).GetCustomAttributes(typeof(T), false);
+            if (memberInfo.Length > 0)
+            {
+                return Attribute.GetCustomAttribute(memberInfo[0], typeof(T)) as T;
+            }
+            return null;
         }
 
+        /*
         public static (bool IsValid, T Result) GetAttribute<T>(this PropertyInfo p) where T : Attribute
         {
             var attrs = p.GetCustomAttributes(true).Where(n => n.GetType() == typeof(T));
@@ -40,8 +52,16 @@ namespace Xu
                 return (IsValid: true, Result: (T)attrs.First());
             else
                 return (IsValid: false, Result: null);
-        }
+        }*/
 
+        public static T GetAttribute<T>(this PropertyInfo p) where T : Attribute
+        {
+            var attrs = p.GetCustomAttributes(true).Where(n => n.GetType() == typeof(T));
+            if (attrs.Count() > 0)
+                return attrs.First() as T;
+            else
+                return null;
+        }
 
         /// <summary>
         /// Get an object's name
@@ -97,5 +117,9 @@ namespace Xu
         {
             return (T)typeof(T).GetField(nameof(MinValue)).GetRawConstantValue();
         }
+
+        public static T ParseEnum<T>(this string value) where T : struct, IConvertible => (T)Enum.Parse(typeof(T), value.Trim());
+
+        public static T[] ToArray<T>() where T : Enum => Enum.GetValues(typeof(T)) as T[];
     }
 }

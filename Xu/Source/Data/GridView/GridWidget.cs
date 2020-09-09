@@ -27,7 +27,7 @@ namespace Xu.GridView
     {
         protected GridWidget(string name) : base(name, true)
         {
-            HasIcon = true;
+            HasIcon = false;
             Btn_Pin.Enabled = true;
             Btn_Close.Enabled = true;
 

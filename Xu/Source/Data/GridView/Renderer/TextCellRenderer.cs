@@ -30,6 +30,7 @@ namespace Xu.GridView
 
         public void Draw(Graphics g, Rectangle bound, object obj)
         {
+            if (obj is null) return;
             g.DrawString(obj.ToString(), Main.Theme.Font, Theme.ForeBrush, bound.Location);
         }
     }

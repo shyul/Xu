@@ -33,7 +33,17 @@ namespace Xu.GridView
 
         public void Draw(Graphics g, Rectangle bound, object obj)
         {
-            string s = (obj is double d && (!double.IsNaN(d))) ? d.ToString(Format) : "-";
+            string s = "-";
+
+            if (obj is int d0)
+            {
+                s = d0.ToString(Format);
+            }
+            else if (obj is double d1 && (!double.IsNaN(d1))) 
+            {
+                s = d1.ToString(Format);
+            }
+
             g.DrawString(s, Main.Theme.Font, Theme.ForeBrush, bound.Center(), AppTheme.TextAlignCenter);
         }
     }

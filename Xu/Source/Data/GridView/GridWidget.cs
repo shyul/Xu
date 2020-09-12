@@ -23,7 +23,7 @@ namespace Xu.GridView
     /// TODO: Sort By
     /// TODO: Format
     /// </summary>
-    public abstract class GridWidget<T> : DockForm, IDisposable
+    public abstract class GridWidget<T> : DockForm, IDataView, IDisposable
     {
         protected GridWidget(string name) : base(name, true)
         {
@@ -84,9 +84,18 @@ namespace Xu.GridView
 
         #region Rows
 
+        public virtual void RemoveData()
+        {
+            lock (GraphicsLockObject)
+            {
+                ReadyToShow = false;
+                Rows = null;
+            }
+        }
+
         public virtual T[] Rows { get; protected set; }
 
-        public virtual int DataCount => (Rows is T[] rows) ? rows.Count() : 0;
+        public virtual int DataCount => (Rows is T[] rows) ? rows.Length : 0;
 
         public virtual int StartPt { get; set; } = 0;
 
@@ -109,9 +118,9 @@ namespace Xu.GridView
 
         public virtual void PointerToEnd()
         {
-            if (Rows is IEnumerable<T> t)
+            if (Rows is T[] rows)
             {
-                StopPt = t.Count();
+                StopPt = rows.Count();
 
                 lock (GraphicsLockObject)
                     CoordinateRows();
@@ -126,9 +135,9 @@ namespace Xu.GridView
 
         public virtual void PointerToNextTick()
         {
-            if (Rows is IEnumerable<T> t && StopPt > t.Count() - 3)
+            if (Rows is T[] rows && StopPt > rows.Count() - 3)
             {
-                StopPt = t.Count();
+                StopPt = rows.Count();
 
                 lock (GraphicsLockObject)
                     CoordinateRows();
@@ -269,7 +278,7 @@ namespace Xu.GridView
                 g.DrawString("Preparing Data... Stand By.", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
 
-            if (ReadyToShow && GridBounds.Width > 0)
+            if (ReadyToShow && GridBounds.Width > 0 && Rows is T[] rows)
                 lock (GraphicsLockObject)
                 {
                     int top = GridBounds.Top;
@@ -327,7 +336,7 @@ namespace Xu.GridView
 
                             if (i < DataCount)
                             {
-                                col.DataCellRenderer.Draw(g, cellBox, col.PropertyInfo.GetValue(Rows[i]));
+                                col.DataCellRenderer.Draw(g, cellBox, col.PropertyInfo.GetValue(rows[i]));
                             }
                         }
                     }

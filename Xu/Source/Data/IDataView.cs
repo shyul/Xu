@@ -13,9 +13,10 @@ namespace Xu
 
         int StopPt { get; set; }
 
-        ITable Table { get; set; }
-
+        //ITable Table { get; set; }
         bool ReadyToShow { get; set; }
+
+        void RemoveData();
 
         void SetAsyncUpdateUI();
 

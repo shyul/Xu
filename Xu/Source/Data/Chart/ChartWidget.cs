@@ -42,6 +42,15 @@ namespace Xu.Chart
 
         public abstract ITable Table { get; set; }
 
+        public virtual void RemoveData()
+        {
+            lock (GraphicsLockObject)
+            {
+                ReadyToShow = false;
+                Table = null;
+            }
+        }
+
         public virtual int DataCount => Table.Count;
 
         public virtual int StartPt { get => StopPt - IndexCount; set { } }

@@ -66,7 +66,7 @@
     <Compile Include="Source\Data\GridView\Renderer\NumberCellRenderer.cs" />
     <Compile Include="Source\Data\GridView\Renderer\TextCellRenderer.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
-    <Compile Include="Source\Data\Table\Types\IDataView.cs" />
+    <Compile Include="Source\Data\IDataView.cs" />
     <Compile Include="Source\Data\Table\Types\IRow.cs" />
     <Compile Include="Source\Data\Table\Types\TableStatus.cs" />
     <Compile Include="Source\Main\Icons.cs" />

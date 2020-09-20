@@ -79,12 +79,12 @@ namespace Xu.GridView
                 }
             }
 
-            SetAsyncUpdateUI();
+            DataIsUpdated();
         }
 
         #region Rows
 
-        public virtual void RemoveData()
+        public virtual void RemoveDataSource()
         {
             lock (GraphicsLockObject)
             {
@@ -112,7 +112,7 @@ namespace Xu.GridView
                 lock (GraphicsLockObject)
                     CoordinateRows();
 
-                SetAsyncUpdateUI(); // UpdateUI(); // real time update
+                DataIsUpdated(); // UpdateUI(); // real time update
             }
         }
 
@@ -125,7 +125,7 @@ namespace Xu.GridView
                 lock (GraphicsLockObject)
                     CoordinateRows();
 
-                SetAsyncUpdateUI(); // async update
+                DataIsUpdated(); // async update
             }
             else
             {
@@ -142,7 +142,7 @@ namespace Xu.GridView
                 lock (GraphicsLockObject)
                     CoordinateRows();
 
-                SetAsyncUpdateUI();
+                DataIsUpdated();
             }
             else
             {

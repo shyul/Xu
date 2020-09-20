@@ -4,24 +4,41 @@
 /// 
 /// ***************************************************************************
 
+using System;
+using System.Collections.Generic;
 
 namespace Xu
 {
-    public interface IDataView
+    public interface IDataView : IDataSink
     {
         int StartPt { get; set; }
 
         int StopPt { get; set; }
 
-        //ITable Table { get; set; }
         bool ReadyToShow { get; set; }
-
-        void RemoveData();
-
-        void SetAsyncUpdateUI();
 
         void PointerToEnd();
 
         void PointerToNextTick();
+    }
+
+    public interface IDataSink
+    {
+        //void AddDataSource(IDataSource ids);
+
+        void RemoveDataSource();
+
+        void DataIsUpdated(); // void DataIsUpdated(IDataSource ids);
+    }
+
+    public interface IDataSource
+    {
+        void AddDataSink(IDataSink idk);
+
+        bool RemoveDataSink(IDataSink idk);
+
+        void DataIsUpdated();
+
+        DateTime UpdateTime { get; }
     }
 }

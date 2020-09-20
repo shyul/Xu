@@ -42,7 +42,7 @@ namespace Xu.Chart
 
         public abstract ITable Table { get; set; }
 
-        public virtual void RemoveData()
+        public virtual void RemoveDataSource()
         {
             lock (GraphicsLockObject)
             {
@@ -64,7 +64,7 @@ namespace Xu.Chart
             if ((StartPt + num > -limit) && (StopPt + num - DataCount < limit))
             {
                 StopPt += num;
-                SetAsyncUpdateUI(); //UpdateUI(); // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
+                DataIsUpdated(); //UpdateUI(); // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
             }
         }
 
@@ -73,7 +73,7 @@ namespace Xu.Chart
             if (StopPt - (StartPt + num) > 1)
             {
                 IndexCount += num;
-                SetAsyncUpdateUI(); //UpdateUI();
+                DataIsUpdated(); //UpdateUI();
             }
         }
 
@@ -83,7 +83,7 @@ namespace Xu.Chart
             {
                 StopPt += num;
                 IndexCount += num;
-                SetAsyncUpdateUI(); //UpdateUI(); // real time update
+                DataIsUpdated(); //UpdateUI(); // real time update
             }
         }
 
@@ -98,7 +98,7 @@ namespace Xu.Chart
                 StopPt = 0;
             }
 
-            SetAsyncUpdateUI(); // async update
+            DataIsUpdated(); // async update
         }
 
         public virtual void PointerToNextTick()
@@ -108,7 +108,7 @@ namespace Xu.Chart
                 StopPt = t.Count;
             }
 
-            SetAsyncUpdateUI();
+            DataIsUpdated();
         }
 
         protected ChartOverlay Overlay { get; }

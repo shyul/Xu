@@ -88,7 +88,7 @@ namespace Xu
 
         public readonly CancellationTokenSource AsyncUpdateUITask_Cts = new CancellationTokenSource();
 
-        public void SetAsyncUpdateUI() => m_AsyncUpdateUI = true;
+        public void DataIsUpdated() => m_AsyncUpdateUI = true;
 
         protected bool m_AsyncUpdateUI = false;
 

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xu", "Xu\Xu.csproj", "{C405F46D-C5B1-4AFF-A335-8BC0760770B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xu.EE", "Xu.EE\Xu.EE.csproj", "{C405F46D-C5B1-4AFF-A335-8BC0760770C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C405F46D-C5B1-4AFF-A335-8BC0760770B9}.Debug|x64.ActiveCfg = Debug|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770B9}.Debug|x64.Build.0 = Debug|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770B9}.Release|x64.ActiveCfg = Release|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770B9}.Release|x64.Build.0 = Release|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Debug|x64.ActiveCfg = Debug|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Debug|x64.Build.0 = Debug|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Release|x64.ActiveCfg = Release|x64
+		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC963C52-852D-4DF3-9E31-A2A6F78B236C}
+	EndGlobalSection
+EndGlobal

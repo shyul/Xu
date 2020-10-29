@@ -58,15 +58,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Source\Altium\" />
+    <Folder Include="Source\Components\" />
     <Folder Include="Source\Filters\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Constants.cs" />
-    <Compile Include="Source\Decade.cs" />
+    <Compile Include="Source\Math\Constants.cs" />
+    <Compile Include="Source\Math\Decade.cs" />
     <Compile Include="Source\FFT\FFT.cs" />
     <Compile Include="Source\FFT\Waveform.cs" />
     <Compile Include="Source\FFT\WindowFunctions.cs" />
-    <Compile Include="Source\Interpolation.cs" />
+    <Compile Include="Source\Math\Interpolation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

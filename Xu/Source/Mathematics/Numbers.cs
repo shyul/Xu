@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Xu
 {
-    public static class Numbers
+    public static partial class Numbers
     {
         /// <summary>
         /// Golden (Fibonacci) Ratio

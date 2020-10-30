@@ -63,7 +63,7 @@
     <Folder Include="Source\Filters\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Math\Constants.cs" />
+    <Compile Include="Source\Math\Calculate.cs" />
     <Compile Include="Source\Math\Decade.cs" />
     <Compile Include="Source\FFT\FFT.cs" />
     <Compile Include="Source\FFT\Waveform.cs" />

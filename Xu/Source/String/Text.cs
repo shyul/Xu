@@ -183,8 +183,6 @@ namespace Xu
                 return string.Empty;
         }
 
-        //public static string CsvEncode(this object o) => o.ToString().CsvEncode();
-
         public static string CsvEncode(this string value)
         {
             string res = value.TrimCsvValueField();
@@ -195,4 +193,6 @@ namespace Xu
 
         #endregion CSV File
     }
+
+
 }

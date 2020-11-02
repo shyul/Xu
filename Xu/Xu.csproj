@@ -59,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Algorithms\Fibonacci.cs" />
     <Compile Include="Source\Data\GridView\CellRenderer.cs" />
     <Compile Include="Source\Data\GridView\GridColumnConfiguration.cs" />
     <Compile Include="Source\Data\GridView\GridColumnOrder.cs" />
@@ -79,6 +80,11 @@
     <Compile Include="Source\Data\Chart\Types\IAdvanceDeclineSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\IRangeSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\ITagSeries.cs" />
+    <Compile Include="Source\Algorithms\Binary.cs" />
+    <Compile Include="Source\Algorithms\Extrapolation.cs" />
+    <Compile Include="Source\Algorithms\Statistics.cs" />
+    <Compile Include="Source\String\Numbers.cs" />
+    <Compile Include="Source\Tools\CSVData.cs" />
     <Compile Include="Source\Tools\Task.cs" />
     <Compile Include="Source\Types\Bidictionary.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />
@@ -187,8 +193,7 @@
     <Compile Include="Source\Tools\Serialization.cs" />
     <Compile Include="Source\UserInterface\Shared\Icon.cs" />
     <Compile Include="Source\Types\Scheduler\Connectivity.cs" />
-    <Compile Include="Source\Mathematics\Numbers.cs" />
-    <Compile Include="Source\Tools\Text.cs" />
+    <Compile Include="Source\String\Text.cs" />
     <Compile Include="Source\Tools\Time.cs" />
     <Compile Include="Source\UserInterface\Windows\NativeMethods\User32.cs" />
     <Compile Include="Source\UserInterface\Windows\Types\WindowsHook.cs" />

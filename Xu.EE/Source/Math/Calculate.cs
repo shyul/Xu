@@ -11,10 +11,12 @@ using System.Numerics;
 
 namespace Xu.EE
 {
-    public static partial class Calc
+    public static partial class Calculate
     {
         public const double PI = Math.PI;
-        public static double Rad(double freq) => 2 * PI * freq;
+
+        public static double FrequencyToRadians(this double freq) => 2 * PI * freq;
+        public static double DegreesToRadians(this double degrees) => (PI * degrees) / 180;
 
         public const double E = Math.E;
         public const double LightSpeed = 299792458; // Unit: meter/second

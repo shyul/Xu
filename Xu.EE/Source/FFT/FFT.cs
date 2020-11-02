@@ -15,7 +15,7 @@ namespace Xu.EE
     {
         public FFT(int length = 65536, WindowsType type = WindowsType.FlatTop, double[] winF = null, int[] winParam = null)
         {
-            if (length > 4 && Xu.Numbers.IsPowerOf2(length))
+            if (length > 4 && length.IsPowerOf2())
             {
                 Length = length;
 
@@ -87,7 +87,7 @@ namespace Xu.EE
                 // Re-order output array.
                 for (uint i = 0; i < Input.Length; i++)
                 {
-                    Result[i] = Input[Xu.Numbers.EndianInverse(i, m)];
+                    Result[i] = Input[i.EndianInverse(m)];
                 }
 
                 return Result;

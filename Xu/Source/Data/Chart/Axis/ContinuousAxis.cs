@@ -83,7 +83,7 @@ namespace Xu.Chart
 
         public virtual int MinimumTickHeight { get; set; } = 30;
 
-        public int Actual_Size { get; set; }
+        //public int Actual_Size { get; set; }
 
         public int Pixel_Near { get; protected set; }
 
@@ -95,18 +95,18 @@ namespace Xu.Chart
         {
             switch (Align)
             {
-                case (AlignType.Left):
+                case AlignType.Left:
                     Pixel_Near = offset;
                     Pixel_Far = Pixel_Near + size;
                     break;
 
-                case (AlignType.Center):
+                case AlignType.Center:
                     int ct = offset + (size / 2.0).ToInt32();
                     Pixel_Near = ct - (size / 2.0).ToInt32();
                     Pixel_Far = ct + (size / 2.0).ToInt32();
                     break;
 
-                case (AlignType.Right):
+                case AlignType.Right:
                     Pixel_Far = offset + size;
                     Pixel_Near = Pixel_Far - size;
                     break;

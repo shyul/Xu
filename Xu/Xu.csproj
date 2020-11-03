@@ -70,6 +70,7 @@
     <Compile Include="Source\Data\IDataView.cs" />
     <Compile Include="Source\Data\Table\Types\IRow.cs" />
     <Compile Include="Source\Data\Table\Types\TableStatus.cs" />
+    <Compile Include="Source\Data\TraceDataTable.cs" />
     <Compile Include="Source\Main\Icons.cs" />
     <Compile Include="Source\Data\Table\Column\Column.cs" />
     <Compile Include="Source\Data\Table\Column\RenderColumn.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="Source\Algorithms\Extrapolation.cs" />
     <Compile Include="Source\Algorithms\Statistics.cs" />
     <Compile Include="Source\String\Numbers.cs" />
-    <Compile Include="Source\Tools\CsvDataTable.cs" />
+    <Compile Include="Source\Data\CsvDataTable.cs" />
     <Compile Include="Source\Tools\Task.cs" />
     <Compile Include="Source\Types\Bidictionary.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />

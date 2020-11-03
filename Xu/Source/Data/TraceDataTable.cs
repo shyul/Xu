@@ -27,7 +27,7 @@ namespace Xu
         public Dictionary<double, TraceDataRow> Rows { get; protected set; }
             = new Dictionary<double, TraceDataRow>();
 
-        public TraceDataRow this[double x] 
+        public virtual TraceDataRow this[double x] 
         {
             get 
             {
@@ -38,7 +38,10 @@ namespace Xu
             }
         }
 
-
+        public void Add(TraceDataRow row) 
+        {
+            Rows[row.X] = row;
+        }
     }
 
     public class TraceDataRow : IEquatable<TraceDataRow>, IEquatable<double>

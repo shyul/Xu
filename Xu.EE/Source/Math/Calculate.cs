@@ -18,6 +18,8 @@ namespace Xu.EE
         public static double FrequencyToRadians(this double freq) => 2 * PI * freq;
         public static double DegreesToRadians(this double degrees) => (PI * degrees) / 180;
 
+        public static double RadiansToDegrees(this double radians) => radians * 180 / PI;
+
         public const double E = Math.E;
         public const double LightSpeed = 299792458; // Unit: meter/second
         public const double VacuumPermittivity = 1e7 / (4 * PI * LightSpeed * LightSpeed); //public static double VacuumPermittivity => 1e7 / (4 * PI * Math.Pow(LightSpeed, 2));

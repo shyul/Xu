@@ -40,7 +40,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -85,7 +84,7 @@
     <Compile Include="Source\Algorithms\Extrapolation.cs" />
     <Compile Include="Source\Algorithms\Statistics.cs" />
     <Compile Include="Source\String\Numbers.cs" />
-    <Compile Include="Source\Tools\CSVData.cs" />
+    <Compile Include="Source\Tools\CsvDataTable.cs" />
     <Compile Include="Source\Tools\Task.cs" />
     <Compile Include="Source\Types\Bidictionary.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />

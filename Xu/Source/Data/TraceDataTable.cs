@@ -22,7 +22,10 @@ namespace Xu
     {
         public int Count => Rows.Count;
 
-        public virtual void Clear() => Rows.Clear();
+        public virtual void Clear()
+        {
+            lock (this) Rows.Clear();
+        }
 
         public Dictionary<double, TraceDataRow> Rows { get; protected set; }
             = new Dictionary<double, TraceDataRow>();
@@ -31,16 +34,20 @@ namespace Xu
         {
             get 
             {
-                if (!Rows.ContainsKey(x))
-                    Rows.Add(x, new TraceDataRow(x));
+                lock (this)
+                {
+                    if (!Rows.ContainsKey(x))
+                        Rows.Add(x, new TraceDataRow(x));
 
-                return Rows[x];
+                    return Rows[x];
+                }
             }
         }
 
-        public void Add(TraceDataRow row) 
+        public void Add(TraceDataRow row)
         {
-            Rows[row.X] = row;
+            lock (this)
+                Rows[row.X] = row;
         }
     }
 

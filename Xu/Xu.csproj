@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Algorithms\Const.cs" />
     <Compile Include="Source\Algorithms\Fibonacci.cs" />
     <Compile Include="Source\Data\GridView\CellRenderer.cs" />
     <Compile Include="Source\Data\GridView\GridColumnConfiguration.cs" />

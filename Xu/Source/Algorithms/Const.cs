@@ -16,6 +16,10 @@ namespace Xu
 {
     public static class Const
     {
+        public static string[] SIPrefix { get; } = { "K", "M", "G", "T", "P", "E", "Z", "Y" };
+        public static string[] SIPrefixFloat { get; } = { "m", "μ", "n", "p", "f", "a", "z", "y" };
+
+
         public const double Deca = 10;
         public const double Hecto = 1e2;
         public const double Kilo = 1e3;
@@ -30,7 +34,7 @@ namespace Xu
         public const double Deci = 0.1;
         public const double Centi = 0.01;
         public const double Milli = 1e-3;
-        public const double Micro = 1e-6;
+        public const double Micro = 1e-6; // μ
         public const double Nano = 1e-9;
         public const double Pico = 1e-12;
         public const double Femto = 1e-15;

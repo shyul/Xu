@@ -22,8 +22,10 @@ namespace Xu.EE
 
         public const double E = Math.E;
         public const double LightSpeed = 299792458; // Unit: meter/second
-        public const double VacuumPermittivity = 1e7 / (4 * PI * LightSpeed * LightSpeed); //public static double VacuumPermittivity => 1e7 / (4 * PI * Math.Pow(LightSpeed, 2));
-        public static double Capacitance(double dielectricConst, double area, double thickness) => dielectricConst * VacuumPermittivity * area / thickness;
+        public const double VacuumPermitivity = 1e7 / (4 * PI * LightSpeed * LightSpeed); //public static double VacuumPermittivity => 1e7 / (4 * PI * Math.Pow(LightSpeed, 2));
+        public static double Capacitance(double dielectricConst, double area, double thickness) 
+            => (dielectricConst * VacuumPermitivity * area) / thickness;
+
 
 
     }

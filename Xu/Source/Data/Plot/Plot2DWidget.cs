@@ -23,6 +23,8 @@ namespace Xu.Plot
 
 
         }
+
+
     }
 
     public interface ITrace

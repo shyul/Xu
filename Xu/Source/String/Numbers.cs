@@ -254,37 +254,6 @@ namespace Xu
             return val;
         }
 
-        public static string[] SIPrefix = { "K", "M", "G", "T", "P", "E", "Z", "Y" };
-        public static string[] SIPrefixFloat = { "m", "u", "n", "p", "f", "a", "z", "y" };
-
-        /*
-        public static string ToSIString(this double value, int integerPart = 1, string format = "0.00#")
-        {
-            double factor = value;
-
-            double divisor = 10 ^ integerPart;
-            double divisorFloat = 10 ^ -integerPart;
-
-            if (value > -1 && value < 1) // float point mode
-            {
-
-            }
-            else if (value >= 1000 || value <= -1000)
-            {
-                for (int i = 0; i < SIPrefix.Length; i++)
-                {
-                    factor = factor / 1e3;
-
-                    if(factor >= -1000 || factor <= 1000)
-                    {
-
-                    }
-
-                    if (value/1e3)
-                }
-            }
-        }*/
-
         /// <summary>
         /// Convert large double number to finance number string
         /// </summary>

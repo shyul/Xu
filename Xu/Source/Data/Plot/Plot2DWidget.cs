@@ -32,12 +32,7 @@ namespace Xu.Plot
         (double X, double Y) this[int i] { get; }
     }
 
-    public class Area
-    {
-        public ContinuousAxis AxixX { get; }
 
-        public ContinuousAxis AxixY { get; }
-    }
 
     public class ContinuousAxis
     {

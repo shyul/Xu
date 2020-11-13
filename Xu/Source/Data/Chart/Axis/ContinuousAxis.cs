@@ -20,6 +20,7 @@ namespace Xu.Chart
             LabelSide = labelSide;
             Align = align;
             Area = area;
+            Theme = area.Theme;
         }
 
         public readonly Dictionary<Importance, AxisTickStyle> Style = new Dictionary<Importance, AxisTickStyle>()
@@ -31,6 +32,8 @@ namespace Xu.Chart
         };
 
         public IArea Area { get; protected set; }
+
+        public ColorTheme Theme { get; }
 
         public Range<double> Range { get; } = new Range<double>(double.MaxValue, double.MinValue);
 
@@ -120,13 +123,14 @@ namespace Xu.Chart
                 AxisTickStyle style = Style[tk.Value.Importance];
                 int location = ValueToPixel(tk.Key);
 
+                
                 if (style.HasLine)
                     g.DrawLine(style.Theme.EdgePen, bounds.Left, location, bounds.Right, location);
 
                 if (location < bounds.Bottom && location > bounds.Top)
                     if (LabelSide == AlignType.Left)
                     {
-                        g.DrawLine(Area.Theme.EdgePen, bounds.Left, location, bounds.Left - 2, location);
+                        g.DrawLine(Theme.EdgePen, bounds.Left, location, bounds.Left - 2, location);
 
                         if (style.HasLabel)
                         {
@@ -144,7 +148,7 @@ namespace Xu.Chart
                     }
                     else
                     {
-                        g.DrawLine(Area.Theme.EdgePen, bounds.Right, location, bounds.Right + 2, location);
+                        g.DrawLine(Theme.EdgePen, bounds.Right, location, bounds.Right + 2, location);
 
                         if (style.HasLabel)
                         {
@@ -153,7 +157,7 @@ namespace Xu.Chart
                                 Size text_size = TextRenderer.MeasureText(tk.Value.Label, style.Font);
                                 using GraphicsPath gp = ShapeTool.Tag(new Point(bounds.Right + labelOffset - 1 + text_size.Width / 2, location - 1), new Size(text_size.Width - 2, text_size.Height - 2), 1);
                                 g.FillPath(Area.Chart.Theme.FillBrush, gp);
-                                g.DrawPath(Area.Theme.EdgePen, gp);
+                                g.DrawPath(Theme.EdgePen, gp);
                                 g.DrawString(tk.Value.Label, style.Font, style.Theme.ForeBrush, new Point(bounds.Right + labelOffset, location), AppTheme.TextAlignLeft);
                             }
                             else

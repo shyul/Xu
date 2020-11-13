@@ -109,11 +109,11 @@
     <Compile Include="Source\Types\Scheduler\Status.cs" />
     <Compile Include="Source\Types\Scheduler\StatusContainer.cs" />
     <Compile Include="Source\Types\WorkHours.cs" />
-    <Compile Include="Source\Data\Chart\Area\IArea.cs" />
+    <Compile Include="Source\Data\Chart\Area\IIndexArea.cs" />
     <Compile Include="Source\Data\Chart\Area\Area.cs" />
     <Compile Include="Source\Data\Chart\Area\OscillatorArea.cs" />
     <Compile Include="Source\Data\Chart\Axis\ContinuousAxis.cs" />
-    <Compile Include="Source\Data\Chart\Axis\DiscreteAxis.cs" />
+    <Compile Include="Source\Data\Chart\Axis\IndexAxis.cs" />
     <Compile Include="Source\Data\Chart\Area\Legend.cs" />
     <Compile Include="Source\Data\Chart\Series\DotSeries.cs" />
     <Compile Include="Source\Data\Chart\Series\AdColumnSeries.cs" />

@@ -6,7 +6,7 @@
 
 namespace Xu.Chart
 {
-    public interface IArea : IOrdered, ICoordinatable
+    public interface IIndexArea : IOrdered, ICoordinatable
     {
         ChartWidget Chart { get; }
 
@@ -18,7 +18,7 @@ namespace Xu.Chart
 
         int IndexToPixel(int index);
 
-        DiscreteAxis AxisX { get; }
+        IndexAxis AxisX { get; }
 
         ContinuousAxis AxisY(AlignType side);
 

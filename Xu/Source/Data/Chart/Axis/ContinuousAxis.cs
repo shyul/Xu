@@ -2,6 +2,12 @@
 /// Shared Libraries and Utilities
 /// Copyright 2001-2008, 2014-2021 Xu Li - me@xuli.us
 /// 
+/// Axis:
+/// 1. Settings for labels styles
+/// 2. Location for labels
+/// 3. Pixel locatons for drawing axis elements
+/// 4. Drawing all axis elements: label and line
+/// 
 /// ***************************************************************************
 
 using System.Collections.Generic;
@@ -14,7 +20,7 @@ namespace Xu.Chart
 {
     public class ContinuousAxis
     {
-        public ContinuousAxis(IArea area, AlignType labelSide, AlignType align, double heightRatio)
+        public ContinuousAxis(IIndexArea area, AlignType labelSide, AlignType align, double heightRatio)
         {
             HeightRatio = heightRatio;
             LabelSide = labelSide;
@@ -31,13 +37,15 @@ namespace Xu.Chart
             { Importance.Major, new AxisTickStyle() },
         };
 
-        public IArea Area { get; protected set; }
+        public IIndexArea Area { get; protected set; }
 
         public ColorTheme Theme { get; }
 
         public Range<double> Range { get; } = new Range<double>(double.MaxValue, double.MinValue);
 
         public double Delta => Range.Maximum - Range.Minimum;
+
+        public bool IsLogarithmic { get; set; } = false;
 
         public double HeightRatio { get; set; } = 1;
 

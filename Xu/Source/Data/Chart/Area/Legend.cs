@@ -20,13 +20,13 @@ namespace Xu.Chart
     /// 2. Name of the series
     /// 3. Snapshot the data
     /// </summary>
-    public class Legend : IArea
+    public class Legend : IIndexArea
     {
         public Legend(Area area, string name, AlignType side, Importance importance, Size size)
         {
             Area = area;
             Name = name;
-            AxisX = new DiscreteAxis(Area.Chart) { IndexCount = 5 };
+            AxisX = new IndexAxis(Area.Chart) { IndexCount = 5 };
             AxisRight = new ContinuousAxis(this, AlignType.Right, AlignType.Right, 1.0);
             Side = side;
             Importance = importance;
@@ -64,7 +64,7 @@ namespace Xu.Chart
 
         public virtual int IndexCount => AxisX.IndexCount;
 
-        public DiscreteAxis AxisX { get; } //= new DiscreteAxis() { IndexCount = 5 };
+        public IndexAxis AxisX { get; } //= new DiscreteAxis() { IndexCount = 5 };
 
         public Rectangle Bounds { get; set; } = new Rectangle();
         public Point Location { get => Bounds.Location; set { Bounds = new Rectangle(value, Bounds.Size); } }

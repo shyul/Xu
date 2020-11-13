@@ -115,7 +115,7 @@ namespace Xu.Chart
         /// <param name="area"></param>
         /// <param name="startPt"></param>
         /// <param name="stopPt"></param>
-        public override void RefreshAxis(IArea area, ITable table)
+        public override void RefreshAxis(IIndexArea area, ITable table)
         {
             ContinuousAxis axisY = area.AxisY(Side);
 
@@ -164,7 +164,7 @@ namespace Xu.Chart
             return labels;
         }
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             (List<(int index, Point point, double gain)> points, int pt, _, int max_close_y) = GetPixel(table, Close_Column, Percent_Column, area, Side);
 
@@ -290,7 +290,7 @@ namespace Xu.Chart
             g.SmoothingMode = SmoothingMode.Default;
         }
 
-        public override void DrawTailTag(Graphics g, IArea area, ITable table)
+        public override void DrawTailTag(Graphics g, IIndexArea area, ITable table)
         {
             int pt = area.StopPt - 1;
 

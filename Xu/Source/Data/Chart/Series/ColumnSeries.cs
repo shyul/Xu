@@ -72,13 +72,13 @@ namespace Xu.Chart
 
         public double Reference { get; set; } = 0;
 
-        public override void RefreshAxis(IArea area, ITable table)
+        public override void RefreshAxis(IIndexArea area, ITable table)
         {
             base.RefreshAxis(area, table);
             area.AxisY(Side).Range.Insert(Reference);
         }
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             g.SmoothingMode = SmoothingMode.Default; // Reset antialiasing.
 

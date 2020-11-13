@@ -74,7 +74,7 @@ namespace Xu.Chart
 
         public bool IsGradient { get; set; } = true;
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             var (pointList, pt, _, max_y) = GetPixel(table, Data_Column, area, Side);
 
@@ -93,7 +93,7 @@ namespace Xu.Chart
             g.SmoothingMode = SmoothingMode.Default;
         }
 
-        public static void DrawArea(Graphics g, IArea area, ColorTheme theme, IEnumerable<Point> points, int tickWidth, int max_y,
+        public static void DrawArea(Graphics g, IIndexArea area, ColorTheme theme, IEnumerable<Point> points, int tickWidth, int max_y,
             bool isGradient, float width, float tension, LineType type = LineType.Default)
         {
             using GraphicsPath line = GetLinePath(points, type, tension, tickWidth);

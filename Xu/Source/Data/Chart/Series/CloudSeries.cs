@@ -61,7 +61,7 @@ namespace Xu.Chart
             return labels;
         }
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             var (h_pointsList, h_pt, h_min_y, h_max_y) = GetPixel(table, High_Column, area, Side);
             var (l_pointsList, l_pt, l_min_y, l_max_y) = GetPixel(table, Low_Column, area, Side);
@@ -126,7 +126,7 @@ namespace Xu.Chart
             g.SmoothingMode = SmoothingMode.Default;
         }
 
-        public override void DrawTailTag(Graphics g, IArea area, ITable table)
+        public override void DrawTailTag(Graphics g, IIndexArea area, ITable table)
         {
             int pt = area.StopPt - 1;
 

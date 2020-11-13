@@ -96,7 +96,7 @@ namespace Xu.Chart
 
         public bool IsGradient { get; set; } = true;
 
-        public override void RefreshAxis(IArea area, ITable table)
+        public override void RefreshAxis(IIndexArea area, ITable table)
         {
             ContinuousAxis axisY = area.AxisY(Side);
 
@@ -127,7 +127,7 @@ namespace Xu.Chart
             return labels;
         }
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             var (h_pointsList, h_pt, _, _) = GetPixel(table, High_Column, area, Side);
             var (l_pointsList, l_pt, _, _) = GetPixel(table, Low_Column, area, Side);
@@ -166,7 +166,7 @@ namespace Xu.Chart
             g.SmoothingMode = SmoothingMode.Default;
         }
 
-        public override void DrawTailTag(Graphics g, IArea area, ITable table)
+        public override void DrawTailTag(Graphics g, IIndexArea area, ITable table)
         {
             int pt = area.StopPt - 1;
 

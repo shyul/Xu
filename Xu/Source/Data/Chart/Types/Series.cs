@@ -80,7 +80,7 @@ namespace Xu.Chart
         /// <summary>
         /// Coordinate when the graphics area and data point changed
         /// </summary>
-        public virtual void RefreshAxis(IArea area, ITable table) { }
+        public virtual void RefreshAxis(IIndexArea area, ITable table) { }
 
         /// <summary>
         /// Enable Antiasliasing for this series
@@ -112,7 +112,7 @@ namespace Xu.Chart
         /// <summary>
         /// Chart settings will be here -- Color, Line Width, Line Style, Font
         /// </summary>
-        public abstract void Draw(Graphics g, IArea area, ITable table);
+        public abstract void Draw(Graphics g, IIndexArea area, ITable table);
 
         /// <summary>
         /// Enable the end / tail tag
@@ -123,7 +123,7 @@ namespace Xu.Chart
         /// Draw Tag next to the last data point of the chart.
         /// </summary>
         /// <param name="g">Graphics handle for this drawing event</param>
-        public virtual void DrawTailTag(Graphics g, IArea area, ITable table) { }
+        public virtual void DrawTailTag(Graphics g, IIndexArea area, ITable table) { }
 
         /// <summary>
         /// Enable and disable the mouse cursor
@@ -136,7 +136,7 @@ namespace Xu.Chart
         /// <param name="g">Graphics handle for this drawing event</param>
         public virtual void DrawCursor(Graphics g, Area area, ITable table) { }
 
-        public static (List<(int index, Point point)>, int, int, int) GetPixel(ITable table, NumericColumn column, IArea area, AlignType side)
+        public static (List<(int index, Point point)>, int, int, int) GetPixel(ITable table, NumericColumn column, IIndexArea area, AlignType side)
         {
             List<(int index, Point point)> points = new List<(int index, Point point)>();
             int max_y = area.Bottom;
@@ -166,7 +166,7 @@ namespace Xu.Chart
             return (points, pt, min_y, max_y);
         }
 
-        public static (List<(int index, Point point, double gain)>, int, int, int) GetPixel(ITable table, NumericColumn data_Column, NumericColumn gain_Column, IArea area, AlignType side)
+        public static (List<(int index, Point point, double gain)>, int, int, int) GetPixel(ITable table, NumericColumn data_Column, NumericColumn gain_Column, IIndexArea area, AlignType side)
         {
             List<(int index, Point point, double gain)> points = new List<(int index, Point point, double gain)>();
             int max_y = area.Bottom;

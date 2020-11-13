@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Xu.Chart
 {
-    public class Area : IArea, IEquatable<Area>
+    public class Area : IIndexArea, IEquatable<Area>
     {
         public Area(ChartWidget chart, string name, float heightRatio)
         {
@@ -76,7 +76,7 @@ namespace Xu.Chart
 
         public int StartPt => Chart.StartPt;
 
-        public DiscreteAxis AxisX => Chart.AxisX;
+        public IndexAxis AxisX => Chart.AxisX;
 
         public virtual int IndexCount => Chart.IndexCount;
 

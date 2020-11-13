@@ -21,7 +21,7 @@ namespace Xu.Chart
             Btn_Pin.Enabled = true;
             Btn_Close.Enabled = true;
 
-            AxisX = new DiscreteAxis(this);
+            AxisX = new IndexAxis(this);
             Overlay = new ChartOverlay(this);
             Controls.Add(Overlay);
         }
@@ -155,7 +155,7 @@ namespace Xu.Chart
 
         #region Coordinate
 
-        public DiscreteAxis AxisX { get; }
+        public IndexAxis AxisX { get; }
 
         public int HoverIndex { get; set; } = -1;
 

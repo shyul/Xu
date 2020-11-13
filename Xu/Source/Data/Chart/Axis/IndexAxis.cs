@@ -15,9 +15,9 @@ using System.Windows.Forms;
 
 namespace Xu.Chart
 {
-    public class DiscreteAxis
+    public class IndexAxis
     {
-        public DiscreteAxis(ChartWidget chart)
+        public IndexAxis(ChartWidget chart)
         {
             Chart = chart;
         }
@@ -34,7 +34,7 @@ namespace Xu.Chart
         };*/
 
         // int mean the relative location, StartPt as zero
-        public readonly Dictionary<int, (Importance Importance, string Label)> TickList = new Dictionary<int, (Importance Importance, string Label)>();
+        public Dictionary<int, (Importance Importance, string Label)> TickList { get; } = new Dictionary<int, (Importance Importance, string Label)>();
 
         public virtual int IndexCount { get; set; }
 

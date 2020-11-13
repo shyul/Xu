@@ -57,7 +57,7 @@ namespace Xu.Chart
 
         public bool DrawLimitShade { get; set; } = true;
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             var (pointList, pt, _, _) = GetPixel(table, Data_Column, area, Side);
 
@@ -146,7 +146,7 @@ namespace Xu.Chart
             }
         }
 
-        public override void DrawTailTag(Graphics g, IArea area, ITable table)
+        public override void DrawTailTag(Graphics g, IIndexArea area, ITable table)
         {
             int pt = area.StopPt - 1;
 

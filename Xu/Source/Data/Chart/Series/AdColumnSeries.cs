@@ -73,7 +73,7 @@ namespace Xu.Chart
             }
         }
 
-        public override void Draw(Graphics g, IArea area, ITable table)
+        public override void Draw(Graphics g, IIndexArea area, ITable table)
         {
             var (pointList, pt, _, _) = GetPixel(table, Data_Column, Gain_Column, area, Side);
 
@@ -119,7 +119,7 @@ namespace Xu.Chart
             g.SmoothingMode = SmoothingMode.Default;
         }
 
-        public override void DrawTailTag(Graphics g, IArea area, ITable table)
+        public override void DrawTailTag(Graphics g, IIndexArea area, ITable table)
         {
             int pt = area.StopPt - 1;
 

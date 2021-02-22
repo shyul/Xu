@@ -27,6 +27,7 @@ namespace Xu
 
         public void DataIsUpdated()
         {
+            UpdateTime = DateTime.Now;
             DataConsumers.ForEach(n => n.DataIsUpdated());
         }
     }

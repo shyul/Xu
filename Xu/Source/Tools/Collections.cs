@@ -219,7 +219,7 @@ namespace Xu
         /// <param name="list"></param>
         /// <param name="sep"></param>
         /// <returns></returns>
-        public static string ToString<T>(this ICollection<T> list, char sep = Xu.TextTool.ValueSeparator) => ToString<T>(list, new string(new char[] { sep }));
+        public static string ToString<T>(this IEnumerable<T> list, char sep = Xu.TextTool.ValueSeparator) => ToString<T>(list, new string(new char[] { sep }));
 
         /// <summary>
         /// 
@@ -228,7 +228,7 @@ namespace Xu
         /// <param name="list"></param>
         /// <param name="sep"></param>
         /// <returns></returns>
-        public static string ToString<T>(this ICollection<T> list, string sep) => string.Join(sep, list);
+        public static string ToString<T>(this IEnumerable<T> list, string sep) => string.Join(sep, list);
 
         public static string ToStringWithIndex<T>(this ICollection<T> list)
         {

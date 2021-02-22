@@ -37,16 +37,6 @@ namespace Xu.GridView
                 {
                     ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi));
                 }
-
-                /*
-                foreach (object obj in pi.GetCustomAttributes(true))
-                {
-                    if (obj is BrowsableAttribute bra && bra.Browsable)
-                    {
-                        ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi));
-                        break;
-                    }
-                }*/
             }
         }
 
@@ -66,17 +56,19 @@ namespace Xu.GridView
                     }
                 }
 
-                lock (GraphicsLockObject)
-                {
-                    Rows = orderedList.ToArray();
-                }
+                lock (DataLockObject)
+                    lock (GraphicsLockObject)
+                    {
+                        Rows = orderedList.ToArray();
+                    }
             }
             else
             {
-                lock (GraphicsLockObject)
-                {
-                    Rows = rows.ToArray();
-                }
+                lock (DataLockObject)
+                    lock (GraphicsLockObject)
+                    {
+                        Rows = rows.ToArray();
+                    }
             }
 
             DataIsUpdated();
@@ -86,16 +78,26 @@ namespace Xu.GridView
 
         public virtual void RemoveDataSource()
         {
-            lock (GraphicsLockObject)
-            {
-                ReadyToShow = false;
-                Rows = null;
-            }
+            lock (DataLockObject)
+                lock (GraphicsLockObject)
+                {
+                    ReadyToShow = false;
+                    Rows = null;
+                }
         }
 
-        public virtual T[] Rows { get; protected set; }
+        public object DataLockObject { get; } = new object();
 
-        public virtual int DataCount => (Rows is T[] rows) ? rows.Length : 0;
+        protected T[] Rows { get; private set; }
+
+        public virtual int DataCount
+        {
+            get
+            {
+                lock (DataLockObject)
+                    return (Rows is T[] rows) ? rows.Length : 0;
+            }
+        }
 
         public virtual int StartPt { get; set; } = 0;
 
@@ -118,36 +120,38 @@ namespace Xu.GridView
 
         public virtual void PointerToEnd()
         {
-            if (Rows is T[] rows)
-            {
-                StopPt = rows.Count();
+            lock (DataLockObject)
+                if (Rows is T[] rows)
+                {
+                    StopPt = rows.Count();
 
-                lock (GraphicsLockObject)
-                    CoordinateRows();
+                    lock (GraphicsLockObject)
+                        CoordinateRows();
 
-                DataIsUpdated(); // async update
-            }
-            else
-            {
-                StopPt = 0;
-            }
+                    DataIsUpdated(); // async update
+                }
+                else
+                {
+                    StopPt = 0;
+                }
         }
 
         public virtual void PointerToNextTick()
         {
-            if (Rows is T[] rows && StopPt > rows.Count() - 3)
-            {
-                StopPt = rows.Count();
+            lock (DataLockObject)
+                if (Rows is T[] rows && StopPt > rows.Count() - 3)
+                {
+                    StopPt = rows.Count();
 
-                lock (GraphicsLockObject)
-                    CoordinateRows();
+                    lock (GraphicsLockObject)
+                        CoordinateRows();
 
-                DataIsUpdated();
-            }
-            else
-            {
-                StopPt = 0;
-            }
+                    DataIsUpdated();
+                }
+                else
+                {
+                    StopPt = 0;
+                }
         }
 
         /// <summary>
@@ -278,69 +282,70 @@ namespace Xu.GridView
                 g.DrawString("Preparing Data... Stand By.", Main.Theme.FontBold, Main.Theme.GrayTextBrush, new Point(Bounds.Width / 2, Bounds.Height / 2), AppTheme.TextAlignCenter);
             }
 
-            if (ReadyToShow && GridBounds.Width > 0 && Rows is T[] rows)
-                lock (GraphicsLockObject)
-                {
-                    int top = GridBounds.Top;
-                    int bottom = GridBounds.Bottom;
-                    int left = GridBounds.Left;
-                    int right = GridBounds.Right;
-
-                    int i = 0;
-
-                    for (i = StartPt; i < StopPt; i++)
+            lock (DataLockObject)
+                if (ReadyToShow && GridBounds.Width > 0 && Rows is T[] rows)
+                    lock (GraphicsLockObject)
                     {
-                        var (y, height) = RowBounds[i];
-                        if (i == HoverIndex)
+                        int top = GridBounds.Top;
+                        int bottom = GridBounds.Bottom;
+                        int left = GridBounds.Left;
+                        int right = GridBounds.Right;
+
+                        int i = 0;
+
+                        for (i = StartPt; i < StopPt; i++)
                         {
-                            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, height));
-                        }
-                        else if (i == SelectedIndex)
-                        {
-
-                            g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, height));
-                        }
-                    }
-
-                    g.DrawRectangle(Theme.EdgePen, GridBounds);
-
-                    // Draw Vertical Grid Lines
-                    i = 0;
-                    foreach (var stripe in VisibleColumns)
-                    {
-                        int x = stripe.Actual_X;
-
-                        if (i > 0)
-                        {
-                            g.DrawLine(Theme.EdgePen, new Point(x, top), new Point(x, bottom));
-                        }
-
-                        Rectangle titleBox = new Rectangle(x, top, stripe.ActualWidth, StripeTitleHeight);
-                        g.DrawString(stripe.Name, Main.Theme.FontBold, Theme.ForeBrush, titleBox);
-
-                        i++;
-                    }
-
-                    //y = top + StripeTitleHeight;
-
-                    for (i = StartPt; i < StopPt; i++)
-                    {
-                        var (y, height) = RowBounds[i];
-
-                        g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
-
-                        foreach (GridColumnConfiguration col in VisibleColumns)
-                        {
-                            int x = col.Actual_X;
-                            Rectangle cellBox = new Rectangle(x, y, col.ActualWidth, height);
-
-                            if (i < DataCount)
+                            var (y, height) = RowBounds[i];
+                            if (i == HoverIndex)
                             {
-                                col.DataCellRenderer.Draw(g, cellBox, col.PropertyInfo.GetValue(rows[i]));
+                                g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Left, y, GridBounds.Width, height));
+                            }
+                            else if (i == SelectedIndex)
+                            {
+
+                                g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(Left, y, GridBounds.Width, height));
+                            }
+                        }
+
+                        g.DrawRectangle(Theme.EdgePen, GridBounds);
+
+                        // Draw Vertical Grid Lines
+                        i = 0;
+                        foreach (var stripe in VisibleColumns)
+                        {
+                            int x = stripe.Actual_X;
+
+                            if (i > 0)
+                            {
+                                g.DrawLine(Theme.EdgePen, new Point(x, top), new Point(x, bottom));
+                            }
+
+                            Rectangle titleBox = new Rectangle(x, top, stripe.ActualWidth, StripeTitleHeight);
+                            g.DrawString(stripe.Name, Main.Theme.FontBold, Theme.ForeBrush, titleBox);
+
+                            i++;
+                        }
+
+                        //y = top + StripeTitleHeight;
+
+                        for (i = StartPt; i < StopPt; i++)
+                        {
+                            var (y, height) = RowBounds[i];
+
+                            g.DrawLine(Theme.EdgePen, new Point(Left, y), new Point(Right, y));
+
+                            foreach (GridColumnConfiguration col in VisibleColumns)
+                            {
+                                int x = col.Actual_X;
+                                Rectangle cellBox = new Rectangle(x, y, col.ActualWidth, height);
+
+                                if (i < DataCount)
+                                {
+                                    col.DataCellRenderer.Draw(g, cellBox, col.PropertyInfo.GetValue(rows[i]));
+                                }
                             }
                         }
                     }
-                }
         }
 
         #endregion
@@ -372,7 +377,8 @@ namespace Xu.GridView
                 MousePoint = new Point(e.X, e.Y);
                 SelectedIndex = HoverIndex;
 
-                Console.WriteLine("Selected Index = " + SelectedIndex + ((SelectedIndex >= 0 && SelectedIndex < DataCount) ? Rows[SelectedIndex].ToString() : string.Empty));
+                lock (DataLockObject)
+                    Console.WriteLine("Selected Index = " + SelectedIndex + ((SelectedIndex >= 0 && SelectedIndex < DataCount) ? Rows[SelectedIndex].ToString() : string.Empty));
 
                 Invalidate();
             }

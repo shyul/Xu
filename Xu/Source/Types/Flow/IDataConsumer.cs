@@ -4,10 +4,15 @@
 /// 
 /// ***************************************************************************
 
+using System;
+using System.Collections.Generic;
 
 namespace Xu
 {
-    public class TreeView
+    public interface IDataConsumer
     {
+        void RemoveDataSource();
+
+        void DataIsUpdated(); // void DataIsUpdated(IDataSource ids);
     }
 }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Xu
 {
-    public interface IDataView : IDataSink
+    public interface IDataRenderer : IDataConsumer
     {
         int StartPt { get; set; }
 
@@ -20,25 +20,5 @@ namespace Xu
         void PointerToEnd();
 
         void PointerToNextTick();
-    }
-
-    public interface IDataSink
-    {
-        //void AddDataSource(IDataSource ids);
-
-        void RemoveDataSource();
-
-        void DataIsUpdated(); // void DataIsUpdated(IDataSource ids);
-    }
-
-    public interface IDataSource
-    {
-        void AddDataSink(IDataSink idk);
-
-        bool RemoveDataSink(IDataSink idk);
-
-        void DataIsUpdated();
-
-        DateTime UpdateTime { get; }
     }
 }

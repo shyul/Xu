@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Xu.Chart
 {
-    public abstract class ChartWidget : DockForm, IDataView
+    public abstract class ChartWidget : DockForm, IDataRenderer
     {
         protected ChartWidget(string name) : base(name, true)
         {

@@ -69,7 +69,9 @@
     <Compile Include="Source\Data\Plot\Area.cs" />
     <Compile Include="Source\Data\Plot\Plot2DWidget.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
-    <Compile Include="Source\Data\IDataView.cs" />
+    <Compile Include="Source\Types\Flow\IDataConsumer.cs" />
+    <Compile Include="Source\Types\Flow\IDataProvider.cs" />
+    <Compile Include="Source\Types\Flow\IDataRenderer.cs" />
     <Compile Include="Source\Data\Table\Types\IRow.cs" />
     <Compile Include="Source\Data\Table\Types\TableStatus.cs" />
     <Compile Include="Source\Data\TraceDataTable.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Source\Data\CsvDataTable.cs" />
     <Compile Include="Source\Tools\Task.cs" />
     <Compile Include="Source\Types\Bidictionary.cs" />
+    <Compile Include="Source\Types\Flow\SimpleDataProvider.cs" />
     <Compile Include="Source\Types\Interfaces\IObject.cs" />
     <Compile Include="Source\Types\Interfaces\ITagged.cs" />
     <Compile Include="Source\Types\Interfaces\IUid.cs" />
@@ -121,7 +124,6 @@
     <Compile Include="Source\UserInterface\Shared\CodeEdit\CodeEdit.cs" />
     <Compile Include="Source\UserInterface\Shared\EventView\EventView.cs" />
     <Compile Include="Source\UserInterface\Shared\Miscellaneous\TextEdit.cs" />
-    <Compile Include="Source\UserInterface\Shared\TreeView\TreeView.cs" />
     <Compile Include="Source\Data\Table\Column\Types\NumericColumn.cs" />
     <Compile Include="Source\Data\Chart\Types\Series.cs" />
     <Compile Include="Source\Data\Chart\ChartOverlay.cs" />

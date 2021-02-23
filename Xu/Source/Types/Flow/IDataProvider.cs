@@ -15,8 +15,6 @@ namespace Xu
 
         bool RemoveDataConsumer(IDataConsumer idk);
 
-        void DataIsUpdated();
-
         DateTime UpdateTime { get; }
     }
 }

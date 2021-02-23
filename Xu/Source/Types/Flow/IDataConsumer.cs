@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Xu
 {
-    public interface IDataConsumer
+    public interface IDataConsumer : IDisposable
     {
         void RemoveDataSource();
 

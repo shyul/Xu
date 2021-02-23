@@ -42,7 +42,8 @@ namespace Xu.GridView
 
         public virtual void Update(IEnumerable<T> rows)
         {
-            var pi = ColumnConfigurations.Where(n => typeof(IComparable).IsAssignableFrom(n.Key.PropertyType) && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
+            var pi = ColumnConfigurations.Where(n => n.Key.PropertyType is IComparable && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
+            //var pi = ColumnConfigurations.Where(n => typeof(IComparable).IsAssignableFrom(n.Key.PropertyType) && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
             //var pi = ColumnConfigurations.Where(n => n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
             if (pi.Count() > 0)
             {
@@ -88,7 +89,7 @@ namespace Xu.GridView
 
         public object DataLockObject { get; } = new object();
 
-        protected T[] Rows { get; private set; }
+        protected IEnumerable<T> Rows { get; set; }
 
         public virtual int DataCount
         {
@@ -378,7 +379,7 @@ namespace Xu.GridView
                 SelectedIndex = HoverIndex;
 
                 lock (DataLockObject)
-                    Console.WriteLine("Selected Index = " + SelectedIndex + ((SelectedIndex >= 0 && SelectedIndex < DataCount) ? Rows[SelectedIndex].ToString() : string.Empty));
+                    Console.WriteLine("Selected Index = " + SelectedIndex + ((SelectedIndex >= 0 && SelectedIndex < DataCount) ? Rows.ElementAt(SelectedIndex).ToString() : string.Empty));
 
                 Invalidate();
             }

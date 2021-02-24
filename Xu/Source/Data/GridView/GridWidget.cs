@@ -38,20 +38,27 @@ namespace Xu.GridView
                     ColumnConfigurations.Add(pi, new GridColumnConfiguration(pi));
                 }
             }
+
+            //SortableProperties = ColumnConfigurations.Where(n => typeof(IComparable).IsAssignableFrom(n.Key.PropertyType) && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
+            //SortableProperties = ColumnConfigurations.Where(n => n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
+            SortableProperties = ColumnConfigurations.Where(n => n.Key.PropertyType is IComparable && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
         }
 
-        public virtual void Update(IEnumerable<T> rows)
-        {
-            var pi = ColumnConfigurations.Where(n => n.Key.PropertyType is IComparable && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
-            //var pi = ColumnConfigurations.Where(n => typeof(IComparable).IsAssignableFrom(n.Key.PropertyType) && n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
-            //var pi = ColumnConfigurations.Where(n => n.Value.SortPriority < int.MaxValue).OrderBy(n => n.Value.SortPriority).Select(n => n.Key);
-            if (pi.Count() > 0)
-            {
-                var orderedList = rows.OrderBy(n => pi.First().GetValue(n, null));
+        #region Rows
 
-                if (pi.Count() > 1)
+        public object DataLockObject { get; } = new object();
+
+        protected IEnumerable<T> SourceRows { get; set; }
+
+        public override void DataIsUpdated()
+        {
+            if (SortableProperties.Count() > 0)
+            {
+                var orderedList = SourceRows.OrderBy(n => SortableProperties.First().GetValue(n, null));
+
+                if (SortableProperties.Count() > 1)
                 {
-                    foreach (PropertyInfo p in pi.Skip(1))
+                    foreach (PropertyInfo p in SortableProperties.Skip(1))
                     {
                         orderedList = orderedList.ThenBy(n => p.GetValue(n, null));
                     }
@@ -68,16 +75,12 @@ namespace Xu.GridView
                 lock (DataLockObject)
                     lock (GraphicsLockObject)
                     {
-                        Rows = rows.ToArray();
+                        Rows = SourceRows.ToArray();
                     }
             }
 
-            DataIsUpdated();
+            base.DataIsUpdated();
         }
-
-        #region Rows
-
-        public object DataLockObject { get; } = new object();
 
         protected IEnumerable<T> Rows { get; set; }
 
@@ -175,6 +178,8 @@ namespace Xu.GridView
         protected virtual IEnumerable<GridColumnConfiguration> VisibleColumns => Columns.Where(n => n.Visible).OrderBy(n => n.DisplayOrder);
 
         protected int TotalStripesWidth => VisibleColumns.Select(n => n.DataCellRenderer.Width).Sum();
+
+        protected IEnumerable<PropertyInfo> SortableProperties { get; }
 
         #endregion Stripes / Columns
 

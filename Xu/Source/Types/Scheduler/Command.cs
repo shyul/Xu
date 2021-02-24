@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -14,14 +13,6 @@ using System.Windows.Forms;
 
 namespace Xu
 {
-    /*
-    public delegate void CommandAction(
-        IObject sender = null,
-        string[] args = null,
-        Progress<EventLogItem> progress = null,
-        CancellationTokenSource cancellationToken = null
-    );*/
-
     public class Command : IOrdered, IDisposable
     {
         #region Dispose
@@ -33,27 +24,7 @@ namespace Xu
         }
         #endregion
 
-        // Defined as doing nothing.
-        [Browsable(true), ReadOnly(false)]
-        [Description("Action")]
-        //public CommandAction Action { get; set; } = (IObject sender, string[] args, Progress<EventLogItem> progress, CancellationTokenSource cancellationToken) => { };
-
         public Action<TaskControl<float>> Action { get; set; } = (TaskControl<float> control) => { };
-
-        // Percent of executions -- can be use as Period or total counts
-        // N
-
-        // delegate the progress indication?
-        /*
-            = new Progress<int>(percent => {
-                    StatusProgressBar1.Value = percent;
-                });
-        */
-//[Browsable(true), ReadOnly(true)]
-        //public Progress<EventLogItem> Progress { get; set; } = new Progress<EventLogItem>(percent => { });
-
-        // Tells the process to stop
-        //protected CancellationTokenSource Cts { get; set; } = new CancellationTokenSource();
 
         public TaskControl<float> TaskControl { get; } = new TaskControl<float>();
 
@@ -62,45 +33,27 @@ namespace Xu
         {
             if (Enabled)
             {
-                //if (!(Cts is null)) Cts = new CancellationTokenSource();
+                if (!(TaskControl.Cts is null)) TaskControl.Cts = new CancellationTokenSource();
                 Action.Invoke(TaskControl);
             }
         }
 
         public virtual void Stop() { if (TaskControl.Cts is not null) TaskControl.Cts.Cancel(); }
 
-        // Commmand Identity
-        [Browsable(true), ReadOnly(false)]
-        [Description("Enabled")]
         public virtual bool Enabled { get; set; } = true;
 
-        [Browsable(true), ReadOnly(false)]
-        [Description("Order")]
         public int Order { get; set; } = 0;
 
-
-        [Browsable(true), ReadOnly(false)]
-        [Description("Label")]
         public string Label { get; set; } = "DCMD";
 
-        [Browsable(true), ReadOnly(false)]
-        [Description("Name")]
         public string Name { get; set; } = "Default Command";
 
-        [Browsable(true), ReadOnly(false)]
-        [Description("Description")]
         public string Description { get; set; } = "This is a default command description, please modify.";
 
-        [Browsable(true), ReadOnly(false)]
-        [Description("Importance")]
         public Importance Importance { get; set; } = Importance.Minor;
 
-        [Browsable(true), ReadOnly(false)]
-        [Description("Shortcut Key")]
         public ShortcutKey ShortcutKey { get; set; }
 
-        [Browsable(true), ReadOnly(false)]
-        [Description("Color Theme")]
         public ColorTheme Theme { get; set; } = new ColorTheme();
 
         public Dictionary<IconType, Dictionary<Size, Bitmap>> IconList { get; set; } = new Dictionary<IconType, Dictionary<Size, Bitmap>>()

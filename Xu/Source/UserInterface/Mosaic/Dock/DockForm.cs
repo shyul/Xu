@@ -68,7 +68,7 @@ namespace Xu
 
         public override void Close()
         {
-            ObsoletedEvent.Debug(TabName + ": The Tab is closing");
+            Console.Write(TabName + ": The Tab is closing");
             AsyncUpdateUITask_Cts.Cancel();
             HostContainer.Remove(this);
             /*

@@ -25,7 +25,7 @@ namespace Xu
             return DataConsumers.CheckRemove(idk);
         }
 
-        public void DataIsUpdated()
+        public void Updated()
         {
             UpdateTime = DateTime.Now;
             DataConsumers.ForEach(n => n.DataIsUpdated());

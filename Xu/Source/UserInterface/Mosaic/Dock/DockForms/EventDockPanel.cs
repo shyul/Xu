@@ -47,7 +47,7 @@ namespace Xu
             Graphics g = pe.Graphics;
             //g.SmoothingMode = SmoothingMode.HighQuality;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
-
+            /*
             int startIndex = ObsoletedEvent.OutputMessages.Count - m_MaxLineNum;
             if (startIndex < 0) startIndex = 0;
 
@@ -62,7 +62,7 @@ namespace Xu
                     g.DrawString(lines[j], Main.Theme.ConsoleFont, Brushes.DimGray, new Point(3, BaseY));
                 }
                 if (BaseY < 0) break;
-            }
+            }*/
         }
     }
 }

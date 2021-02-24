@@ -415,7 +415,7 @@ namespace Xu
         public virtual void FinishDock()
         {
             DockStyle side = DockCanvas.FinishDock();
-            ObsoletedEvent.Debug("Finish Docking, side: " + side);
+            Console.Write("Finish Docking, side: " + side);
             if (DockCanvas.NextContainer != null)
             {
                 DockCanvas.NextContainer.AddForm(side, DockCanvas.ActiveDockForm);
@@ -570,7 +570,7 @@ namespace Xu
                         {
                             ActiveFormNewOrder = 0;
                             LayoutState = LayoutStatus.Docking;
-                            ObsoletedEvent.Debug("Start Docking");
+                            Console.Write("Start Docking");
                             // Start Dock here;
                             DockCanvas.StartDock();
                         }
@@ -579,7 +579,7 @@ namespace Xu
                         if (m_tabBound.Contains(pt))
                         {
                             LayoutState = LayoutStatus.Drag;
-                            ObsoletedEvent.Debug("Start Tab Drag");
+                            Console.Write("Start Tab Drag");
                             DockCanvas.FinishDock();
                         }
                         else
@@ -604,7 +604,7 @@ namespace Xu
                         {
                             Cursor.Current = Cursors.Default;
                             LayoutState = LayoutStatus.Idle;
-                            ObsoletedEvent.Debug("Stop Resizing");
+                            Console.Write("Stop Resizing");
                         }
                         return;
                     default:
@@ -649,14 +649,14 @@ namespace Xu
                                         {
                                             df.MouseState = MouseState.Drag;
                                             LayoutState = LayoutStatus.Docking;
-                                            ObsoletedEvent.Debug("Start Docking"); // Start Dock here;
+                                            Console.Write("Start Docking"); // Start Dock here;
                                             DockCanvas.StartDock();
                                         }
                                         else if (!tabRect.Contains(pt))
                                         {
                                             df.MouseState = MouseState.Drag;
                                             LayoutState = LayoutStatus.Drag;
-                                            ObsoletedEvent.Debug("Start Tab Drag");
+                                            Console.Write("Start Tab Drag");
                                         }
                                     }
                                 }
@@ -689,7 +689,7 @@ namespace Xu
             {
                 MouseState = MouseState.Drag;
                 LayoutState = LayoutStatus.Resizing;
-                ObsoletedEvent.Debug("Start Resizing");
+                Console.Write("Start Resizing");
                 DockCanvas.StartResize(this);
             }
             else if (LayoutState == LayoutStatus.Idle)
@@ -715,7 +715,7 @@ namespace Xu
                         {
                             if (ActiveDockForm.Order > ActiveFormNewOrder) ActiveFormNewOrder--;
                             else if (ActiveDockForm.Order < ActiveFormNewOrder) ActiveFormNewOrder++;
-                            ObsoletedEvent.Debug("Old: " + ActiveDockForm.Order + " New: " + ActiveFormNewOrder);
+                            Console.Write("Old: " + ActiveDockForm.Order + " New: " + ActiveFormNewOrder);
                             ActiveDockForm.Order = ActiveFormNewOrder;
                             Sort();
                             Coordinate();

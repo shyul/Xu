@@ -91,7 +91,7 @@ namespace Xu
         /// <returns></returns>
         public SideDockContainer CreateContainer(int index)
         {
-            ObsoletedEvent.Debug("Create Side Container at: " + index.ToString());
+            Console.Write("Create Side Container at: " + index.ToString());
             SideDockContainer dc_new = new SideDockContainer();
             SuspendLayout();
             lock (DockContainers)
@@ -125,7 +125,7 @@ namespace Xu
             m_tabOnly = (ShownContainerCount == 0);
             if (Count <= 0)
             {
-                ObsoletedEvent.Debug("Simple SidePane Clean Up");
+                Console.Write("Simple SidePane Clean Up");
                 Close();
             }
         }
@@ -379,7 +379,7 @@ namespace Xu
         public static void FinishDock()
         {
             DockStyle side = DockCanvas.FinishDock();
-            ObsoletedEvent.Debug("Finish SidePane Docking, side: " + side);
+            Console.Write("Finish SidePane Docking, side: " + side);
             if (DockCanvas.NextContainer != null)
             {
                 DockCanvas.NextContainer.AddForm(side, DockCanvas.ActiveDockForm);
@@ -1065,7 +1065,7 @@ namespace Xu
                         {
                             ActiveFormNewOrder = 0;
                             LayoutState = LayoutStatus.Docking;
-                            ObsoletedEvent.Debug("Start Docking");
+                            Console.Write("Start Docking");
                             // Start Dock here;
                             DockCanvas.StartDock();
                         }
@@ -1074,7 +1074,7 @@ namespace Xu
                         if (TabBound.Contains(pt))
                         {
                             LayoutState = LayoutStatus.Drag;
-                            ObsoletedEvent.Debug("Start Tab Drag");
+                            Console.Write("Start Tab Drag");
                             DockCanvas.FinishDock();
                             DockCanvas.NextContainer = null;
                         }
@@ -1100,7 +1100,7 @@ namespace Xu
                         {
                             Cursor.Current = Cursors.Default;
                             LayoutState = LayoutStatus.Idle;
-                            ObsoletedEvent.Debug("Stop Resizing");
+                            Console.Write("Stop Resizing");
                         }
                         return;
                     default:
@@ -1140,7 +1140,7 @@ namespace Xu
                                                     {
                                                         df.MouseState = MouseState.Drag;
                                                         LayoutState = LayoutStatus.Docking;
-                                                        ObsoletedEvent.Debug("Start SidePane Tab Docking");
+                                                        Console.Write("Start SidePane Tab Docking");
                                                         // Start Dock here;
                                                         DockCanvas.StartDock();
                                                     }
@@ -1149,7 +1149,7 @@ namespace Xu
                                                         df.MouseState = MouseState.Drag;
                                                         LayoutState = LayoutStatus.Drag;
                                                         DockCanvas.NextContainer = null;
-                                                        ObsoletedEvent.Debug("Start SidePane Tab Drag");
+                                                        Console.Write("Start SidePane Tab Drag");
                                                     }
                                                 }
                                             }
@@ -1191,7 +1191,7 @@ namespace Xu
             {
                 MouseState = MouseState.Drag;
                 LayoutState = LayoutStatus.Resizing;
-                ObsoletedEvent.Debug("Start Resizing");
+                Console.Write("Start Resizing");
                 DockCanvas.StartResize(this);
             }
             else if (LayoutState == LayoutStatus.Idle && HasHiddenContainer)
@@ -1246,7 +1246,7 @@ namespace Xu
                             {
                                 if (DockCanvas.ActiveDockForm.Order > ActiveFormNewOrder) ActiveFormNewOrder--;
                                 else if (DockCanvas.ActiveDockForm.Order < ActiveFormNewOrder) ActiveFormNewOrder++;
-                                ObsoletedEvent.Debug("Old: " + DockCanvas.ActiveDockForm.Order + " New: " + ActiveFormNewOrder);
+                                Console.Write("Old: " + DockCanvas.ActiveDockForm.Order + " New: " + ActiveFormNewOrder);
                             }
                         }
                         else

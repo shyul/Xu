@@ -67,7 +67,7 @@ namespace Xu
         /// </summary>
         public virtual void Close()
         {
-            ObsoletedEvent.Debug(TabName + ": The Tab is closing");
+            Console.Write(TabName + ": The Tab is closing");
             HostContainer.Remove(this);
             Dispose();
             while (Disposing) ;

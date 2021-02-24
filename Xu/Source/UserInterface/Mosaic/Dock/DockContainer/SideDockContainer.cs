@@ -6,6 +6,7 @@
 /// 
 /// ***************************************************************************
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -700,7 +701,7 @@ namespace Xu
                 {
                     DockCanvas.ActiveDockForm.MouseState = MouseState.Drag;
                     LayoutState = LayoutStatus.Docking;
-                    ObsoletedEvent.Debug("Start docking by caption");
+                    Console.Write("Start docking by caption");
                     // Start Dock here;
                     DockCanvas.StartDock();
                     GotPt = true;
@@ -725,7 +726,7 @@ namespace Xu
                 {
                     c_captionMouseState = m_captionGrip.Contains(pt) ? MouseState.Down : MouseState.Out;
                 }
-                ObsoletedEvent.Debug("_captionMouseState = " + c_captionMouseState.ToString());
+                Console.Write("_captionMouseState = " + c_captionMouseState.ToString());
             }
             Invalidate();
             return GotPt;

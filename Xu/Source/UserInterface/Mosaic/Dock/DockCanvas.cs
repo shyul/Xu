@@ -138,7 +138,7 @@ namespace Xu
             set
             {
                 m_activeDockForm = value;
-                ObsoletedEvent.Debug("Activate Form: " + m_activeDockForm.TabName);
+                Console.Write("Activate Form: " + m_activeDockForm.TabName);
             }
         }
         private static DockForm m_activeDockForm = null;
@@ -154,7 +154,7 @@ namespace Xu
                 HideOtherSideContainer(value);
                 m_activeDockContainer = value;
                 if (m_activeDockContainer != null)
-                    ObsoletedEvent.Debug("Activate Container: " + m_activeDockContainer.Count.ToString() + " / isRoot:" + m_activeDockContainer.IsRoot);
+                    Console.Write("Activate Container: " + m_activeDockContainer.Count.ToString() + " / isRoot:" + m_activeDockContainer.IsRoot);
             }
         }
         private static DockContainer m_activeDockContainer = null;

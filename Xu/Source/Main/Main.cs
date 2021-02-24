@@ -57,7 +57,7 @@ namespace Xu
 
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Backward is clicked");
+                Console.Write("Backward is clicked");
             },
         };
 
@@ -71,7 +71,7 @@ namespace Xu
                 },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Forward is clicked");
+                Console.Write("Forward is clicked");
             },
             Enabled = false
         };
@@ -86,7 +86,7 @@ namespace Xu
                 },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Undo is clicked");
+                Console.Write("Undo is clicked");
             },
             Enabled = false
         };
@@ -102,7 +102,7 @@ namespace Xu
 
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Redo is clicked");
+                Console.Write("Redo is clicked");
             },
         };
 
@@ -116,7 +116,7 @@ namespace Xu
                 },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Open is clicked");
+                Console.Write("Open is clicked");
             },
         };
 
@@ -130,7 +130,7 @@ namespace Xu
                 },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Save is clicked");
+                Console.Write("Save is clicked");
             },
         };
 
@@ -141,7 +141,7 @@ namespace Xu
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Copy } },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Copy is clicked");
+                Console.Write("Copy is clicked");
             },
         };
 
@@ -152,7 +152,7 @@ namespace Xu
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Cut } },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Cut is clicked");
+                Console.Write("Cut is clicked");
             },
         };
 
@@ -163,7 +163,7 @@ namespace Xu
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Paste } },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Paste is clicked");
+                Console.Write("Paste is clicked");
             },
         };
 
@@ -174,7 +174,7 @@ namespace Xu
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Delete } },
             Action = (TaskControl<float> control) =>
             {
-                ObsoletedEvent.Debug("Delete is clicked");
+                Console.Write("Delete is clicked");
             },
         };
 

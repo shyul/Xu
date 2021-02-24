@@ -11,8 +11,6 @@ namespace Xu
 {
     public interface IDataConsumer : IDisposable
     {
-        //void RemoveDataSource();
-
         /// <summary>
         /// The IDataProvider notifies by calling this function
         /// </summary>

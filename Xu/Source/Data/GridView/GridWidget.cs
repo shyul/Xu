@@ -77,16 +77,6 @@ namespace Xu.GridView
 
         #region Rows
 
-        public virtual void RemoveDataSource()
-        {
-            lock (DataLockObject)
-                lock (GraphicsLockObject)
-                {
-                    ReadyToShow = false;
-                    Rows = null;
-                }
-        }
-
         public object DataLockObject { get; } = new object();
 
         protected IEnumerable<T> Rows { get; set; }

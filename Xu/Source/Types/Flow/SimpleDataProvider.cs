@@ -11,7 +11,7 @@ namespace Xu
 {
     public class SimpleDataProvider : IDataProvider
     {
-        public DateTime UpdateTime { get; set; } = DateTime.MinValue;
+        public DateTime UpdateTime { get; protected set; } = DateTime.MinValue;
 
         public List<IDataConsumer> DataConsumers { get; } = new List<IDataConsumer>();
 

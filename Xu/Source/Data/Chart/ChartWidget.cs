@@ -64,7 +64,7 @@ namespace Xu.Chart
             if ((StartPt + num > -limit) && (StopPt + num - DataCount < limit))
             {
                 StopPt += num;
-                DataIsUpdated(); //UpdateUI(); // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
+                m_AsyncUpdateUI = true; // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
             }
         }
 
@@ -73,7 +73,7 @@ namespace Xu.Chart
             if (StopPt - (StartPt + num) > 1)
             {
                 IndexCount += num;
-                DataIsUpdated(); //UpdateUI();
+                m_AsyncUpdateUI = true;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Xu.Chart
             {
                 StopPt += num;
                 IndexCount += num;
-                DataIsUpdated(); //UpdateUI(); // real time update
+                m_AsyncUpdateUI = true; // real time update
             }
         }
 
@@ -98,7 +98,7 @@ namespace Xu.Chart
                 StopPt = 0;
             }
 
-            DataIsUpdated(); // async update
+            m_AsyncUpdateUI = true; // async update
         }
 
         public virtual void PointerToNextTick()
@@ -108,7 +108,7 @@ namespace Xu.Chart
                 StopPt = t.Count;
             }
 
-            DataIsUpdated();
+            m_AsyncUpdateUI = true;
         }
 
         protected ChartOverlay Overlay { get; }

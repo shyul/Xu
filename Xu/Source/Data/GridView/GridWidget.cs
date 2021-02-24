@@ -50,7 +50,7 @@ namespace Xu.GridView
 
         protected IEnumerable<T> SourceRows { get; set; }
 
-        public override void DataIsUpdated()
+        public override void DataIsUpdated(IDataProvider provider)
         {
             if (SortableProperties.Count() > 0)
             {
@@ -79,7 +79,7 @@ namespace Xu.GridView
                     }
             }
 
-            base.DataIsUpdated();
+            base.DataIsUpdated(provider);
         }
 
         protected IEnumerable<T> Rows { get; set; }
@@ -108,7 +108,7 @@ namespace Xu.GridView
                 lock (GraphicsLockObject)
                     CoordinateRows();
 
-                DataIsUpdated(); // UpdateUI(); // real time update
+                m_AsyncUpdateUI = true; // real time update
             }
         }
 
@@ -122,7 +122,7 @@ namespace Xu.GridView
                     lock (GraphicsLockObject)
                         CoordinateRows();
 
-                    DataIsUpdated(); // async update
+                    m_AsyncUpdateUI = true; // async update
                 }
                 else
                 {
@@ -140,7 +140,7 @@ namespace Xu.GridView
                     lock (GraphicsLockObject)
                         CoordinateRows();
 
-                    DataIsUpdated();
+                    m_AsyncUpdateUI = true;
                 }
                 else
                 {

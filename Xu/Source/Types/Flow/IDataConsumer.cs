@@ -14,6 +14,6 @@ namespace Xu
         /// <summary>
         /// The IDataProvider notifies by calling this function
         /// </summary>
-        void DataIsUpdated(); // void DataIsUpdated(IDataSource ids);
+        void DataIsUpdated(IDataProvider provider); // void DataIsUpdated(IDataSource ids);
     }
 }

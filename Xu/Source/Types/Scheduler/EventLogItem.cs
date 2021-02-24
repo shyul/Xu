@@ -19,14 +19,13 @@ namespace Xu
         Hightlight = 1,
         Progress = 10,
         Completion = 100,
-
     }
 
     /// <summary>
     /// Status is the arm, Event is the trigger.
     /// </summary>
     [Serializable, DataContract]
-    public class Event : IOrdered
+    public class EventLogItem : IOrdered
     {
         public EventType Type { get; set; }
 
@@ -47,10 +46,6 @@ namespace Xu
         public int Order { get; set; }
 
     }
-
-    public delegate void EventCaller(Event ie);
-
-
 
 
 }

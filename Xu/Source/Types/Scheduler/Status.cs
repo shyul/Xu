@@ -22,7 +22,7 @@ namespace Xu
     /// Status is the arm, Event is the trigger.
     /// </summary>
     [Serializable, DataContract]
-    public class Status : Event
+    public class Status : EventLogItem
     {
         public float Percent { get; set; }
 

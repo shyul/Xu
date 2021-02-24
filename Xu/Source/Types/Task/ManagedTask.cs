@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Threading;
 
 namespace Xu
 {
@@ -40,4 +40,14 @@ namespace Xu
 
         // Log List
     }
+
+    public class TaskControl<T>
+    {
+        public CancellationTokenSource Cts { get; set; } = new CancellationTokenSource();
+
+        public IProgress<T> Progress { get; set; } = null;
+
+        public TimeSpan TimeOut { get; set; } = TimeSpan.FromSeconds(60);
+    }
+
 }

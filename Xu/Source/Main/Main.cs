@@ -55,7 +55,7 @@ namespace Xu
                     { IconType.Normal, Icons.Nav_Back },
                 },
 
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Backward is clicked");
             },
@@ -69,9 +69,8 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.Nav_Next },
                 },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
-                foreach (object o in args) { }
                 ObsoletedEvent.Debug("Forward is clicked");
             },
             Enabled = false
@@ -85,9 +84,8 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.Undo },
                 },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
-                foreach (object o in args) { }
                 ObsoletedEvent.Debug("Undo is clicked");
             },
             Enabled = false
@@ -102,7 +100,7 @@ namespace Xu
                     { IconType.Normal, Icons.Redo },
                 },
 
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Redo is clicked");
             },
@@ -116,7 +114,7 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.File_Open },
                 },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Open is clicked");
             },
@@ -130,7 +128,7 @@ namespace Xu
                 {
                     { IconType.Normal, Icons.File_Save },
                 },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Save is clicked");
             },
@@ -141,7 +139,7 @@ namespace Xu
             //Enabled = false,
             Label = "Copy",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Copy } },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Copy is clicked");
             },
@@ -152,7 +150,7 @@ namespace Xu
             //Enabled = false,
             Label = "Cut",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Cut } },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Cut is clicked");
             },
@@ -163,7 +161,7 @@ namespace Xu
             //Enabled = false,
             Label = "Paste",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Clip_Paste } },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Paste is clicked");
             },
@@ -174,7 +172,7 @@ namespace Xu
             //Enabled = false,
             Label = "Delete",
             IconList = new Dictionary<IconType, Dictionary<Size, Bitmap>>() { { IconType.Normal, Icons.Delete } },
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 ObsoletedEvent.Debug("Delete is clicked");
             },

@@ -27,7 +27,7 @@ namespace Xu
         {
             // Components
             Btn_ShowTabContextDropMenu.Command.Action =
-                (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                (TaskControl<float> control) =>
                 {
                     ShowMenu();
                 };

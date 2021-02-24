@@ -49,7 +49,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Minimize },
                 },
-                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (TaskControl<float> control) =>
                 { WindowState = FormWindowState.Minimized; },
             };
 
@@ -60,7 +60,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Maximize },
                 },
-                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (TaskControl<float> control) =>
                 {
                     if (WindowState != FormWindowState.Maximized)
                     {
@@ -76,7 +76,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Restore },
                 },
-                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (TaskControl<float> control) =>
                 {
                     if (WindowState != FormWindowState.Normal)
                     {
@@ -92,7 +92,7 @@ namespace Xu
                 {
                     {  IconType.Normal, Icons.Caption_Close },
                 },
-                Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+                Action = (TaskControl<float> control) =>
                 {
                     Close(); // Should be app exit...
                 },
@@ -160,7 +160,7 @@ namespace Xu
         public static Command Command_HelpLink = new Command()
         {
             Theme = new ColorTheme(Color.DimGray, Color.Gray),
-            Action = (IObject sender, string[] args, Progress<Event> progress, CancellationTokenSource cts) =>
+            Action = (TaskControl<float> control) =>
             {
                 System.Diagnostics.Process.Start(HelpLink);
             },

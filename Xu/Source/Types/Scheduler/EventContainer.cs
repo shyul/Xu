@@ -22,7 +22,7 @@ namespace Xu
         #region Events
 
         [DataMember]
-        protected readonly Queue<Event> EventList = new Queue<Event>();
+        protected readonly Queue<EventLogItem> EventList = new Queue<EventLogItem>();
 
         [IgnoreDataMember]
         public int Count => EventList.Count;

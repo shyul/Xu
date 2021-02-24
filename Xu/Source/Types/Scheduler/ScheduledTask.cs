@@ -105,28 +105,27 @@ namespace Xu
         public bool IsBusy => Status == TaskStatus.Running;
 
         // If is task is running, then let it run ? or kill and restart??
-        public override void Start(IObject sender = null, string[] args = null)
+        public override void Start()
         {
             // If Task is Runnning
-
             if (Enabled && Status != TaskStatus.Running) // Do not disrupt a running Task...
             {
                 if (!(Task is null)) Task.Dispose();
 
-                if (!(Cts is null)) Cts = new CancellationTokenSource();
-                Task = new Task(() => { Action.Invoke(sender, args, Progress, Cts); }, Cts.Token);
+                if (!(TaskControl.Cts is null)) TaskControl.Cts = new CancellationTokenSource();
+                Task = new Task(() => { Action.Invoke(TaskControl); }, TaskControl.Cts.Token);
                 Task.Start();
             }
         }
 
-        public override void Stop(int timeout = 10000)
+        public override void Stop()
         {
             base.Stop();
-            Task.Wait(timeout);
+            Task.Wait(TaskControl.TimeOut.TotalMilliseconds.ToInt32());
             //while (Status == TaskStatus.Running) ;
         }
 
-        public virtual bool Check(DateTime now, IObject sender = null, string[] args = null)
+        public virtual bool Check(DateTime now)
         {
             bool isTerminated = false;
             switch (Type)
@@ -139,14 +138,14 @@ namespace Xu
                     else if (now >= NextExecTime && !IsBusy)
                     {
                         LastExecTime = now;
-                        Start(sender, args);
+                        Start();
                     }
                     break;
                 case (ScheduledTaskType.Period):
                     if (Period == now && !IsBusy)
                     {
                         LastExecTime = now;
-                        Start(sender, args);
+                        Start();
                     }
                     else if (Period < now) // && IsBusy)
                     {
@@ -163,7 +162,7 @@ namespace Xu
                     {
                         NextExecTime = now + Frequency;
                         LastExecTime = now;
-                        Start(sender, args);
+                        Start();
                     }
                     break;
                 case (ScheduledTaskType.Period | ScheduledTaskType.Frequent):
@@ -176,7 +175,7 @@ namespace Xu
                         {
                             NextExecTime = now + Frequency;
                             LastExecTime = now;
-                            Start(sender, args);
+                            Start();
                         }
                     }
                     else if (Period < now) // && IsBusy)

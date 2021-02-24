@@ -40,10 +40,13 @@ namespace Xu
         public virtual Pen CheckedHoverEdgePen { get; }
         public virtual Pen CheckedClickEdgePen { get; }
 
-        public override void Execute(IObject sender = null, string[] args = null)
+        public override void Execute()
         {
-            if (Checked) CommandChecked.Start(sender, args);
-            else Command.Start(sender, args);
+            if (Checked) 
+                CommandChecked.Start();
+            else 
+                Command.Start();
+
             Checked = !Checked;
         }
 

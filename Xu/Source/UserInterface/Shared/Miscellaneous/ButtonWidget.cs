@@ -35,9 +35,9 @@ namespace Xu
 
         protected Command Command { get; set; }
 
-        public virtual void Execute(IObject sender = null, string[] args = null)
+        public virtual void Execute()
         {
-            Command.Start(sender, args);
+            Command.Start();
         }
 
         protected virtual bool HasIconColor { get; set; }
@@ -106,7 +106,7 @@ namespace Xu
         {
             Point pt = new Point(e.X, e.Y);
             if (e.Button == MouseButtons.Left && ClientRectangle.Contains(pt) && Command.Enabled && Enabled)
-                Execute(this, new string[0] { });
+                Execute();
             Invalidate(true);
         }
     }

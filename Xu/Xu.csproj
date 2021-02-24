@@ -105,8 +105,6 @@
     <Compile Include="Source\Types\MultiPeriod.cs" />
     <Compile Include="Source\Types\Period.cs" />
     <Compile Include="Source\Types\QueueValue.cs" />
-    <Compile Include="Source\Types\Scheduler\CommandContainer.cs" />
-    <Compile Include="Source\Types\Scheduler\CommandHandler.cs" />
     <Compile Include="Source\Types\Scheduler\EventContainer.cs" />
     <Compile Include="Source\Types\Scheduler\Scheduler.cs" />
     <Compile Include="Source\Types\Scheduler\ScheduledTask.cs" />
@@ -146,7 +144,7 @@
     <Compile Include="Source\Tools\Collections.cs" />
     <Compile Include="Source\Tools\Reflection.cs" />
     <Compile Include="Source\Data\Chart\Axis\AxisTickStyle.cs" />
-    <Compile Include="Source\Types\Scheduler\Event.cs" />
+    <Compile Include="Source\Types\Scheduler\EventLogItem.cs" />
     <Compile Include="Source\Types\Interfaces\IOrdered.cs" />
     <Compile Include="Source\UserInterface\Shared\GUI.cs" />
     <Compile Include="Source\UserInterface\Mosaic\Dock\DockPane\GridDockPane.cs" />
@@ -198,7 +196,7 @@
     <Compile Include="Source\UserInterface\Shared\AppTheme.cs" />
     <Compile Include="Source\Tools\Serialization.cs" />
     <Compile Include="Source\UserInterface\Shared\Icon.cs" />
-    <Compile Include="Source\Types\Scheduler\Connectivity.cs" />
+    <Compile Include="Source\Types\Connection\Connectivity.cs" />
     <Compile Include="Source\String\Text.cs" />
     <Compile Include="Source\Tools\Time.cs" />
     <Compile Include="Source\UserInterface\Windows\NativeMethods\User32.cs" />

@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace Xu
 {
+    public delegate void ConnectionStatusEventHandler(ConnectionStatus status, DateTime time, string message = "");
+
     public enum ConnectionStatus : int
     {
         Disconnected = 0,
@@ -30,14 +32,14 @@ namespace Xu
         Timeout = 3,
     }
 
-    public delegate void ConnectionStatusEventHandler(ConnectionStatus status, DateTime time, string message = "");
-
-    public static class HttpClientExtensions
+    public static class HttpClientTools
     {
-        public static async Task StartDownload(string DownloadUrl, string filePath, IProgress<float> progress, CancellationToken cancellationToken)
+        public static async Task StartDownload(string DownloadUrl, string filePath, TaskControl<float> taskControl = null)
         {
-            using var client = new HttpClient();
-            client.Timeout = TimeSpan.FromMinutes(5);
+            using var client = new HttpClient
+            {
+                Timeout = taskControl is not null ? taskControl.TimeOut : TimeSpan.FromMinutes(1)
+            };
 
             // Create a file stream to store the downloaded data.
             // This really can be any type of writeable stream.
@@ -45,7 +47,11 @@ namespace Xu
 
             // Use the custom extension method below to download the data.
             // The passed progress-instance will receive the download status updates.
-            await client.DownloadAsync(DownloadUrl, file, progress, cancellationToken);
+
+            if (taskControl is not null)
+                await client.DownloadAsync(DownloadUrl, file, taskControl.Progress, taskControl.Cts.Token);
+            else
+                await client.DownloadAsync(DownloadUrl, file);
         }
 
         public static async Task DownloadAsync(this HttpClient client, string requestUri, Stream destination, IProgress<float> progress = null, CancellationToken cancellationToken = default)

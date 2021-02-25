@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Xu
 {
-    public interface IDataProvider
+    public interface IDataProvider // : IDisposable
     {
         bool AddDataConsumer(IDataConsumer idk);
 

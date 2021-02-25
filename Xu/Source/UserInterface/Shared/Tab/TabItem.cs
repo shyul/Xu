@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace Xu
 {
     [DesignerCategory("Code")]
-    public abstract class TabItem : UserControl, IComponent
+    public abstract class TabItem : UserControl, IDisposable
     {
         #region Ctor
         protected TabItem(string tabName)

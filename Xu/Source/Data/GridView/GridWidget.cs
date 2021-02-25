@@ -23,7 +23,7 @@ namespace Xu.GridView
     /// TODO: Sort By
     /// TODO: Format
     /// </summary>
-    public abstract class GridWidget<T> : DockForm, IDataRenderer, IDisposable
+    public abstract class GridWidget<T> : DockForm, IDataRenderer
     {
         protected GridWidget(string name) : base(name, true)
         {

@@ -56,18 +56,30 @@ namespace Xu
 
         public static void Invoke(this Control c, Action action)
         {
-            if (c.InvokeRequired)
+            if (!c.IsDisposed && c.InvokeRequired)
             {
-                c.Invoke((MethodInvoker)delegate
-                {
-                    action?.Invoke();
-                });
+                c?.Invoke((MethodInvoker)delegate { action?.Invoke(); });
             }
             else
             {
                 action?.Invoke();
             }
         }
+
+        /*
+                 public static void Invoke(this Control c, Action action)
+        {
+            if (c.InvokeRequired)
+            {
+                c?.Invoke(() => action?.Invoke());
+            }
+            else
+            {
+                action?.Invoke();
+            }
+        }
+         
+         */
 
         public static void Add<T>(this ComboBox.ObjectCollection items) where T : Enum // struct, IConvertible
         {

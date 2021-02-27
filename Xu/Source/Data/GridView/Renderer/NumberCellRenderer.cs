@@ -15,7 +15,7 @@ using System.Security.Permissions;
 
 namespace Xu.GridView
 {
-    public class NumberCellRenderer : IDataCellRenderer
+    public class NumberCellRenderer : IGridRenderer
     {
         public Font Font => Main.Theme.Font;
 

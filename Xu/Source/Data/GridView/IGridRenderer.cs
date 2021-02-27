@@ -14,7 +14,7 @@ using System.Drawing;
 
 namespace Xu.GridView
 {
-    public interface IDataCellRenderer
+    public interface IGridRenderer
     {
         int MinimumHeight { get; set; }
 

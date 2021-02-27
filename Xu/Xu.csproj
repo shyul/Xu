@@ -60,10 +60,10 @@
     </Compile>
     <Compile Include="Source\Algorithms\Const.cs" />
     <Compile Include="Source\Algorithms\Fibonacci.cs" />
-    <Compile Include="Source\Data\GridView\CellRenderer.cs" />
+    <Compile Include="Source\Data\GridView\GridRenderer.cs" />
     <Compile Include="Source\Data\GridView\GridColumnConfiguration.cs" />
     <Compile Include="Source\Data\GridView\GridColumnOrder.cs" />
-    <Compile Include="Source\Data\GridView\IDataCellRenderer.cs" />
+    <Compile Include="Source\Data\GridView\IGridRenderer.cs" />
     <Compile Include="Source\Data\GridView\Renderer\NumberCellRenderer.cs" />
     <Compile Include="Source\Data\GridView\Renderer\TextCellRenderer.cs" />
     <Compile Include="Source\Data\Plot\Area.cs" />

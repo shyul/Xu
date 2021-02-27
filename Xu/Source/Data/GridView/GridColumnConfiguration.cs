@@ -32,8 +32,8 @@ namespace Xu.GridView
                         SortPriority = gco.SortPriority;
                         break;
 
-                    case CellRendererAttribute cra:
-                        DataCellRenderer = cra.DataCellRenderer;
+                    case GridRendererAttribute cra:
+                        DataCellRenderer = cra.Renderer;
                         break;
                 }
             }
@@ -61,7 +61,7 @@ namespace Xu.GridView
 
         public bool Enabled
         {
-            get => m_Enabled && DataCellRenderer is IDataCellRenderer;
+            get => m_Enabled && DataCellRenderer is IGridRenderer;
             set => m_Enabled = value;
         }
 
@@ -85,14 +85,14 @@ namespace Xu.GridView
         /// <summary>
         /// 
         /// </summary>
-        public IDataCellRenderer DataCellRenderer { get; set; }
+        public IGridRenderer DataCellRenderer { get; set; }
 
         public bool Visible
         {
-            get => m_Enabled && DataCellRenderer is IDataCellRenderer dcr && dcr.Visible;
+            get => m_Enabled && DataCellRenderer is IGridRenderer dcr && dcr.Visible;
             set
             {
-                if (DataCellRenderer is IDataCellRenderer dcr)
+                if (DataCellRenderer is IGridRenderer dcr)
                     dcr.Visible = value;
             }
         }

@@ -80,6 +80,7 @@ namespace Xu.GridView
             }
 
             base.DataIsUpdated(provider);
+            ReadyToShow = true;
         }
 
         protected IEnumerable<T> Rows { get; set; }

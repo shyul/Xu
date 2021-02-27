@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using Xu.GridView;
 
 namespace Xu
 {
@@ -22,6 +23,7 @@ namespace Xu
 
         public bool RemoveDataConsumer(IDataConsumer idk)
         {
+            if (idk is DockForm df) df.ReadyToShow = false;
             return DataConsumers.CheckRemove(idk);
         }
 

@@ -14,7 +14,7 @@ using System.Drawing;
 
 namespace Xu.GridView
 {
-    public class TextCellRenderer : IDataCellRenderer
+    public class TextCellRenderer : IGridRenderer
     {
         public Font Font => Main.Theme.Font;
 

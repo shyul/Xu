@@ -40,7 +40,7 @@ namespace Xu.GridView
 
             if (string.IsNullOrWhiteSpace(Name)) Name = PropertyInfo.Name;
             if (string.IsNullOrWhiteSpace(Description)) Description = PropertyInfo.Name;
-            if (DataCellRenderer is null) DataCellRenderer = new TextCellRenderer();
+            if (DataCellRenderer is null) DataCellRenderer = new TextGridRenderer();
         }
 
         public PropertyInfo PropertyInfo { get; }

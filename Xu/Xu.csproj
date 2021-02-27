@@ -64,11 +64,12 @@
     <Compile Include="Source\Data\GridView\GridColumnConfiguration.cs" />
     <Compile Include="Source\Data\GridView\GridColumnOrder.cs" />
     <Compile Include="Source\Data\GridView\IGridRenderer.cs" />
-    <Compile Include="Source\Data\GridView\Renderer\NumberCellRenderer.cs" />
-    <Compile Include="Source\Data\GridView\Renderer\TextCellRenderer.cs" />
+    <Compile Include="Source\Data\GridView\Renderer\NumberGridRenderer.cs" />
+    <Compile Include="Source\Data\GridView\Renderer\TextGridRenderer.cs" />
     <Compile Include="Source\Data\Plot\Area.cs" />
     <Compile Include="Source\Data\Plot\Plot2DWidget.cs" />
     <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
+    <Compile Include="Source\Serialization\IDataFile.cs" />
     <Compile Include="Source\Types\Flow\IDataConsumer.cs" />
     <Compile Include="Source\Types\Flow\IDataProvider.cs" />
     <Compile Include="Source\Types\Flow\IDataRenderer.cs" />
@@ -190,7 +191,7 @@
     <Compile Include="Source\UserInterface\Mosaic\Ribbon\Controls\RibbonButton.cs" />
     <Compile Include="Source\UserInterface\Mosaic\Dock\DockForms\StatusPane.cs" />
     <Compile Include="Source\UserInterface\Shared\AppTheme.cs" />
-    <Compile Include="Source\Tools\Serialization.cs" />
+    <Compile Include="Source\Serialization\Serialization.cs" />
     <Compile Include="Source\UserInterface\Shared\Icon.cs" />
     <Compile Include="Source\Types\Connection\Connectivity.cs" />
     <Compile Include="Source\String\Text.cs" />

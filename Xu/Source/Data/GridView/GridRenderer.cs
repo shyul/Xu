@@ -25,7 +25,7 @@ namespace Xu.GridView
             }
             else
             {
-                Renderer = new TextCellRenderer();
+                Renderer = new TextGridRenderer();
             }
 
             Renderer.Width = width;

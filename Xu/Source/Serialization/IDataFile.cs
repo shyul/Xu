@@ -12,5 +12,7 @@ namespace Xu
     public interface IDataFile
     {
         string DataFileName { get; }
+
+        void SaveFile();
     }
 }

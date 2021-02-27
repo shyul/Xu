@@ -290,7 +290,7 @@ namespace Xu
         /// </summary>
         public static byte[] SerializeJson<T>(this T source)
         {
-            if (source != null && typeof(T).IsSerializable)
+            if (source is not null && typeof(T).IsSerializable)
             {
                 using MemoryStream stream = new MemoryStream();
                 DataContractJsonSerializer JsonSer = new DataContractJsonSerializer(typeof(T));
@@ -318,6 +318,8 @@ namespace Xu
                 File.Delete(backup_fileName);
         }
 
+        //public static void SerializeJsonFile(this IDataFile idf) => idf.SerializeJsonFile(idf.DataFileName);
+
         /// <summary>
         /// Json Deserialization
         /// </summary>
@@ -327,6 +329,7 @@ namespace Xu
             DataContractJsonSerializer JsonSer = new DataContractJsonSerializer(typeof(T));
             return (T)JsonSer.ReadObject(stream);
         }
+
         public static T DeserializeJsonFile<T>(string fileName)
         {
             string backup_fileName = fileName + "_backup";

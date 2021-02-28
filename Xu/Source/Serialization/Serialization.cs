@@ -304,6 +304,9 @@ namespace Xu
 
         public static void SerializeJsonFile<T>(this T source, string fileName)
         {
+            FileInfo fi = new FileInfo(fileName);
+            if (!fi.Directory.Exists) fi.Directory.Create();
+
             string backup_fileName = fileName + "_backup";
 
             if (File.Exists(backup_fileName))

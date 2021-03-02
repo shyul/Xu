@@ -34,12 +34,12 @@ namespace Xu
             return (IsValid: false, Result: null);
         }*/
 
-        public static T GetAttribute<T>(this object value) where T : Attribute
+        public static TAttribute GetAttribute<TAttribute>(this object value) where TAttribute : Attribute
         {
             MemberInfo[] memberInfo = value.GetType().GetMember(value.ToString()); // memberInfo.FirstOrDefault(m => m.DeclaringType == type).GetCustomAttributes(typeof(T), false);
             if (memberInfo.Length > 0)
             {
-                return Attribute.GetCustomAttribute(memberInfo[0], typeof(T)) as T;
+                return Attribute.GetCustomAttribute(memberInfo[0], typeof(TAttribute)) as TAttribute;
             }
             return null;
         }
@@ -54,13 +54,23 @@ namespace Xu
                 return (IsValid: false, Result: null);
         }*/
 
-        public static T GetAttribute<T>(this PropertyInfo p) where T : Attribute
+        public static TAttribute GetAttribute<TAttribute>(this PropertyInfo p) where TAttribute : Attribute
         {
-            var attrs = p.GetCustomAttributes(true).Where(n => n.GetType() == typeof(T));
+            var attrs = p.GetCustomAttributes(true).Where(n => n.GetType() == typeof(TAttribute));
             if (attrs.Count() > 0)
-                return attrs.First() as T;
+                return attrs.First() as TAttribute;
             else
                 return null;
+        }
+
+
+        public static TValue GetAttribute<TAttribute, TValue>(this Type type, Func<TAttribute, TValue> valueSelector) where TAttribute : Attribute
+        {
+            if (type.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() is TAttribute att)
+            {
+                return valueSelector(att);
+            }
+            return default;
         }
 
         /// <summary>

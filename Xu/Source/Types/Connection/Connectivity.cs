@@ -8,6 +8,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,6 +35,22 @@ namespace Xu
 
     public static class HttpClientTools
     {
+        public static bool Connected(string url) 
+        {
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Timeout = 500;
+            request.Method = "HEAD";
+            try
+            {
+                using HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                return response.StatusCode == HttpStatusCode.OK;
+            }
+            catch (WebException)
+            {
+                return false;
+            }
+        }
+
         public static async Task StartDownload(string DownloadUrl, string filePath, TaskControl<float> taskControl = null)
         {
             using var client = new HttpClient

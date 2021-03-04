@@ -105,46 +105,7 @@ namespace Xu
         public Period()
         {
             Reset();
-
-
         }
-
-        /*
-        public Period(string s)
-        {
-            string[] a = s.Split(TextTool.ValueSeparator);
-
-            try
-            {
-                if (s.Length == 1)
-                {
-                    DateTime time = DateTime.ParseExact(a[0], Format, CultureInfo.InvariantCulture);
-                    return new Period(time);
-                }
-                if (s.Length == 2)
-                {
-
-                    if (a[0] == "Now")
-                    {
-                        DateTime time = DateTime.ParseExact(a[1], Format, CultureInfo.InvariantCulture);
-                        return new Period(time, true);
-                    }
-                    else if (a[1] == "Now")
-                    {
-                        DateTime time = DateTime.ParseExact(a[0], Format, CultureInfo.InvariantCulture);
-                        return new Period(time, true);
-                    }
-                    else
-                    {
-                        DateTime start = DateTime.ParseExact(a[0], Format, CultureInfo.InvariantCulture);
-                        DateTime stop = DateTime.ParseExact(a[1], Format, CultureInfo.InvariantCulture);
-                        return new Period(start, stop);
-                    }
-                }
-            }
-            catch (Exception e) when (e is ArgumentNullException || e is FormatException)
-            { }
-        }*/
 
         #endregion Ctor
 

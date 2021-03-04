@@ -13,7 +13,7 @@ namespace Xu
     {
         string DataFileName { get; }
 
-        bool IsModified { get; private set; }
+        bool IsModified { get; } //private set; }
 
         void SaveFile();
     }

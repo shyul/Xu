@@ -94,7 +94,7 @@ namespace Xu
 
         protected virtual void AsyncUpdateUIWorker()
         {
-            while (AsyncUpdateUITask_Cts.Continue())
+            while (AsyncUpdateUITask_Cts.IsContinue())
             {
                 if (m_AsyncUpdateUI)
                 {

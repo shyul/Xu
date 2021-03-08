@@ -12,9 +12,7 @@ namespace Xu
 {
     public static class TaskTool
     {
-
-
-        public static bool Continue(this CancellationTokenSource cts)
+        public static bool IsContinue(this CancellationTokenSource cts)
         {
             if (cts is null)
                 return true;

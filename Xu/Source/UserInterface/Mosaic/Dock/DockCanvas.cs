@@ -71,6 +71,26 @@ namespace Xu
 
         public void AddForm(DockStyle postion, int index, DockForm df)
         {
+            if (InvokeRequired)
+            {
+                this?.Invoke(() =>
+                {
+                    M_AddForm(postion, index, df);
+                });
+                /*
+                Invoke((MethodInvoker)delegate
+                {
+                    DockControl.AddForm(postion, index, df);
+                });*/
+            }
+            else
+            {
+                M_AddForm(postion, index, df);
+            }
+        }
+
+        protected void M_AddForm(DockStyle postion, int index, DockForm df)
+        {
             switch (postion)
             {
                 case (DockStyle.Top):

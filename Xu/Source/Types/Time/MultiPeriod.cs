@@ -36,6 +36,9 @@ namespace Xu
         [IgnoreDataMember]
         public int Count => PeriodList.Count;
 
+        [IgnoreDataMember]
+        public bool IsEmpty => PeriodList.Count < 1;
+
         public void Clear() => PeriodList.Clear();
 
         public IEnumerable<Period> Get(Period pd) => PeriodList.Where(n => n.Contains(pd));

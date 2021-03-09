@@ -123,12 +123,6 @@ namespace Xu
                 {
                     source.ToList().ForEach(n => Add(n));
                 }
-                /*
-                    for (int i = 0; i < source.Count; i++)
-                    {
-                        var pair = source.ElementAt(i);
-                        Add(pair);
-                    }*/
             }
         }
 

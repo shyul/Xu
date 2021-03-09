@@ -122,11 +122,47 @@ namespace Xu
             }
         }
 
+        public void ChopStart(DateTime time)
+        {
+            if (IsCurrent)
+            {
+                if (time < DateTime.Now)
+                {
+                    m_time = time;
+                    return;
+                }
+            }
+            else if (m_start < time)
+            {
+                m_start = time;
+            }
+
+            if (m_start > m_stop) m_stop = time;
+        }
+
+        public void ChopStop(DateTime time)
+        {
+            if (IsCurrent)
+            {
+                if (time > DateTime.Now)
+                {
+                    m_time = time;
+                    return;
+                }
+            }
+            else if (m_stop > time)
+            {
+                m_stop = time;
+            }
+
+            if (m_start > m_stop) m_start = time;
+        }
+
         public void SetStart(DateTime time)
         {
             if (IsCurrent)
             {
-                if (m_time < DateTime.Now)
+                if (time < DateTime.Now)
                 {
                     m_time = time;
                     return;
@@ -134,7 +170,7 @@ namespace Xu
                 else
                 {
                     IsCurrent = false;
-                    m_stop = m_time;
+                    m_stop = time;
                 }
             }
 
@@ -146,7 +182,7 @@ namespace Xu
         {
             if (IsCurrent)
             {
-                if (m_time > DateTime.Now)
+                if (time > DateTime.Now)
                 {
                     m_time = time;
                     return;
@@ -154,7 +190,7 @@ namespace Xu
                 else
                 {
                     IsCurrent = false;
-                    m_start = m_time;
+                    m_start = time;
                 }
             }
 
@@ -272,8 +308,7 @@ namespace Xu
                 else
                 {
                     DateTime current = DateTime.Now;
-                    if (current > m_time) return m_time;
-                    else return current;
+                    return current > m_time ? m_time : current;
                 }
             }
             set
@@ -301,8 +336,7 @@ namespace Xu
                 else
                 {
                     DateTime current = DateTime.Now;
-                    if (current < m_time) return m_time;
-                    else return current;
+                    return current < m_time ? m_time : current;
                 }
             }
             set
@@ -331,7 +365,7 @@ namespace Xu
         public bool IsCurrent { get; private set; }
 
         [IgnoreDataMember, XmlIgnore]
-        public bool IsEmpty => (!IsCurrent && (Start == Stop || (m_stop == DateTime.MinValue && m_start == DateTime.MaxValue)));
+        public bool IsEmpty => !IsCurrent && Start >= Stop;
 
         #region String
 
@@ -344,8 +378,6 @@ namespace Xu
 
         [IgnoreDataMember, XmlIgnore]
         private const string Format = "MM-dd-yyyy HH:mm:ss";
-
-
 
         #endregion
 

@@ -37,7 +37,7 @@ namespace Xu
     public class Address
     {
         [DataMember]
-        public DateTime UpdateTime { get; set; } = DateTime.MinValue;
+        public DateTime UpdateTime { get; set; } = TimeTool.MinInvalid;
 
         [DataMember, Browsable(true), Category("Contact"), DisplayName("Contact Name")]
         public string ContactName { get; set; }
@@ -82,7 +82,7 @@ namespace Xu
         public string Title { get; set; } = string.Empty;
 
         [DataMember]
-        public DateTime StartTime { get; set; } //= DateTime.MaxValue.AddYears(-1);
+        public DateTime StartTime { get; set; } = TimeTool.MaxInvalid;
 
         #region Equality
 

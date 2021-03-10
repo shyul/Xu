@@ -118,7 +118,7 @@ namespace Xu
             else
             {
                 if (time < m_start) m_start = time;
-                else if (time > m_stop) m_stop = time;
+                if (time > m_stop) m_stop = time;
             }
         }
 

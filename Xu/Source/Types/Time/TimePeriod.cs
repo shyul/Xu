@@ -19,7 +19,7 @@ namespace Xu
     /// A Segment of time with defined start and end.
     /// </summary>
     [Serializable, DataContract]
-    public struct TimePeriod : IEquatable<TimePeriod>
+    public struct TimePeriod : IEquatable<TimePeriod>, IComparable<DateTime>, IComparable<Time>
     {
         public TimePeriod(Time time, bool isCurrent = false)
         {
@@ -110,8 +110,6 @@ namespace Xu
                 }
             }
         }
-
-
 
         [DataMember]
         private Time m_start;
@@ -259,15 +257,38 @@ namespace Xu
 
         public int CompareTo(DateTime other)
         {
-            if (Stop < other) return -1;
-            else if (Start > other) return 1;
-            else return 0;
+            if (Stop <= other) 
+                return -1;
+            else if (Start > other)
+                return 1;
+            else
+                return 0;
         }
 
         public static bool operator >(TimePeriod s1, DateTime s2) => s1.CompareTo(s2) > 0;
         public static bool operator <(TimePeriod s1, DateTime s2) => s1.CompareTo(s2) < 0;
         public static bool operator >=(TimePeriod s1, DateTime s2) => s1.CompareTo(s2) >= 0;
         public static bool operator <=(TimePeriod s1, DateTime s2) => s1.CompareTo(s2) <= 0;
+
+        public int CompareTo(Time other)
+        {
+            if (Stop <= other)
+            {
+                return Stop.TotalMilliseconds - other.TotalMilliseconds - 1;
+            }
+            else if (Start > other)
+            {
+                return Start.TotalMilliseconds - other.TotalMilliseconds;
+            }
+            else
+                return 0;
+        }
+
+        public static bool operator >(TimePeriod t1, Time t2) => t1.CompareTo(t2) > 0;
+        public static bool operator <(TimePeriod t1, Time t2) => t1.CompareTo(t2) < 0;
+        public static bool operator >=(TimePeriod t1, Time t2) => t1.CompareTo(t2) >= 0;
+        public static bool operator <=(TimePeriod t1, Time t2) => t1.CompareTo(t2) <= 0;
+
 
         #endregion Compare
 

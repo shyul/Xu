@@ -13,7 +13,13 @@ namespace Xu
 {
     public static class TimeTool
     {
-        public static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public static DateTime MinInvalid { get; } = DateTime.MinValue.AddDays(1).Date;
+
+        public static DateTime MaxInvalid { get; } = DateTime.MaxValue.AddDays(-1).Date;
+
+        public static bool IsInvalid(this DateTime time) => time >= MaxInvalid || time <= MinInvalid;
+
+        public static DateTime Epoch { get; } = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public static double ToEpoch(this DateTime time) => (time.ToUtc() - Epoch).TotalSeconds;
 
@@ -111,5 +117,7 @@ namespace Xu
             }
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
         }
+
+        public static Time Time(this DateTime dt) => new Time(dt);
     }
 }

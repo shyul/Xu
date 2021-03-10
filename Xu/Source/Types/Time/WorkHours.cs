@@ -25,9 +25,24 @@ namespace Xu
         }
 
         [DataMember]
+        public Dictionary<DayOfWeek, MultiTimePeriod> List;
+
+        [DataMember]
         public TimeZoneInfo TimeZoneInfo { get; private set; }
 
-        public Dictionary<DayOfWeek, MultiTimePeriod> List;
+        [IgnoreDataMember]
+        public DateTime CurrentTime => DateTime.Now.ToDestination(TimeZoneInfo);
+
+        public MultiTimePeriod this[DateTime dt]
+        {
+            get
+            {
+                if (List.ContainsKey(dt.DayOfWeek))
+                    return List[dt.DayOfWeek];
+                else
+                    return null;
+            }
+        }
 
         public bool IsWorkDate(DateTime time) => List.ContainsKey(time.DayOfWeek);
 

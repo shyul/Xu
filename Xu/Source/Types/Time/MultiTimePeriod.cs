@@ -31,6 +31,22 @@ namespace Xu
         private HashSet<TimePeriod> PeriodList { get; } = new HashSet<TimePeriod>();
 
         [IgnoreDataMember]
+        public TimePeriod TimePeriod
+        {
+            get
+            {
+                var sorted = PeriodList.SelectMany(n => new Time[] { n.Start, n.Stop }).OrderBy(n => n);
+
+                if (sorted.Count() > 0)
+                {
+                    return new TimePeriod(sorted.FirstOrDefault(), sorted.LastOrDefault());
+                }
+                else
+                    throw new Exception("MultiTimePeriod is empty!!");
+            }
+        }
+
+        [IgnoreDataMember]
         public int Count => PeriodList.Count;
 
         public void Clear() => PeriodList.Clear();

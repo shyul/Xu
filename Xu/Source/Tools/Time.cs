@@ -98,7 +98,7 @@ namespace Xu
         /// <returns></returns>
         public static DateTime FromUtc(this DateTime utcTime, TimeZoneInfo timeZone)
         {
-            DateTime time = new DateTime(utcTime.Year, utcTime.Month, utcTime.Day,
+            DateTime time = new(utcTime.Year, utcTime.Month, utcTime.Day,
                 utcTime.Hour, utcTime.Minute, utcTime.Second, DateTimeKind.Utc);
             return TimeZoneInfo.ConvertTimeFromUtc(time, timeZone);
         }
@@ -118,6 +118,6 @@ namespace Xu
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
         }
 
-        public static Time Time(this DateTime dt) => new Time(dt);
+        public static Time Time(this DateTime dt) => new(dt);
     }
 }

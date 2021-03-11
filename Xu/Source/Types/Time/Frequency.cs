@@ -72,7 +72,7 @@ namespace Xu
                     (TimeUnit.Minutes) => new TimeSpan(0, 0, Length, 0),
                     (TimeUnit.Seconds) => new TimeSpan(0, 0, 0, Length),
                     (TimeUnit.None) => new TimeSpan(),
-                    _ => throw new Exception("Invalid TimeInterval Type!"),
+                    _ => throw new("Invalid TimeInterval Type!"),
                 };
             }
         }
@@ -89,7 +89,7 @@ namespace Xu
             {
                 case (TimeUnit.Years):
                     time = time.AddYears(cnt * Length);
-                    return new DateTime(time.Year, 1, 1);
+                    return new(time.Year, 1, 1);
 
                 case (TimeUnit.Months):
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 6 || Length == 12)
@@ -100,7 +100,7 @@ namespace Xu
                     {
                         time = time.AddMonths(cnt * Length);
                     }
-                    return new DateTime(time.Year, time.Month, 1);
+                    return new(time.Year, time.Month, 1);
 
                 case (TimeUnit.Weeks):
                     //int firstDayOffset = (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
@@ -115,7 +115,7 @@ namespace Xu
 
                 case (TimeUnit.Days):
                     time = time.AddDays(cnt * Length);
-                    return new DateTime(time.Year, time.Month, time.Day);
+                    return new(time.Year, time.Month, time.Day);
 
                 case (TimeUnit.Hours):
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 6 || Length == 8 || Length == 12 || Length == 24)
@@ -126,7 +126,7 @@ namespace Xu
                     {
                         time = time.AddHours(cnt * Length);
                     }
-                    return new DateTime(time.Year, time.Month, time.Day, time.Hour, 0, 0);
+                    return new(time.Year, time.Month, time.Day, time.Hour, 0, 0);
 
                 case (TimeUnit.Minutes):
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 5 || Length == 6 ||
@@ -138,7 +138,7 @@ namespace Xu
                     {
                         time = time.AddMinutes(cnt * Length);
                     }
-                    return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+                    return new(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
 
                 case (TimeUnit.Seconds):
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 5 || Length == 6 ||
@@ -150,10 +150,10 @@ namespace Xu
                     {
                         time = time.AddSeconds(cnt * Length);
                     }
-                    return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
+                    return new(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
 
                 default:
-                    throw new Exception("Invalid TimeInterval Type!");
+                    throw new("Invalid TimeInterval Type!");
             }
         }
 
@@ -176,7 +176,7 @@ namespace Xu
                 TimeUnit.Hours => new Period(start, start.AddHours(Length)),
                 TimeUnit.Minutes => new Period(start, start.AddMinutes(Length)),
                 TimeUnit.Seconds => new Period(start, start.AddSeconds(Length)),
-                _ => throw new Exception("Invalid TimeInterval Type!"),
+                _ => throw new("Invalid TimeInterval Type!"),
             };
         }
 
@@ -195,7 +195,7 @@ namespace Xu
                 TimeUnit.Minutes => time.AddMinutes(cnt),
                 TimeUnit.Seconds => time.AddSeconds(cnt),
                 TimeUnit.None => time,
-                _ => throw new Exception("Invalid TimeInterval Type!"),
+                _ => throw new("Invalid TimeInterval Type!"),
             };
         }
         public static DateTime operator -(DateTime time, Frequency f)
@@ -211,7 +211,7 @@ namespace Xu
                 TimeUnit.Minutes => time.AddMinutes(cnt),
                 TimeUnit.Seconds => time.AddSeconds(cnt),
                 TimeUnit.None => time,
-                _ => throw new Exception("Invalid TimeInterval Type!"),
+                _ => throw new("Invalid TimeInterval Type!"),
             };
         }
 
@@ -231,19 +231,19 @@ namespace Xu
                 TimeUnit.Minutes => Convert.ToInt32((sp.TotalMinutes / f.Length).ToInt64()),
                 TimeUnit.Seconds => Convert.ToInt32((sp.TotalSeconds / f.Length).ToInt64()),
                 TimeUnit.None => 0,
-                _ => throw new Exception("Invalid TimeInterval Type!"),
+                _ => throw new("Invalid TimeInterval Type!"),
             };
         }
         public static Frequency operator -(Frequency f, int d)
         {
             int len = f.Length - d;
             if (len < 1) len = 1;
-            return new Frequency(f.Unit, len);
+            return new(f.Unit, len);
         }
-        public static Frequency operator +(Frequency f, int d) { return new Frequency(f.Unit, f.Length + d); }
-        public static Frequency operator *(Frequency f, int d) { return new Frequency(f.Unit, f.Length * d); }
+        public static Frequency operator +(Frequency f, int d) { return new(f.Unit, f.Length + d); }
+        public static Frequency operator *(Frequency f, int d) { return new(f.Unit, f.Length * d); }
 
-        public System.Timers.Timer Timer => new System.Timers.Timer(1000 * Length * (int)Unit);
+        public System.Timers.Timer Timer => new(1000 * Length * (int)Unit);
 
         #region Equality
 
@@ -318,7 +318,7 @@ namespace Xu
                         return Length.ToString() + " Seconds";
                 case (TimeUnit.None):
                     return "None";
-                default: throw new Exception("Invalid TimeInterval Type!");
+                default: throw new("Invalid TimeInterval Type!");
             }
         }
 
@@ -362,25 +362,25 @@ namespace Xu
                 }
                 catch (Exception e) when (e is FormatException || e is InvalidOperationException)
                 {
-                    return new Frequency(TimeUnit.None, 0);
+                    return new(TimeUnit.None, 0);
                 }
             }
             else
             {
-                return new Frequency(TimeUnit.None, 0);
+                return new(TimeUnit.None, 0);
             }
         }
 
         [IgnoreDataMember, XmlIgnore]
-        public static readonly Frequency Daily = new Frequency(TimeUnit.Days, 1);
+        public static readonly Frequency Daily = new(TimeUnit.Days, 1);
 
         [IgnoreDataMember, XmlIgnore]
-        public static readonly Frequency Monthly = new Frequency(TimeUnit.Months, 1);
+        public static readonly Frequency Monthly = new(TimeUnit.Months, 1);
 
         [IgnoreDataMember, XmlIgnore]
-        public static readonly Frequency Quarterly = new Frequency(TimeUnit.Months, 3);
+        public static readonly Frequency Quarterly = new(TimeUnit.Months, 3);
 
         [IgnoreDataMember, XmlIgnore]
-        public static readonly Frequency Annually = new Frequency(TimeUnit.Years, 1);
+        public static readonly Frequency Annually = new(TimeUnit.Years, 1);
     }
 }

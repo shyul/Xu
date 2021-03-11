@@ -24,10 +24,10 @@ namespace Xu
     public class Period : IEquatable<Period>, IEquatable<DateTime>, IComparer<Period>, IComparable<Period>, IComparable<DateTime>
     {
         [IgnoreDataMember, XmlIgnore]
-        public static Period Full => new Period(DateTime.MinValue, DateTime.MaxValue);
+        public static Period Full => new(DateTime.MinValue, DateTime.MaxValue);
 
         [IgnoreDataMember, XmlIgnore]
-        public static Period Empty => new Period(DateTime.MinValue, DateTime.MinValue);
+        public static Period Empty => new(DateTime.MinValue, DateTime.MinValue);
 
         #region Ctor
 
@@ -207,15 +207,15 @@ namespace Xu
 
         public List<Period> Split(Frequency freq)
         {
-            Frequency unit = new Frequency(freq.Unit);
+            Frequency unit = new(freq.Unit);
             DateTime start = unit.Align(m_start, -1);
             DateTime stop = unit.Align(m_stop, 1);
 
-            List<Period> result = new List<Period>();
+            List<Period> result = new();
 
             while (start < stop)
             {
-                Period pd = new Period(start, start + freq);
+                Period pd = new(start, start + freq);
                 start = pd.Stop;
                 result.Add(pd);
             }
@@ -234,7 +234,7 @@ namespace Xu
             }
             else if (s1.Contains(s2))
             {
-                return new Period[] { new Period(s1.Start, s2.Start), new Period(s2.Stop, s1.Stop) };
+                return new Period[] { new Period(s1.Start, s2.Start), new(s2.Stop, s1.Stop) };
             }
             else if (s2.Contains(s1))
             {
@@ -272,7 +272,7 @@ namespace Xu
 
         public static MultiPeriod operator -(Period s1, IEnumerable<Period> s2)
         {
-            MultiPeriod mp = new MultiPeriod { s1 };
+            MultiPeriod mp = new() { s1 };
 
             foreach (Period pd in s2)
                 mp.Remove(pd);

@@ -10,24 +10,18 @@ namespace Xu
     {
         Default = 0,
 
+        Loading = 10,
+
+        DataReady = 20,
+
+        Ticking = 30,
+
+        Calculating = 40,
+
+        CalculateFinished = 50,
+
+        TickingFinished = 60,
+
         Ready = 100,
-
-        Loading = 1,
-
-        Downloading = 2,
-
-        Calculating = 3,
-
-        Ticking = 4,
-
-        Saving = 6,
-
-        Maintaining = 7,
-
-        LoadFinished = 10,
-
-        TickingFinished = 11,
-
-        CalculateFinished = 12,
     }
 }

@@ -228,7 +228,11 @@ namespace Xu
 
         public static Period[] operator -(Period s1, Period s2)
         {
-            if (s1.Contains(s2))
+            if (s1 == s2) 
+            {
+                return new Period[] { };
+            }
+            else if (s1.Contains(s2))
             {
                 return new Period[] { new Period(s1.Start, s2.Start), new Period(s2.Stop, s1.Stop) };
             }

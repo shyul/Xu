@@ -31,28 +31,59 @@ namespace Xu
         public bool IsReadOnly { get; set; } = false;
 
         [DataMember]
-        private HashSet<Period> PeriodList { get; set; } = new HashSet<Period>();
-        
+        private List<Period> PeriodList { get; set; } = new();
+
+        public override string ToString()
+        {
+            string st = "####### " + base.ToString() + " #######\n";
+
+            st += "Overall Period: " + Period + "\n";
+
+            int i = 0;
+            foreach (var pd in PeriodList)
+            {
+                st += i + " | " + pd.ToString() + " " + (pd.IsEmpty ? "Empty" : pd.Span.TotalSeconds + "secs") + " " + (pd.IsCurrent ? "IsCurrent " : "NotCurrent ") + "\n";
+                i++;
+            }
+
+            return st;
+        }
+
+        public Period Period
+        {
+            get
+            {
+                var list = PeriodList.OrderBy(n => n.Start);
+                if (list.Count() > 0)
+                {
+                    return new Period(list.First().Start, list.Last().Stop);
+                }
+                else
+                    return null;
+            }
+        }
+
         public List<Period> Split(Frequency freq)
         {
-            List<Period> res = new List<Period>();
-            var list = PeriodList.OrderBy(n => n.Start);
+            List<Period> res = new();
+            //var list = PeriodList.OrderBy(n => n.Start);
 
-            if (list.Count() > 0)
+            //if (list.Count() > 0)
+            if (Period is Period range)
             {
-                Period range = new Period(list.First().Start, list.Last().Stop);
+                //Period range = new Period(list.First().Start, list.Last().Stop);
                 DateTime start = freq.Align(range.Start);// - freq.Span;
 
-                while(start <= range.Stop) 
+                while (start <= range.Stop)
                 {
-                    Period pd = new Period(start, start + freq.Span);
+                    Period pd = new(start, start + freq.Span);
                     res.Add(pd);
                     start = pd.Stop;
 
                     if (!Contains(start))
                     {
                         var slist = PeriodList.Where(n => n.Start > start).OrderBy(n => n.Start);
-                        if(slist.Count() > 0) 
+                        if (slist.Count() > 0)
                         {
                             start = freq.Align(slist.First().Start); // Find next start and align it.
                         }
@@ -113,7 +144,7 @@ namespace Xu
             if (!IsReadOnly)
                 lock (PeriodList)
                 {
-                    List<Period> ToRemove = new List<Period>();
+                    List<Period> ToRemove = new();
                     foreach (Period item in PeriodList)
                     {
                         if (item.Intersect(pd))
@@ -137,31 +168,33 @@ namespace Xu
                     if (PeriodList.Contains(pd))
                     {
                         isModified = true;
-                        PeriodList.Remove(pd);
+                        PeriodList.RemoveAll(n => n == pd);
                     }
-                    else
+
+                    List<Period> toRemove = new();
+                    List<Period> toAdd = new();
+
+                    foreach (Period item in PeriodList)
                     {
-                        List<Period> toRemove = new List<Period>();
-                        List<Period> toAdd = new List<Period>();
-
-                        foreach (Period item in PeriodList)
+                        if (pd.Intersect(item))
                         {
-                            if (pd.Intersect(item))
-                            {
-                                isModified = true;
+                            isModified = true;
 
-                                toRemove.CheckAdd(item);
+                            toRemove.CheckAdd(item);
 
-                                Period[] res = item - pd;
-                                foreach (Period resPd in res)
-                                {
-                                    if (!resPd.IsEmpty) toAdd.Add(resPd);
-                                }
-                            }
+                            Period[] res = item - pd;
+
+                            toAdd.AddRange(res.Where(n => !n.IsEmpty));
                         }
+                    }
 
-                        foreach (Period item in toRemove) PeriodList.Remove(item);
-                        foreach (Period item in toAdd) PeriodList.CheckAdd(item);
+                    foreach (Period item in toRemove)
+                        PeriodList.Remove(item);
+
+                    foreach (Period item in toAdd)
+                    {
+                        //Console.WriteLine("Adding fraction period " + item);
+                        PeriodList.CheckAdd(item);
                     }
                 }
 

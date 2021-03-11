@@ -373,7 +373,7 @@ namespace Xu
 
         public string ToString(string formatString, char spliter = TextTool.ValueSeparator)
         {
-            return m_start.ToString(formatString) + spliter + m_stop.ToString(formatString);
+            return Start.ToString(formatString) + spliter + Stop.ToString(formatString);
         }
 
         [IgnoreDataMember, XmlIgnore]

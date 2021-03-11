@@ -32,6 +32,40 @@ namespace Xu
 
         [DataMember]
         private HashSet<Period> PeriodList { get; set; } = new HashSet<Period>();
+        
+        public List<Period> Split(Frequency freq)
+        {
+            List<Period> res = new List<Period>();
+            var list = PeriodList.OrderBy(n => n.Start);
+
+            if (list.Count() > 0)
+            {
+                Period range = new Period(list.First().Start, list.Last().Stop);
+                DateTime start = freq.Align(range.Start);// - freq.Span;
+
+                while(start <= range.Stop) 
+                {
+                    Period pd = new Period(start, start + freq.Span);
+                    res.Add(pd);
+                    start = pd.Stop;
+
+                    if (!Contains(start))
+                    {
+                        var slist = PeriodList.Where(n => n.Start > start).OrderBy(n => n.Start);
+                        if(slist.Count() > 0) 
+                        {
+                            start = freq.Align(slist.First().Start); // Find next start and align it.
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
 
         [IgnoreDataMember]
         public int Count => PeriodList.Count;
@@ -55,8 +89,10 @@ namespace Xu
         {
             lock (PeriodList)
             {
-                foreach (Period item in PeriodList) if (item.Contains(time)) return true;
-                return false;
+                return PeriodList.Where(n => n.Contains(time)).Count() > 0;
+                // .OrderBy(n => n.Start);
+                //foreach (Period item in PeriodList) if (item.Contains(time)) return true;
+                //return false;
                 //return Get(time).Count() > 0;
             }
         }
@@ -95,7 +131,7 @@ namespace Xu
         {
             bool isModified = false;
 
-            if (!IsReadOnly)
+            if (!IsReadOnly && !pd.IsEmpty)
                 lock (PeriodList)
                 {
                     if (PeriodList.Contains(pd))

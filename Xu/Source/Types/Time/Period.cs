@@ -24,10 +24,10 @@ namespace Xu
     public class Period : IEquatable<Period>, IEquatable<DateTime>, IComparer<Period>, IComparable<Period>, IComparable<DateTime>
     {
         [IgnoreDataMember, XmlIgnore]
-        public static Period Full => new(DateTime.MinValue, DateTime.MaxValue);
+        public static Period Full => new(DateTime.MinValue.AddDays(7), DateTime.MaxValue.AddDays(-7));
 
         [IgnoreDataMember, XmlIgnore]
-        public static Period Empty => new(DateTime.MinValue, DateTime.MinValue);
+        public static Period Empty => new(DateTime.MinValue.AddDays(7), DateTime.MinValue.AddDays(7));
 
         #region Ctor
 

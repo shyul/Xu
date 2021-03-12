@@ -39,7 +39,7 @@ namespace Xu.Chart
         /// <summary>
         /// Series Tags
         /// </summary>
-        public virtual List<TagColumn> TagColumns { get; } = new List<TagColumn>();
+        public virtual List<DatumColumn> TagColumns { get; } = new List<DatumColumn>();
 
         public override void RefreshAxis(IIndexArea area, ITable table)
         {
@@ -86,7 +86,7 @@ namespace Xu.Chart
                 foreach (var (_, p) in pointList)
                     DrawDot(g, Theme, p, width);
 
-                if (table is ITagTable itag)
+                if (table is IDatumTable itag)
                     foreach (var (index, p) in pointList)
                     {
                         var tagList = GetTags(itag, TagColumns, index);

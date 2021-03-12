@@ -79,7 +79,7 @@ namespace Xu.Chart
                 // Draw the line itself.
                 DrawLine(g, Theme, line, points, Width, LineType);
 
-                if (table is ITagTable itag)
+                if (table is IDatumTable itag)
                     foreach (var (index, p) in pointList)
                     {
                         var tagList = GetTags(itag, TagColumns, index);

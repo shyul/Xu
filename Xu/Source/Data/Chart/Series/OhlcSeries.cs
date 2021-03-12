@@ -105,9 +105,7 @@ namespace Xu.Chart
         /// <summary>
         /// Series Tags
         /// </summary>
-        public virtual List<TagColumn> TagColumns { get; } = new List<TagColumn>();
-
-
+        public virtual List<DatumColumn> TagColumns { get; } = new List<DatumColumn>();
 
         /// <summary>
         /// Only inflate the axis 
@@ -211,7 +209,7 @@ namespace Xu.Chart
                         else if (Type == OhlcType.Bar)
                             DrawBar(g, edgePen, p.X, open_pix, high_pix, low_pix, close_pix, tickWidth);
 
-                        if (table is ITagTable itag)
+                        if (table is IDatumTable itag)
                         {
                             var tagList = GetTags(itag, TagColumns, points[i].index);
 
@@ -261,7 +259,7 @@ namespace Xu.Chart
                             Pen edgePen = (gain < 0 && Type != OhlcType.Area) ? LowerTheme.EdgePen : Theme.EdgePen;
                             g.DrawLine(edgePen, p_1, p);
 
-                            if (table is ITagTable itag)
+                            if (table is IDatumTable itag)
                             {
                                 var tagList = GetTags(itag, TagColumns, index); // TagColumns.Select(n => table[index, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
 
@@ -274,7 +272,7 @@ namespace Xu.Chart
                     {
                         DotSeries.DrawDot(g, Theme, points[0].point, 3);
 
-                        if (table is ITagTable itag)
+                        if (table is IDatumTable itag)
                         {
                             var tagList = GetTags(itag, TagColumns, 0); // .Select(n => table[0, n]).Where(n => n is TagInfo).Select(n => (TagInfo)n);
 

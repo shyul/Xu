@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Xu
 {
-    public class TagInfo : IEquatable<TagInfo>
+    public class TagInfo : IDatum, IEquatable<TagInfo>
     {
         public TagInfo(int index, string text, DockStyle style, ColorTheme theme)
         {

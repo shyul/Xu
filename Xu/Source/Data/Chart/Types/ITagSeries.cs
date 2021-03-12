@@ -15,6 +15,6 @@ namespace Xu.Chart
     /// </summary>
     public interface ITagSeries
     {
-        List<TagColumn> TagColumns { get; }
+        List<DatumColumn> TagColumns { get; }
     }
 }

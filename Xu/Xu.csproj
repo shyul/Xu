@@ -78,10 +78,9 @@
     <Compile Include="Source\Data\TraceDataTable.cs" />
     <Compile Include="Source\Main\Icons.cs" />
     <Compile Include="Source\Data\Table\Column\Column.cs" />
-    <Compile Include="Source\Data\Table\Column\RenderColumn.cs" />
+    <Compile Include="Source\Data\Table\Column\Types\DatumColumn.cs" />
     <Compile Include="Source\Data\Table\Types\ITable.cs" />
-    <Compile Include="Source\Data\Table\Types\ITagTable.cs" />
-    <Compile Include="Source\Data\Table\Column\Types\TagColumn.cs" />
+    <Compile Include="Source\Data\Table\Types\IDatumTable.cs" />
     <Compile Include="Source\Data\GridView\GridWidget.cs" />
     <Compile Include="Source\Data\Chart\Types\IAdvanceDeclineSeries.cs" />
     <Compile Include="Source\Data\Chart\Types\IRangeSeries.cs" />

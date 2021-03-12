@@ -100,7 +100,7 @@ namespace Xu.Chart
                 foreach (var (_, p) in pointList)
                     DrawColumn(g, pen, brush, p.X, p.Y, ref_pix, tickWidth);
 
-                if (table is ITagTable itag)
+                if (table is IDatumTable itag)
                     foreach (var (index, p) in pointList)
                     {
                         var tagList = GetTags(itag, TagColumns, index);

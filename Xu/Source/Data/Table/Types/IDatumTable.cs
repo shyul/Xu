@@ -7,8 +7,8 @@
 
 namespace Xu
 {
-    public interface ITagTable : ITable
+    public interface IDatumTable : ITable
     {
-        TagInfo this[int i, TagColumn column] { get; }
+        IDatum this[int i, DatumColumn column] { get; }
     }
 }

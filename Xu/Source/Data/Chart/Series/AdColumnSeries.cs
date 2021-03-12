@@ -105,7 +105,7 @@ namespace Xu.Chart
                     DrawColumn(g, pen, brush, p.X, p.Y, ref_pix, tickWidth);
                 }
 
-                if (table is ITagTable itag)
+                if (table is IDatumTable itag)
                     foreach (var (index, p, _) in pointList)
                     {
                         var tagList = GetTags(itag, TagColumns, index);

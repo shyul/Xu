@@ -61,7 +61,7 @@ namespace Xu.Chart
                     {
                         if (ca.Enabled && ca.Visible)
                         {
-                            using SolidBrush backBrush = new SolidBrush(Chart.Theme.FillColor.Opaque(220));
+                            using SolidBrush backBrush = new(Chart.Theme.FillColor.Opaque(220));
                             g.FillPath(backBrush, ca.LegendBackgroundPath);
 
                             foreach (var lg in ca.Legends.Values)
@@ -83,7 +83,7 @@ namespace Xu.Chart
                             {
                                 if (ca.HasXAxisBar)
                                 {
-                                    Point tagLocation = new Point(x, ca.TimeLabelY);
+                                    Point tagLocation = new(x, ca.TimeLabelY);
                                     if (i < Areas.Count - 1)
                                     {
                                         using GraphicsPath gp = ShapeTool.UpDownTag(tagLocation, new Size(85, Chart.AxisXLabelHeight - 2), new Size(8, 4), 1);
@@ -106,7 +106,7 @@ namespace Xu.Chart
                                 // Draw cursor on Y Axis
                                 if (ca.Bounds.Contains(MousePoint))
                                 {
-                                    Point rightCursorPt = new Point(ca.RightCursorX, MousePoint.Y);
+                                    Point rightCursorPt = new(ca.RightCursorX, MousePoint.Y);
                                     g.DrawLine(Main.Theme.ActiveCursor.EdgePen, new Point(ChartBounds.Left, MousePoint.Y), rightCursorPt);
 
                                     ContinuousAxis axis = ca.AxisY(AlignType.Right);
@@ -118,7 +118,7 @@ namespace Xu.Chart
                                     axis = ca.AxisY(AlignType.Left);
                                     if (axis.Pixel_Far > MousePoint.Y && MousePoint.Y > axis.Pixel_Near && axis.Delta > 0)
                                     {
-                                        Point leftCursorPt = new Point(ca.LeftCursorX, MousePoint.Y);
+                                        Point leftCursorPt = new(ca.LeftCursorX, MousePoint.Y);
                                         g.DrawRightCursor(axis.PixelToString(MousePoint.Y), tagFont, Main.Theme.ActiveCursor, leftCursorPt, 16, Chart.LeftYAxisLabelWidth);
                                     }
                                 }
@@ -174,12 +174,11 @@ namespace Xu.Chart
                 {
                     if (ModifierKeys.HasFlag(Keys.Control))
                     {
-                        Chart.ScaleStartPt(num);
+                        Chart.Zoom(num);
                     }
                     else
                     {
-                        double limit = 0.3 * Chart.IndexCount;
-                        Chart.ShiftPt(num, limit.ToInt32());
+                        Chart.ShiftPt(num);
                     }
 
                     Chart.HoverIndex = Chart.PixelToIndex(e.X);

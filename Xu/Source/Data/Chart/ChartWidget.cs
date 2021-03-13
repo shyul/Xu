@@ -26,7 +26,7 @@ namespace Xu.Chart
             Controls.Add(Overlay);
         }
 
-        public readonly Dictionary<Importance, AxisTickStyle> Style = new Dictionary<Importance, AxisTickStyle>()
+        public readonly Dictionary<Importance, AxisTickStyle> Style = new()
         {
             { Importance.Tiny,  new AxisTickStyle() },
             { Importance.Micro, new AxisTickStyle() },
@@ -53,38 +53,38 @@ namespace Xu.Chart
 
         public virtual int DataCount => Table.Count;
 
-        public virtual int StartPt { get => StopPt - IndexCount; set { } }
+        public virtual int StartPt => StopPt - IndexCount;
 
         public virtual int StopPt { get; set; }
 
         public virtual int IndexCount { get; set; } = 295;
 
-        public virtual void ShiftPt(int num, int limit)
+        private int MaximumBlankPoints => (0.3f * IndexCount).ToInt32();
+
+        public virtual void ShiftPt(int num)
         {
-            if ((StartPt + num > -limit) && (StopPt + num - DataCount < limit))
+            int limit = MaximumBlankPoints;
+
+            if (StopPt + num - DataCount >= limit)
+            {
+                StopPt = DataCount + limit;
+            }
+            else if(StartPt + num <= -limit) 
+            {
+                StopPt = StartPt + IndexCount - limit;
+            }
+            else
             {
                 StopPt += num;
-                m_AsyncUpdateUI = true; // TODO: Test Live BarChart. The Tick does not seems to autoscroll here.
             }
+            m_AsyncUpdateUI = true;
         }
 
-        public virtual void ScaleStartPt(int num)
+        public virtual void Zoom(int num)
         {
-            if (StopPt - (StartPt + num) > 1)
-            {
-                IndexCount += num;
-                m_AsyncUpdateUI = true;
-            }
-        }
-
-        public virtual void ScaleStopPt(int num, int limit)
-        {
-            if ((StartPt + num > -limit) && (StopPt + num - DataCount < limit))
-            {
-                StopPt += num;
-                IndexCount += num;
-                m_AsyncUpdateUI = true; // real time update
-            }
+            IndexCount += num;
+            if (IndexCount < 1) IndexCount = 1;
+            ShiftPt(0);
         }
 
         public virtual void PointerToEnd()

@@ -144,7 +144,7 @@ namespace Xu.Chart
                         for (int i = t_left; i <= t_right; i++) textPixel[i] = true;
                         if (tk.Value.Importance > Importance.Minor)
                         {
-                            using GraphicsPath gp = new GraphicsPath();
+                            using GraphicsPath gp = new();
                             Point[] tri = new Point[4]
                                 {
                                     new Point(location, bounds.Bottom + 4),

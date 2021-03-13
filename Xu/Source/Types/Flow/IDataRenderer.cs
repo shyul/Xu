@@ -11,9 +11,9 @@ namespace Xu
 {
     public interface IDataRenderer : IDataConsumer
     {
-        int StartPt { get; set; }
+        int StartPt { get; }
 
-        int StopPt { get; set; }
+        int StopPt { get; }
 
         bool ReadyToShow { get; set; }
 

@@ -68,17 +68,15 @@
     <Compile Include="Source\Data\GridView\Renderer\TextGridRenderer.cs" />
     <Compile Include="Source\Data\Plot\Area.cs" />
     <Compile Include="Source\Data\Plot\Plot2DWidget.cs" />
-    <Compile Include="Source\Data\Table\Column\Types\StringColumn.cs" />
     <Compile Include="Source\Serialization\IDataFile.cs" />
     <Compile Include="Source\Types\Flow\IDataConsumer.cs" />
     <Compile Include="Source\Types\Flow\IDataProvider.cs" />
     <Compile Include="Source\Types\Flow\IDataRenderer.cs" />
-    <Compile Include="Source\Data\Table\Types\IRow.cs" />
     <Compile Include="Source\Data\Table\Types\TableStatus.cs" />
     <Compile Include="Source\Data\TraceDataTable.cs" />
     <Compile Include="Source\Main\Icons.cs" />
     <Compile Include="Source\Data\Table\Column\Column.cs" />
-    <Compile Include="Source\Data\Table\Column\Types\DatumColumn.cs" />
+    <Compile Include="Source\Data\Table\Column\DatumColumn.cs" />
     <Compile Include="Source\Data\Table\Types\ITable.cs" />
     <Compile Include="Source\Data\Table\Types\IDatumTable.cs" />
     <Compile Include="Source\Data\GridView\GridWidget.cs" />
@@ -120,7 +118,7 @@
     <Compile Include="Source\UserInterface\Shared\CodeEdit\CodeEdit.cs" />
     <Compile Include="Source\UserInterface\Shared\EventView\EventView.cs" />
     <Compile Include="Source\UserInterface\Shared\Miscellaneous\TextEdit.cs" />
-    <Compile Include="Source\Data\Table\Column\Types\NumericColumn.cs" />
+    <Compile Include="Source\Data\Table\Column\NumericColumn.cs" />
     <Compile Include="Source\Data\Chart\Types\Series.cs" />
     <Compile Include="Source\Data\Chart\ChartOverlay.cs" />
     <Compile Include="Source\Data\Chart\Series\AreaSeries.cs" />

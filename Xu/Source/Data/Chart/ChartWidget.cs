@@ -61,6 +61,10 @@ namespace Xu.Chart
 
         private int MaximumBlankPoints => (0.3f * IndexCount).ToInt32();
 
+        /// <summary>
+        /// TODO: The scrolling short chart: CLOV got issues.
+        /// </summary>
+        /// <param name="num"></param>
         public virtual void ShiftPt(int num)
         {
             int limit = MaximumBlankPoints;

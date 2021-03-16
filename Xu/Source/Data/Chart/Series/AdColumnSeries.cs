@@ -14,6 +14,9 @@ namespace Xu.Chart
 {
     public class AdColumnSeries : ColumnSeries, IAdvanceDeclineSeries
     {
+        public AdColumnSeries(NumericColumn data_column, int width, int reference = 0, double gain_threshold = 0) 
+            : this(data_column, data_column, width, reference, gain_threshold) { }
+
         public AdColumnSeries(NumericColumn data_column, NumericColumn gain_Column, int width, int reference = 0, double gain_threshold = 0)
         {
             Data_Column = data_column;

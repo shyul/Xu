@@ -257,7 +257,7 @@ namespace Xu
 
         public int CompareTo(DateTime other)
         {
-            if (Stop <= other) 
+            if (Stop <= other)
                 return -1;
             else if (Start > other)
                 return 1;

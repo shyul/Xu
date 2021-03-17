@@ -31,6 +31,12 @@ namespace Xu
         private HashSet<TimePeriod> PeriodList { get; } = new HashSet<TimePeriod>();
 
         [IgnoreDataMember]
+        public Time Start => PeriodList.Select(n => n.Start).OrderBy(n => n).First();
+
+        [IgnoreDataMember]
+        public Time Stop => PeriodList.Select(n => n.Stop).OrderBy(n => n).Last();
+
+        [IgnoreDataMember]
         public TimePeriod TimePeriod
         {
             get

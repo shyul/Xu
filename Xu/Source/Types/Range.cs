@@ -107,6 +107,8 @@ namespace Xu
         public static bool operator ==(Range<T> s1, Range<T> s2) => s1.Equals(s2);
         public static bool operator !=(Range<T> s1, T s2) => !s1.Equals(s2);
         public static bool operator ==(Range<T> s1, T s2) => s1.Equals(s2);
+        public static bool operator !=(T s2, Range<T> s1) => !s1.Equals(s2);
+        public static bool operator ==(T s2, Range<T> s1) => s1.Equals(s2);
 
         int IComparable<T>.CompareTo(T other)
         {

@@ -15,5 +15,7 @@ namespace Xu
             Name = name;
             Label = label;
         }
+
+        public override int GetHashCode() => Name.GetHashCode() ^ GetType().GetHashCode();
     }
 }

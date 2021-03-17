@@ -80,9 +80,9 @@
     <Compile Include="Source\Data\Table\Types\ITable.cs" />
     <Compile Include="Source\Data\Table\Types\IDatumTable.cs" />
     <Compile Include="Source\Data\GridView\GridWidget.cs" />
-    <Compile Include="Source\Data\Chart\Types\IAdvanceDeclineSeries.cs" />
-    <Compile Include="Source\Data\Chart\Types\IRangeSeries.cs" />
-    <Compile Include="Source\Data\Chart\Types\ITagSeries.cs" />
+    <Compile Include="Source\Data\Chart\_Types\IAdvanceDeclineSeries.cs" />
+    <Compile Include="Source\Data\Chart\_Types\IRangeSeries.cs" />
+    <Compile Include="Source\Data\Chart\_Types\ITagSeries.cs" />
     <Compile Include="Source\Algorithms\Binary.cs" />
     <Compile Include="Source\Algorithms\Extrapolation.cs" />
     <Compile Include="Source\Algorithms\Statistics.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="Source\UserInterface\Shared\EventView\EventView.cs" />
     <Compile Include="Source\UserInterface\Shared\Miscellaneous\TextEdit.cs" />
     <Compile Include="Source\Data\Table\Column\NumericColumn.cs" />
-    <Compile Include="Source\Data\Chart\Types\Series.cs" />
+    <Compile Include="Source\Data\Chart\_Types\Series.cs" />
     <Compile Include="Source\Data\Chart\ChartOverlay.cs" />
     <Compile Include="Source\Data\Chart\Series\AreaSeries.cs" />
     <Compile Include="Source\Data\Chart\Series\BandSeries.cs" />

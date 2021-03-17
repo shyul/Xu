@@ -129,7 +129,7 @@ namespace Xu.Chart
 
         public override List<(string text, Font font, Brush brush)> ValueLabels(ITable table, int pt)
         {
-            List<(string text, Font font, Brush brush)> labels = new List<(string text, Font font, Brush brush)>();
+            List<(string text, Font font, Brush brush)> labels = new();
 
             string text = string.Empty;
             double open = table[pt, Open_Column];
@@ -303,7 +303,7 @@ namespace Xu.Chart
             if (!double.IsNaN(data) && !double.IsNaN(percent))
             {
                 ContinuousAxis axisY = area.AxisY(Side);
-                Point location = new Point(area.RightCursorX, axisY.ValueToPixel(data));
+                Point location = new(area.RightCursorX, axisY.ValueToPixel(data));
 
                 if (percent < 0)
                     DrawLeftPercentCursor(g, data.ToSINumberString("G5").String, percent.ToString("G3") + "%", LowerTextTheme, location);
@@ -372,7 +372,7 @@ namespace Xu.Chart
             int width = Math.Max(priceTextSize.Width, percentTextSize.Width) + 1;
             location.X += 1;
 
-            Size size = new Size(width, height);
+            Size size = new(width, height);
             using (GraphicsPath gp = ShapeTool.LeftTag(location, size, new Size(8, 4), 1))
             {
                 g.FillPath(theme.FillBrush, gp);

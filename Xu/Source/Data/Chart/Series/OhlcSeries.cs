@@ -149,16 +149,7 @@ namespace Xu.Chart
             text = (!double.IsNaN(close) && !double.IsNaN(percent)) ? Close_Column.Label + ": " + close.ToString(LegendLabelFormat) + " ( " + percent.ToString("0.##") + "% )" : string.Empty;
 
             if (text.Length > 0) labels.Add((text, Main.Theme.Font, (percent < 0) ? Legend.LabelBrush(LowerTheme) : Legend.LabelBrush(Theme)));
-            /*
-            if (CandleStickTypes_Column is ObjectColumn && CandleStickTypes_Column.Type == typeof(List<CandleStickType>))
-            {
-                if (table[pt, CandleStickTypes_Column] is List<CandleStickType> list)
-                {
-                    text = list.ToString(", ");
-                    if (text.Length > 0) labels.Add(("  " + text, Main.Theme.Font, (percent < 0) ? Legend.LabelBrush(DownTheme) : Legend.LabelBrush(Theme)));
-                }
-            }
-            */
+
             return labels;
         }
 

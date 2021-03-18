@@ -37,7 +37,7 @@ namespace Xu
 
         public Type DatumType { get; }
 
-        public override int GetHashCode() => Name.GetHashCode() ^ GetType().GetHashCode() ^ DatumType.FullName.GetHashCode();
+        public override int GetHashCode() => GetType().GetHashCode() ^ Name.GetHashCode() ^ DatumType.FullName.GetHashCode();
 
         public override bool Equals(Column other) => other is DatumColumn dc && Equals(dc);
 

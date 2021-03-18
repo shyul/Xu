@@ -16,6 +16,11 @@ namespace Xu
 {
     public static class CollectionTool
     {
+        public static IEnumerable<T> GetBySubType<T, T2>(this IEnumerable<T2> source) where T : class
+        {
+            return source.Where(n => n is T).Select(n => n as T);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -141,7 +146,7 @@ namespace Xu
         /// <returns></returns>
         public static List<IDependable> GetMembers(this IDependable current)
         {
-            List<IDependable> members = new List<IDependable>() { current };
+            List<IDependable> members = new() { current };
             foreach (var child in current.Children)
             {
                 members.CheckAdd(child);
@@ -152,7 +157,7 @@ namespace Xu
 
         public static List<IDependable> GetChildren(this IDependable current)
         {
-            List<IDependable> children = new List<IDependable>();
+            List<IDependable> children = new();
             foreach (var child in current.Children)
             {
                 children.CheckAdd(child);
@@ -163,7 +168,7 @@ namespace Xu
 
         public static List<IDependable> GetParents(this IDependable current)
         {
-            List<IDependable> parents = new List<IDependable>();
+            List<IDependable> parents = new();
             foreach (var parent in current.Parents)
             {
                 parents.CheckAdd(parent);

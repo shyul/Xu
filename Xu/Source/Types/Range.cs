@@ -18,7 +18,6 @@ namespace Xu
 
         public Range(T min, T max) => Reset(min, max);
 
-
         public void Reset(T min, T max)
         {
             Minimum = min;
@@ -80,6 +79,8 @@ namespace Xu
 
             return hasChanged;
         }
+
+        public bool ContainsNoMax(T value) => (value.CompareTo(Maximum) < 0) && (value.CompareTo(Minimum) >= 0);
 
         public bool Contains(T value) => (value.CompareTo(Maximum) <= 0) && (value.CompareTo(Minimum) >= 0);
 
@@ -151,5 +152,28 @@ namespace Xu
 
         [DataMember, Browsable(true), DisplayName("Maximum Value")]
         public T Maximum { get; private set; }
+
+        public static Range<T> Empty
+        {
+            get
+            {
+                if (typeof(T) == typeof(double))
+                    return new Range<double>(double.MaxValue, double.MinValue) as Range<T>;
+                else if (typeof(T) == typeof(int))
+                    return new Range<int>(int.MaxValue, int.MinValue) as Range<T>;
+                else if (typeof(T) == typeof(uint))
+                    return new Range<uint>(uint.MaxValue, uint.MinValue) as Range<T>;
+                else if (typeof(T) == typeof(long))
+                    return new Range<long>(long.MaxValue, long.MinValue) as Range<T>;
+                else if (typeof(T) == typeof(ulong))
+                    return new Range<ulong>(ulong.MaxValue, ulong.MinValue) as Range<T>;
+                else if (typeof(T) == typeof(float))
+                    return new Range<float>(float.MaxValue, float.MinValue) as Range<T>;
+                else if (typeof(T) == typeof(DateTime))
+                    return new Range<DateTime>(DateTime.MaxValue, DateTime.MinValue) as Range<T>;
+                else
+                    return null;
+            }
+        }
     }
 }

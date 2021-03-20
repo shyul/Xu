@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Xu
@@ -17,6 +18,12 @@ namespace Xu
         public Range(T value) => Set(value);
 
         public Range(T min, T max) => Reset(min, max);
+
+        public Range(IEnumerable<T> list)
+        {
+            Minimum = list.Min();
+            Maximum = list.Max();
+        }
 
         public void Reset(T min, T max)
         {
@@ -79,6 +86,8 @@ namespace Xu
 
             return hasChanged;
         }
+
+        public bool IsEmpty => Minimum.Equals(Maximum);
 
         public bool ContainsNoMax(T value) => (value.CompareTo(Maximum) < 0) && (value.CompareTo(Minimum) >= 0);
 

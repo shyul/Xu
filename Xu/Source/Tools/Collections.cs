@@ -135,8 +135,6 @@ namespace Xu
             return false;
         }
 
-
-
         /// <summary>
         /// Recursively get all members of an IDependable object
         /// </summary>
@@ -195,6 +193,18 @@ namespace Xu
                 parent.CheckRemove(child, recursive);
 
             return (parent.Children.Count == 0);
+        }
+
+        public static List<(T, T)> GetPair<T>(this IEnumerable<T> source) where T : IEquatable<T>
+        {
+            List<(T, T)> res = new();
+
+            for (int i = 0; i < source.Count(); i++)
+            {
+                source.Skip(i + 1).Select(n => (source.ElementAt(i), n)).ToList().ForEach(n => { if (!res.Contains(n) && !n.Item1.Equals(n.Item2)) res.Add(n); });
+            }
+
+            return res;
         }
 
         /// <summary>

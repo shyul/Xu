@@ -208,7 +208,6 @@ namespace Xu
         /// <returns></returns>
         public static int ToInt32(this float input) => Convert.ToInt32(Math.Round(input, MidpointRounding.AwayFromZero));
 
-
         /// <summary>
         /// 
         /// </summary>

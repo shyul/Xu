@@ -16,11 +16,6 @@ namespace Xu
 {
     public static class CollectionTool
     {
-        public static IEnumerable<T> GetBySubType<T, T2>(this IEnumerable<T2> source) where T : class
-        {
-            return source.Where(n => n is T).Select(n => n as T);
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -195,7 +190,12 @@ namespace Xu
             return (parent.Children.Count == 0);
         }
 
-        public static List<(T, T)> GetPair<T>(this IEnumerable<T> source) where T : IEquatable<T>
+        public static IEnumerable<T> SelectType<T, T2>(this IEnumerable<T2> source) where T : class
+        {
+            return source.Where(n => n is T).Select(n => n as T);
+        }
+
+        public static List<(T, T)> SelectPair<T>(this IEnumerable<T> source) where T : IEquatable<T>
         {
             List<(T, T)> res = new();
 

@@ -23,15 +23,11 @@ namespace Xu.Chart
 
         public string Description { get; set; }
 
-
-
         public bool Enabled { get; set; } = true;
 
         public int Order { get; set; }
 
         public Importance Importance { get; set; } = Importance.Minor;
-
-
 
         public virtual ColorTheme Theme { get; } = new ColorTheme();
 
@@ -138,7 +134,7 @@ namespace Xu.Chart
 
         public static (List<(int index, Point point)>, int, int, int) GetPixel(ITable table, NumericColumn column, IIndexArea area, AlignType side)
         {
-            List<(int index, Point point)> points = new List<(int index, Point point)>();
+            List<(int index, Point point)> points = new();
             int max_y = area.Bottom;
             int min_y = area.Top;
             int pt = 0;
@@ -160,7 +156,7 @@ namespace Xu.Chart
                         if (data_pix > min_y) min_y = data_pix;
                     }
                 }
-                pt++; 
+                pt++;
             }
 
             return (points, pt, min_y, max_y);
@@ -168,7 +164,7 @@ namespace Xu.Chart
 
         public static (List<(int index, Point point, double gain)>, int, int, int) GetPixel(ITable table, NumericColumn data_Column, NumericColumn gain_Column, IIndexArea area, AlignType side)
         {
-            List<(int index, Point point, double gain)> points = new List<(int index, Point point, double gain)>();
+            List<(int index, Point point, double gain)> points = new();
             int max_y = area.Bottom;
             int min_y = area.Top;
             int pt = 0;
@@ -214,7 +210,7 @@ namespace Xu.Chart
             {
                 string text = tag.Text;
                 Size textSize = TextRenderer.MeasureText(text, Main.Theme.Font);
-                Size labelSize = new Size(textSize.Width, textSize.Height - 2);
+                Size labelSize = new(textSize.Width, textSize.Height - 2);
                 Point c;
 
                 switch (tag.Style)
@@ -265,10 +261,6 @@ namespace Xu.Chart
                 g.DrawString(text, Main.Theme.Font, tag.Theme.ForeBrush, c, AppTheme.TextAlignCenter);
             }
         }
-
-
-
-
 
         #region Dependable
 

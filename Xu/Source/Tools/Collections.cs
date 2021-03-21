@@ -195,16 +195,42 @@ namespace Xu
             return source.Where(n => n is T).Select(n => n as T);
         }
 
-        public static List<(T, T)> SelectPair<T>(this IEnumerable<T> source) where T : IEquatable<T>
+        public static List<(T s1, T s2)> SelectPair<T>(this IEnumerable<T> source) where T : IEquatable<T>
         {
-            List<(T, T)> res = new();
+            List<(T s1, T s2)> res = new();
 
             for (int i = 0; i < source.Count(); i++)
             {
-                source.Skip(i + 1).Select(n => (source.ElementAt(i), n)).ToList().ForEach(n => { if (!res.Contains(n) && !n.Item1.Equals(n.Item2)) res.Add(n); });
+                res.AddRange(source.Skip(i + 1).Select(n => (s1: source.ElementAt(i), s2: n)));//.ToList().ForEach(n => { if (!res.Contains(n) && !n.s1.Equals(n.s2)) res.Add(n); });
             }
 
             return res;
+        }
+
+        public static void RunEach<T>(this IEnumerable<T> source, Action<T> action) => (source is List<T> l ? l : source.ToList()).ForEach(action);
+
+        public static List<T> Last<T>(this IEnumerable<T> source, int i, int count) 
+        {
+            if (i >= source.Count())
+                return new();
+            else
+            {
+                i++;
+                int skip = i - count;
+                if (skip < 0) skip = 0;
+                count = i - skip;
+
+                return source.Skip(skip).Take(count).ToList();
+            }
+        }
+
+        public static List<T> Last<T>(this IEnumerable<T> source, int count)
+        {
+            int i = source.Count();
+            int skip = i - count;
+            if (skip < 0) skip = 0;
+            count = i - skip;
+            return source.Skip(skip).Take(count).ToList();
         }
 
         /// <summary>

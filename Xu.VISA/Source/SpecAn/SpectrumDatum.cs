@@ -7,9 +7,9 @@ using System.Windows.Forms;
 using Xu;
 using Xu.Chart;
 
-namespace TestFSQ
+namespace Xu.EE.Visa
 {
-    public class SpectrumDatum : IRow, IEquatable<SpectrumDatum>
+    public class SpectrumDatum : IEquatable<SpectrumDatum>
     {
         public SpectrumDatum(double freq, double amp)
         {

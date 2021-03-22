@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NationalInstruments.VisaNS;
+using Ivi.Visa;
+using NationalInstruments.Visa;
 using Xu;
 
-namespace TestFSQ
+namespace Xu.EE.Visa
 {
     public abstract class ViClient : IDisposable, IEquatable<ViClient>
     {
-        public ViClient(string resourceName) => Open(resourceName);
+        public ViClient(string resourceName)
+            => Open(resourceName);
 
         public virtual void Dispose() => Session?.Dispose();
 
@@ -32,7 +35,14 @@ namespace TestFSQ
             try
             {
                 ResourceName = resourceName;
-                Session = ResourceManager.GetLocalManager().Open(ResourceName) as MessageBasedSession;
+
+                using var rm = new ResourceManager();
+                Session = rm.Open(ResourceName) as MessageBasedSession;
+
+                //Reset();
+                ClearStatus();
+                while (!IsReady) { Thread.Sleep(200); }
+
 
                 string[] result = Query("*IDN?\n").Split(',');
                 if (result.Length > 3)
@@ -77,7 +87,7 @@ namespace TestFSQ
             try
             {
                 lock (Session)
-                    Session.Write(ReplaceCommonEscapeSequences(cmd));
+                    Session.RawIO.Write(ReplaceCommonEscapeSequences(cmd));
             }
             catch (Exception exp)
             {
@@ -106,7 +116,7 @@ namespace TestFSQ
 
                 lock (Session)
                 {
-                    res = Session.ReadString();
+                    res = Session.RawIO.ReadString();
                 }
 
                 return res;
@@ -143,7 +153,8 @@ namespace TestFSQ
 
                 lock (Session)
                 {
-                    res = Session.Query(ReplaceCommonEscapeSequences(cmd));
+                    Session.RawIO.Write(ReplaceCommonEscapeSequences(cmd));
+                    res = Session.RawIO.ReadString();
                 }
 
                 return res;
@@ -166,9 +177,9 @@ namespace TestFSQ
                 string textToWrite = ReplaceCommonEscapeSequences(cmd);
                 lock (Session)
                 {
-                    AsyncHandle = Session.BeginWrite(
+                    VisaAsyncResult = Session.RawIO.BeginWrite(
                     textToWrite,
-                    new AsyncCallback(OnWriteComplete),
+                    new VisaAsyncCallback(OnWriteComplete),
                     textToWrite.Length as object);
                 }
             }
@@ -178,13 +189,16 @@ namespace TestFSQ
             }
         }
 
-        private void OnWriteComplete(IAsyncResult result)
+
+
+        private void OnWriteComplete(IVisaAsyncResult result)
         {
             try
             {
-                Session.EndWrite(result);
+                Session.RawIO.EndWrite(result);
                 string elementsTransferredTextBoxText = ((int)result.AsyncState).ToString();
-                string lastIOStatusTextBoxText = Session.LastStatus.ToString();
+                //string lastIOStatusTextBoxText = Session.LastStatus.ToString();
+                VisaAsyncResult = result;
             }
             catch (Exception exp)
             {
@@ -198,9 +212,9 @@ namespace TestFSQ
             {
                 lock (Session)
                 {
-                    AsyncHandle = Session.BeginRead(
-                    Session.DefaultBufferSize,
-                    new AsyncCallback(OnReadComplete),
+                    VisaAsyncResult = Session.RawIO.BeginRead(
+                    1024,
+                    new VisaAsyncCallback(OnReadComplete),
                     null);
                 }
             }
@@ -210,13 +224,13 @@ namespace TestFSQ
             }
         }
 
-        private void OnReadComplete(IAsyncResult result)
+        private void OnReadComplete(IVisaAsyncResult result)
         {
             try
             {
-                string responseString = Session.EndReadString(result);
+                string responseString = Session.RawIO.EndReadString(result);
                 string elementsTransferredTextBoxText = responseString.Length.ToString();
-                string lastIOStatusTextBoxText = Session.LastStatus.ToString();
+                //VisaAsyncResult = result;
             }
             catch (Exception exp)
             {
@@ -228,8 +242,9 @@ namespace TestFSQ
         {
             try
             {
-                if (AsyncHandle is IAsyncResult res)
-                    Session.Terminate(res);
+                if (VisaAsyncResult is IVisaAsyncResult res)
+                    //Session.RawIO.Terminate(res);
+                    Session.RawIO.AbortAsyncOperation(res);
             }
             catch (Exception exp)
             {
@@ -239,9 +254,11 @@ namespace TestFSQ
 
         public double GetNumber(string cmd) => double.Parse(Query(cmd).Trim());
 
-        public ViException GetError() => new ViException(QueryNoErrorCheck("SYST:ERR?\n"));
+        public ViException GetError() => new(QueryNoErrorCheck("SYST:ERR?\n"));
 
         public void Reset() => Write("*RST\n");
+
+        public void ClearStatus() => Write("*CLS\n");
 
         public void Trigger() => Write("*TRG\n");
 
@@ -251,11 +268,15 @@ namespace TestFSQ
 
         public bool SelfTest => Query("*TST?\n").Trim() == "1";
 
-        public static string[] FindResources() => ResourceManager.GetLocalManager().FindResources("?*");
+        public static IEnumerable<string> FindResources()
+        {
+            using var rm = new ResourceManager();
+            return rm.Find("?*");
+        }
 
         private static string ReplaceCommonEscapeSequences(string s) => s.Replace("\\n", "\n").Replace("\\r", "\r");
 
-        private IAsyncResult AsyncHandle { get; set; } = null;
+        public IVisaAsyncResult VisaAsyncResult { get; private set; } = null;
 
         public override string ToString() => ResourceName + " | " + VendorName + " | " + Model + " | " + SerialNumber + " | " + DeviceVersion;
         public override int GetHashCode() => ResourceName.GetHashCode();

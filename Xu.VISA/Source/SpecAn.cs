@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xu;
 
-namespace TestFSQ
+namespace Xu.EE.Visa
 {
     public enum FSQMode
     {
@@ -201,7 +201,7 @@ namespace TestFSQ
                 st.Clear();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    SpectrumDatum sp = new SpectrumDatum(freq, list[i]);
+                    SpectrumDatum sp = new(freq, list[i]);
                     st.Add(sp);
 
                     //Console.WriteLine(i + ": " + sp.Frequency + " | " + sp.Amplitude);

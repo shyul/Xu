@@ -7,9 +7,9 @@ using System.Windows.Forms;
 using Xu;
 using Xu.Chart;
 
-namespace TestFSQ
+namespace Xu.EE.Visa
 {
-    public class SpectrumTable : ITable
+    public class SpectrumTable : ITable, IDataProvider
     {
         private HashSet<SpectrumDatum> Rows { get; } = new HashSet<SpectrumDatum>();
 
@@ -54,7 +54,7 @@ namespace TestFSQ
                 Rows.Clear();
         }
 
-        public bool ReadyToShow => Count > 0 && Status != TableStatus.Default && Status != TableStatus.Loading && Status != TableStatus.Downloading && Status != TableStatus.Maintaining;// (Status == TableStatus.Ready || Status == TableStatus.CalculateFinished || Status == TableStatus.TickingFinished);
+        public bool ReadyToShow => Count > 0 && Status >= TableStatus.DataReady;
 
         public TableStatus Status
         {
@@ -64,20 +64,30 @@ namespace TestFSQ
             {
                 m_Status = value;
 
-                if (m_Status == TableStatus.CalculateFinished)
+                lock (DataConsumers)
                 {
-                    lock (DataViews) DataViews.ForEach(n => { n.ReadyToShow = true; n.PointerToEnd(); });
-                }
-                else if (!ReadyToShow)
-                {
-                    lock (DataViews) DataViews.ForEach(n => { n.ReadyToShow = false; n.SetAsyncUpdateUI(); });
+                    if (ReadyToShow)
+                    {
+                        if (m_Status == TableStatus.CalculateFinished)
+                        {
+                            foreach (var idc in DataConsumers) if(idc is IDataRenderer idr) idr.PointerToEnd();
+                        }
+                    }
+
+                    DataConsumers.ForEach(n => n.DataIsUpdated(this));
                 }
             }
         }
 
         private TableStatus m_Status = TableStatus.Default;
 
-        public List<IDataView> DataViews { get; } = new List<IDataView>();
+        public List<IDataConsumer> DataConsumers { get; } = new List<IDataConsumer>();
+
+        public bool AddDataConsumer(IDataConsumer idk) => DataConsumers.CheckAdd(idk);
+
+        public bool RemoveDataConsumer(IDataConsumer idk) => DataConsumers.CheckRemove(idk);
+
+        public DateTime UpdateTime { get; private set; } = TimeTool.MinInvalid;
 
         public object DataLockObject { get; } = new object();
     }

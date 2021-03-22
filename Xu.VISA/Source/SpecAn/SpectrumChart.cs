@@ -8,15 +8,15 @@ using System.Windows.Forms;
 using Xu;
 using Xu.Chart;
 
-namespace TestFSQ
+namespace Xu.EE.Visa
 {
     public class SpectrumChart : ChartWidget
     {
         public SpectrumChart(string name, SpectrumTable st) : base(name)
         {
             SpectrumTable = st;
-            SpectrumTable.Status = TableStatus.Downloading;
-            SpectrumTable.DataViews.Add(this);
+            SpectrumTable.Status = TableStatus.Default;
+            SpectrumTable.AddDataConsumer(this);
 
             AddArea(MainArea = new OscillatorArea(this, "Main", 0.3f)
             {
@@ -74,7 +74,7 @@ namespace TestFSQ
         {
             if (Table is ITable t)
             {
-                StartPt = 0;
+                //StartPt = 0;
                 IndexCount = Table.Count; //- 1;
                 StopPt = t.Count;
             }
@@ -83,7 +83,7 @@ namespace TestFSQ
                 StopPt = 0;
             }
 
-            SetAsyncUpdateUI(); // async update
+            m_AsyncUpdateUI = true; // async update
         }
 
         public override void CoordinateOverlay()

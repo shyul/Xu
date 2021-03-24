@@ -56,7 +56,7 @@ namespace Xu
 
         public bool IsWorkTime()
         {
-            return IsWorkTime(DateTime.Now.ToDestination(TimeZoneInfo));
+            return IsWorkTime(CurrentTime);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Xu.WindowsNativeMethods
 
         public static Color GetWindowColorizationColor(bool opaque)
         {
-            DwmGetColorizationColors c = new DwmGetColorizationColors();
+            DwmGetColorizationColors c = new();
             DwmGetColorizationParameters(ref c);
             return Color.FromArgb(
                 (byte)(opaque ? 255 : c.ColorizationColor >> 24),

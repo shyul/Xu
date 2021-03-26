@@ -10,32 +10,32 @@ namespace Xu.WindowsNativeMethods
 {
     public static class HWND
     {
-        public static readonly IntPtr BROADCAST = new IntPtr(0xffff);
-        public static readonly IntPtr TOP = new IntPtr(0);
-        public static readonly IntPtr BOTTOM = new IntPtr(1);
-        public static readonly IntPtr TOPMOST = new IntPtr(-1);
-        public static readonly IntPtr NOTOPMOST = new IntPtr(-2);
-        public static readonly IntPtr MESSAGE = new IntPtr(-3);
+        public static readonly IntPtr BROADCAST = new(0xffff);
+        public static readonly IntPtr TOP = new(0);
+        public static readonly IntPtr BOTTOM = new(1);
+        public static readonly IntPtr TOPMOST = new(-1);
+        public static readonly IntPtr NOTOPMOST = new(-2);
+        public static readonly IntPtr MESSAGE = new(-3);
     }
 
     public static class HKEY
     {
-        public static IntPtr CLASSES_ROOT = new IntPtr(0x80000000);
-        public static IntPtr CURRENT_USER = new IntPtr(0x80000001);
-        public static IntPtr LOCAL_MACHINE = new IntPtr(0x80000002);
-        public static IntPtr USERS = new IntPtr(0x80000003);
+        public static IntPtr CLASSES_ROOT = new(0x80000000);
+        public static IntPtr CURRENT_USER = new(0x80000001);
+        public static IntPtr LOCAL_MACHINE = new(0x80000002);
+        public static IntPtr USERS = new(0x80000003);
     }
 
     public static class WVR
     {
-        public static IntPtr ALIGNTOP = new IntPtr(0x0010);
-        public static IntPtr ALIGNLEFT = new IntPtr(0x0020);
-        public static IntPtr ALIGNBOTTOM = new IntPtr(0x0040);
-        public static IntPtr ALIGNRIGHT = new IntPtr(0x0080);
-        public static IntPtr HREDRAW = new IntPtr(0x0100);
-        public static IntPtr VREDRAW = new IntPtr(0x0200);
-        public static IntPtr REDRAW = new IntPtr(0x0100 | 0x0200);
-        public static IntPtr VALIDRECTS = new IntPtr(0x400);
+        public static IntPtr ALIGNTOP = new(0x0010);
+        public static IntPtr ALIGNLEFT = new(0x0020);
+        public static IntPtr ALIGNBOTTOM = new(0x0040);
+        public static IntPtr ALIGNRIGHT = new(0x0080);
+        public static IntPtr HREDRAW = new(0x0100);
+        public static IntPtr VREDRAW = new(0x0200);
+        public static IntPtr REDRAW = new(0x0100 | 0x0200);
+        public static IntPtr VALIDRECTS = new(0x400);
     }
 
     public static class SWP

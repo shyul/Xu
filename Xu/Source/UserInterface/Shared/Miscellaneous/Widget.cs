@@ -58,9 +58,9 @@ namespace Xu
 
         public Rectangle ControlRect { get { return new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1); } }
 
-        public Point Center => new Point((Left + Right) / 2, (Top + Bottom) / 2);
+        public Point Center => new((Left + Right) / 2, (Top + Bottom) / 2);
 
-        public Point DropMenuOriginPoint => new Point(Bounds.Left, Bounds.Bottom);
+        public Point DropMenuOriginPoint => new(Bounds.Left, Bounds.Bottom);
 
         /// <summary>
         /// Is this chart on the front? add your code here to prove it is inactive 
@@ -107,7 +107,7 @@ namespace Xu
         public virtual void Reset() => MouseState = MouseState.Out;
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (ClientRectangle.Contains(pt) & Enabled)
                 MouseState = MouseState.Hover;
             else
@@ -122,7 +122,7 @@ namespace Xu
                 Parent.Focus();
             }
 
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (e.Button == MouseButtons.Left && ClientRectangle.Contains(pt) & Enabled)
                 MouseState = MouseState.Down;
             //else

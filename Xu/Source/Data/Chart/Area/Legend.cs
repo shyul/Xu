@@ -52,7 +52,7 @@ namespace Xu.Chart
 
         public virtual ColorTheme Theme => Area.Theme;
 
-        public readonly List<Series> Series = new List<Series>();
+        public readonly List<Series> Series = new();
 
         public int StopPt { get; set; }
 
@@ -75,7 +75,7 @@ namespace Xu.Chart
         public int Right => Bounds.Right;
         public int Height => Bounds.Height;
         public int Width => Bounds.Width;
-        public Point Center => new Point((Left + Right) / 2, (Top + Bottom) / 2);
+        public Point Center => new((Left + Right) / 2, (Top + Bottom) / 2);
         public int LeftCursorX => Bounds.Left;
         public int RightCursorX => Bounds.Right;
 
@@ -84,11 +84,11 @@ namespace Xu.Chart
 
         public int IndexToPixel(int index) => AxisX.IndexToPixel(index) + Left;
 
-        protected readonly Dictionary<Point, (string text, Font font, Brush brush)> ValueLabels = new Dictionary<Point, (string text, Font font, Brush brush)>();
+        protected readonly Dictionary<Point, (string text, Font font, Brush brush)> ValueLabels = new();
 
-        public readonly List<Rectangle> LabelBound = new List<Rectangle>();
+        public readonly List<Rectangle> LabelBound = new();
 
-        protected Point Origin => new Point(Right + 3, Top);
+        protected Point Origin => new(Right + 3, Top);
 
         public virtual void Coordinate(ITable table)
         {

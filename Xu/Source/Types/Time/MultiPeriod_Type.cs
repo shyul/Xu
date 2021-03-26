@@ -137,10 +137,10 @@ namespace Xu
                 lock (PeriodList)
                 {
                     // Remove the intersect segments
-                    HashSet<Period> toRemove = new HashSet<Period>();
+                    HashSet<Period> toRemove = new();
 
                     // Add the fragments
-                    HashSet<(Period key, T value)> toAddFragment = new HashSet<(Period key, T value)>();
+                    HashSet<(Period key, T value)> toAddFragment = new();
 
                     foreach (Period existPd in PeriodList.Keys)
                     {
@@ -189,8 +189,8 @@ namespace Xu
                     }
                     else
                     {
-                        List<Period> toRemove = new List<Period>();
-                        List<(Period key, T value)> toAdd = new List<(Period key, T value)>();
+                        List<Period> toRemove = new();
+                        List<(Period key, T value)> toAdd = new();
 
                         foreach (Period item in PeriodList.Keys)
                         {

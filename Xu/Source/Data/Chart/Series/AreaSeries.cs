@@ -104,7 +104,7 @@ namespace Xu.Chart
             int last_y = lastPoint.Y;
 
             // Fill the area
-            using GraphicsPath fillpath = new GraphicsPath();
+            using GraphicsPath fillpath = new();
             fillpath.AddPath(line, true);
             fillpath.AddLines(new Point[] { new Point(last_x, last_y), new Point(last_x, area.Bottom), new Point(first_x, area.Bottom) });
 

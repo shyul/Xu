@@ -95,14 +95,14 @@ namespace Xu.Chart
 
         public static GraphicsPath GetLinePath(IEnumerable<Point> pts, LineType type, float tension, int half_tickWidth)
         {
-            GraphicsPath line = new GraphicsPath();
+            GraphicsPath line = new();
 
             if (pts.Count() > 0)
                 if (type == LineType.Step)
                 {
                     //int half_tickWidth = 0;
                     //int half_tickWidth = (tickWidth / 2.0f).ToInt32();
-                    List<Point> stepPt = new List<Point>();
+                    List<Point> stepPt = new();
 
                     Point p0 = pts.First();
                     stepPt.Add(new Point(p0.X - half_tickWidth, p0.Y));

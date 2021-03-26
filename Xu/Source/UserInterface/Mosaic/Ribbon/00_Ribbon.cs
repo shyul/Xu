@@ -220,7 +220,7 @@ namespace Xu
                     Rectangle tabRect = rt.TabRect;
                     if (rt == ActiveTab)
                     {
-                        using (GraphicsPath tabOutline = new GraphicsPath())
+                        using (GraphicsPath tabOutline = new())
                         {
                             tabOutline.AddLine(new Point(tabRect.Left, Height), new Point(tabRect.Left, 0));
                             tabOutline.AddLine(new Point(tabRect.Right, 0), new Point(tabRect.Right, Height));
@@ -269,7 +269,7 @@ namespace Xu
         protected override void OnMouseMove(MouseEventArgs e)
         {
             // Construct a Point type representing the mouse location.
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
 
             lock (Tabs)
             {
@@ -293,7 +293,7 @@ namespace Xu
         protected override void OnMouseDown(MouseEventArgs e)
         {
             // Construct a Point type representing the mouse location.
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
 
             if (m_OrbRect.Contains(pt))
             {
@@ -334,7 +334,7 @@ namespace Xu
         protected override void OnMouseUp(MouseEventArgs e)
         {
             // Construct a Point type representing the mouse location.
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
 
             if (OrbButtonMouseState == MouseState.Down && m_OrbRect.Contains(pt))
             {

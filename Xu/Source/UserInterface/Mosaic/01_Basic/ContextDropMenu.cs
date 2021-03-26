@@ -27,7 +27,7 @@ namespace Xu
 
         public void AddSeparator()
         {
-            ToolStripSeparator separator = new ToolStripSeparator();
+            ToolStripSeparator separator = new();
             components.Add(separator);
             Items.Add(separator);
         }
@@ -56,7 +56,7 @@ namespace Xu
         public void Clear()
         {
             SuspendLayout();
-            List<ToolStripItem> items = new List<ToolStripItem>();
+            List<ToolStripItem> items = new();
             foreach (ToolStripItem t in Items)
             {
                 items.Add(t);

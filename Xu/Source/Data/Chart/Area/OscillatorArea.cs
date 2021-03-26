@@ -261,7 +261,7 @@ namespace Xu.Chart
 
             if (!double.IsNaN(UpperLimit))
             {
-                using GraphicsPath fillpath = new GraphicsPath();
+                using GraphicsPath fillpath = new();
                 fillpath.AddPath(line, true);
                 fillpath.AddLines(new Point[] { new Point(last_x, max_y), new Point(last_x, Bottom), new Point(first_x, Bottom) });
                 g.SetClip(UpperCanvas);
@@ -270,7 +270,7 @@ namespace Xu.Chart
                     int height = UpperCanvas.Height - Math.Abs(max_y - UpperCanvas.Top);
                     if (height > 0)
                     {
-                        using LinearGradientBrush br = new LinearGradientBrush(
+                        using LinearGradientBrush br = new(
                             new Rectangle(UpperCanvas.X, max_y, UpperCanvas.Width, height),
                             UpperColor.Opaque(255),
                             UpperColor.Opaque(100),
@@ -280,7 +280,7 @@ namespace Xu.Chart
                 }
                 else
                 {
-                    using SolidBrush br = new SolidBrush(UpperColor);
+                    using SolidBrush br = new(UpperColor);
                     g.FillPath(UpperTheme.FillBrush, fillpath);
                 }
                 g.ResetClip();
@@ -288,7 +288,7 @@ namespace Xu.Chart
 
             if (!double.IsNaN(LowerLimit))
             {
-                using GraphicsPath fillpath = new GraphicsPath();
+                using GraphicsPath fillpath = new();
                 fillpath.AddPath(line, true);
                 fillpath.AddLines(new Point[] { new Point(last_x, min_y), new Point(last_x, Top), new Point(first_x, Top) });
                 g.SetClip(LowerCanvas);
@@ -297,7 +297,7 @@ namespace Xu.Chart
                     int height = LowerCanvas.Height - Math.Abs(min_y - LowerCanvas.Bottom);
                     if (height > 0)
                     {
-                        using LinearGradientBrush br = new LinearGradientBrush(
+                        using LinearGradientBrush br = new(
                             new Rectangle(LowerCanvas.X, LowerCanvas.Y, LowerCanvas.Width, height),
                             LowerColor.Opaque(100),
                             LowerColor.Opaque(255),
@@ -307,7 +307,7 @@ namespace Xu.Chart
                 }
                 else
                 {
-                    using SolidBrush br = new SolidBrush(LowerColor);
+                    using SolidBrush br = new(LowerColor);
                     g.FillPath(LowerTheme.FillBrush, fillpath);
                 }
                 g.ResetClip();

@@ -92,7 +92,7 @@ namespace Xu
         public SideDockContainer CreateContainer(int index)
         {
             Console.Write("Create Side Container at: " + index.ToString());
-            SideDockContainer dc_new = new SideDockContainer();
+            SideDockContainer dc_new = new();
             SuspendLayout();
             lock (DockContainers)
             {
@@ -1031,7 +1031,7 @@ namespace Xu
         /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (Unlocked)
             {
                 switch (LayoutState)
@@ -1186,7 +1186,7 @@ namespace Xu
         /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (Unlocked && SizeGrip.Contains(pt))
             {
                 MouseState = MouseState.Drag;
@@ -1269,7 +1269,7 @@ namespace Xu
             LayoutState = LayoutStatus.Idle;
             if (HasHiddenContainer)
             {
-                Point pt = new Point(e.X, e.Y);
+                Point pt = new(e.X, e.Y);
                 lock (DockContainers)
                     foreach (SideDockContainer dc in DockContainers)
                     {

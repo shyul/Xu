@@ -50,7 +50,7 @@ namespace Xu
 
         public DockCanvas DockCanvas { get; protected set; }
 
-        public readonly List<DockContainer> DockContainers = new List<DockContainer>();
+        public readonly List<DockContainer> DockContainers = new();
 
         public virtual int Count => DockContainers.Count;
 

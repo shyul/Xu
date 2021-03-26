@@ -249,7 +249,7 @@ namespace Xu
             {
                 ChangeSize(size);
                 HostDockPane.Coordinate();
-                Point ct = new Point((SizeGrip.Left + SizeGrip.Right) / 2, (SizeGrip.Top + SizeGrip.Bottom) / 2);
+                Point ct = new((SizeGrip.Left + SizeGrip.Right) / 2, (SizeGrip.Top + SizeGrip.Bottom) / 2);
                 ct = PointToScreen(ct);
                 switch (HostDockPane.Dock)
                 {
@@ -562,9 +562,9 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        public readonly static HatchBrush ActiveCaptionGripBrush = new HatchBrush(HatchStyle.Percent20, ControlPaint.Light(Main.Theme.ActiveCursor.EdgeColor, 0.6f), Main.Theme.ActiveCursor.EdgeColor);// ControlPaint.Light(MoTheme.ActiveCursor.EdgeBrush.Color, 0.2f));
-        public readonly static HatchBrush HighlightCaptionGripBrush = new HatchBrush(HatchStyle.Percent20, ControlPaint.Dark(Main.Theme.Highlight.EdgeColor, 0.2f), Main.Theme.Highlight.EdgeColor);
-        public readonly static HatchBrush InactiveCaptionGripBrush = new HatchBrush(HatchStyle.Percent20, ControlPaint.Dark(Main.Theme.InactiveCursor.FillColor, 0.2f), Main.Theme.InactiveCursor.FillColor);
+        public readonly static HatchBrush ActiveCaptionGripBrush = new(HatchStyle.Percent20, ControlPaint.Light(Main.Theme.ActiveCursor.EdgeColor, 0.6f), Main.Theme.ActiveCursor.EdgeColor);// ControlPaint.Light(MoTheme.ActiveCursor.EdgeBrush.Color, 0.2f));
+        public readonly static HatchBrush HighlightCaptionGripBrush = new(HatchStyle.Percent20, ControlPaint.Dark(Main.Theme.Highlight.EdgeColor, 0.2f), Main.Theme.Highlight.EdgeColor);
+        public readonly static HatchBrush InactiveCaptionGripBrush = new(HatchStyle.Percent20, ControlPaint.Dark(Main.Theme.InactiveCursor.FillColor, 0.2f), Main.Theme.InactiveCursor.FillColor);
 
         /// <summary>
         /// 
@@ -582,14 +582,14 @@ namespace Xu
                 {
                     if (Count > 1)
                     {
-                        List<Point> tabLine = new List<Point>() { new Point(m_edgeRect.Left, Height - DockCanvas.SideTabHeight) };
+                        List<Point> tabLine = new() { new Point(m_edgeRect.Left, Height - DockCanvas.SideTabHeight) };
                         lock (Tabs)
                             foreach (DockForm df in Tabs)
                             {
                                 if (df.Visible)
                                 {
                                     Color backColor = df.BackColor;
-                                    using SolidBrush backBrush = new SolidBrush(backColor);
+                                    using SolidBrush backBrush = new(backColor);
                                     if (DrawTab(g, df, Main.Theme.DimTextBrush, backBrush))
                                     {
                                         Rectangle tabRect = df.TabRect;
@@ -689,7 +689,7 @@ namespace Xu
         /// <returns></returns>
         protected override bool CustomMouseMove(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             bool GotPt = Btn_CaptionClose.MouseMove(pt) | Btn_CaptionPin.MouseMove(pt) | Btn_CornerOverflow.MouseMove(pt);
             if (!GotPt)
             {
@@ -718,7 +718,7 @@ namespace Xu
         /// <returns></returns>
         protected override bool CustomMouseDown(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             bool GotPt = Btn_CaptionClose.MouseDown(pt, e.Button) | Btn_CaptionPin.MouseDown(pt, e.Button) | Btn_CornerOverflow.MouseDown(pt, e.Button);
             if (!GotPt)
             {
@@ -739,7 +739,7 @@ namespace Xu
         /// <returns></returns>
         protected override bool CustomMouseUp(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (Btn_CornerOverflow.MouseUp(pt, e.Button))
             {
                 Invalidate();

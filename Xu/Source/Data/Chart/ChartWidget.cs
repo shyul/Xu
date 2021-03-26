@@ -34,7 +34,7 @@ namespace Xu.Chart
             { Importance.Major, new AxisTickStyle() },
         };
 
-        public virtual ColorTheme Theme { get; } = new ColorTheme();
+        public virtual ColorTheme Theme { get; } = new();
 
         public virtual string Label { get; set; }
 
@@ -117,7 +117,7 @@ namespace Xu.Chart
 
         protected ChartOverlay Overlay { get; }
 
-        public virtual List<Area> Areas { get; } = new List<Area>(); // Scan Maze m and yield this list
+        public virtual List<Area> Areas { get; } = new(); // Scan Maze m and yield this list
 
         public virtual float TotalAreaHeightRatio => Areas.Where(n => n.Visible && n.Enabled).Select(n => n.HeightRatio).Sum();
 
@@ -133,7 +133,6 @@ namespace Xu.Chart
             if (!Areas.Contains(area))
             {
                 Areas.Add(area);
-                //Console.WriteLine("Adding area: " + area.Name);
             }
 
             T ca = (T)Areas.Where(n => n == area).First();

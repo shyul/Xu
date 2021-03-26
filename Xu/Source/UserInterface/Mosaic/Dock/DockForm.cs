@@ -86,7 +86,7 @@ namespace Xu
 
         public readonly Task AsyncUpdateUITask;
 
-        public readonly CancellationTokenSource AsyncUpdateUITask_Cts = new CancellationTokenSource();
+        public readonly CancellationTokenSource AsyncUpdateUITask_Cts = new();
 
         public virtual void DataIsUpdated(IDataProvider _) => m_AsyncUpdateUI = true;
 

@@ -31,7 +31,7 @@ namespace Xu
         #region Tasks
 
         // https://www.geeksforgeeks.org/linked-list-implementation-in-c-sharp/
-        protected readonly List<ScheduledTask> TaskList = new List<ScheduledTask>();  // protected by lock(_tasks)
+        protected readonly List<ScheduledTask> TaskList = new();  // protected by lock(_tasks)
 
         public int Count => TaskList.Count;
 

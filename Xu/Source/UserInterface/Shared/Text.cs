@@ -31,7 +31,7 @@ namespace Xu
             }
             else
             {
-                List<string> lines = new List<string>();
+                List<string> lines = new();
                 string[] words = input.Split(' ');
                 string temp = string.Empty;
                 foreach (string word in words)
@@ -72,7 +72,7 @@ namespace Xu
                 int avg = (int)Math.Ceiling((double)(strSize.Width / maxLineCnt));
                 if (avg < maxWidth) maxWidth = avg;
 
-                List<string> lines = new List<string>();
+                List<string> lines = new();
                 string[] words = input.Split(' ');
                 float spaceWidth = TextRenderer.MeasureText(" ", font).Width;
                 string temp = string.Empty;

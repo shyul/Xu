@@ -46,12 +46,12 @@ namespace Xu
         {
             // Make a GraphicsPath to draw the rectangle.
             Point point1, point2;
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
 
             // Upper left corner.
             if (round_ul)
             {
-                Rectangle corner = new Rectangle(rect.Left, rect.Top, 2 * xradius, 2 * yradius);
+                Rectangle corner = new(rect.Left, rect.Top, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 180, 90);
                 point1 = new Point(rect.Left + xradius, rect.Top);
             }
@@ -67,7 +67,7 @@ namespace Xu
             // Upper right corner.
             if (round_ur)
             {
-                Rectangle corner = new Rectangle(rect.Right - 2 * xradius, rect.Top, 2 * xradius, 2 * yradius);
+                Rectangle corner = new(rect.Right - 2 * xradius, rect.Top, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 270, 90);
                 point1 = new Point(rect.Right + 1, rect.Top + yradius);
             }
@@ -83,7 +83,7 @@ namespace Xu
             // Lower right corner.
             if (round_lr)
             {
-                Rectangle corner = new Rectangle(rect.Right - 2 * xradius, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
+                Rectangle corner = new(rect.Right - 2 * xradius, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 0, 90);
                 point1 = new Point(rect.Right - xradius + 1, rect.Bottom + 1);
             }
@@ -99,7 +99,7 @@ namespace Xu
             // Lower left corner.
             if (round_ll)
             {
-                Rectangle corner = new Rectangle(rect.Left, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
+                Rectangle corner = new(rect.Left, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 90, 90);
                 point1 = new Point(rect.Left, rect.Bottom - yradius + 1);
             }
@@ -143,12 +143,12 @@ namespace Xu
         {
             // Make a GraphicsPath to draw the rectangle.
             PointF point1, point2;
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
 
             // Upper left corner.
             if (round_ul)
             {
-                RectangleF corner = new RectangleF(rect.Left, rect.Top, 2 * xradius, 2 * yradius);
+                RectangleF corner = new(rect.Left, rect.Top, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 180, 90);
                 point1 = new PointF(rect.Left + xradius, rect.Top);
             }
@@ -164,7 +164,7 @@ namespace Xu
             // Upper right corner.
             if (round_ur)
             {
-                RectangleF corner = new RectangleF(rect.Right - 2 * xradius, rect.Top, 2 * xradius, 2 * yradius);
+                RectangleF corner = new(rect.Right - 2 * xradius, rect.Top, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 270, 90);
                 point1 = new PointF(rect.Right + 1, rect.Top + yradius);
             }
@@ -180,7 +180,7 @@ namespace Xu
             // Lower right corner.
             if (round_lr)
             {
-                RectangleF corner = new RectangleF(rect.Right - 2 * xradius, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
+                RectangleF corner = new(rect.Right - 2 * xradius, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 0, 90);
                 point1 = new PointF(rect.Right - xradius + 1, rect.Bottom + 1);
             }
@@ -196,7 +196,7 @@ namespace Xu
             // Lower left corner.
             if (round_ll)
             {
-                RectangleF corner = new RectangleF(rect.Left, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
+                RectangleF corner = new(rect.Left, rect.Bottom - 2 * yradius, 2 * xradius, 2 * yradius);
                 path.AddArc(corner, 90, 90);
                 point1 = new PointF(rect.Left, rect.Bottom - yradius + 1);
             }
@@ -228,9 +228,9 @@ namespace Xu
             return new Rectangle(rect.X + value, rect.Y + value, rect.Width - 2 * value, rect.Height - 2 * value);
         }
 
-        public static Point Center(this Rectangle rect) => new Point((rect.X + (rect.Width / 2f)).ToInt32(), (rect.Y + (rect.Height / 2f)).ToInt32());
+        public static Point Center(this Rectangle rect) => new((rect.X + (rect.Width / 2f)).ToInt32(), (rect.Y + (rect.Height / 2f)).ToInt32());
 
-        public static PointF Center(this RectangleF rect) => new PointF(rect.X + (rect.Width / 2f), rect.Y + (rect.Height / 2f));
+        public static PointF Center(this RectangleF rect) => new(rect.X + (rect.Width / 2f), rect.Y + (rect.Height / 2f));
 
         /// <summary>
         /// 
@@ -243,14 +243,14 @@ namespace Xu
         public static void FillRectangleStyle2010(this Graphics g, Rectangle rect, int radius, Color c1, Color c2)
         {
             //rectangle for gradient, half upper and lower
-            RectangleF halfup = new RectangleF(rect.Left, rect.Top, rect.Width, rect.Height);
-            RectangleF halfdown = new RectangleF(rect.Left, rect.Top + (rect.Height / 2) - 1, rect.Width, rect.Height);
+            RectangleF halfup = new(rect.Left, rect.Top, rect.Width, rect.Height);
+            RectangleF halfdown = new(rect.Left, rect.Top + (rect.Height / 2) - 1, rect.Width, rect.Height);
 
             using GraphicsPath thePath = rect.ToRoundRect(radius);
             // Paint Background
-            using (LinearGradientBrush lgb = new LinearGradientBrush(halfup, c2, c1, 90f, true))
+            using (LinearGradientBrush lgb = new(halfup, c2, c1, 90f, true))
             {
-                Blend blend = new Blend(4)
+                Blend blend = new(4)
                 {
                     Positions = new float[] { 0, 0.18f, 0.35f, 1f },
                     Factors = new float[] { 0f, .4f, .9f, 1f }
@@ -260,9 +260,9 @@ namespace Xu
                 g.FillPath(lgb, thePath);
                 lgb.Dispose();
                 //for half lower, we paint using radial gradient
-                using GraphicsPath p = new GraphicsPath();
+                using GraphicsPath p = new();
                 p.AddEllipse(halfdown); //make it radial
-                using PathGradientBrush gradient = new PathGradientBrush(p)
+                using PathGradientBrush gradient = new(p)
                 {
                     WrapMode = WrapMode.Clamp,
                     CenterPoint = new PointF(Convert.ToSingle(halfdown.Left + halfdown.Width / 2), Convert.ToSingle(halfdown.Bottom)),
@@ -282,7 +282,7 @@ namespace Xu
 
             // Paint Edge
             using GraphicsPath gborderDark = thePath;
-            using (Pen p = new Pen(c2, 1))
+            using (Pen p = new(c2, 1))
             {
                 g.DrawPath(p, gborderDark);
             }
@@ -314,7 +314,7 @@ namespace Xu
                 new Point (location.X + arrowLength + corner, location.Y - half_height),
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -338,7 +338,7 @@ namespace Xu
                 new Point (location.X - size.Width, location.Y - half_height + corner),
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -360,7 +360,7 @@ namespace Xu
                 new Point (location.X - half_width, location.Y - half_height),
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -374,7 +374,7 @@ namespace Xu
             int height = textSize.Height;
             if (height > maxHeight) height = maxHeight;
 
-            Size size = new Size(textSize.Width + 6, height);
+            Size size = new(textSize.Width + 6, height);
             if (size.Width < minWidth) size.Width = minWidth;
 
             using (GraphicsPath gp = LeftCursor(location, size, arrowSize, corner))
@@ -383,7 +383,7 @@ namespace Xu
                 g.DrawPath(theme.EdgePen, gp);
             }
 
-            Point textPt = new Point(location.X + arrowSize + 1, location.Y + 1);
+            Point textPt = new(location.X + arrowSize + 1, location.Y + 1);
             g.DrawString(text, font, theme.ForeBrush, textPt, AppTheme.TextAlignLeft);
         }
 
@@ -394,7 +394,7 @@ namespace Xu
             int height = textSize.Height;
             if (height > maxHeight) height = maxHeight;
 
-            Size size = new Size(textSize.Width + 5, height);
+            Size size = new(textSize.Width + 5, height);
             if (size.Width < minWidth) size.Width = minWidth;
 
             using (GraphicsPath gp = RightCursor(location, size, arrowSize, corner))
@@ -403,7 +403,7 @@ namespace Xu
                 g.DrawPath(theme.EdgePen, gp);
             }
 
-            Point textPt = new Point(location.X - arrowSize, location.Y + 1);
+            Point textPt = new(location.X - arrowSize, location.Y + 1);
             g.DrawString(text, font, theme.ForeBrush, textPt, AppTheme.TextAlignRight);
         }
 
@@ -414,7 +414,7 @@ namespace Xu
             int height = textSize.Height;
             if (height > maxHeight) height = maxHeight;
 
-            Size size = new Size(textSize.Width + 6, height);
+            Size size = new(textSize.Width + 6, height);
             if (size.Width < minWidth) size.Width = minWidth;
 
             using (GraphicsPath gp = DualCursor(location, size, arrowSize, corner))
@@ -423,7 +423,7 @@ namespace Xu
                 g.DrawPath(theme.EdgePen, gp);
             }
 
-            Point textPt = new Point(location.X, location.Y + 1);
+            Point textPt = new(location.X, location.Y + 1);
             g.DrawString(text, font, theme.ForeBrush, textPt, AppTheme.TextAlignCenter);
         }
 
@@ -458,7 +458,7 @@ namespace Xu
                 new Point (location.X + arrowSize.Height, location.Y - half_height + corner),
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -491,7 +491,7 @@ namespace Xu
                 new Point (location.X - size.Width - arrowSize.Height, location.Y - half_height + corner),
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -522,7 +522,7 @@ namespace Xu
                 new Point (location.X - half_width, location.Y - half_height + corner)
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -553,7 +553,7 @@ namespace Xu
                 new Point (location.X - half_width, location.Y - half_height + corner)
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -586,7 +586,7 @@ namespace Xu
                 new Point (location.X - half_width, location.Y - half_height + corner)
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;
@@ -644,7 +644,7 @@ namespace Xu
                 new Point (location.X - half_width, location.Y - half_height + corner)
             };
 
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddLines(pts);
 
             return path;

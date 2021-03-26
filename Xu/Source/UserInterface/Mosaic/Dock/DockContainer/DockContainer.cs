@@ -194,12 +194,12 @@ namespace Xu
         /// <returns></returns>
         protected virtual ToolStripMenuItem[] GetTabsMenuItems()
         {
-            List<ToolStripMenuItem> ts = new List<ToolStripMenuItem>();
+            List<ToolStripMenuItem> ts = new();
             lock (Tabs)
                 for (int i = 0; i < Count; i++)
                 {
                     DockForm df = (DockForm)Tabs[i];
-                    ToolStripMenuItem t = new ToolStripMenuItem()
+                    ToolStripMenuItem t = new()
                     {
                         Name = "ContainerMenuItem_" + i.ToString(),
                         Text = df.TabName,
@@ -358,7 +358,7 @@ namespace Xu
         {
             get
             {
-                Point ct = new Point(m_edgeRect.X + m_edgeRect.Width / 2, m_edgeRect.Y + m_edgeRect.Height / 2);
+                Point ct = new(m_edgeRect.X + m_edgeRect.Width / 2, m_edgeRect.Y + m_edgeRect.Height / 2);
                 return PointToScreen(ct);
             }
         }
@@ -540,7 +540,7 @@ namespace Xu
         /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (Unlocked)
             {
                 switch (LayoutState)
@@ -684,7 +684,7 @@ namespace Xu
                 Focus();
                 UpdateGraphics();
             }
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (Unlocked && SizeGrip.Contains(pt))
             {
                 MouseState = MouseState.Drag;
@@ -705,7 +705,7 @@ namespace Xu
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             switch (LayoutState)
             {
                 case (LayoutStatus.Drag):

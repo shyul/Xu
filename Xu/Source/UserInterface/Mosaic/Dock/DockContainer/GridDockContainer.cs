@@ -67,8 +67,8 @@ namespace Xu
             SubPane = new GridDockPane() { LayoutType = type };
             SubPane.SuspendLayout();
             Controls.Add(SubPane);
-            GridDockContainer dc_new = new GridDockContainer();
-            GridDockContainer dc_temp = new GridDockContainer();
+            GridDockContainer dc_new = new();
+            GridDockContainer dc_temp = new();
             dc_temp.AddRange(this);
             lock (SubPane.DockContainers)
             {
@@ -277,7 +277,7 @@ namespace Xu
         {
             ChangeSize(size);
             HostDockPane.Coordinate();
-            Point ct = new Point((SizeGrip.Left + SizeGrip.Right) / 2, (SizeGrip.Top + SizeGrip.Bottom) / 2);
+            Point ct = new((SizeGrip.Left + SizeGrip.Right) / 2, (SizeGrip.Top + SizeGrip.Bottom) / 2);
             ct = PointToScreen(ct);
             switch (LayoutType)
             {

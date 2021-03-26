@@ -114,9 +114,9 @@ namespace Xu.Chart
 
         protected readonly ContinuousAxis AxisRight;
 
-        protected readonly List<Series> Series = new List<Series>();
+        protected readonly List<Series> Series = new();
 
-        public readonly Dictionary<string, Legend> Legends = new Dictionary<string, Legend>();
+        public readonly Dictionary<string, Legend> Legends = new();
 
         /// <summary>
         /// Order issues here
@@ -198,7 +198,7 @@ namespace Xu.Chart
         public int Right => Bounds.Right;
         public int Height => Bounds.Height;
         public int Width => Bounds.Width;
-        public Point Center => new Point((Left + Right) / 2, (Top + Bottom) / 2);
+        public Point Center => new((Left + Right) / 2, (Top + Bottom) / 2);
         public int LeftCursorX { get; protected set; }
         public int RightCursorX { get; protected set; }
 
@@ -250,13 +250,13 @@ namespace Xu.Chart
             UpdateLegend();
         }
 
-        public readonly GraphicsPath LegendBackgroundPath = new GraphicsPath();
+        public readonly GraphicsPath LegendBackgroundPath = new();
 
         public virtual void UpdateLegend()
         {
             lock (Chart.GraphicsLockObject)
             {
-                Size LegendMargin = new Size(5, 3);
+                Size LegendMargin = new(5, 3);
 
                 int x = Bounds.Left + LegendMargin.Width;
                 int y = Bounds.Top + LegendMargin.Width;

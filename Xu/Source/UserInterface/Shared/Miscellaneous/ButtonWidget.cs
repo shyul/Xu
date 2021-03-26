@@ -104,7 +104,7 @@ namespace Xu
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (e.Button == MouseButtons.Left && ClientRectangle.Contains(pt) && Command.Enabled && Enabled)
                 Execute();
             Invalidate(true);

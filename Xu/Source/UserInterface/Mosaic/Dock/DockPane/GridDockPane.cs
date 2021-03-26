@@ -108,7 +108,7 @@ namespace Xu
         /// <returns></returns>
         public GridDockContainer CreateContainer(int index)
         {
-            GridDockContainer dc_new = new GridDockContainer();
+            GridDockContainer dc_new = new();
             SuspendLayout();
             lock (DockContainers)
             {

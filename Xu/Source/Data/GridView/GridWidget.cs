@@ -317,7 +317,7 @@ namespace Xu.GridView
                                 g.DrawLine(Theme.EdgePen, new Point(x, top), new Point(x, bottom));
                             }
 
-                            Rectangle titleBox = new Rectangle(x, top, stripe.ActualWidth, StripeTitleHeight);
+                            Rectangle titleBox = new(x, top, stripe.ActualWidth, StripeTitleHeight);
                             g.DrawString(stripe.Name, Main.Theme.FontBold, Theme.ForeBrush, titleBox);
 
                             i++;
@@ -334,7 +334,7 @@ namespace Xu.GridView
                             foreach (GridColumnConfiguration col in VisibleColumns)
                             {
                                 int x = col.Actual_X;
-                                Rectangle cellBox = new Rectangle(x, y, col.ActualWidth, height);
+                                Rectangle cellBox = new(x, y, col.ActualWidth, height);
 
                                 if (i < DataCount)
                                 {

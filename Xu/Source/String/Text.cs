@@ -98,7 +98,7 @@ namespace Xu
         {
             s = s.Replace(" ", string.Empty);
 
-            List<string> tokenList = new List<string>();
+            List<string> tokenList = new();
             string token = string.Empty;
 
             char currentBracket = '(';

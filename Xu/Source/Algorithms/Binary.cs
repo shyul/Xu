@@ -43,7 +43,7 @@ namespace Xu
         public static short GetLo16bit(int value) => (short)(value & 0xFFFF);
         public static short GetHi16bit(int value) => (short)((value >> 16) & 0xFFFF);
 
-        public static IntPtr ToIntPtr32(short loWord, short hiWord) => new IntPtr(((int)hiWord) << 16 | (int)loWord);
+        public static IntPtr ToIntPtr32(short loWord, short hiWord) => new(((int)hiWord) << 16 | (int)loWord);
 
         /*
         public static short HiWord(int dwValue)

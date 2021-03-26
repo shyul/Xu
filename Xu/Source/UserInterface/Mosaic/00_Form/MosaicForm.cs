@@ -157,7 +157,7 @@ namespace Xu
             base.Dispose(disposing);
         }
 
-        public static Command Command_HelpLink = new Command()
+        public static Command Command_HelpLink = new()
         {
             Theme = new ColorTheme(Color.DimGray, Color.Gray),
             Action = (TaskControl<float> control) =>
@@ -325,7 +325,7 @@ namespace Xu
 
         #region WndProc
         private bool m_painting = false;
-        private static MARGINS m_Margins = new MARGINS(0, 0, CaptionAreaSize, 0);
+        private static MARGINS m_Margins = new(0, 0, CaptionAreaSize, 0);
         private const int BLACK_BRUSH = 4;
         protected override void WndProc(ref Message m)
         {
@@ -347,7 +347,7 @@ namespace Xu
                         }
                     case (WindowsMessages.CREATE):
                         {
-                            RECT rcClient = new RECT();
+                            RECT rcClient = new();
                             Xu.WindowsNativeMethods.User32.GetWindowRect(this.Handle, ref rcClient);
                             Xu.WindowsNativeMethods.User32.SetWindowPos(this.Handle, IntPtr.Zero,
                                          rcClient.Left, rcClient.Top,
@@ -370,7 +370,7 @@ namespace Xu
                             if (!m_painting)
                             {
                                 m_painting = true;
-                                PAINTSTRUCT ps = new PAINTSTRUCT();
+                                PAINTSTRUCT ps = new();
                                 IntPtr hdc = User32.BeginPaint(m.HWnd, ref ps);
                                 //int w = ps.rcPaint.Right;
                                 //int h = ps.rcPaint.Bottom;
@@ -427,11 +427,11 @@ namespace Xu
             Point ptMouse = Control.MousePosition;
 
             // Get the window rectangle.
-            RECT rcWindow = new RECT();
+            RECT rcWindow = new();
             Xu.WindowsNativeMethods.User32.GetWindowRect(hWnd, ref rcWindow); // this.Handle
 
             // Get the frame rectangle, adjusted for the style without a caption.
-            RECT rcFrame = new RECT();
+            RECT rcFrame = new();
             Xu.WindowsNativeMethods.User32.AdjustWindowRectEx(ref rcFrame, WindowStyles.OVERLAPPEDWINDOW & ~WindowStyles.CAPTION, false, 0); // The last is supposed to be NULL
 
             // Determine if the hit test is for resizing. Default middle (1,1).

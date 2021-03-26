@@ -112,7 +112,7 @@ namespace Xu.Chart
 
         public override List<(string text, Font font, Brush brush)> ValueLabels(ITable table, int pt)
         {
-            List<(string text, Font font, Brush brush)> labels = new List<(string text, Font font, Brush brush)>();
+            List<(string text, Font font, Brush brush)> labels = new();
 
             string text = " ";
 
@@ -148,7 +148,7 @@ namespace Xu.Chart
                 // Get the line path.
                 using GraphicsPath h_line = LineSeries.GetLinePath(h_points, LineType, Tension, area.AxisX.HalfTickWidth);
                 using GraphicsPath l_line = LineSeries.GetLinePath(l_points, LineType, Tension, area.AxisX.HalfTickWidth);
-                using (GraphicsPath gp = new GraphicsPath())
+                using (GraphicsPath gp = new())
                 {
                     l_line.Reverse();
                     gp.AddPath(h_line, true);

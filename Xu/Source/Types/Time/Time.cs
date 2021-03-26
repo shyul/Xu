@@ -164,12 +164,12 @@ namespace Xu
             ((Second != 0 || Millisecond != 0) ? ":" + Second.ToString("00") : string.Empty) +
             (Millisecond != 0 ? "," + Millisecond.ToString("000") : string.Empty);
 
-        public static Time FromDateTime(DateTime dt) => new Time(dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
+        public static Time FromDateTime(DateTime dt) => new(dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
 
         [IgnoreDataMember]
-        public static Time MinValue => new Time(0, 0, 0, 0);
+        public static Time MinValue => new(0, 0, 0, 0);
 
         [IgnoreDataMember]
-        public static Time MaxValue => new Time(23, 59, 59, 999);
+        public static Time MaxValue => new(23, 59, 59, 999);
     }
 }

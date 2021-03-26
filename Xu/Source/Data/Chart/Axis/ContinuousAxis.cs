@@ -29,7 +29,7 @@ namespace Xu.Chart
             Theme = area.Theme;
         }
 
-        public readonly Dictionary<Importance, AxisTickStyle> Style = new Dictionary<Importance, AxisTickStyle>()
+        public readonly Dictionary<Importance, AxisTickStyle> Style = new()
         {
             { Importance.Tiny,  new AxisTickStyle() },
             { Importance.Micro, new AxisTickStyle() },

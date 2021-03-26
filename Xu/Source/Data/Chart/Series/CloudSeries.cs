@@ -47,7 +47,7 @@ namespace Xu.Chart
 
         public override List<(string text, Font font, Brush brush)> ValueLabels(ITable table, int pt)
         {
-            List<(string text, Font font, Brush brush)> labels = new List<(string text, Font font, Brush brush)>();
+            List<(string text, Font font, Brush brush)> labels = new();
 
             double high = table[pt, High_Column];
             string text_h = !double.IsNaN(high) ? High_Column.Label + ": " + high.ToSINumberString(LegendLabelFormat).String + " " : string.Empty;
@@ -87,8 +87,8 @@ namespace Xu.Chart
                 using GraphicsPath h_line = LineSeries.GetLinePath(h_points, LineType, Tension, area.AxisX.HalfTickWidth);
                 using GraphicsPath l_line = LineSeries.GetLinePath(l_points, LineType, Tension, area.AxisX.HalfTickWidth);
 
-                using (GraphicsPath l_gp = new GraphicsPath())
-                using (GraphicsPath h_gp_clip = new GraphicsPath())
+                using (GraphicsPath l_gp = new())
+                using (GraphicsPath h_gp_clip = new())
                 {
                     l_gp.AddPath(l_line, true);
                     l_gp.AddLines(new Point[] { new Point(last_x, last_l_y), new Point(last_x, max_y), new Point(first_x, max_y) });
@@ -101,8 +101,8 @@ namespace Xu.Chart
                     g.ResetClip();
                 }
 
-                using (GraphicsPath h_gp = new GraphicsPath())
-                using (GraphicsPath l_gp_clip = new GraphicsPath())
+                using (GraphicsPath h_gp = new())
+                using (GraphicsPath l_gp_clip = new())
                 {
                     h_gp.AddPath(h_line, true);
                     h_gp.AddLines(new Point[] { new Point(last_x, last_h_y), new Point(last_x, max_y), new Point(first_x, max_y) });

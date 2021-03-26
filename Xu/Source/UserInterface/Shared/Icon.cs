@@ -19,7 +19,7 @@ namespace Xu
         /// <returns></returns>
         public static Bitmap ReplaceColor(this Bitmap bmp, Color oldc, Color newc)
         {
-            Bitmap newBmp = new Bitmap(bmp.Width, bmp.Height);
+            Bitmap newBmp = new(bmp.Width, bmp.Height);
             for (int x = 0; x < bmp.Width; x++)
             {
                 for (int y = 0; y < bmp.Height; y++)

@@ -111,7 +111,7 @@ namespace Xu
         /// <summary>
         /// 
         /// </summary>
-        public readonly List<TabItem> Tabs = new List<TabItem>();
+        public readonly List<TabItem> Tabs = new();
 
         /// <summary>
         /// 
@@ -242,7 +242,7 @@ namespace Xu
             {
                 lock (tc.Tabs)
                 {
-                    List<TabItem> Temp = new List<TabItem>();
+                    List<TabItem> Temp = new();
                     foreach (Control cs in tc.Controls)
                     {
                         if (typeof(TabItem).IsAssignableFrom(cs.GetType()))
@@ -479,7 +479,7 @@ namespace Xu
         {
             if (ShowTab)
             {
-                Point pt = new Point(e.X, e.Y);
+                Point pt = new(e.X, e.Y);
                 lock (Tabs)
                     foreach (TabItem tp in Tabs)
                     {
@@ -505,7 +505,7 @@ namespace Xu
             if (ShowTab)
             {
                 bool FoundTab = false;
-                Point pt = new Point(e.X, e.Y);
+                Point pt = new(e.X, e.Y);
                 lock (Tabs)
                     for (int i = 0; i < Count; i++)
                     {
@@ -536,7 +536,7 @@ namespace Xu
         {
             if (ShowTab)
             {
-                Point pt = new Point(e.X, e.Y);
+                Point pt = new(e.X, e.Y);
                 TabItem tp_close = null, tp_pin = null;
                 lock (Tabs)
                     foreach (TabItem tp in Tabs)

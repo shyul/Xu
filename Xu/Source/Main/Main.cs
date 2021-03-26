@@ -134,7 +134,7 @@ namespace Xu
             },
         };
 
-        public static Command Command_Clip_Copy = new Command()
+        public static Command Command_Clip_Copy = new()
         {
             //Enabled = false,
             Label = "Copy",
@@ -145,7 +145,7 @@ namespace Xu
             },
         };
 
-        public static Command Command_Clip_Cut = new Command()
+        public static Command Command_Clip_Cut = new()
         {
             //Enabled = false,
             Label = "Cut",
@@ -156,7 +156,7 @@ namespace Xu
             },
         };
 
-        public static Command Command_Clip_Paste = new Command()
+        public static Command Command_Clip_Paste = new()
         {
             //Enabled = false,
             Label = "Paste",
@@ -167,7 +167,7 @@ namespace Xu
             },
         };
 
-        public static Command Command_Clip_Delete = new Command()
+        public static Command Command_Clip_Delete = new()
         {
             //Enabled = false,
             Label = "Delete",

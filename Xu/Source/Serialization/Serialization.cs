@@ -24,7 +24,7 @@ namespace Xu
     {
         public static FileInfo[] GetFileList(string path, string suffix = "*")
         {
-            DirectoryInfo d = new DirectoryInfo(path);
+            DirectoryInfo d = new(path);
             return d.GetFiles(suffix);
         }
 
@@ -37,8 +37,8 @@ namespace Xu
         {
             if (source != null && typeof(T).IsSerializable)
             {
-                MemoryStream stream = new MemoryStream();
-                BinaryFormatter formatter = new BinaryFormatter();
+                MemoryStream stream = new();
+                BinaryFormatter formatter = new();
                 formatter.Serialize(stream, source);
                 stream.Seek(0, SeekOrigin.Begin); // stream.Position = 0;
                 return stream;
@@ -57,7 +57,7 @@ namespace Xu
         {
             if (source != null && typeof(T).IsSerializable)
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                BinaryFormatter formatter = new();
                 formatter.Serialize(stream, source);
             }
             else
@@ -94,7 +94,7 @@ namespace Xu
         /// </summary>
         public static T DeserializeBinaryStream<T>(Stream stream)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
+            BinaryFormatter formatter = new();
             return (T)formatter.Deserialize(stream);
         }
 
@@ -123,7 +123,7 @@ namespace Xu
         /// <returns></returns>
         public static T DeserializeBinary<T>(this byte[] source)
         {
-            using MemoryStream stream = new MemoryStream(source);
+            using MemoryStream stream = new(source);
             return (T)DeserializeBinaryStream<T>(stream);
         }
 
@@ -147,7 +147,7 @@ namespace Xu
         public static void ToFile(this MemoryStream s, string fileName)
         {
             s.Position = 0;
-            using FileStream fs = new FileStream(fileName, FileMode.Create);
+            using FileStream fs = new(fileName, FileMode.Create);
             s.WriteTo(fs);
         }
 
@@ -162,9 +162,9 @@ namespace Xu
         {
             if (source != null && typeof(T).IsSerializable)
             {
-                using MemoryStream stream = new MemoryStream();
-                XmlSerializer xmlSer = new XmlSerializer(typeof(T));
-                StreamWriter sw = new StreamWriter(stream, Encoding.Unicode);
+                using MemoryStream stream = new();
+                XmlSerializer xmlSer = new(typeof(T));
+                StreamWriter sw = new(stream, Encoding.Unicode);
                 xmlSer.Serialize(sw, source);
                 stream.Seek(0, SeekOrigin.Begin); // stream.Position = 0;
                 return stream.ToArray();
@@ -195,8 +195,8 @@ namespace Xu
         /// </summary>
         public static T DeserializeXML<T>(this byte[] source)
         {
-            using MemoryStream stream = new MemoryStream(source);
-            XmlSerializer xmlSer = new XmlSerializer(typeof(T));
+            using MemoryStream stream = new(source);
+            XmlSerializer xmlSer = new(typeof(T));
             stream.Seek(0, SeekOrigin.Begin); // stream.Position = 0;
 
             using XmlReader rd = XmlReader.Create(stream);
@@ -292,8 +292,8 @@ namespace Xu
         {
             if (source is not null && typeof(T).IsSerializable)
             {
-                using MemoryStream stream = new MemoryStream();
-                DataContractJsonSerializer JsonSer = new DataContractJsonSerializer(typeof(T));
+                using MemoryStream stream = new();
+                DataContractJsonSerializer JsonSer = new(typeof(T));
                 JsonSer.WriteObject(stream, source);
                 stream.Seek(0, SeekOrigin.Begin); // stream.Position = 0;
                 return stream.ToArray();
@@ -304,7 +304,7 @@ namespace Xu
 
         public static void SerializeJsonFile<T>(this T source, string fileName)
         {
-            FileInfo fi = new FileInfo(fileName);
+            FileInfo fi = new(fileName);
             if (!fi.Directory.Exists) fi.Directory.Create();
 
             string backup_fileName = fileName + "_backup";
@@ -328,8 +328,8 @@ namespace Xu
         /// </summary>
         public static T DeserializeJson<T>(this byte[] source)
         {
-            using MemoryStream stream = new MemoryStream(source);
-            DataContractJsonSerializer JsonSer = new DataContractJsonSerializer(typeof(T));
+            using MemoryStream stream = new(source);
+            DataContractJsonSerializer JsonSer = new(typeof(T));
             return (T)JsonSer.ReadObject(stream);
         }
 

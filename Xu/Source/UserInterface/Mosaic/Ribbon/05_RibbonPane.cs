@@ -154,7 +154,7 @@ namespace Xu
             SuspendLayout();
             int section_idx = 0;
             int stacked_y = 0;
-            Dictionary<int, int> SectionMaxY = new Dictionary<int, int>();
+            Dictionary<int, int> SectionMaxY = new();
 
             lock (RibbonControls)
             {
@@ -302,7 +302,7 @@ namespace Xu
         public virtual MouseState MouseState { get; protected set; } = MouseState.Out;
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (CornerButton.Contains(pt) && CornerButtonCommand.Enabled)
                 MouseState = MouseState.Hover;
             else
@@ -311,7 +311,7 @@ namespace Xu
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (e.Button == MouseButtons.Left && CornerButton.Contains(pt) && CornerButtonCommand.Enabled)
                 MouseState = MouseState.Down;
             //else
@@ -321,7 +321,7 @@ namespace Xu
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (e.Button == MouseButtons.Left && CornerButton.Contains(pt) && CornerButtonCommand.Enabled)
                 CornerButtonCommand.Start();
         }

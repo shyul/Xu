@@ -21,7 +21,7 @@ namespace Xu
         /// <returns></returns>
         public static Bitmap ToBitmap(this Control c)
         {
-            Bitmap newPic = new Bitmap(c.Width, c.Height);
+            Bitmap newPic = new(c.Width, c.Height);
             c.DrawToBitmap(newPic, c.ClientRectangle);
             return newPic;
         }
@@ -29,7 +29,7 @@ namespace Xu
         public static Bitmap CaptureDesktopRegion(Point location, Size size)
         {
 
-            Bitmap myImage = new Bitmap(size.Width, size.Height);
+            Bitmap myImage = new(size.Width, size.Height);
 
             using (Graphics g = Graphics.FromImage(myImage))
             {
@@ -165,7 +165,7 @@ namespace Xu
 
         }
 
-        public static readonly IntPtr MSG_HANDLED = new IntPtr(0);
+        public static readonly IntPtr MSG_HANDLED = new(0);
 
         public static void Suspend(this Control c)
         {

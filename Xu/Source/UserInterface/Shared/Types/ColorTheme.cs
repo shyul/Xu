@@ -78,21 +78,21 @@ namespace Xu
         public float EdgeWidth { get { return EdgePen.Width; } set { EdgePen.Width = value; } }
 
 
-        public readonly SolidBrush ForeBrush = new SolidBrush(Color.DimGray);
+        public readonly SolidBrush ForeBrush = new(Color.DimGray);
 
 
-        public readonly Pen ForePen = new Pen(Color.DimGray) { StartCap = LineCap.Round, EndCap = LineCap.Round };
+        public readonly Pen ForePen = new(Color.DimGray) { StartCap = LineCap.Round, EndCap = LineCap.Round };
 
 
-        public readonly SolidBrush FillBrush = new SolidBrush(Color.White);
+        public readonly SolidBrush FillBrush = new(Color.White);
 
 
-        public readonly Pen FillPen = new Pen(Color.White);
+        public readonly Pen FillPen = new(Color.White);
 
 
-        public readonly SolidBrush EdgeBrush = new SolidBrush(Color.DimGray);
+        public readonly SolidBrush EdgeBrush = new(Color.DimGray);
 
 
-        public readonly Pen EdgePen = new Pen(Color.DimGray) { StartCap = LineCap.Round, EndCap = LineCap.Round };
+        public readonly Pen EdgePen = new(Color.DimGray) { StartCap = LineCap.Round, EndCap = LineCap.Round };
     }
 }

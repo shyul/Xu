@@ -108,8 +108,8 @@ namespace Xu
             base.OnClientSizeChanged(e);
         }
 
-        public static readonly Pen SepPen = new Pen(new SolidBrush(Color.FromArgb(180, ControlPaint.Dark(MosaicForm.ActiveColor, 0.1f))));
-        public static readonly Pen SepPenShade1 = new Pen(new SolidBrush(Color.FromArgb(120, ControlPaint.Light(MosaicForm.ActiveColor, 1f))));
+        public static readonly Pen SepPen = new(new SolidBrush(Color.FromArgb(180, ControlPaint.Dark(MosaicForm.ActiveColor, 0.1f))));
+        public static readonly Pen SepPenShade1 = new(new SolidBrush(Color.FromArgb(120, ControlPaint.Light(MosaicForm.ActiveColor, 1f))));
         public void DrawSeparator(Graphics g, int x, int y1, int y2)
         {
             if (IsActivated)
@@ -140,7 +140,7 @@ namespace Xu
             DrawSeparator(g, 5, sepY1, sepY2);
             DrawSeparator(g, CaptionTitleLocation.X - 6, sepY1, sepY2);
 
-            using SolidBrush textBrush = new SolidBrush(ForeColor);
+            using SolidBrush textBrush = new(ForeColor);
             g.DrawString(MoForm.Text,
                 Main.Theme.FontBold,
                 textBrush,
@@ -154,7 +154,7 @@ namespace Xu
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
 
             if (MouseState != MouseState.Drag)
             {
@@ -182,7 +182,7 @@ namespace Xu
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (ClientRectangle.Contains(pt))
             {
                 MouseOrigin = Control.MousePosition;
@@ -196,7 +196,7 @@ namespace Xu
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            Point pt = new Point(e.X, e.Y);
+            Point pt = new(e.X, e.Y);
             if (ClientRectangle.Contains(pt))
             {
                 MouseState = MouseState.Hover;

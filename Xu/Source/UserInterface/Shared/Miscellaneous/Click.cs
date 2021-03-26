@@ -60,11 +60,11 @@ namespace Xu
 
         public int Right => Bounds.Right;
 
-        public Point Center => new Point((Left + Right) / 2, (Top + Bottom) / 2);
+        public Point Center => new((Left + Right) / 2, (Top + Bottom) / 2);
 
-        public Point DropMenuOriginPoint => new Point(Bounds.Left, Bounds.Bottom);
+        public Point DropMenuOriginPoint => new(Bounds.Left, Bounds.Bottom);
 
-        public Rectangle ShadowRect => new Rectangle(Bounds.Left + 1, Bounds.Top + 1, Bounds.Width - 2, Bounds.Height - 2);
+        public Rectangle ShadowRect => new(Bounds.Left + 1, Bounds.Top + 1, Bounds.Width - 2, Bounds.Height - 2);
 
         #endregion
 

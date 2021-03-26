@@ -57,7 +57,7 @@ namespace Xu.Chart
 
         public override List<(string text, Font font, Brush brush)> ValueLabels(ITable table, int pt)
         {
-            List<(string text, Font font, Brush brush)> labels = new List<(string text, Font font, Brush brush)>();
+            List<(string text, Font font, Brush brush)> labels = new();
 
             string text = Label;
             if (text is null) text = Data_Column.Label;
@@ -134,7 +134,7 @@ namespace Xu.Chart
 
         public static void DrawDot(Graphics g, ColorTheme theme, PointF pt, float size)
         {
-            RectangleF center = new RectangleF(pt.X - size / 2f, pt.Y - size / 2f, size, size);
+            RectangleF center = new(pt.X - size / 2f, pt.Y - size / 2f, size, size);
             g.FillEllipse(theme.ForeBrush, center);
             g.DrawEllipse(theme.EdgePen, center);
         }

@@ -101,7 +101,7 @@ namespace Xu
             if (!IsReadOnly)
                 lock (PeriodList)
                 {
-                    List<TimePeriod> ToRemove = new List<TimePeriod>();
+                    List<TimePeriod> ToRemove = new();
                     foreach (TimePeriod item in PeriodList)
                     {
                         if (item.Intersect(pd))
@@ -129,8 +129,8 @@ namespace Xu
                     }
                     else
                     {
-                        List<TimePeriod> toRemove = new List<TimePeriod>();
-                        List<TimePeriod> toAdd = new List<TimePeriod>();
+                        List<TimePeriod> toRemove = new();
+                        List<TimePeriod> toAdd = new();
 
                         foreach (TimePeriod item in PeriodList)
                         {

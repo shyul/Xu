@@ -243,7 +243,7 @@ namespace Xu
 
         public static MultiTimePeriod operator -(TimePeriod s1, IEnumerable<TimePeriod> s2)
         {
-            MultiTimePeriod mp = new MultiTimePeriod { s1 };
+            MultiTimePeriod mp = new() { s1 };
 
             foreach (TimePeriod pd in s2)
                 mp.Remove(pd);

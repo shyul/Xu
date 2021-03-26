@@ -80,7 +80,7 @@ namespace Xu
 
                         if (fields.Length >= Columns.Count)
                         {
-                            CsvDataRow dr = new CsvDataRow();
+                            CsvDataRow dr = new();
 
                             for (int i = 0; i < Columns.Count; i++)
                             {

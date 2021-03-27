@@ -10,6 +10,8 @@ using System;
 
 namespace Xu
 {
+    public interface IDatum { }
+
     public class DatumColumn : Column // public class DataColumn<T> : Column where T : IDatum
     {
         public DatumColumn(string name, Type datumType)
@@ -54,6 +56,4 @@ namespace Xu
         public static bool operator !=(DatumColumn s1, DatumColumn s2) => !s1.Equals(s2);
         public static bool operator ==(DatumColumn s1, DatumColumn s2) => s1.Equals(s2);
     }
-
-    public interface IDatum { }
 }

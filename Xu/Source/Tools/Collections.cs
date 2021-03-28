@@ -233,6 +233,23 @@ namespace Xu
             return source.Skip(skip).Take(count).ToList();
         }
 
+        public static IEnumerable<double> Merge(this IEnumerable<double> s1, IEnumerable<double> s2)
+        {
+            var list1 = s1.ToList();
+            var list2 = s2.ToList();
+
+            int count = Math.Max(list1.Count, list2.Count);
+
+            List<double> result = new();
+
+            for (int i = 0; i < count; i++)
+            {
+                result.Add((list1.Count > i ? list1[i] : 0) + (list2.Count > i ? list2[i] : 0));
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// 
         /// </summary>

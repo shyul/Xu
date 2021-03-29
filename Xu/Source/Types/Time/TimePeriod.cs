@@ -21,6 +21,8 @@ namespace Xu
     [Serializable, DataContract]
     public struct TimePeriod : IEquatable<TimePeriod>, IComparable<DateTime>, IComparable<Time>
     {
+        public static TimePeriod Full => new TimePeriod(new Time(0), new Time(23, 59, 59, 999));
+
         public TimePeriod(Time time, bool isCurrent = false)
         {
             m_stop = time;

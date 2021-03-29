@@ -27,6 +27,11 @@ namespace Xu
             PeriodList.Add(pd);
         }
 
+        public MultiPeriod(IEnumerable<Period> pds)
+        {
+            pds.RunEach(n => Add(n));
+        }
+
         [DataMember]
         public bool IsReadOnly { get; set; } = false;
 

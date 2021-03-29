@@ -23,6 +23,8 @@ namespace Xu
     {
         public static TimePeriod Full => new TimePeriod(new Time(0), new Time(23, 59, 59, 999));
 
+        public static TimePeriod Empty => new TimePeriod(new Time(23, 59, 59, 999), new Time(23, 59, 59, 999));
+
         public TimePeriod(Time time, bool isCurrent = false)
         {
             m_stop = time;

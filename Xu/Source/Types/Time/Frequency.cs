@@ -87,11 +87,11 @@ namespace Xu
         {
             switch (Unit)
             {
-                case (TimeUnit.Years):
+                case TimeUnit.Years:
                     time = time.AddYears(cnt * Length);
                     return new(time.Year, 1, 1);
 
-                case (TimeUnit.Months):
+                case TimeUnit.Months:
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 6 || Length == 12)
                     {
                         time = time.AddMonths(cnt * Length - time.Month % Length + 1);
@@ -102,7 +102,7 @@ namespace Xu
                     }
                     return new(time.Year, time.Month, 1);
 
-                case (TimeUnit.Weeks):
+                case TimeUnit.Weeks:
                     //int firstDayOffset = (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
                     time = new DateTime(time.Year, time.Month, time.Day);
                     if (time.DayOfWeek == DayOfWeek.Monday) return time.AddDays(cnt * Length * 7 - 1);
@@ -113,11 +113,11 @@ namespace Xu
                     else if (time.DayOfWeek == DayOfWeek.Saturday) return time.AddDays(cnt * Length * 7 - 6);
                     else return time.AddDays(cnt * Length * 7); // Sunday
 
-                case (TimeUnit.Days):
+                case TimeUnit.Days:
                     time = time.AddDays(cnt * Length);
                     return new(time.Year, time.Month, time.Day);
 
-                case (TimeUnit.Hours):
+                case TimeUnit.Hours:
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 6 || Length == 8 || Length == 12 || Length == 24)
                     {
                         time = time.AddHours(cnt * Length - time.Hour % Length);
@@ -128,7 +128,7 @@ namespace Xu
                     }
                     return new(time.Year, time.Month, time.Day, time.Hour, 0, 0);
 
-                case (TimeUnit.Minutes):
+                case TimeUnit.Minutes:
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 5 || Length == 6 ||
                         Length == 10 || Length == 12 || Length == 15 || Length == 20 || Length == 30 || Length == 60)
                     {
@@ -140,7 +140,7 @@ namespace Xu
                     }
                     return new(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
 
-                case (TimeUnit.Seconds):
+                case TimeUnit.Seconds:
                     if (Length == 2 || Length == 3 || Length == 4 || Length == 5 || Length == 6 ||
                         Length == 10 || Length == 12 || Length == 15 || Length == 20 || Length == 30 || Length == 60)
                     {
@@ -157,6 +157,44 @@ namespace Xu
             }
         }
 
+        public DateTime AlignUnit(DateTime time)
+        {
+            switch (Unit)
+            {
+                case TimeUnit.Years:
+                    return new(time.Year, 1, 1);
+
+                case TimeUnit.Months:
+                    return new(time.Year, time.Month, 1);
+
+                case TimeUnit.Weeks:
+                    //int firstDayOffset = (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+                    time = time.Date;
+                    if (time.DayOfWeek == DayOfWeek.Monday) return time.AddDays(-1);
+                    else if (time.DayOfWeek == DayOfWeek.Tuesday) return time.AddDays(-2);
+                    else if (time.DayOfWeek == DayOfWeek.Wednesday) return time.AddDays(-3);
+                    else if (time.DayOfWeek == DayOfWeek.Thursday) return time.AddDays(-4);
+                    else if (time.DayOfWeek == DayOfWeek.Friday) return time.AddDays(-5);
+                    else if (time.DayOfWeek == DayOfWeek.Saturday) return time.AddDays(-6);
+                    else return time; // Sunday
+
+                case TimeUnit.Days:
+                    return time.Date;
+
+                case TimeUnit.Hours:
+                    return new(time.Year, time.Month, time.Day, time.Hour, 0, 0);
+
+                case TimeUnit.Minutes:
+                    return new(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+
+                case TimeUnit.Seconds:
+                    return new(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
+
+                default:
+                    throw new("Invalid TimeInterval Type!");
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -166,6 +204,23 @@ namespace Xu
         public Period AlignPeriod(DateTime time, int cnt = 0)
         {
             DateTime start = Align(time, cnt);
+
+            return Unit switch
+            {
+                TimeUnit.Years => new Period(start, start.AddYears(Length)),
+                TimeUnit.Months => new Period(start, start.AddMonths(Length)),
+                TimeUnit.Weeks => new Period(start, start.AddDays(Length * 7)),
+                TimeUnit.Days => new Period(start, start.AddDays(Length)),
+                TimeUnit.Hours => new Period(start, start.AddHours(Length)),
+                TimeUnit.Minutes => new Period(start, start.AddMinutes(Length)),
+                TimeUnit.Seconds => new Period(start, start.AddSeconds(Length)),
+                _ => throw new("Invalid TimeInterval Type!"),
+            };
+        }
+
+        public Period AlignPeriodUnit(DateTime time)
+        {
+            DateTime start = AlignUnit(time);
 
             return Unit switch
             {
@@ -273,14 +328,14 @@ namespace Xu
         {
             switch (Unit)
             {
-                case (TimeUnit.Years):
+                case TimeUnit.Years:
                     if (Length == 1)
                         return "Annually";
                     if (Length == 2)
                         return "Biennial";
                     else
                         return Length.ToString() + " Years";
-                case (TimeUnit.Months):
+                case TimeUnit.Months:
                     if (Length == 1)
                         return "Monthly";
                     else if (Length == 3)
@@ -289,34 +344,34 @@ namespace Xu
                         return "Semiannual";
                     else
                         return Length.ToString() + " Months";
-                case (TimeUnit.Weeks):
+                case TimeUnit.Weeks:
                     if (Length == 1)
                         return "Weekly";
                     if (Length == 2)
                         return "Biweekly";
                     else
                         return Length.ToString() + " Weeks";
-                case (TimeUnit.Days):
+                case TimeUnit.Days:
                     if (Length == 1)
                         return "Daily";
                     else
                         return Length.ToString() + " Days";
-                case (TimeUnit.Hours):
+                case TimeUnit.Hours:
                     if (Length == 1)
                         return "Hourly";
                     else
                         return Length.ToString() + " Hours";
-                case (TimeUnit.Minutes):
+                case TimeUnit.Minutes:
                     if (Length == 1)
                         return "1 Minute";
                     else
                         return Length.ToString() + " Minutes";
-                case (TimeUnit.Seconds):
+                case TimeUnit.Seconds:
                     if (Length == 1)
                         return "1-Hertz";
                     else
                         return Length.ToString() + " Seconds";
-                case (TimeUnit.None):
+                case TimeUnit.None:
                     return "None";
                 default: throw new("Invalid TimeInterval Type!");
             }

@@ -256,7 +256,7 @@ namespace Xu
         /// <param name="list"></param>
         /// <param name="value"></param>
         /// <param name="sep"></param>
-        public static void FromString(this ICollection<string> list, string value, char sep = Xu.TextTool.ValueSeparator)
+        public static void FromString(this ICollection<string> list, string value, char sep = TextTool.ValueSeparator)
         {
             string[] res = value.Trim().Split(sep);
 
@@ -277,7 +277,7 @@ namespace Xu
         /// <param name="list"></param>
         /// <param name="sep"></param>
         /// <returns></returns>
-        public static string ToString<T>(this IEnumerable<T> list, char sep = Xu.TextTool.ValueSeparator) => ToString<T>(list, new string(new char[] { sep }));
+        public static string ToString<T>(this IEnumerable<T> list, char sep = TextTool.ValueSeparator) => ToString<T>(list, new string(new char[] { sep }));
 
         /// <summary>
         /// 

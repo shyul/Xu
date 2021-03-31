@@ -28,7 +28,7 @@ namespace Xu.Chart
 
         public readonly Dictionary<Importance, AxisTickStyle> Style = new()
         {
-            { Importance.Tiny,  new AxisTickStyle() },
+            { Importance.Tiny, new AxisTickStyle() },
             { Importance.Micro, new AxisTickStyle() },
             { Importance.Minor, new AxisTickStyle() },
             { Importance.Major, new AxisTickStyle() },

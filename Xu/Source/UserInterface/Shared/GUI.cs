@@ -56,7 +56,7 @@ namespace Xu
 
         public static void Invoke(this Control c, Action action)
         {
-            try 
+            try
             {
                 if (!c.IsDisposed && c.InvokeRequired)
                 {
@@ -67,7 +67,7 @@ namespace Xu
                     action?.Invoke();
                 }
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -99,9 +99,9 @@ namespace Xu
         [Obsolete]
         public static Image StretchImage(Image sourceImage, Point p, Rectangle zoomRegion, Size desiredSize)
         {
-            Image myImage = new Bitmap(desiredSize.Width, desiredSize.Height);
+            Image img = new Bitmap(desiredSize.Width, desiredSize.Height);
 
-            using (Graphics g = Graphics.FromImage(myImage))
+            using (Graphics g = Graphics.FromImage(img))
             {
 
                 // use the DrawImage method in the framework to achieve a 
@@ -168,8 +168,7 @@ namespace Xu
 
             } // dispose the Graphics object
 
-            return myImage;
-
+            return img;
         }
 
         public static readonly IntPtr MSG_HANDLED = new(0);

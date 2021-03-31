@@ -17,14 +17,16 @@ namespace Xu
 
         bool ReadyToShow { get; set; }
 
+        int LastIndexMax { get; }
+
         /// <summary>
         /// Force Anchor the Data Renderer to show the end points 
         /// </summary>
-        void PointerToEnd();
+        void PointerSnapToEnd();
 
         /// <summary>
         /// Only anchor the renderer pointer when it is near by the end.
         /// </summary>
-        void PointerToNextTick();
+        void PointerSnapToNextTick();
     }
 }

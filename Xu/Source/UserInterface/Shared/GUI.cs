@@ -56,13 +56,20 @@ namespace Xu
 
         public static void Invoke(this Control c, Action action)
         {
-            if (!c.IsDisposed && c.InvokeRequired)
+            try 
             {
-                c?.Invoke((MethodInvoker)delegate { action?.Invoke(); });
+                if (!c.IsDisposed && c.InvokeRequired)
+                {
+                    c?.Invoke((MethodInvoker)delegate { action?.Invoke(); });
+                }
+                else
+                {
+                    action?.Invoke();
+                }
             }
-            else
+            catch (Exception e) 
             {
-                action?.Invoke();
+                Console.WriteLine(e.Message);
             }
         }
 

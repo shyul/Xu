@@ -100,6 +100,8 @@ namespace Xu.GridView
 
         public virtual int IndexCount { get; protected set; }
 
+        public virtual int LastIndexMax { get; private set; }  // m_BarTable.Count - 1;
+
         public virtual void ShiftPt(int num)
         {
             if ((StartPt + num >= 0) && (StopPt + num < DataCount))
@@ -113,40 +115,44 @@ namespace Xu.GridView
             }
         }
 
-        public virtual void PointerToEnd()
+        public virtual void PointerSnapToEnd()
         {
             lock (DataLockObject)
                 if (Rows is T[] rows)
                 {
+                    LastIndexMax = rows.Count() - 1;
                     StopPt = rows.Count();
 
                     lock (GraphicsLockObject)
                         CoordinateRows();
-
-                    m_AsyncUpdateUI = true; // async update
                 }
                 else
                 {
+                    LastIndexMax = -1;
                     StopPt = 0;
                 }
+
+            m_AsyncUpdateUI = true; // async update
         }
 
-        public virtual void PointerToNextTick()
+        public virtual void PointerSnapToNextTick()
         {
             lock (DataLockObject)
                 if (Rows is T[] rows && StopPt > rows.Count() - 3)
                 {
+                    LastIndexMax = rows.Count() - 1;
                     StopPt = rows.Count();
 
                     lock (GraphicsLockObject)
                         CoordinateRows();
-
-                    m_AsyncUpdateUI = true;
                 }
                 else
                 {
+                    LastIndexMax = -1;
                     StopPt = 0;
                 }
+
+            m_AsyncUpdateUI = true;
         }
 
         /// <summary>

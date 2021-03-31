@@ -67,49 +67,77 @@ namespace Xu.Chart
         /// <param name="num"></param>
         public virtual void ShiftPt(int num)
         {
-            int limit = MaximumBlankPoints;
+            lock (GraphicsLockObject)
+            {
+                int limit = MaximumBlankPoints;
 
-            if (StopPt + num - DataCount >= limit)
-            {
-                StopPt = DataCount + limit;
+                if (StopPt + num - DataCount >= limit)
+                {
+                    StopPt = DataCount + limit;
+                }
+                else if (StartPt + num <= -limit)
+                {
+                    StopPt = StartPt + IndexCount - limit;
+                }
+                else
+                {
+                    StopPt += num;
+                }
             }
-            else if(StartPt + num <= -limit) 
-            {
-                StopPt = StartPt + IndexCount - limit;
-            }
-            else
-            {
-                StopPt += num;
-            }
+
             m_AsyncUpdateUI = true;
         }
 
         public virtual void Zoom(int num)
         {
-            IndexCount += num;
-            if (IndexCount < 1) IndexCount = 1;
-            ShiftPt(0);
+            lock (GraphicsLockObject)
+            {
+                IndexCount += num;
+                if (IndexCount < 1) IndexCount = 1;
+                ShiftPt(0);
+            }
         }
 
-        public virtual void PointerToEnd()
+        public virtual int LastIndexMax { get; protected set; }  // m_BarTable.Count - 1;
+
+        public int LastIndex // Of the bar
         {
-            if (Table is ITable t)
+            get
             {
-                StopPt = t.Count;
+                int stopPt = StopPt - 1;
+                int maxIndex = LastIndexMax;
+
+                if (stopPt < 0)
+                    stopPt = 0;
+                else if (stopPt > maxIndex)
+                    stopPt = maxIndex;
+
+                return stopPt;
+            }
+        }
+
+        public virtual void PointerSnapToEnd()
+        {
+            if (Table is ITable)
+            {
+                LastIndexMax = Table.Count - 1;
+                StopPt = LastIndexMax + 1;
             }
             else
             {
+                LastIndexMax = -1;
                 StopPt = 0;
             }
 
             m_AsyncUpdateUI = true; // async update
         }
 
-        public virtual void PointerToNextTick()
+        public virtual void PointerSnapToNextTick()
         {
-            if (Table is ITable t && StopPt > t.Count - 2 && StopPt < t.Count + 2)
+            if (Table is ITable t && StopPt > LastIndexMax - 2 && StopPt < LastIndexMax + 2)
             {
-                StopPt = t.Count;
+                LastIndexMax = t.Count - 1;
+                StopPt = LastIndexMax + 1;
             }
 
             m_AsyncUpdateUI = true;

@@ -70,7 +70,7 @@ namespace Xu.EE.Visa
             }
         }
 
-        public override void PointerToEnd()
+        public override void PointerSnapToEnd()
         {
             if (Table is ITable t)
             {

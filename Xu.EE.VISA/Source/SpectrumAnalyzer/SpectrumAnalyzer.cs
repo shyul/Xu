@@ -4,23 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Xu;
 
 namespace Xu.EE.Visa
 {
-    public enum FSQMode
-    {
-        SpectrumAnalyzer,
-    }
-
-    public enum FSQScreen
-    {
-        A,
-        B,
-    }
-
-    public class SpecAn : ViClient
+    public class SpectrumAnalyzer : ViClient, ISpectrumAnalyzer
     {
         /*
         public SpecAn()
@@ -44,9 +32,10 @@ namespace Xu.EE.Visa
             if (Client is null) MessageBox.Show("Unable to find FSQ");
         }*/
 
-        public SpecAn(string resourceName) : base(resourceName)
+        public SpectrumAnalyzer(string resourceName) : base(resourceName)
         {
             Reset();
+
             if (!Model.Contains("FSQ")) throw new Exception("Not an FSQ!");
         }
 

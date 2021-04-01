@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{C405F46D-C5B1-4AFF-A335-8BC0760770C0}</ProjectGuid>
+    <ProjectGuid>{C6F04A12-3AC8-4877-9052-98056E3D2A0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xu.EE</RootNamespace>
-    <AssemblyName>Xu.EE</AssemblyName>
+    <RootNamespace>Xu.EE.VirtualBench</RootNamespace>
+    <AssemblyName>Xu.EE.VirtualBench</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -52,30 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xu.EE\Xu.EE.csproj">
+      <Project>{c405f46d-c5b1-4aff-a335-8bc0760770c0}</Project>
+      <Name>Xu.EE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xu\Xu.csproj">
       <Project>{c405f46d-c5b1-4aff-a335-8bc0760770b9}</Project>
       <Name>Xu</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\Altium\" />
-    <Folder Include="Source\Components\" />
-    <Folder Include="Source\Filters\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Source\Instruments\Interfaces\IDigitalControl.cs" />
-    <Compile Include="Source\Instruments\Interfaces\IFunctionGenerator.cs" />
-    <Compile Include="Source\Instruments\Interfaces\IMultimeter.cs" />
-    <Compile Include="Source\Instruments\Interfaces\IOscilloscope.cs" />
-    <Compile Include="Source\Instruments\Interfaces\IPowerMeter.cs" />
-    <Compile Include="Source\Instruments\Interfaces\IPowerSupply.cs" />
-    <Compile Include="Source\Instruments\Interfaces\ISpectrumAnalyzer.cs" />
-    <Compile Include="Source\Math\Calculate.cs" />
-    <Compile Include="Source\Math\Decade.cs" />
-    <Compile Include="Source\FFT\FFT.cs" />
-    <Compile Include="Source\FFT\Waveform.cs" />
-    <Compile Include="Source\FFT\WindowFunctions.cs" />
-    <Compile Include="Source\Math\Interpolation.cs" />
+    <Compile Include="Source\NiVB_ Initialize.cs" />
+    <Compile Include="Source\NiVB_Status.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

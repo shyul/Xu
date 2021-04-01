@@ -33,6 +33,19 @@ namespace Xu
             return value;
         }
 
+        public static double DeSpur(IEnumerable<double> values)
+        {
+            if (values.Count() > 3)
+            {
+                double max = values.Max();
+                double min = values.Min();
+                return (values.Sum() - max - min) / (values.Count() - 2);
+            }
+            else
+            {
+                throw new Exception("We need at least four data points to yield the result.");
+            }
+        }
 
         public static T Median<T>(this IList<T> list) where T : IComparable<T>
             => list.NthOrderStatistic((list.Count - 1) / 2);

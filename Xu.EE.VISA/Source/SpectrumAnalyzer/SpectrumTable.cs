@@ -70,7 +70,7 @@ namespace Xu.EE.Visa
                     {
                         if (m_Status == TableStatus.CalculateFinished)
                         {
-                            foreach (var idc in DataConsumers) if(idc is IDataRenderer idr) idr.PointerToEnd();
+                            foreach (var idc in DataConsumers) if(idc is IDataRenderer idr) idr.PointerSnapToEnd();
                         }
                     }
 

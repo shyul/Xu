@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Xu.EE.Visa
 {
-    public class SigGen : ViClient
+    public class SignalGenerator : ViClient
     {
-        public SigGen(string resourceName) : base(resourceName)
+        public SignalGenerator(string resourceName) : base(resourceName)
         {
             Reset();
             RFOutputEnable = false;

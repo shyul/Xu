@@ -42,9 +42,12 @@
   <ItemGroup>
     <Reference Include="Ivi.Visa, Version=5.11.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\IVI Foundation\VISA\Microsoft.NET\Framework32\v2.0.50727\VISA.NET Shared Components 5.11.0\Ivi.Visa.dll</HintPath>
+      <HintPath>.\Ivi.Visa.dll</HintPath>
     </Reference>
-    <Reference Include="NationalInstruments.Visa, Version=19.0.0.49152, Culture=neutral, PublicKeyToken=2eaa5af0834e221d, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.Visa, Version=19.0.0.49152, Culture=neutral, PublicKeyToken=2eaa5af0834e221d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\NationalInstruments.Visa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -67,12 +70,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\SigGen.cs" />
-    <Compile Include="Source\SpecAn.cs" />
-    <Compile Include="Source\SpecAn\SpectrumChart.cs" />
-    <Compile Include="Source\SpecAn\SpectrumDatum.cs" />
-    <Compile Include="Source\SpecAn\SpectrumTable.cs" />
+    <Compile Include="Source\FunctionGenerator\FunctionGenerator.cs" />
+    <Compile Include="Source\Multimeter\Multimeter.cs" />
+    <Compile Include="Source\Oscilloscope\MSOX\MSOX.cs" />
+    <Compile Include="Source\Oscilloscope\Oscilloscope.cs" />
+    <Compile Include="Source\PowerSupply\PowerSupply.cs" />
+    <Compile Include="Source\PowerSupply\Vendor\VersatilePower.cs" />
+    <Compile Include="Source\SignalGenerator\SignalGenerator.cs" />
+    <Compile Include="Source\SpectrumAnalyzer\Vendor\FSQ.cs" />
+    <Compile Include="Source\SpectrumAnalyzer\Vendor\PSA.cs" />
+    <Compile Include="Source\SpectrumAnalyzer\SpectrumAnalyzer.cs" />
+    <Compile Include="Source\SpectrumAnalyzer\SpectrumChart.cs" />
+    <Compile Include="Source\SpectrumAnalyzer\SpectrumDatum.cs" />
+    <Compile Include="Source\SpectrumAnalyzer\SpectrumTable.cs" />
     <Compile Include="Source\ViClient.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

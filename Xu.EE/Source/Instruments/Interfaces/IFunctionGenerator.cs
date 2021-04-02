@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IFunctionGenerator
+    public interface IFunctionGenerator : IHardwareResouce
     {
         int FGEN_MaximumChannelNumber { get; }
 
         void FGEN_WriteSetting(int ch_num);
+
+        void FGEN_ON(int ch_num);
+
+        void FGEN_OFF(int ch_num);
 
         WaveFormType FGEN_WaveFormType { get; set; }
 

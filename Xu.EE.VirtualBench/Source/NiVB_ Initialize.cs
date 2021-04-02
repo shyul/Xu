@@ -10,39 +10,30 @@ using Xu.EE;
 namespace Xu.EE.VirtualBench
 {
     public partial class NiVB :
-        IHardwareResouce,
         IOscilloscope,
         IFunctionGenerator,
         IMultimeter,
-        IPowerSupply
+        IPowerSupply,
+        IDigitalControl
     {
-        public NiVB(string resourceName)
-        {
-            ResouceName = resourceName;
-            //Status = (NiVB_Status)Initialize(LIBRARY_VERSION, out Handle);
+        public NiVB(string resourceName) => ResouceName = resourceName;
 
-        }
+        ~NiVB() => Dispose();
 
-        ~NiVB()
-        {
-            Dispose();
-        }
-
-        public void Dispose()
-        {
-            Finalize(Handle);
-        }
+        public void Dispose() => Close();
 
         public string ResouceName { get; private set; }
 
         public void Open() 
         {
             Status = (NiVB_Status)Initialize(LIBRARY_VERSION, out Handle);
+            Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
         }
 
         public void Close()
         {
             Finalize(Handle);
+            FGEN_OFF(1);
         }
 
         public void GetCalibrationInfo()
@@ -67,6 +58,7 @@ namespace Xu.EE.VirtualBench
 
         }
 
+        #region DLL Export
 
         private IntPtr Handle;
         private const string DLL_NAME = "nilcicapi.dll";
@@ -90,7 +82,6 @@ namespace Xu.EE.VirtualBench
             public uint t1, t2, t3, t4;
         }
 
+        #endregion DLL Export
     }
-
-
 }

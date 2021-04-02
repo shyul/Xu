@@ -36,6 +36,8 @@ namespace Xu.EE.TestApp
             this.TextBoxDcOffset = new System.Windows.Forms.TextBox();
             this.TextBoxDutyCycle = new System.Windows.Forms.TextBox();
             this.BtnSetFGEN = new System.Windows.Forms.Button();
+            this.BtnFgenON = new System.Windows.Forms.Button();
+            this.BtnFgenOFF = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -90,7 +92,7 @@ namespace Xu.EE.TestApp
             // 
             // BtnSetFGEN
             // 
-            this.BtnSetFGEN.Location = new System.Drawing.Point(246, 247);
+            this.BtnSetFGEN.Location = new System.Drawing.Point(288, 194);
             this.BtnSetFGEN.Name = "BtnSetFGEN";
             this.BtnSetFGEN.Size = new System.Drawing.Size(114, 23);
             this.BtnSetFGEN.TabIndex = 6;
@@ -98,11 +100,33 @@ namespace Xu.EE.TestApp
             this.BtnSetFGEN.UseVisualStyleBackColor = true;
             this.BtnSetFGEN.Click += new System.EventHandler(this.BtnSetFGEN_Click);
             // 
+            // BtnFgenON
+            // 
+            this.BtnFgenON.Location = new System.Drawing.Point(288, 223);
+            this.BtnFgenON.Name = "BtnFgenON";
+            this.BtnFgenON.Size = new System.Drawing.Size(114, 23);
+            this.BtnFgenON.TabIndex = 7;
+            this.BtnFgenON.Text = "FGEN ON";
+            this.BtnFgenON.UseVisualStyleBackColor = true;
+            this.BtnFgenON.Click += new System.EventHandler(this.BtnFgenON_Click);
+            // 
+            // BtnFgenOFF
+            // 
+            this.BtnFgenOFF.Location = new System.Drawing.Point(288, 247);
+            this.BtnFgenOFF.Name = "BtnFgenOFF";
+            this.BtnFgenOFF.Size = new System.Drawing.Size(114, 23);
+            this.BtnFgenOFF.TabIndex = 8;
+            this.BtnFgenOFF.Text = "FGEN OFF";
+            this.BtnFgenOFF.UseVisualStyleBackColor = true;
+            this.BtnFgenOFF.Click += new System.EventHandler(this.BtnFgenOFF_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BtnFgenOFF);
+            this.Controls.Add(this.BtnFgenON);
             this.Controls.Add(this.BtnSetFGEN);
             this.Controls.Add(this.TextBoxDutyCycle);
             this.Controls.Add(this.TextBoxDcOffset);
@@ -126,6 +150,8 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.TextBox TextBoxDcOffset;
         private System.Windows.Forms.TextBox TextBoxDutyCycle;
         private System.Windows.Forms.Button BtnSetFGEN;
+        private System.Windows.Forms.Button BtnFgenON;
+        private System.Windows.Forms.Button BtnFgenOFF;
     }
 }
 

@@ -11,38 +11,26 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
-        private IntPtr NiFGEN_Handle;
-
-        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Initialize", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int NiFGEN_Initialize(
-            IntPtr libraryHandle,
-            [MarshalAs(UnmanagedType.LPStr)] string deviceName,
-            bool reset,
-            out IntPtr instrumentHandle);
-
-        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ConfigureStandardWaveform", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int NiFGEN_ConfigureStandardWaveform(
-            IntPtr instrumentHandle,
-            uint waveformFunction,
-            double amplitude,
-            double dcOffset,
-            double frequency,
-            double dutyCycle);
-
-
         public int FGEN_MaximumChannelNumber { get; } = 1;
-
-        public void FGEN_Initialize() 
-        {
-            Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
-        }
 
         public void FGEN_WriteSetting(int ch_num = 1)
         {
             if (ch_num > 1)
                 throw new Exception("Only " + FGEN_MaximumChannelNumber + " is supported, you are trying to assign " + ch_num);
 
+            Console.WriteLine("Frequency = " + FGEN_Frequency + " | Amplitude = " + FGEN_Amplitude);
+
             Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(NiFGEN_Handle, m_FGEN_WaveFormType, FGEN_Amplitude, FGEN_DcOffset, FGEN_Frequency, FGEN_DutyCycle);
+        }
+
+        public void FGEN_ON(int _)
+        {
+            Status = (NiVB_Status)NiFGEN_Run(NiFGEN_Handle);
+        }
+
+        public void FGEN_OFF(int _)
+        {
+            Status = (NiVB_Status)NiFGEN_Stop(NiFGEN_Handle);
         }
 
         public WaveFormType FGEN_WaveFormType
@@ -80,5 +68,33 @@ namespace Xu.EE.VirtualBench
         public double FGEN_Frequency { get; set; } = 1e6;
 
         public double FGEN_DutyCycle { get; set; } = 50;
+
+        #region DLL Export
+
+        private IntPtr NiFGEN_Handle;
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Initialize", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_Initialize(
+            IntPtr libraryHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string deviceName,
+            bool reset,
+            out IntPtr instrumentHandle);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ConfigureStandardWaveform", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_ConfigureStandardWaveform(
+            IntPtr instrumentHandle,
+            uint waveformFunction,
+            double amplitude,
+            double dcOffset,
+            double frequency,
+            double dutyCycle);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Run", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_Run(IntPtr instrumentHandle);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Stop", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_Stop(IntPtr instrumentHandle);
+
+        #endregion DLL Export
     }
 }

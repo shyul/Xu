@@ -80,6 +80,40 @@ namespace Xu.EE.VirtualBench
             bool reset,
             out IntPtr instrumentHandle);
 
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Close", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_FGEN_Close(IntPtr instrumentHandle);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ResetInstrument", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_ResetInstrument(IntPtr instrumentHandle);
+
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Run", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_Run(IntPtr instrumentHandle);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Stop", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_Stop(IntPtr instrumentHandle);
+
+        // niVB_FGEN_GenerationStatus_Running = 0,
+        // niVB_FGEN_GenerationStatus_Stopped = 1,
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_QueryGenerationStatus", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_QueryGenerationStatus(IntPtr instrumentHandle, out uint status);
+
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_EnableFilter", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_EnableFilter(IntPtr instrumentHandle, bool enableFilter);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_QueryFilter", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_QueryFilter(IntPtr instrumentHandle, out bool enableFilter);
+
+        // niVB_FGEN_WaveformMode_Standard = 0,
+        // niVB_FGEN_WaveformMode_Arbitrary = 1,
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_QueryWaveformMode", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_QueryWaveformMode(IntPtr instrumentHandle, out uint waveformMode);
+
         [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ConfigureStandardWaveform", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiFGEN_ConfigureStandardWaveform(
             IntPtr instrumentHandle,
@@ -89,11 +123,54 @@ namespace Xu.EE.VirtualBench
             double frequency,
             double dutyCycle);
 
-        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Run", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int NiFGEN_Run(IntPtr instrumentHandle);
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_QueryStandardWaveform", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_QueryStandardWaveform(
+            IntPtr instrumentHandle,
+            out uint waveformFunction,
+            out double amplitude,
+            out double dcOffset,
+            out double frequency,
+            out double dutyCycle);
 
-        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Stop", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int NiFGEN_Stop(IntPtr instrumentHandle);
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ConfigureArbitraryWaveform", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_ConfigureArbitraryWaveform(
+            IntPtr instrumentHandle,
+            double[] waveform,
+            ulong waveformSize,
+            double samplePeriod);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ConfigureArbitraryWaveformGainAndOffset", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_ConfigureArbitraryWaveformGainAndOffset(
+            IntPtr instrumentHandle,
+            double gain,
+            double dcOffset);
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_QueryArbitraryWaveform", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_QueryArbitraryWaveform(
+            IntPtr instrumentHandle,
+            out double sampleRate);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_QueryArbitraryWaveformGainAndOffset", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_QueryArbitraryWaveformGainAndOffset(
+            IntPtr instrumentHandle,
+            out double gain,
+            out double dcOffset);
+
+
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_SelfCalibrate", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_SelfCalibrate(IntPtr instrumentHandle);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_InitializeCalibration", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiFGEN_InitializeCalibration(
+            IntPtr libraryHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string deviceName,
+            [MarshalAs(UnmanagedType.LPStr)] string password,
+            out IntPtr calibrationHandle);
 
         #endregion DLL Export
     }

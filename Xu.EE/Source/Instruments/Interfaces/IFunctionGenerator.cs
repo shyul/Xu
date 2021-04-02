@@ -36,4 +36,34 @@ namespace Xu.EE
 
         Unknown = 0,
     }
+
+    public abstract class FunctionGeneratorChannel 
+    {
+        public FunctionGeneratorChannel(IFunctionGenerator fgen, int channelNum)
+        {
+            ChannelNumber = channelNum;
+            FunctionGenerator = fgen;
+        }
+
+        public int ChannelNumber { get; }
+
+        public IFunctionGenerator FunctionGenerator { get; }
+
+        public void ON() => FunctionGenerator.FGEN_ON(ChannelNumber);
+
+        public void OFF() => FunctionGenerator.FGEN_OFF(ChannelNumber);
+
+
+
+
+        public WaveFormType FGEN_WaveFormType { get; set; }
+
+        public double FGEN_Amplitude { get; set; }
+
+        public double FGEN_DcOffset { get; set; }
+
+        public double FGEN_Frequency { get; set; }
+
+        public double FGEN_DutyCycle { get; set; }
+    }
 }

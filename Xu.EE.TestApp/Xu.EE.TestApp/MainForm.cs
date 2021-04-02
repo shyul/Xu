@@ -38,12 +38,12 @@ namespace Xu.EE.TestApp
 
         private void BtnFgenON_Click(object sender, EventArgs e)
         {
-            NiVB.FGEN_ON(1);
+            NiVB.PWR_ON(1);
         }
 
         private void BtnFgenOFF_Click(object sender, EventArgs e)
         {
-            NiVB.FGEN_OFF(1);
+            NiVB.PWR_OFF(1);
         }
 
         private void BtnTestMSO_Click(object sender, EventArgs e)

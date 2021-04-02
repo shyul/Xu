@@ -33,7 +33,7 @@ namespace Xu.EE.VirtualBench
 
         public void Close()
         {
-            FGEN_OFF(1);
+            PWR_OFF(1);
             NiFGEN_Close(NiFGEN_Handle);
             NiMSO_Close(NiMSO_Handle);
 

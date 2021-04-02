@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IPowerSupply
+    public interface IChannel
     {
+        int ChannelNumber { get; }
 
+        void WriteSetting();
     }
 }

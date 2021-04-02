@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface ISpectrumAnalyzer
+    public enum WaveFormType : int
     {
+        DC,
+        Sine,
+        Square,
+        Triangle,
+
+        Unknown = 0,
     }
 }

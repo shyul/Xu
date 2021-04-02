@@ -11,6 +11,17 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
+        public void DSO_Run() 
+        {
+        
+        }
+
+        public string DSO_TriggerSource { get; set; }
+
+        public double DSO_TriggerLevel { get; set; }
+
+        public double DSO_TriggerHysteresis { get; set; }
+
         public void TestMSO() 
         {
             Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
@@ -78,6 +89,11 @@ namespace Xu.EE.VirtualBench
 
             Console.WriteLine("analog = " + adata.Sum() / adata.Count);
             Console.WriteLine("triggerReason = " + triggerReason);
+
+            foreach(double v in analogData)
+            {
+                Console.Write(v.ToString("0.##") + ", ");
+            }
 
             long epoch = 0;
             double seconeds = 0;
@@ -166,6 +182,13 @@ namespace Xu.EE.VirtualBench
             double triggerHysteresis,
             uint triggerInstance); // A = 0, B = 1;
 
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureDigitalEdgeTrigger", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_ConfigureDigitalEdgeTrigger(
+            IntPtr instrumentHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string triggerSource,
+            uint triggerSlope,  // 0 = Rising, 1 = Falling, 2 = Either
+            uint triggerInstance); // A = 0, B = 1;
+
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_Run", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiMSO_Run(
             IntPtr instrumentHandle);
@@ -187,6 +210,19 @@ namespace Xu.EE.VirtualBench
             out Timestamp digitalInitialTimestamp,
             out Timestamp triggerTimestamp,
             out uint triggerReason); // 0 = Normal, 1 = Forced, 2 = Auto
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureStateMode", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_ConfigureStateMode(
+            IntPtr instrumentHandle,
+            bool enable,
+            [MarshalAs(UnmanagedType.LPStr)] string clockChannel,
+            uint clockEdge);  // 0 = Rising, 1 = Falling, 2 = Either
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureImmediateTrigger", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_ConfigureImmediateTrigger(
+            IntPtr instrumentHandle);
+
+
 
         #endregion DLL Export
     }

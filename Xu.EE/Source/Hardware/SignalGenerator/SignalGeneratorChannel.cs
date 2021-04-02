@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IOscilloscope
+    public abstract class SignalGeneratorChannel
     {
     }
 }

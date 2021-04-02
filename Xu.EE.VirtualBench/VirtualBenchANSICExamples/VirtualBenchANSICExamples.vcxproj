@@ -145,9 +145,6 @@
     <ClCompile Include="VirtualBenchANSICExamples.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="nivirtualbench.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Library Include="nivirtualbench.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

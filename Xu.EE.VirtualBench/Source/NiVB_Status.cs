@@ -14,7 +14,18 @@ namespace Xu.EE.VirtualBench
         
         }
 
-        public NiVB_Status Status { get; set; } = NiVB_Status.Success;
+        public NiVB_Status Status
+        {
+            get => m_Status;
+
+            set
+            {
+                m_Status = value;
+                Console.WriteLine("Status is updated: " + m_Status);
+            }
+        }
+
+        private NiVB_Status m_Status = NiVB_Status.Success;
 
     }
 

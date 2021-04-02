@@ -47,9 +47,9 @@ int main(void)
 
    /* Waveform Configuration */
    const niVB_Waveform waveform = niVB_Waveform_Square;
-   const double amplitude = 10.0;
+   const double amplitude = 2;
    const double dcOffset = 0.0;
-   const double frequency = 500000.0;
+   const double frequency = 5e6;
    const double dutyCycle = 50.0;
 
    niVB_ErrorCheck(niVB_Initialize(NIVB_LIBRARY_VERSION, &libHandle));

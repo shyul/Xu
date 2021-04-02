@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\NiVB_ Initialize.cs" />
+    <Compile Include="Source\NiVB_FunctionGenerator.cs" />
     <Compile Include="Source\NiVB_Status.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,6 +8,28 @@ namespace Xu.EE
 {
     public interface IFunctionGenerator
     {
+        int FGEN_MaximumChannelNumber { get; }
 
+        void FGEN_WriteSetting(int ch_num);
+
+        WaveFormType FGEN_WaveFormType { get; set; }
+
+        double FGEN_Amplitude { get; set; }
+
+        double FGEN_DcOffset { get; set; }
+
+        double FGEN_Frequency { get; set; }
+
+        double FGEN_DutyCycle { get; set; }
+    }
+
+    public enum WaveFormType : int
+    {
+        DC,
+        Sine,
+        Square,
+        Triangle,
+
+        Unknown = 0,
     }
 }

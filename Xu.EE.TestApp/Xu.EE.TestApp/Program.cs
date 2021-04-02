@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Xu.EE.VirtualBench;
+
 
 namespace Xu.EE.TestApp
 {
@@ -17,11 +17,6 @@ namespace Xu.EE.TestApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            NiVB nivb = new NiVB("VB8012-309528E");
-
-            nivb.GetCalibrationInfo();
-
             Application.Run(new MainForm());
         }
     }

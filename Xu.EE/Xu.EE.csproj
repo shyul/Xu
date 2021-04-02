@@ -63,6 +63,7 @@
     <Folder Include="Source\Filters\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Instruments\IHardwareResouce.cs" />
     <Compile Include="Source\Instruments\Interfaces\IDigitalControl.cs" />
     <Compile Include="Source\Instruments\Interfaces\IFunctionGenerator.cs" />
     <Compile Include="Source\Instruments\Interfaces\IMultimeter.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE.Visa.Source.FunctionGenerator
 {
-    public class FunctionGenerator : IFunctionGenerator
+    public class FunctionGenerator //: IFunctionGenerator
     {
     }
 }

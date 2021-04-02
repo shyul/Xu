@@ -10,7 +10,7 @@ using Xu.EE;
 namespace Xu.EE.VirtualBench
 {
     public partial class NiVB :
-        IOscilloscope,
+        IMixedSignalOscilloscope,
         IFunctionGenerator,
         IMultimeter,
         IPowerSupply,
@@ -27,13 +27,18 @@ namespace Xu.EE.VirtualBench
         public void Open() 
         {
             Status = (NiVB_Status)Initialize(LIBRARY_VERSION, out Handle);
+            Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);
             Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
         }
 
         public void Close()
         {
-            Finalize(Handle);
             FGEN_OFF(1);
+            NiFGEN_Close(NiFGEN_Handle);
+            NiMSO_Close(NiMSO_Handle);
+
+
+            Finalize(Handle);
         }
 
         public void GetCalibrationInfo()

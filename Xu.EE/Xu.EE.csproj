@@ -66,6 +66,7 @@
     <Compile Include="Source\Instruments\IHardwareResouce.cs" />
     <Compile Include="Source\Instruments\Interfaces\IDigitalControl.cs" />
     <Compile Include="Source\Instruments\Interfaces\IFunctionGenerator.cs" />
+    <Compile Include="Source\Instruments\Interfaces\IMixedSignalOscilloscope.cs" />
     <Compile Include="Source\Instruments\Interfaces\IMultimeter.cs" />
     <Compile Include="Source\Instruments\Interfaces\IOscilloscope.cs" />
     <Compile Include="Source\Instruments\Interfaces\IPowerMeter.cs" />

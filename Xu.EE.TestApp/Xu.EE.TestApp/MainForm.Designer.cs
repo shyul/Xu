@@ -38,6 +38,7 @@ namespace Xu.EE.TestApp
             this.BtnSetFGEN = new System.Windows.Forms.Button();
             this.BtnFgenON = new System.Windows.Forms.Button();
             this.BtnFgenOFF = new System.Windows.Forms.Button();
+            this.BtnTestMSO = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -120,11 +121,22 @@ namespace Xu.EE.TestApp
             this.BtnFgenOFF.UseVisualStyleBackColor = true;
             this.BtnFgenOFF.Click += new System.EventHandler(this.BtnFgenOFF_Click);
             // 
+            // BtnTestMSO
+            // 
+            this.BtnTestMSO.Location = new System.Drawing.Point(288, 323);
+            this.BtnTestMSO.Name = "BtnTestMSO";
+            this.BtnTestMSO.Size = new System.Drawing.Size(114, 23);
+            this.BtnTestMSO.TabIndex = 9;
+            this.BtnTestMSO.Text = "Test MSO";
+            this.BtnTestMSO.UseVisualStyleBackColor = true;
+            this.BtnTestMSO.Click += new System.EventHandler(this.BtnTestMSO_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BtnTestMSO);
             this.Controls.Add(this.BtnFgenOFF);
             this.Controls.Add(this.BtnFgenON);
             this.Controls.Add(this.BtnSetFGEN);
@@ -152,6 +164,7 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnSetFGEN;
         private System.Windows.Forms.Button BtnFgenON;
         private System.Windows.Forms.Button BtnFgenOFF;
+        private System.Windows.Forms.Button BtnTestMSO;
     }
 }
 

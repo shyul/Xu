@@ -11,6 +11,9 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
+        /// <summary>
+        /// TODO: Use dictionary instead of pre assign the numner!
+        /// </summary>
         public int FGEN_MaximumChannelNumber { get; } = 1;
 
         public void FGEN_WriteSetting(int ch_num = 1)
@@ -83,7 +86,7 @@ namespace Xu.EE.VirtualBench
 
 
         [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Close", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int NiFGEN_FGEN_Close(IntPtr instrumentHandle);
+        private static extern int NiFGEN_Close(IntPtr instrumentHandle);
 
         [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_ResetInstrument", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiFGEN_ResetInstrument(IntPtr instrumentHandle);

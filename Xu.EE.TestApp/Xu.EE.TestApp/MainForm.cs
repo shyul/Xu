@@ -45,5 +45,10 @@ namespace Xu.EE.TestApp
         {
             NiVB.FGEN_OFF(1);
         }
+
+        private void BtnTestMSO_Click(object sender, EventArgs e)
+        {
+            NiVB.TestMSO();
+        }
     }
 }

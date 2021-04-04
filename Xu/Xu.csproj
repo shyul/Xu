@@ -60,7 +60,10 @@
     </Compile>
     <Compile Include="Source\Algorithms\Const.cs" />
     <Compile Include="Source\Algorithms\Fibonacci.cs" />
-    <Compile Include="Source\Data\Chart\_Types\IChartAnalysis.cs" />
+    <Compile Include="Source\Data\Table\Analysis\IChartAnalysis.cs" />
+    <Compile Include="Source\Data\Table\Analysis\IDualData.cs" />
+    <Compile Include="Source\Data\Table\Analysis\ISingleDatum.cs" />
+    <Compile Include="Source\Data\Table\Analysis\ISingleData.cs" />
     <Compile Include="Source\Data\GridView\GridRenderer.cs" />
     <Compile Include="Source\Data\GridView\GridColumnConfiguration.cs" />
     <Compile Include="Source\Data\GridView\GridColumnOrder.cs" />

@@ -31,7 +31,7 @@ namespace Xu.Chart
 
         public readonly Dictionary<Importance, AxisTickStyle> Style = new()
         {
-            { Importance.Tiny,  new AxisTickStyle() },
+            { Importance.Tiny, new AxisTickStyle() },
             { Importance.Micro, new AxisTickStyle() },
             { Importance.Minor, new AxisTickStyle() },
             { Importance.Major, new AxisTickStyle() },
@@ -129,7 +129,7 @@ namespace Xu.Chart
                 AxisTickStyle style = Style[tk.Value.Importance];
                 int location = ValueToPixel(tk.Key);
 
-                
+
                 if (style.HasLine)
                     g.DrawLine(style.Theme.EdgePen, bounds.Left, location, bounds.Right, location);
 

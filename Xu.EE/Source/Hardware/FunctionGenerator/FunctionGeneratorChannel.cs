@@ -11,18 +11,18 @@ namespace Xu.EE
         public FunctionGeneratorChannel(string channelName, IFunctionGenerator fgen)
         {
             Name = channelName;
-            FunctionGenerator = fgen;
+            Device = fgen;
         }
 
         public string Name { get; }
 
-        public IFunctionGenerator FunctionGenerator { get; }
+        public IFunctionGenerator Device { get; }
 
-        public void WriteSetting() => FunctionGenerator.FunctionGenerator_WriteSetting(Name);
+        public void WriteSetting() => Device.FunctionGenerator_WriteSetting(Name);
 
-        public void ON() => FunctionGenerator.FunctionGenerator_ON(Name);
+        public void ON() => Device.FunctionGenerator_ON(Name);
 
-        public void OFF() => FunctionGenerator.FunctionGenerator_OFF(Name);
+        public void OFF() => Device.FunctionGenerator_OFF(Name);
 
 
 

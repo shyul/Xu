@@ -42,4 +42,21 @@ namespace Xu.EE
     {
 
     }
+
+    public class MultimeterTemperatureConfig : MultimeterConfig
+    {
+
+    }
+
+    public enum MultimeterMode : uint
+    {
+        DCVolt = 0,
+        ACVolt = 1,
+        DCCurrent = 2,
+        ACCurrent = 3,
+        Resistance = 4,
+        Diode = 5,
+        Capacitance = 6,
+        Temperature = 7
+    }
 }

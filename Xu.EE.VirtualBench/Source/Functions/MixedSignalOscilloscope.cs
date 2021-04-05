@@ -11,9 +11,9 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
-        public void DSO_Run() 
+        public void DSO_Run()
         {
-        
+
         }
 
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
@@ -41,14 +41,14 @@ namespace Xu.EE.VirtualBench
 
         }
 
-        public void OscilloscopeDigital_WriteSetting(string channelName) 
+        public void OscilloscopeDigital_WriteSetting(string channelName)
         {
-        
+
         }
 
-        public void Oscilloscope_WriteSetting() 
+        public void Oscilloscope_WriteSetting()
         {
-        
+
         }
 
         public OscilloscopeChannel DSO_TriggerSource { get; set; } //= OscilloscopeAnalogChannel1;
@@ -60,7 +60,7 @@ namespace Xu.EE.VirtualBench
         public double DigitalSampleRate { get; set; } = 1e9;
 
 
-        public void TestMSO() 
+        public void TestMSO()
         {
             Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
             Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
@@ -130,7 +130,7 @@ namespace Xu.EE.VirtualBench
             Console.WriteLine("analog = " + adata.Sum() / adata.Count);
             Console.WriteLine("triggerReason = " + triggerReason);
 
-            foreach(double v in analogData)
+            foreach (double v in analogData)
             {
                 Console.Write(v.ToString("0.##") + ", ");
             }

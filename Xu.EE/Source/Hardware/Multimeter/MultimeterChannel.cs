@@ -11,17 +11,17 @@ namespace Xu.EE
         public MultimeterChannel(string channelName, IMultimeter dmm)
         {
             Name = channelName;
-            Multimeter = dmm;
+            Device = dmm;
         }
 
         public string Name { get; }
 
-        public IMultimeter Multimeter { get; }
+        public IMultimeter Device { get; }
 
         public MultimeterConfig Config { get; set; }
 
-        public void WriteSetting() => Multimeter.Multimeter_WriteSetting(Name);
+        public void WriteSetting() => Device.Multimeter_WriteSetting(Name);
 
-        public double ReadOutput() => Multimeter.Multimeter_Read(Name);
+        public double ReadOutput() => Device.Multimeter_Read(Name);
     }
 }

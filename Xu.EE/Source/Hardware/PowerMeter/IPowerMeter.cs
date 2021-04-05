@@ -8,6 +8,10 @@ namespace Xu.EE
 {
     public interface IPowerMeter
     {
+        Dictionary<string, PowerMeterChannel> PowerMeterChannels { get; }
 
+        void PowerMeter_WriteSetting(string channelName);
+
+        void PowerMeter_ReadSetting(string channelName);
     }
 }

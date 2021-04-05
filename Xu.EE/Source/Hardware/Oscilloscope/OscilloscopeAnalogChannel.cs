@@ -11,19 +11,19 @@ namespace Xu.EE
         protected OscilloscopeChannel(string channelName, IOscilloscope device)
         {
             Name = channelName;
-            Oscilloscope = device;
+            Device = device;
         }
 
         public string Name { get; }
 
-        public IOscilloscope Oscilloscope { get; }
+        public IOscilloscope Device { get; }
 
         public abstract void WriteSetting();
 
     }
 
 
-        public class OscilloscopeAnalogChannel : OscilloscopeChannel
+    public class OscilloscopeAnalogChannel : OscilloscopeChannel
     {
         public OscilloscopeAnalogChannel(string channelName, IOscilloscope device) : base(channelName, device)
         {
@@ -32,7 +32,7 @@ namespace Xu.EE
 
 
 
-        public override void WriteSetting() => Oscilloscope.OscilloscopeAnalog_WriteSetting(Name);
+        public override void WriteSetting() => Device.OscilloscopeAnalog_WriteSetting(Name);
 
         public bool Enabled { get; set; } = true;
 

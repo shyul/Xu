@@ -11,24 +11,24 @@ namespace Xu.EE
         public PowerSupplyChannel(string channelName, IPowerSupply powerSupply, Range<double> voltageRange, Range<double> currentRange)
         {
             Name = channelName;
-            PowerSupply = powerSupply;
+            Device = powerSupply;
             VoltageRange = voltageRange;
             CurrentRange = currentRange;
         }
 
         public string Name { get; }
 
-        public IPowerSupply PowerSupply { get; }
+        public IPowerSupply Device { get; }
 
-        public void WriteSetting() => PowerSupply.PowerSupply_WriteSetting(Name);
+        public void WriteSetting() => Device.PowerSupply_WriteSetting(Name);
 
-        public void ReadSetting() => PowerSupply.PowerSupply_ReadSetting(Name);
+        public void ReadSetting() => Device.PowerSupply_ReadSetting(Name);
 
-        public (double voltage, double current) ReadOutput() => PowerSupply.PowerSupply_ReadOutput(Name);
+        public (double voltage, double current) ReadOutput() => Device.PowerSupply_ReadOutput(Name);
 
-        public void ON() => PowerSupply.PowerSupply_ON(Name);
+        public void ON() => Device.PowerSupply_ON(Name);
 
-        public void OFF() => PowerSupply.PowerSupply_OFF(Name);
+        public void OFF() => Device.PowerSupply_OFF(Name);
 
         public PowerSupplyMode Mode { get; set; } = PowerSupplyMode.ConstantVoltage;
 

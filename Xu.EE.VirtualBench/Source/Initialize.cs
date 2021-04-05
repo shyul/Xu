@@ -38,8 +38,8 @@ namespace Xu.EE.VirtualBench
 
 
             Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);
-
-
+            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name] = new OscilloscopeAnalogChannel(OscilloscopeAnalogChannel1Name, this);
+            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name] = new OscilloscopeAnalogChannel(OscilloscopeAnalogChannel2Name, this);
 
             Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
             FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(FunctionGeneratorChannelName, this);

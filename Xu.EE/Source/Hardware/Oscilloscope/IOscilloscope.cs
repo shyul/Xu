@@ -10,16 +10,17 @@ namespace Xu.EE
     {
         // Define Trigger Channel
 
+        Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; }
 
+        void OscilloscopeAnalog_WriteSetting(string channelName);
 
+        void Oscilloscope_WriteSetting();
 
         void DSO_Run();
 
-        string DSO_TriggerSource { get; set; }
+        OscilloscopeChannel DSO_TriggerSource { get; set; }
 
-        double DSO_TriggerLevel { get; set; }
-
-        double DSO_TriggerHysteresis { get; set; }
+        double AnalogSampleRate { get; set; }
 
 
 

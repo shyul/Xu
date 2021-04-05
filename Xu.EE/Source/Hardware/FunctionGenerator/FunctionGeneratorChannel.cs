@@ -10,19 +10,19 @@ namespace Xu.EE
     {
         public FunctionGeneratorChannel(string channelName, IFunctionGenerator fgen)
         {
-            ChannelName = channelName;
+            Name = channelName;
             FunctionGenerator = fgen;
         }
 
-        public string ChannelName { get; }
+        public string Name { get; }
 
         public IFunctionGenerator FunctionGenerator { get; }
 
-        public void WriteSetting() => FunctionGenerator.FunctionGenerator_WriteSetting(ChannelName);
+        public void WriteSetting() => FunctionGenerator.FunctionGenerator_WriteSetting(Name);
 
-        public void ON() => FunctionGenerator.FunctionGenerator_ON(ChannelName);
+        public void ON() => FunctionGenerator.FunctionGenerator_ON(Name);
 
-        public void OFF() => FunctionGenerator.FunctionGenerator_OFF(ChannelName);
+        public void OFF() => FunctionGenerator.FunctionGenerator_OFF(Name);
 
 
 

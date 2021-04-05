@@ -22,7 +22,7 @@ namespace Xu.EE.VirtualBench
 
         public const string MultimeterChannelName = "dmm1";
 
-        public MultimeterChannel MultimeterChannel => MultimeterChannels[MultimeterChannelName];
+        public NiVBMultimeterChannel MultimeterChannel => MultimeterChannels[MultimeterChannelName] as NiVBMultimeterChannel;
 
 
         public void Multimeter_WriteSetting(string channelName) 

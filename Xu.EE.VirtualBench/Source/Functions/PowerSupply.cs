@@ -38,14 +38,14 @@ namespace Xu.EE.VirtualBench
             if (psch.Mode == PowerSupplyMode.ConstantVoltage)
             {
                 Status = (NiVB_Status)NiPS_ConfigureVoltageOutput(NiPS_Handle,
-                    psch.ChannelName,
+                    psch.Name,
                     psch.Voltage,
                     psch.Current);
             }
             else if (psch.Mode == PowerSupplyMode.ConstantCurrent)
             {
                 Status = (NiVB_Status)NiPS_ConfigureCurrentOutput(NiPS_Handle,
-                    psch.ChannelName,
+                    psch.Name,
                     psch.Current,
                     psch.Voltage);
             }
@@ -58,7 +58,7 @@ namespace Xu.EE.VirtualBench
             if (psch.Mode == PowerSupplyMode.ConstantVoltage)
             {
                 Status = (NiVB_Status)NiPS_QueryVoltageOutput(NiPS_Handle,
-                    psch.ChannelName,
+                    psch.Name,
                     out double voltage,
                     out double current);
 
@@ -68,7 +68,7 @@ namespace Xu.EE.VirtualBench
             else if (psch.Mode == PowerSupplyMode.ConstantCurrent)
             {
                 Status = (NiVB_Status)NiPS_QueryCurrentOutput(NiPS_Handle,
-                    psch.ChannelName,
+                    psch.Name,
                     out double current,
                     out double voltage);
 
@@ -81,7 +81,7 @@ namespace Xu.EE.VirtualBench
         {
             PowerSupplyChannel psch = PowerSupplyChannels[channelName];
             Status = (NiVB_Status)NiPS_ReadOutput(NiPS_Handle,
-                psch.ChannelName,
+                psch.Name,
                 out double actualVoltageLevel,
                 out double actualCurrentLevel,
                 out uint state); // 0 = Constant Current, 1 = Constant Voltage

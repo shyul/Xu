@@ -10,18 +10,18 @@ namespace Xu.EE
     {
         public MultimeterChannel(string channelName, IMultimeter dmm)
         {
-            ChannelName = channelName;
+            Name = channelName;
             Multimeter = dmm;
         }
 
-        public string ChannelName { get; }
+        public string Name { get; }
 
         public IMultimeter Multimeter { get; }
 
         public MultimeterConfig Config { get; set; }
 
-        public void WriteSetting() => Multimeter.Multimeter_WriteSetting(ChannelName);
+        public void WriteSetting() => Multimeter.Multimeter_WriteSetting(Name);
 
-        public double ReadOutput() => Multimeter.Multimeter_Read(ChannelName);
+        public double ReadOutput() => Multimeter.Multimeter_Read(Name);
     }
 }

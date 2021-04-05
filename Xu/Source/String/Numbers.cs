@@ -145,7 +145,9 @@ namespace Xu
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static int ToInt32(this double input, long defaultValue = 0) => (int)ToInt64(input, defaultValue);
+        public static int ToInt32(this double input, int defaultValue = 0) => (int)ToInt64(input, defaultValue);
+
+        public static uint ToUInt32(this double input, uint defaultValue = 0) => (uint)ToInt64(input, defaultValue);
 
         /// <summary>
         /// 

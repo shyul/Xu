@@ -8,9 +8,9 @@ namespace Xu.EE
 {
     public interface IPowerSupply
     {
-        void PWR_ON(int ch_num);
+        void PWR_ON(string channelName);
 
-        void PWR_OFF(int ch_num);
+        void PWR_OFF(string channelName);
     }
 
 

@@ -6,34 +6,28 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public abstract class FunctionGeneratorChannel : IOutputChannel
+    public class FunctionGeneratorChannel : IOutputChannel
     {
-        public FunctionGeneratorChannel(IFunctionGenerator fgen, int channelNum)
+        public FunctionGeneratorChannel(IFunctionGenerator fgen, string channelName)
         {
-            ChannelNumber = channelNum;
+            ChannelName = channelName;
             FunctionGenerator = fgen;
         }
 
-        public int ChannelNumber { get; }
-
-        public void WriteSetting() { }
+        public string ChannelName { get; }
 
         public IFunctionGenerator FunctionGenerator { get; }
 
+        public void WriteSetting() => FunctionGenerator.FGEN_WriteSetting(ChannelName);
 
+        public void ON() => FunctionGenerator.FGEN_ON(ChannelName);
 
-
-        public void ON() => FunctionGenerator.FGEN_ON(ChannelNumber);
-
-        public void OFF() => FunctionGenerator.FGEN_OFF(ChannelNumber);
-
-
-
+        public void OFF() => FunctionGenerator.FGEN_OFF(ChannelName);
 
 
 
 
-        public WaveFormType WaveFormType { get; set; }
+        public WaveFormType WaveFormType { get; set; } = WaveFormType.Triangle;
 
         public double Amplitude { get; set; }
 
@@ -47,7 +41,7 @@ namespace Xu.EE
 
 
 
-        public bool IsArbitrary { get; set; }
+        public bool IsArbitrary { get; set; } = false;
 
         public double ArbitrarySampleRate { get; set; }
 

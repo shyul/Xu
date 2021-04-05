@@ -14,14 +14,14 @@ namespace Xu.EE.Visa
 
         }
 
-        public void PWR_ON(int ch_num)
+        public void PWR_OFF(string channelName)
         {
-
+            throw new NotImplementedException();
         }
 
-        public void PWR_OFF(int ch_num)
+        public void PWR_ON(string channelName)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

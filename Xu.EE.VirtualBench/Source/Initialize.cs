@@ -16,7 +16,11 @@ namespace Xu.EE.VirtualBench
         IPowerSupply,
         IDigitalControl
     {
-        public NiVB(string resourceName) => ResouceName = resourceName;
+        public NiVB(string resourceName) 
+        { 
+            ResouceName = resourceName;
+            FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(this, FunctionGeneratorChannelName);
+        }
 
         ~NiVB() => Dispose();
 
@@ -28,12 +32,15 @@ namespace Xu.EE.VirtualBench
         {
             Status = (NiVB_Status)Initialize(LIBRARY_VERSION, out Handle);
             Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);
+
             Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
+     
         }
 
         public void Close()
         {
-            PWR_OFF(1);
+            PWR_OFF();
+            FGEN_OFF();
             NiFGEN_Close(NiFGEN_Handle);
             NiMSO_Close(NiMSO_Handle);
 

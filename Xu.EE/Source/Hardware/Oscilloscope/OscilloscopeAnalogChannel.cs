@@ -8,7 +8,7 @@ namespace Xu.EE
 {
     public abstract class OscilloscopeAnalogChannel : IChannel
     {
-        public int ChannelNumber { get; }
+        public string ChannelName { get; }
 
         public void WriteSetting() { }
 

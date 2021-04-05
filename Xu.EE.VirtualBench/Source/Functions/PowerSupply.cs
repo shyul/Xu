@@ -8,12 +8,17 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
-        public void PWR_ON(int ch_num) 
+        public void PWR_ON(string channelName)
         {
-        
+
         }
 
-        public void PWR_OFF(int ch_num)
+        public void PWR_OFF(string channelName)
+        {
+
+        }
+
+        public void PWR_OFF()
         {
 
         }

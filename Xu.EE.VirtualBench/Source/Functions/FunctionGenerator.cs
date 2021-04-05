@@ -11,66 +11,57 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
-        /// <summary>
-        /// TODO: Use dictionary instead of pre assign the numner!
-        /// </summary>
-        public int FGEN_MaximumChannelNumber { get; } = 1;
+        public Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels { get; } = new();
 
-        public void FGEN_WriteSetting(int ch_num = 1)
+        public const string FunctionGeneratorChannelName = "fgen1";
+
+        public FunctionGeneratorChannel FunctionGeneratorChannel => FunctionGeneratorChannels[FunctionGeneratorChannelName];
+
+        public void FGEN_WriteSetting(string channelName)
         {
-            if (ch_num > 1)
-                throw new Exception("Only " + FGEN_MaximumChannelNumber + " is supported, you are trying to assign " + ch_num);
+            FunctionGeneratorChannel fgch = FunctionGeneratorChannels[channelName];
 
-            Console.WriteLine("Frequency = " + FGEN_Frequency + " | Amplitude = " + FGEN_Amplitude);
-
-            Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(NiFGEN_Handle, m_FGEN_WaveFormType, FGEN_Amplitude, FGEN_DcOffset, FGEN_Frequency, FGEN_DutyCycle);
-        }
-
-        public void FGEN_ON(int _)
-        {
-            Status = (NiVB_Status)NiFGEN_Run(NiFGEN_Handle);
-        }
-
-        public void FGEN_OFF(int _)
-        {
-            Status = (NiVB_Status)NiFGEN_Stop(NiFGEN_Handle);
-        }
-
-        public WaveFormType FGEN_WaveFormType
-        {
-            get
+            if (fgch.IsArbitrary)
             {
-                return m_FGEN_WaveFormType switch
-                {
-                    0 => WaveFormType.Sine,
-                    1 => WaveFormType.Square,
-                    2 => WaveFormType.Triangle,
-                    3 => WaveFormType.DC,
-                    _ => WaveFormType.Unknown,
-                };
+
+
             }
-            set
+            else
             {
-                m_FGEN_WaveFormType = value switch
+                Console.WriteLine("Frequency = " + fgch.Frequency + " | DutyCycle = " + fgch.DutyCycle + " | Amplitude = " + fgch.Amplitude + " | DcOffset = " + fgch.DcOffset);
+
+                uint waveform = FunctionGeneratorChannels[channelName].WaveFormType switch
                 {
                     WaveFormType.Sine => 0,
                     WaveFormType.Square => 1,
                     WaveFormType.Triangle => 2,
                     WaveFormType.DC => 3,
-                    _ => throw new Exception("Unsupported WaveFormType: " + value),
+                    _ => throw new Exception("Unsupported WaveFormType: " + fgch.WaveFormType),
                 };
+
+                Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(NiFGEN_Handle, waveform,
+                    fgch.Amplitude,
+                    fgch.DcOffset,
+                    fgch.Frequency,
+                    fgch.DutyCycle);
             }
         }
 
-        private uint m_FGEN_WaveFormType = 2;
+        public void FGEN_ON(string _)
+        {
+            Status = (NiVB_Status)NiFGEN_Run(NiFGEN_Handle);
+        }
 
-        public double FGEN_Amplitude { get; set; } = 2;
-         
-        public double FGEN_DcOffset { get; set; } = 0;
+        public void FGEN_OFF(string _)
+        {
+            Status = (NiVB_Status)NiFGEN_Stop(NiFGEN_Handle);
+        }
 
-        public double FGEN_Frequency { get; set; } = 1e6;
+        public void FGEN_ON() => FGEN_ON(FunctionGeneratorChannelName);
 
-        public double FGEN_DutyCycle { get; set; } = 50;
+        public void FGEN_OFF() => FGEN_OFF(FunctionGeneratorChannelName);
+
+
 
         #region DLL Export
 

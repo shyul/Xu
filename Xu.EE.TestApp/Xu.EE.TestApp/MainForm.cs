@@ -29,21 +29,21 @@ namespace Xu.EE.TestApp
 
         private void BtnSetFGEN_Click(object sender, EventArgs e)
         {
-            NiVB.FGEN_Frequency = TextBoxFrequency.Text.ToDouble(0);
-            NiVB.FGEN_Amplitude = TextBoxAmplitude.Text.ToDouble(0);
-            NiVB.FGEN_DutyCycle = TextBoxDutyCycle.Text.ToDouble(0);
-            NiVB.FGEN_DcOffset = TextBoxDcOffset.Text.ToDouble(0);
-            NiVB.FGEN_WriteSetting();
+            NiVB.FunctionGeneratorChannel.Frequency = TextBoxFrequency.Text.ToDouble(0);
+            NiVB.FunctionGeneratorChannel.Amplitude = TextBoxAmplitude.Text.ToDouble(0);
+            NiVB.FunctionGeneratorChannel.DutyCycle = TextBoxDutyCycle.Text.ToDouble(0);
+            NiVB.FunctionGeneratorChannel.DcOffset = TextBoxDcOffset.Text.ToDouble(0);
+            NiVB.FunctionGeneratorChannel.WriteSetting();
         }
 
         private void BtnFgenON_Click(object sender, EventArgs e)
         {
-            NiVB.PWR_ON(1);
+            NiVB.FGEN_ON();
         }
 
         private void BtnFgenOFF_Click(object sender, EventArgs e)
         {
-            NiVB.PWR_OFF(1);
+            NiVB.FGEN_OFF();
         }
 
         private void BtnTestMSO_Click(object sender, EventArgs e)

@@ -8,26 +8,12 @@ namespace Xu.EE
 {
     public interface IFunctionGenerator : IHardwareResouce
     {
-        int FGEN_MaximumChannelNumber { get; }
+        Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels { get; }
 
-        void FGEN_WriteSetting(int ch_num);
+        void FGEN_WriteSetting(string channelName);
 
-        void FGEN_ON(int ch_num);
+        void FGEN_ON(string channelName);
 
-        void FGEN_OFF(int ch_num);
-
-        WaveFormType FGEN_WaveFormType { get; set; }
-
-        double FGEN_Amplitude { get; set; }
-
-        double FGEN_DcOffset { get; set; }
-
-        double FGEN_Frequency { get; set; }
-
-        double FGEN_DutyCycle { get; set; }
+        void FGEN_OFF(string channelName);
     }
-
-
-
-
 }

@@ -8,15 +8,15 @@ namespace Xu.EE
 {
     public abstract class PowerSupplyChannel : IOutputChannel
     {
-        public int ChannelNumber { get; }
+        public string ChannelName { get; }
 
         public void WriteSetting() { }
 
         public IPowerSupply PowerSupply { get; }
 
-        public void ON() => PowerSupply.PWR_ON(ChannelNumber);
+        public void ON() => PowerSupply.PWR_ON(ChannelName);
 
-        public void OFF() => PowerSupply.PWR_OFF(ChannelNumber);
+        public void OFF() => PowerSupply.PWR_OFF(ChannelName);
 
 
 

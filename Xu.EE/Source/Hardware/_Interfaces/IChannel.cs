@@ -8,7 +8,7 @@ namespace Xu.EE
 {
     public interface IChannel
     {
-        int ChannelNumber { get; }
+        string ChannelName { get; }
 
         void WriteSetting();
     }

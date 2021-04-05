@@ -14,29 +14,21 @@ namespace Xu.EE.Visa
 
         }
 
-        public int FGEN_MaximumChannelNumber => throw new NotImplementedException();
-
-        public WaveFormType FGEN_WaveFormType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double FGEN_Amplitude { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double FGEN_DcOffset { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double FGEN_Frequency { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double FGEN_DutyCycle { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels => throw new NotImplementedException();
 
         public string ResouceName => throw new NotImplementedException();
 
-
-
-        public void FGEN_OFF(int ch_num)
+        public void FGEN_OFF(string channelName)
         {
             throw new NotImplementedException();
         }
 
-        public void FGEN_ON(int ch_num)
+        public void FGEN_ON(string channelName)
         {
             throw new NotImplementedException();
         }
 
-        public void FGEN_WriteSetting(int ch_num)
+        public void FGEN_WriteSetting(string channelName)
         {
             throw new NotImplementedException();
         }

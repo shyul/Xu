@@ -6,31 +6,12 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public abstract class OscilloscopeChannel : IChannel
-    {
-        protected OscilloscopeChannel(string channelName, IOscilloscope device)
-        {
-            Name = channelName;
-            Device = device;
-        }
-
-        public string Name { get; }
-
-        public IOscilloscope Device { get; }
-
-        public abstract void WriteSetting();
-
-    }
-
-
     public class OscilloscopeAnalogChannel : OscilloscopeChannel
     {
         public OscilloscopeAnalogChannel(string channelName, IOscilloscope device) : base(channelName, device)
         {
 
         }
-
-
 
         public override void WriteSetting() => Device.OscilloscopeAnalog_WriteSetting(Name);
 
@@ -44,23 +25,15 @@ namespace Xu.EE
 
         public double ProbeAttenuation { get; set; } = 1;
 
-
-
-
-        public TriggerEdge TriggerEdge { get; set; } = TriggerEdge.Rising;
-
         public double TriggerLevel { get; set; }
 
         public double TriggerHysteresis { get; set; }
 
+        public virtual double SampleRate { get; set; } = 500e6;
 
 
 
 
-
-
-        public IEnumerable<double> Result { get; set; }
-
-
+        public List<double> Result { get; set; }
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IMixedSignalOscilloscope : IOscilloscope
+    public interface IOscilloscopeMixed : IOscilloscope
     {
         Dictionary<string, OscilloscopeDigitalChannel> OscilloscopeDigitalChannels { get; }
 
         void OscilloscopeDigital_WriteSetting(string channelName);
 
-        double DigitalSampleRate { get; set; }
+
     }
 
 

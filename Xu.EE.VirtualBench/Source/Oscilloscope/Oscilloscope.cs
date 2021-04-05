@@ -11,11 +11,6 @@ namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
-        public void DSO_Run()
-        {
-
-        }
-
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
         public Dictionary<string, OscilloscopeDigitalChannel> OscilloscopeDigitalChannels { get; } = new();
 
@@ -55,44 +50,42 @@ namespace Xu.EE.VirtualBench
 
 
 
-        public double AnalogSampleRate { get; set; } = 500e6;
+        public double AnalogSampleRate
+        {
+            get => OscilloscopeAnalogChannel1.SampleRate;
+            
+            set
+            {
+                OscilloscopeAnalogChannel1.SampleRate = value;
+                OscilloscopeAnalogChannel2.SampleRate = value;
+            }
+        }
 
         public double DigitalSampleRate { get; set; } = 1e9;
 
-
-        public void TestMSO()
+        public void Oscilloscope_Run()
         {
-            Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
-            Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
-            Status = (NiVB_Status)NiMSO_ConfigureTiming(NiMSO_Handle, 500e6, 12e-6, 6e-6, 0);
-            Status = (NiVB_Status)NiMSO_ConfigureAnalogEdgeTrigger(NiMSO_Handle, "mso/1", 0, 1, 0, 0);
-
-
-            Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
             Status = (NiVB_Status)NiMSO_Run(NiMSO_Handle);
+        }
 
-            //ulong analogDataSize, analogDataStride, digitalDataSize, digitalTimestampsSize;
-            /*
-            double[] analogData = new double[0];
-            ulong[] digitalData = new ulong[0];
-            Timestamp[] digitalSampleTimestamps = new Timestamp[0];
-            */
+        public void Oscilloscope_GetData()
+        {
             Status = (NiVB_Status)NiMSO_ReadAnalogDigitalU64(
-                NiMSO_Handle,
-                null, // analogData,                              // out double[] analogData,
-                0,                                  // ulong analogDataSize
-                out ulong analogDataSize,           // out ulong analogDataSizeOut,
-                out ulong analogDataStride,         // out ulong analogDataStride,
-                out Timestamp _,                    // out Timestamp analogInitialTimestamp,
-                null, // digitalData,                      // out ulong[] digitalData,
-                0,                                  // ulong digitalDataSize,
-                out ulong digitalDataSize,          // out ulong digitalDataSizeOut,
-                null, // digitalSampleTimestamps,        // out Timestamp[] digitalSampleTimestamps,
-                0,                                  // ulong digitalSampleTimestampsSize,
-                out ulong digitalTimestampsSize,    // out ulong digitalSampleTimestampsSizeOut,
-                out Timestamp _,                    // out Timestamp digitalInitialTimestamp,
-                out Timestamp _,                    // out Timestamp triggerTimestamp,
-                out uint triggerReason);            // out uint triggerReason
+               NiMSO_Handle,
+               null,                               // out double[] analogData,
+               0,                                  // ulong analogDataSize
+               out ulong analogDataSize,           // out ulong analogDataSizeOut,
+               out ulong analogDataStride,         // out ulong analogDataStride,
+               out Timestamp _,                    // out Timestamp analogInitialTimestamp,
+               null, // digitalData,               // out ulong[] digitalData,
+               0,                                  // ulong digitalDataSize,
+               out ulong digitalDataSize,          // out ulong digitalDataSizeOut,
+               null, // digitalSampleTimestamps,   // out Timestamp[] digitalSampleTimestamps,
+               0,                                  // ulong digitalSampleTimestampsSize,
+               out ulong digitalTimestampsSize,    // out ulong digitalSampleTimestampsSizeOut,
+               out Timestamp _,                    // out Timestamp digitalInitialTimestamp,
+               out Timestamp _,                    // out Timestamp triggerTimestamp,
+               out uint triggerReason);            // out uint triggerReason
 
             double[] analogData = new double[analogDataSize];
             ulong[] digitalData = new ulong[digitalDataSize];
@@ -100,65 +93,84 @@ namespace Xu.EE.VirtualBench
 
             Status = (NiVB_Status)NiMSO_ReadAnalogDigitalU64(
                 NiMSO_Handle,
-                analogData,                     // out double[] analogData,
-                analogDataSize,                                  // ulong analogDataSize
-                out ulong _,                   // out ulong analogDataSizeOut,
+                analogData,                         // out double[] analogData, -> ch1, ch2, ch1, ch2, ... 6001 pts per channel
+                analogDataSize,                     // ulong analogDataSize
+                out ulong _,                        // out ulong analogDataSizeOut,
                 out analogDataStride,               // out ulong analogDataStride,
-                out Timestamp analogT0,                    // out Timestamp analogInitialTimestamp,
-                digitalData,                      // out ulong[] digitalData,
-                digitalDataSize,                                  // ulong digitalDataSize,
-                out ulong _,           // out ulong digitalDataSizeOut,
-                digitalSampleTimestamps,                  // out Timestamp[] digitalSampleTimestamps,
-                digitalTimestampsSize,                                  // ulong digitalSampleTimestampsSize,
-                out ulong _,    // out ulong digitalSampleTimestampsSizeOut,
-                out Timestamp digitalT0,                    // out Timestamp digitalInitialTimestamp,
-                out Timestamp triggerTimestamp,                    // out Timestamp triggerTimestamp,
-                out triggerReason);                        // out uint triggerReason
-
-
-            List<double> adata = new List<double>(analogData);
-
-            //double[] analogData = new double[analogDataSize];
-            //ulong[] digitalData = new ulong[digitalDataSize];
-            //Timestamp[] digitalTimestamps = new Timestamp[digitalTimestampsSize];
+                out Timestamp analogT0,             // out Timestamp analogInitialTimestamp,
+                digitalData,                        // out ulong[] digitalData,
+                digitalDataSize,                    // ulong digitalDataSize,
+                out ulong _,                        // out ulong digitalDataSizeOut,
+                digitalSampleTimestamps,            // out Timestamp[] digitalSampleTimestamps,
+                digitalTimestampsSize,              // ulong digitalSampleTimestampsSize,
+                out ulong _,                        // out ulong digitalSampleTimestampsSizeOut,
+                out Timestamp digitalT0,            // out Timestamp digitalInitialTimestamp,
+                out Timestamp triggerTimestamp,     // out Timestamp triggerTimestamp,
+                out triggerReason);                 // out uint triggerReason
 
             Console.WriteLine("analogDataSize = " + analogDataSize);
             Console.WriteLine("analogDataStride = " + analogDataStride);
             Console.WriteLine("digitalDataSize = " + digitalDataSize);
             Console.WriteLine("digitalTimestampsSize = " + digitalTimestampsSize);
 
-            Console.WriteLine("analog = " + adata.Sum() / adata.Count);
             Console.WriteLine("triggerReason = " + triggerReason);
-
-            foreach (double v in analogData)
-            {
-                Console.Write(v.ToString("0.##") + ", ");
-            }
 
             long epoch = 0;
             double seconeds = 0;
             ConvertTimestampToValues(analogT0, ref epoch, ref seconeds);
             DateTime analogTime = TimeTool.FromEpoch(epoch).ToLocalTime();
             Console.WriteLine("analogTime = " + analogTime);
-            /*
-                         IntPtr instrumentHandle,
-            out double[] analogData,
-            ulong analogDataSize,
-            out ulong analogDataSizeOut,
-            out ulong analogDataStride,
-            out Timestamp analogInitialTimestamp,
-            out ulong[] digitalData,
 
-            ulong digitalDataSize,
-            out ulong digitalDataSizeOut,
-            out Timestamp[] digitalSampleTimestamps,
+            List<double> ch_1_data = new List<double>();
+            List<double> ch_2_data = new List<double>();
 
-            ulong digitalSampleTimestampsSize,
-            out ulong digitalSampleTimestampsSizeOut,
-            out Timestamp digitalInitialTimestamp,
-            out Timestamp triggerTimestamp,
-            out uint triggerReason); // 0 = Normal, 1 = Forced, 2 = Auto
-             */
+            for (int i = 0; i < analogData.Length; i++)
+            {
+                if (i % 2 == 0)
+                    ch_1_data.Add(analogData[i]);
+                else
+                    ch_2_data.Add(analogData[i]);
+            }
+
+            OscilloscopeAnalogChannel1.Result = ch_1_data;
+            OscilloscopeAnalogChannel2.Result = ch_2_data;
+        }
+
+        public void ConfigTrigger()
+        {
+            Status = (NiVB_Status)NiMSO_ConfigureTiming(NiMSO_Handle, AnalogSampleRate, AcquisitionTime, PretriggerTime, 0);
+            if (DSO_TriggerSource is OscilloscopeAnalogChannel ch)
+                Status = (NiVB_Status)NiMSO_ConfigureAnalogEdgeTrigger(NiMSO_Handle, ch.Name, (uint)ch.TriggerEdge, ch.TriggerLevel, ch.TriggerHysteresis, 0);
+        }
+
+
+        public double AcquisitionTime { get; set; } = 12e-6;
+
+        public double PretriggerTime { get; set; } = 6e-6;
+
+
+
+
+        public void TestMSO()
+        {
+            DSO_TriggerSource = OscilloscopeAnalogChannel1;
+
+            Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
+            Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
+
+            //Status = (NiVB_Status)NiMSO_ConfigureTiming(NiMSO_Handle, 500e6, 12e-6, 6e-6, 0);
+            //Status = (NiVB_Status)NiMSO_ConfigureAnalogEdgeTrigger(NiMSO_Handle, "mso/1", 0, 1, 0, 0);
+            ConfigTrigger();
+
+            Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
+
+            Oscilloscope_Run();
+            Oscilloscope_GetData();
+
+            foreach (double v in OscilloscopeAnalogChannel1.Result)
+            {
+                Console.Write(v.ToString("0.##") + ", ");
+            }
         }
 
         #region DLL Export
@@ -203,7 +215,7 @@ namespace Xu.EE.VirtualBench
             double sampleRate,
             double acquisitionTime,
             double pretriggerTime,
-            uint samplingMode); // Sampe = 0, PeakDetect = 1
+            uint samplingMode); // Sample = 0, PeakDetect = 1
 
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureAdvancedDigitalTiming", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiMSO_ConfigureAdvancedDigitalTiming(

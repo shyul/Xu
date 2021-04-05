@@ -20,7 +20,7 @@
 *
 *          Digital Channel Configuration
 *          =============================
-*          Channels: mso/d0 through mso/31, mso/clk0, and mso/clk1 (34 total)
+*          Channels: mso/d0 through mso/d31, mso/clk0, and mso/clk1 (34 total)
 *
 *          Timing Configuration
 *          ====================
@@ -37,6 +37,7 @@
 *          Level: 1V
 *          Hysteresis: Minimum
 *          Edge: Rising
+* 
 *    3. Build and run the program.
 *
 * Notes:

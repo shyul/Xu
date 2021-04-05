@@ -14,13 +14,17 @@ namespace Xu.EE
 
         void OscilloscopeAnalog_WriteSetting(string channelName);
 
-        void Oscilloscope_WriteSetting();
-
-        void DSO_Run();
 
         OscilloscopeChannel DSO_TriggerSource { get; set; }
 
         double AnalogSampleRate { get; set; }
+
+
+        void Oscilloscope_WriteSetting();
+
+        void Oscilloscope_Run();
+
+
 
 
 

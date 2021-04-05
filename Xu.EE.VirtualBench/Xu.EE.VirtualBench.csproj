@@ -63,11 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Functions\DigitalControl.cs" />
-    <Compile Include="Source\Functions\MixedSignalOscilloscope.cs" />
+    <Compile Include="Source\Multimeter\NiVBMultimeterChannel.cs" />
+    <Compile Include="Source\Oscilloscope\NiVBOscilloscopeAnalogChannel.cs" />
+    <Compile Include="Source\Oscilloscope\Oscilloscope.cs" />
     <Compile Include="Source\Functions\PowerSupply.cs" />
     <Compile Include="Source\Initialize.cs" />
     <Compile Include="Source\Functions\FunctionGenerator.cs" />
-    <Compile Include="Source\Functions\Multimeter.cs" />
+    <Compile Include="Source\Multimeter\Multimeter.cs" />
     <Compile Include="Source\Status.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

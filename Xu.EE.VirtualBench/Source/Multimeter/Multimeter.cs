@@ -7,15 +7,6 @@ using System.Runtime.InteropServices;
 
 namespace Xu.EE.VirtualBench
 {
-    public class NiVBMultimeterChannel : MultimeterChannel 
-    {
-        public NiVBMultimeterChannel(string channelName, IMultimeter dmm) : base(channelName, dmm)
-        {
-
-        }
-
-    }
-
     public partial class NiVB
     {
         public Dictionary<string, MultimeterChannel> MultimeterChannels { get; } = new();

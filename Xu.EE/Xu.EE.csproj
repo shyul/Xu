@@ -63,11 +63,14 @@
     <Folder Include="Source\Filters\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Hardware\DigitalControl\Pins\InputPin.cs" />
+    <Compile Include="Source\Hardware\DigitalControl\Pins\ParallelPort.cs" />
     <Compile Include="Source\Hardware\FunctionGenerator\FunctionGeneratorChannel.cs" />
     <Compile Include="Source\Hardware\Multimeter\MultimeterChannel.cs" />
     <Compile Include="Source\Hardware\Multimeter\MultimeterConfig.cs" />
     <Compile Include="Source\Hardware\NetworkAnalyzer\INetworkAnalyzer.cs" />
     <Compile Include="Source\Hardware\NetworkAnalyzer\NetworkAnalyzerPort.cs" />
+    <Compile Include="Source\Hardware\Oscilloscope\OscilloscopeChannel.cs" />
     <Compile Include="Source\Hardware\PowerMeter\PowerMeterChannel.cs" />
     <Compile Include="Source\Hardware\SignalGenerator\ISignalGenerator.cs" />
     <Compile Include="Source\Hardware\SignalGenerator\SignalGeneratorChannel.cs" />
@@ -77,7 +80,7 @@
     <Compile Include="Source\Hardware\DigitalControl\IDigitalControl.cs" />
     <Compile Include="Source\Hardware\FunctionGenerator\IFunctionGenerator.cs" />
     <Compile Include="Source\Hardware\_Interfaces\IOutputChannel.cs" />
-    <Compile Include="Source\Hardware\OscilloscopeMixed\IMixedSignalOscilloscope.cs" />
+    <Compile Include="Source\Hardware\OscilloscopeMixed\IOscilloscopeMixed.cs" />
     <Compile Include="Source\Hardware\Multimeter\IMultimeter.cs" />
     <Compile Include="Source\Hardware\Oscilloscope\IOscilloscope.cs" />
     <Compile Include="Source\Hardware\PowerMeter\IPowerMeter.cs" />

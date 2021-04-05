@@ -10,10 +10,10 @@ namespace Xu.EE
     {
         Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels { get; }
 
-        void FGEN_WriteSetting(string channelName);
+        void FunctionGenerator_WriteSetting(string channelName);
 
-        void FGEN_ON(string channelName);
+        void FunctionGenerator_ON(string channelName);
 
-        void FGEN_OFF(string channelName);
+        void FunctionGenerator_OFF(string channelName);
     }
 }

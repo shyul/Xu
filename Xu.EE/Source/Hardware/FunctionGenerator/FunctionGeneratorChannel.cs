@@ -8,7 +8,7 @@ namespace Xu.EE
 {
     public class FunctionGeneratorChannel : IOutputChannel
     {
-        public FunctionGeneratorChannel(IFunctionGenerator fgen, string channelName)
+        public FunctionGeneratorChannel(string channelName, IFunctionGenerator fgen)
         {
             ChannelName = channelName;
             FunctionGenerator = fgen;
@@ -18,11 +18,11 @@ namespace Xu.EE
 
         public IFunctionGenerator FunctionGenerator { get; }
 
-        public void WriteSetting() => FunctionGenerator.FGEN_WriteSetting(ChannelName);
+        public void WriteSetting() => FunctionGenerator.FunctionGenerator_WriteSetting(ChannelName);
 
-        public void ON() => FunctionGenerator.FGEN_ON(ChannelName);
+        public void ON() => FunctionGenerator.FunctionGenerator_ON(ChannelName);
 
-        public void OFF() => FunctionGenerator.FGEN_OFF(ChannelName);
+        public void OFF() => FunctionGenerator.FunctionGenerator_OFF(ChannelName);
 
 
 

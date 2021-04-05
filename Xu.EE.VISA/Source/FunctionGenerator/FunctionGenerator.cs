@@ -18,17 +18,17 @@ namespace Xu.EE.Visa
 
         public string ResouceName => throw new NotImplementedException();
 
-        public void FGEN_OFF(string channelName)
+        public void FunctionGenerator_OFF(string channelName)
         {
             throw new NotImplementedException();
         }
 
-        public void FGEN_ON(string channelName)
+        public void FunctionGenerator_ON(string channelName)
         {
             throw new NotImplementedException();
         }
 
-        public void FGEN_WriteSetting(string channelName)
+        public void FunctionGenerator_WriteSetting(string channelName)
         {
             throw new NotImplementedException();
         }

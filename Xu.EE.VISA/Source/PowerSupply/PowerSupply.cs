@@ -14,14 +14,31 @@ namespace Xu.EE.Visa
 
         }
 
-        public void PWR_OFF(string channelName)
+        public Dictionary<string, PowerSupplyChannel> PowerSupplyChannels { get; } = new();
+
+        public void PowerSupply_ON(string channelName = "all")
         {
-            throw new NotImplementedException();
+
         }
 
-        public void PWR_ON(string channelName)
+        public void PowerSupply_OFF(string channelName = "all")
         {
-            throw new NotImplementedException();
+
+        }
+
+        public void PowerSupply_WriteSetting(string channelName)
+        {
+
+        }
+
+        public void PowerSupply_ReadSetting(string channelName)
+        {
+
+        }
+
+        public (double voltage, double current) PowerSupply_ReadOutput(string channelName)
+        {
+            return (0, 0);
         }
     }
 }

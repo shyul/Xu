@@ -16,10 +16,9 @@ namespace Xu.EE.VirtualBench
         IPowerSupply,
         IDigitalControl
     {
-        public NiVB(string resourceName) 
-        { 
+        public NiVB(string resourceName)
+        {
             ResouceName = resourceName;
-            FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(this, FunctionGeneratorChannelName);
         }
 
         ~NiVB() => Dispose();
@@ -28,21 +27,42 @@ namespace Xu.EE.VirtualBench
 
         public string ResouceName { get; private set; }
 
-        public void Open() 
+        public void Open()
         {
             Status = (NiVB_Status)Initialize(LIBRARY_VERSION, out Handle);
             Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);
 
             Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
-     
+            FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(FunctionGeneratorChannelName, this);
+
+
+            Status = (NiVB_Status)NiPS_Initialize(Handle, ResouceName, true, out NiPS_Handle);
+            PowerSupplyChannels[PowerSupplyP6VName] = new PowerSupplyChannel(PowerSupplyP6VName, this, new Range<double>(0, 6), new Range<double>(0, 1));
+            PowerSupplyChannels[PowerSupplyP25VName] = new PowerSupplyChannel(PowerSupplyP25VName, this, new Range<double>(0, 25), new Range<double>(0, 0.5));
+            PowerSupplyChannels[PowerSupplyN25VName] = new PowerSupplyChannel(PowerSupplyN25VName, this, new Range<double>(-25, 0), new Range<double>(0, 0.5));
         }
 
         public void Close()
         {
-            PWR_OFF();
-            FGEN_OFF();
+            FunctionGenerator_OFF();
+            FunctionGeneratorChannels.Clear();
             NiFGEN_Close(NiFGEN_Handle);
+
+
+
+
+
+            PowerSupply_OFF();
+
+
+            
+
+
+
+
             NiMSO_Close(NiMSO_Handle);
+
+
 
 
             Finalize(Handle);

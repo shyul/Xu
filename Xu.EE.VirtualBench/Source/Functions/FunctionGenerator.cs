@@ -17,7 +17,7 @@ namespace Xu.EE.VirtualBench
 
         public FunctionGeneratorChannel FunctionGeneratorChannel => FunctionGeneratorChannels[FunctionGeneratorChannelName];
 
-        public void FGEN_WriteSetting(string channelName)
+        public void FunctionGenerator_WriteSetting(string channelName)
         {
             FunctionGeneratorChannel fgch = FunctionGeneratorChannels[channelName];
 
@@ -47,19 +47,17 @@ namespace Xu.EE.VirtualBench
             }
         }
 
-        public void FGEN_ON(string _)
+        public void FunctionGenerator_ON(string channelName = FunctionGeneratorChannelName)
         {
             Status = (NiVB_Status)NiFGEN_Run(NiFGEN_Handle);
         }
 
-        public void FGEN_OFF(string _)
+        public void FunctionGenerator_OFF(string channelName = FunctionGeneratorChannelName)
         {
             Status = (NiVB_Status)NiFGEN_Stop(NiFGEN_Handle);
         }
 
-        public void FGEN_ON() => FGEN_ON(FunctionGeneratorChannelName);
 
-        public void FGEN_OFF() => FGEN_OFF(FunctionGeneratorChannelName);
 
 
 

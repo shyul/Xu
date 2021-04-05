@@ -39,6 +39,24 @@ namespace Xu.EE.TestApp
             this.BtnFgenON = new System.Windows.Forms.Button();
             this.BtnFgenOFF = new System.Windows.Forms.Button();
             this.BtnTestMSO = new System.Windows.Forms.Button();
+            this.TextBoxP25Voltage = new System.Windows.Forms.TextBox();
+            this.TextBoxN25Voltage = new System.Windows.Forms.TextBox();
+            this.TextBoxP6Voltage = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.BtnP25WriteSettings = new System.Windows.Forms.Button();
+            this.TextBoxP25Current = new System.Windows.Forms.TextBox();
+            this.TextBoxN25Current = new System.Windows.Forms.TextBox();
+            this.TextBoxP6Current = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.BtnN25WriteSettings = new System.Windows.Forms.Button();
+            this.BtnP6WriteSettings = new System.Windows.Forms.Button();
+            this.BtnPowerTurnON = new System.Windows.Forms.Button();
+            this.BtnPowerTurnOFF = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -131,11 +149,188 @@ namespace Xu.EE.TestApp
             this.BtnTestMSO.UseVisualStyleBackColor = true;
             this.BtnTestMSO.Click += new System.EventHandler(this.BtnTestMSO_Click);
             // 
+            // TextBoxP25Voltage
+            // 
+            this.TextBoxP25Voltage.Location = new System.Drawing.Point(497, 159);
+            this.TextBoxP25Voltage.Name = "TextBoxP25Voltage";
+            this.TextBoxP25Voltage.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxP25Voltage.TabIndex = 10;
+            this.TextBoxP25Voltage.Text = "5";
+            // 
+            // TextBoxN25Voltage
+            // 
+            this.TextBoxN25Voltage.Location = new System.Drawing.Point(497, 185);
+            this.TextBoxN25Voltage.Name = "TextBoxN25Voltage";
+            this.TextBoxN25Voltage.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxN25Voltage.TabIndex = 11;
+            this.TextBoxN25Voltage.Text = "-5";
+            // 
+            // TextBoxP6Voltage
+            // 
+            this.TextBoxP6Voltage.Location = new System.Drawing.Point(497, 211);
+            this.TextBoxP6Voltage.Name = "TextBoxP6Voltage";
+            this.TextBoxP6Voltage.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxP6Voltage.TabIndex = 12;
+            this.TextBoxP6Voltage.Text = "3.3";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(459, 162);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "+25V";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(462, 188);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "-25V";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(465, 214);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "+6V";
+            // 
+            // BtnP25WriteSettings
+            // 
+            this.BtnP25WriteSettings.Location = new System.Drawing.Point(709, 157);
+            this.BtnP25WriteSettings.Name = "BtnP25WriteSettings";
+            this.BtnP25WriteSettings.Size = new System.Drawing.Size(93, 23);
+            this.BtnP25WriteSettings.TabIndex = 16;
+            this.BtnP25WriteSettings.Text = "Write Setting";
+            this.BtnP25WriteSettings.UseVisualStyleBackColor = true;
+            this.BtnP25WriteSettings.Click += new System.EventHandler(this.BtnP25WriteSettings_Click);
+            // 
+            // TextBoxP25Current
+            // 
+            this.TextBoxP25Current.Location = new System.Drawing.Point(603, 159);
+            this.TextBoxP25Current.Name = "TextBoxP25Current";
+            this.TextBoxP25Current.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxP25Current.TabIndex = 19;
+            this.TextBoxP25Current.Text = "0.5";
+            // 
+            // TextBoxN25Current
+            // 
+            this.TextBoxN25Current.Location = new System.Drawing.Point(603, 185);
+            this.TextBoxN25Current.Name = "TextBoxN25Current";
+            this.TextBoxN25Current.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxN25Current.TabIndex = 20;
+            this.TextBoxN25Current.Text = "0.5";
+            // 
+            // TextBoxP6Current
+            // 
+            this.TextBoxP6Current.Location = new System.Drawing.Point(603, 211);
+            this.TextBoxP6Current.Name = "TextBoxP6Current";
+            this.TextBoxP6Current.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxP6Current.TabIndex = 21;
+            this.TextBoxP6Current.Text = "1";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(130, 117);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(110, 20);
+            this.textBox7.TabIndex = 22;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(246, 115);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 23;
+            this.button4.Text = "Connect";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(525, 143);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Voltage";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(633, 143);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Current";
+            // 
+            // BtnN25WriteSettings
+            // 
+            this.BtnN25WriteSettings.Location = new System.Drawing.Point(709, 182);
+            this.BtnN25WriteSettings.Name = "BtnN25WriteSettings";
+            this.BtnN25WriteSettings.Size = new System.Drawing.Size(93, 23);
+            this.BtnN25WriteSettings.TabIndex = 26;
+            this.BtnN25WriteSettings.Text = "Write Setting";
+            this.BtnN25WriteSettings.UseVisualStyleBackColor = true;
+            this.BtnN25WriteSettings.Click += new System.EventHandler(this.BtnN25WriteSettings_Click);
+            // 
+            // BtnP6WriteSettings
+            // 
+            this.BtnP6WriteSettings.Location = new System.Drawing.Point(709, 208);
+            this.BtnP6WriteSettings.Name = "BtnP6WriteSettings";
+            this.BtnP6WriteSettings.Size = new System.Drawing.Size(93, 23);
+            this.BtnP6WriteSettings.TabIndex = 27;
+            this.BtnP6WriteSettings.Text = "Write Setting";
+            this.BtnP6WriteSettings.UseVisualStyleBackColor = true;
+            this.BtnP6WriteSettings.Click += new System.EventHandler(this.BtnP6WriteSettings_Click);
+            // 
+            // BtnPowerTurnON
+            // 
+            this.BtnPowerTurnON.Location = new System.Drawing.Point(808, 157);
+            this.BtnPowerTurnON.Name = "BtnPowerTurnON";
+            this.BtnPowerTurnON.Size = new System.Drawing.Size(34, 23);
+            this.BtnPowerTurnON.TabIndex = 28;
+            this.BtnPowerTurnON.Text = "ON";
+            this.BtnPowerTurnON.UseVisualStyleBackColor = true;
+            this.BtnPowerTurnON.Click += new System.EventHandler(this.BtnPowerTurnON_Click);
+            // 
+            // BtnPowerTurnOFF
+            // 
+            this.BtnPowerTurnOFF.Location = new System.Drawing.Point(848, 157);
+            this.BtnPowerTurnOFF.Name = "BtnPowerTurnOFF";
+            this.BtnPowerTurnOFF.Size = new System.Drawing.Size(39, 23);
+            this.BtnPowerTurnOFF.TabIndex = 31;
+            this.BtnPowerTurnOFF.Text = "OFF";
+            this.BtnPowerTurnOFF.UseVisualStyleBackColor = true;
+            this.BtnPowerTurnOFF.Click += new System.EventHandler(this.BtnPowerTurnOFF_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnPowerTurnOFF);
+            this.Controls.Add(this.BtnPowerTurnON);
+            this.Controls.Add(this.BtnP6WriteSettings);
+            this.Controls.Add(this.BtnN25WriteSettings);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.TextBoxP6Current);
+            this.Controls.Add(this.TextBoxN25Current);
+            this.Controls.Add(this.TextBoxP25Current);
+            this.Controls.Add(this.BtnP25WriteSettings);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TextBoxP6Voltage);
+            this.Controls.Add(this.TextBoxN25Voltage);
+            this.Controls.Add(this.TextBoxP25Voltage);
             this.Controls.Add(this.BtnTestMSO);
             this.Controls.Add(this.BtnFgenOFF);
             this.Controls.Add(this.BtnFgenON);
@@ -165,6 +360,24 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnFgenON;
         private System.Windows.Forms.Button BtnFgenOFF;
         private System.Windows.Forms.Button BtnTestMSO;
+        private System.Windows.Forms.TextBox TextBoxP25Voltage;
+        private System.Windows.Forms.TextBox TextBoxN25Voltage;
+        private System.Windows.Forms.TextBox TextBoxP6Voltage;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button BtnP25WriteSettings;
+        private System.Windows.Forms.TextBox TextBoxP25Current;
+        private System.Windows.Forms.TextBox TextBoxN25Current;
+        private System.Windows.Forms.TextBox TextBoxP6Current;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button BtnN25WriteSettings;
+        private System.Windows.Forms.Button BtnP6WriteSettings;
+        private System.Windows.Forms.Button BtnPowerTurnON;
+        private System.Windows.Forms.Button BtnPowerTurnOFF;
     }
 }
 

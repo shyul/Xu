@@ -18,14 +18,10 @@ namespace Xu.EE
 
         public IMultimeter Multimeter { get; }
 
+        public MultimeterConfig Config { get; set; }
+
         public void WriteSetting() => Multimeter.Multimeter_WriteSetting(ChannelName);
 
         public double ReadOutput() => Multimeter.Multimeter_Read(ChannelName);
-
-        public MultimeterMode Mode { get; set; }
-
-        public bool IsAutoRange { get; set; }
-
-        public double Range { get; set; }
     }
 }

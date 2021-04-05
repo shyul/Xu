@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Source\Hardware\FunctionGenerator\FunctionGeneratorChannel.cs" />
     <Compile Include="Source\Hardware\Multimeter\MultimeterChannel.cs" />
+    <Compile Include="Source\Hardware\Multimeter\MultimeterConfig.cs" />
     <Compile Include="Source\Hardware\NetworkAnalyzer\INetworkAnalyzer.cs" />
     <Compile Include="Source\Hardware\NetworkAnalyzer\NetworkAnalyzerPort.cs" />
     <Compile Include="Source\Hardware\SignalGenerator\ISignalGenerator.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Source\Hardware\Oscilloscope\OscilloscopeDigitalChannel.cs" />
     <Compile Include="Source\Hardware\PowerSupply\PowerSupplyChannel.cs" />
     <Compile Include="Source\Hardware\_Types\AnalogCoupling.cs" />
-    <Compile Include="Source\Hardware\_Types\MultimeterMode.cs" />
+    <Compile Include="Source\Hardware\Multimeter\MultimeterMode.cs" />
     <Compile Include="Source\Hardware\_Types\PowerSupplyMode.cs" />
     <Compile Include="Source\Hardware\_Types\TriggerEdge.cs" />
     <Compile Include="Source\Hardware\_Types\WaveFormType.cs" />

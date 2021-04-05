@@ -30,16 +30,26 @@ namespace Xu.EE.VirtualBench
         public void Open()
         {
             Status = (NiVB_Status)Initialize(LIBRARY_VERSION, out Handle);
+
+
+
+            Status = (NiVB_Status)NiDMM_Initialize(Handle, ResouceName, true, out NiDMM_Handle);
+            MultimeterChannels[MultimeterChannelName] = new NiVBMultimeterChannel(MultimeterChannelName, this);
+
+
             Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);
+
+
 
             Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
             FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(FunctionGeneratorChannelName, this);
-
 
             Status = (NiVB_Status)NiPS_Initialize(Handle, ResouceName, true, out NiPS_Handle);
             PowerSupplyChannels[PowerSupplyP6VName] = new PowerSupplyChannel(PowerSupplyP6VName, this, new Range<double>(0, 6), new Range<double>(0, 1));
             PowerSupplyChannels[PowerSupplyP25VName] = new PowerSupplyChannel(PowerSupplyP25VName, this, new Range<double>(0, 25), new Range<double>(0, 0.5));
             PowerSupplyChannels[PowerSupplyN25VName] = new PowerSupplyChannel(PowerSupplyN25VName, this, new Range<double>(-25, 0), new Range<double>(0, 0.5));
+        
+        
         }
 
         public void Close()

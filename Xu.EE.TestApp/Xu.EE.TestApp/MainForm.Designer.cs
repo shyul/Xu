@@ -151,7 +151,7 @@ namespace Xu.EE.TestApp
             // 
             // TextBoxP25Voltage
             // 
-            this.TextBoxP25Voltage.Location = new System.Drawing.Point(497, 159);
+            this.TextBoxP25Voltage.Location = new System.Drawing.Point(525, 42);
             this.TextBoxP25Voltage.Name = "TextBoxP25Voltage";
             this.TextBoxP25Voltage.Size = new System.Drawing.Size(100, 20);
             this.TextBoxP25Voltage.TabIndex = 10;
@@ -159,7 +159,7 @@ namespace Xu.EE.TestApp
             // 
             // TextBoxN25Voltage
             // 
-            this.TextBoxN25Voltage.Location = new System.Drawing.Point(497, 185);
+            this.TextBoxN25Voltage.Location = new System.Drawing.Point(525, 68);
             this.TextBoxN25Voltage.Name = "TextBoxN25Voltage";
             this.TextBoxN25Voltage.Size = new System.Drawing.Size(100, 20);
             this.TextBoxN25Voltage.TabIndex = 11;
@@ -167,7 +167,7 @@ namespace Xu.EE.TestApp
             // 
             // TextBoxP6Voltage
             // 
-            this.TextBoxP6Voltage.Location = new System.Drawing.Point(497, 211);
+            this.TextBoxP6Voltage.Location = new System.Drawing.Point(525, 94);
             this.TextBoxP6Voltage.Name = "TextBoxP6Voltage";
             this.TextBoxP6Voltage.Size = new System.Drawing.Size(100, 20);
             this.TextBoxP6Voltage.TabIndex = 12;
@@ -176,7 +176,7 @@ namespace Xu.EE.TestApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(459, 162);
+            this.label1.Location = new System.Drawing.Point(487, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 13;
@@ -185,7 +185,7 @@ namespace Xu.EE.TestApp
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(462, 188);
+            this.label2.Location = new System.Drawing.Point(490, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 14;
@@ -194,7 +194,7 @@ namespace Xu.EE.TestApp
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(465, 214);
+            this.label3.Location = new System.Drawing.Point(493, 97);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 15;
@@ -202,7 +202,7 @@ namespace Xu.EE.TestApp
             // 
             // BtnP25WriteSettings
             // 
-            this.BtnP25WriteSettings.Location = new System.Drawing.Point(709, 157);
+            this.BtnP25WriteSettings.Location = new System.Drawing.Point(737, 40);
             this.BtnP25WriteSettings.Name = "BtnP25WriteSettings";
             this.BtnP25WriteSettings.Size = new System.Drawing.Size(93, 23);
             this.BtnP25WriteSettings.TabIndex = 16;
@@ -212,7 +212,7 @@ namespace Xu.EE.TestApp
             // 
             // TextBoxP25Current
             // 
-            this.TextBoxP25Current.Location = new System.Drawing.Point(603, 159);
+            this.TextBoxP25Current.Location = new System.Drawing.Point(631, 42);
             this.TextBoxP25Current.Name = "TextBoxP25Current";
             this.TextBoxP25Current.Size = new System.Drawing.Size(100, 20);
             this.TextBoxP25Current.TabIndex = 19;
@@ -220,7 +220,7 @@ namespace Xu.EE.TestApp
             // 
             // TextBoxN25Current
             // 
-            this.TextBoxN25Current.Location = new System.Drawing.Point(603, 185);
+            this.TextBoxN25Current.Location = new System.Drawing.Point(631, 68);
             this.TextBoxN25Current.Name = "TextBoxN25Current";
             this.TextBoxN25Current.Size = new System.Drawing.Size(100, 20);
             this.TextBoxN25Current.TabIndex = 20;
@@ -228,7 +228,7 @@ namespace Xu.EE.TestApp
             // 
             // TextBoxP6Current
             // 
-            this.TextBoxP6Current.Location = new System.Drawing.Point(603, 211);
+            this.TextBoxP6Current.Location = new System.Drawing.Point(631, 94);
             this.TextBoxP6Current.Name = "TextBoxP6Current";
             this.TextBoxP6Current.Size = new System.Drawing.Size(100, 20);
             this.TextBoxP6Current.TabIndex = 21;
@@ -236,14 +236,15 @@ namespace Xu.EE.TestApp
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(130, 117);
+            this.textBox7.Location = new System.Drawing.Point(524, 144);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(110, 20);
             this.textBox7.TabIndex = 22;
+            this.textBox7.Text = "192.168.44.12";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(246, 115);
+            this.button4.Location = new System.Drawing.Point(640, 142);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 23;
@@ -253,7 +254,7 @@ namespace Xu.EE.TestApp
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(525, 143);
+            this.label4.Location = new System.Drawing.Point(553, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 24;
@@ -262,7 +263,7 @@ namespace Xu.EE.TestApp
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(633, 143);
+            this.label5.Location = new System.Drawing.Point(661, 26);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 25;
@@ -270,7 +271,7 @@ namespace Xu.EE.TestApp
             // 
             // BtnN25WriteSettings
             // 
-            this.BtnN25WriteSettings.Location = new System.Drawing.Point(709, 182);
+            this.BtnN25WriteSettings.Location = new System.Drawing.Point(737, 65);
             this.BtnN25WriteSettings.Name = "BtnN25WriteSettings";
             this.BtnN25WriteSettings.Size = new System.Drawing.Size(93, 23);
             this.BtnN25WriteSettings.TabIndex = 26;
@@ -280,7 +281,7 @@ namespace Xu.EE.TestApp
             // 
             // BtnP6WriteSettings
             // 
-            this.BtnP6WriteSettings.Location = new System.Drawing.Point(709, 208);
+            this.BtnP6WriteSettings.Location = new System.Drawing.Point(737, 91);
             this.BtnP6WriteSettings.Name = "BtnP6WriteSettings";
             this.BtnP6WriteSettings.Size = new System.Drawing.Size(93, 23);
             this.BtnP6WriteSettings.TabIndex = 27;
@@ -290,7 +291,7 @@ namespace Xu.EE.TestApp
             // 
             // BtnPowerTurnON
             // 
-            this.BtnPowerTurnON.Location = new System.Drawing.Point(808, 157);
+            this.BtnPowerTurnON.Location = new System.Drawing.Point(836, 40);
             this.BtnPowerTurnON.Name = "BtnPowerTurnON";
             this.BtnPowerTurnON.Size = new System.Drawing.Size(34, 23);
             this.BtnPowerTurnON.TabIndex = 28;
@@ -300,7 +301,7 @@ namespace Xu.EE.TestApp
             // 
             // BtnPowerTurnOFF
             // 
-            this.BtnPowerTurnOFF.Location = new System.Drawing.Point(848, 157);
+            this.BtnPowerTurnOFF.Location = new System.Drawing.Point(876, 40);
             this.BtnPowerTurnOFF.Name = "BtnPowerTurnOFF";
             this.BtnPowerTurnOFF.Size = new System.Drawing.Size(39, 23);
             this.BtnPowerTurnOFF.TabIndex = 31;

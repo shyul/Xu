@@ -40,7 +40,7 @@ int main(void)
    /* Global Configuration */
    niVB_Status status = niVB_Status_Success;
    niVB_LibraryHandle libHandle = NULL;
-   const char *deviceName = "virtualbench";
+   const char *deviceName = "VB8012-309528E";
    niVB_DMM_InstrumentHandle dmmHandle = NULL;
 
    /* Channel Configuration */

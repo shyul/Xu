@@ -16,7 +16,15 @@ namespace Xu.EE
 
         public double Stop { get => FrequencyRange.Maximum; }
 
+        public bool IsAutoRBW { get; set; }
+
         public double RBW { get; set; }
+
+        public double ReferenceLevel { get; set; }
+
+        public bool IsAutoAttenuation { get; set; }
+
+        public double InputAttenuation { get; set; }
 
         public Range<double> FrequencyRange { get; } = new Range<double>(499e6, 501e6);
     }

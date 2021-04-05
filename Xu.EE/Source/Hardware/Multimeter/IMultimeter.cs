@@ -8,5 +8,10 @@ namespace Xu.EE
 {
     public interface IMultimeter
     {
+        Dictionary<string, MultimeterChannel> MultimeterChannels { get; }
+
+        void Multimeter_WriteSetting(string channelName);
+
+        double Multimeter_Read(string channelName);
     }
 }

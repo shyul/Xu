@@ -85,6 +85,8 @@
     <Compile Include="Source\Hardware\Oscilloscope\OscilloscopeDigitalChannel.cs" />
     <Compile Include="Source\Hardware\PowerSupply\PowerSupplyChannel.cs" />
     <Compile Include="Source\Hardware\_Types\AnalogCoupling.cs" />
+    <Compile Include="Source\Hardware\_Types\MultimeterMode.cs" />
+    <Compile Include="Source\Hardware\_Types\PowerSupplyMode.cs" />
     <Compile Include="Source\Hardware\_Types\TriggerEdge.cs" />
     <Compile Include="Source\Hardware\_Types\WaveFormType.cs" />
     <Compile Include="Source\Math\Calculate.cs" />

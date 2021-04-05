@@ -10,28 +10,6 @@ namespace Xu.EE.Visa
 {
     public class SpectrumAnalyzer : ViClient, ISpectrumAnalyzer
     {
-        /*
-        public SpecAn()
-        {
-            var list = VisaClient.FindResources();
-            foreach (string s in list)
-            {
-                VisaClient client = new VisaClient(s);
-
-                if (client.Model.Contains("FSQ"))
-                {
-                    Client = client;
-                    break;
-                }
-
-                client.Dispose();
-
-                //Thread.Sleep(100);
-            }
-
-            if (Client is null) MessageBox.Show("Unable to find FSQ");
-        }*/
-
         public SpectrumAnalyzer(string resourceName) : base(resourceName)
         {
             Reset();

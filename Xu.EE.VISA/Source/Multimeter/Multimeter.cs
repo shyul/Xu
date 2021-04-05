@@ -13,5 +13,17 @@ namespace Xu.EE.Visa
 
 
         }
+
+        public Dictionary<string, MultimeterChannel> MultimeterChannels { get; } = new();
+
+        public void Multimeter_WriteSetting(string channelName)
+        {
+
+        }
+
+        public double Multimeter_Read(string channelName)
+        {
+            return 0;
+        }
     }
 }

@@ -16,16 +16,15 @@ namespace Xu.EE
             CurrentRange = currentRange;
         }
 
-
         public string ChannelName { get; }
+
+        public IPowerSupply PowerSupply { get; }
 
         public void WriteSetting() => PowerSupply.PowerSupply_WriteSetting(ChannelName);
 
         public void ReadSetting() => PowerSupply.PowerSupply_ReadSetting(ChannelName);
 
         public (double voltage, double current) ReadOutput() => PowerSupply.PowerSupply_ReadOutput(ChannelName);
-
-        public IPowerSupply PowerSupply { get; }
 
         public void ON() => PowerSupply.PowerSupply_ON(ChannelName);
 
@@ -66,12 +65,5 @@ namespace Xu.EE
         public Range<double> VoltageRange { get; }
 
         public Range<double> CurrentRange { get; }
-
-    }
-
-    public enum PowerSupplyMode : int
-    {
-        ConstantCurrent,
-        ConstantVoltage
     }
 }

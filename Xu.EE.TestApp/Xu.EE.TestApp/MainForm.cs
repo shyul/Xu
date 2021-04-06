@@ -68,11 +68,15 @@ namespace Xu.EE.TestApp
         private void BtnPowerTurnON_Click(object sender, EventArgs e)
         {
             NiVB.PowerSupply_ON();
+            //NiVB.PowerSupplyN25VChannel.Enabled = true;
+            Console.WriteLine("Power is: " + NiVB.PowerSupplyN25VChannel.Enabled);
         }
 
         private void BtnPowerTurnOFF_Click(object sender, EventArgs e)
         {
             NiVB.PowerSupply_OFF();
+            //NiVB.PowerSupplyN25VChannel.Enabled = false;
+            Console.WriteLine("Power is: " + NiVB.PowerSupplyN25VChannel.Enabled);
         }
 
         private void BtnN25WriteSettings_Click(object sender, EventArgs e)

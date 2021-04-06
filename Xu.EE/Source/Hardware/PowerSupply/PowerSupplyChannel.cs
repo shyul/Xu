@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public class PowerSupplyChannel : IOutputChannel
+    public class PowerSupplyChannel : IPort
     {
         public PowerSupplyChannel(string channelName, IPowerSupply powerSupply, Range<double> voltageRange, Range<double> currentRange)
         {
@@ -18,6 +18,19 @@ namespace Xu.EE
 
         public string Name { get; }
 
+        public bool Enabled
+        {
+            get => Device.PowerSupply_Enabled(Name);
+
+            set
+            {
+                if (value) 
+                    Device.PowerSupply_ON(Name);
+                else 
+                    Device.PowerSupply_OFF(Name);
+            }
+        }
+
         public IPowerSupply Device { get; }
 
         public void WriteSetting() => Device.PowerSupply_WriteSetting(Name);
@@ -25,10 +38,6 @@ namespace Xu.EE
         public void ReadSetting() => Device.PowerSupply_ReadSetting(Name);
 
         public (double voltage, double current) ReadOutput() => Device.PowerSupply_ReadOutput(Name);
-
-        public void ON() => Device.PowerSupply_ON(Name);
-
-        public void OFF() => Device.PowerSupply_OFF(Name);
 
         public PowerSupplyMode Mode { get; set; } = PowerSupplyMode.ConstantVoltage;
 

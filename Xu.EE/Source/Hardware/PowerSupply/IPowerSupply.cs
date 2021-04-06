@@ -19,6 +19,8 @@ namespace Xu.EE
         void PowerSupply_ON(string channelName);
 
         void PowerSupply_OFF(string channelName);
+
+        bool PowerSupply_Enabled(string channelName);
     }
 
 

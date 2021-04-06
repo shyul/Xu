@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IHardwareResouce : IDisposable
+    public interface IHardwareDevice : IDisposable
     {
         void Open();
 

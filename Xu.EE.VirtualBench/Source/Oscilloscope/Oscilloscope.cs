@@ -12,14 +12,20 @@ namespace Xu.EE.VirtualBench
     public partial class NiVB
     {
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
-        public Dictionary<string, OscilloscopeDigitalChannel> OscilloscopeDigitalChannels { get; } = new();
-
 
         public const string OscilloscopeAnalogChannel1Name = "mso/1";
         public const string OscilloscopeAnalogChannel2Name = "mso/2";
 
         public OscilloscopeAnalogChannel OscilloscopeAnalogChannel1 => OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name];
         public OscilloscopeAnalogChannel OscilloscopeAnalogChannel2 => OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name];
+
+        public void OscilloscopeTiming_WriteSetting(ITriggerSource source)
+        {
+            DSO_TriggerSource = source;
+            Status = (NiVB_Status)NiMSO_ConfigureTiming(NiMSO_Handle, AnalogSampleRate, AcquisitionTime, PretriggerTime, 0);
+            if (DSO_TriggerSource is OscilloscopeAnalogChannel ch)
+                Status = (NiVB_Status)NiMSO_ConfigureAnalogEdgeTrigger(NiMSO_Handle, ch.Name, (uint)ch.TriggerEdge, ch.TriggerLevel, ch.TriggerHysteresis, 0);
+        }
 
         public void OscilloscopeAnalog_WriteSetting(string channelName)
         {
@@ -33,35 +39,18 @@ namespace Xu.EE.VirtualBench
                 channel.VerticalOffset,
                 channel.ProbeAttenuation.ToUInt32(1),
                 (uint)(channel.Coupling == AnalogCoupling.DC ? 1 : 0));
-
-        }
-
-        public void OscilloscopeDigital_WriteSetting(string channelName)
-        {
-
         }
 
         public void Oscilloscope_WriteSetting()
         {
+            OscilloscopeTiming_WriteSetting(OscilloscopeAnalogChannel1);
+            OscilloscopeAnalog_WriteSetting(OscilloscopeAnalogChannel1Name);
+            OscilloscopeAnalog_WriteSetting(OscilloscopeAnalogChannel2Name);
 
+            //Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
+            Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
+            Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
         }
-
-        public OscilloscopeChannel DSO_TriggerSource { get; set; } //= OscilloscopeAnalogChannel1;
-
-
-
-        public double AnalogSampleRate
-        {
-            get => OscilloscopeAnalogChannel1.SampleRate;
-            
-            set
-            {
-                OscilloscopeAnalogChannel1.SampleRate = value;
-                OscilloscopeAnalogChannel2.SampleRate = value;
-            }
-        }
-
-        public double DigitalSampleRate { get; set; } = 1e9;
 
         public void Oscilloscope_Run()
         {
@@ -136,13 +125,20 @@ namespace Xu.EE.VirtualBench
             OscilloscopeAnalogChannel2.Result = ch_2_data;
         }
 
-        public void ConfigTrigger()
+        public ITriggerSource DSO_TriggerSource { get; set; } //= OscilloscopeAnalogChannel1;
+
+        public double AnalogSampleRate
         {
-            Status = (NiVB_Status)NiMSO_ConfigureTiming(NiMSO_Handle, AnalogSampleRate, AcquisitionTime, PretriggerTime, 0);
-            if (DSO_TriggerSource is OscilloscopeAnalogChannel ch)
-                Status = (NiVB_Status)NiMSO_ConfigureAnalogEdgeTrigger(NiMSO_Handle, ch.Name, (uint)ch.TriggerEdge, ch.TriggerLevel, ch.TriggerHysteresis, 0);
+            get => OscilloscopeAnalogChannel1.SampleRate;
+
+            set
+            {
+                OscilloscopeAnalogChannel1.SampleRate = value;
+                OscilloscopeAnalogChannel2.SampleRate = value;
+            }
         }
 
+        public double DigitalSampleRate { get; set; } = 1e9;
 
         public double AcquisitionTime { get; set; } = 12e-6;
 
@@ -153,17 +149,7 @@ namespace Xu.EE.VirtualBench
 
         public void TestMSO()
         {
-            DSO_TriggerSource = OscilloscopeAnalogChannel1;
-
-            Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
-            Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
-
-            //Status = (NiVB_Status)NiMSO_ConfigureTiming(NiMSO_Handle, 500e6, 12e-6, 6e-6, 0);
-            //Status = (NiVB_Status)NiMSO_ConfigureAnalogEdgeTrigger(NiMSO_Handle, "mso/1", 0, 1, 0, 0);
-            ConfigTrigger();
-
-            Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
-
+            Oscilloscope_WriteSetting();
             Oscilloscope_Run();
             Oscilloscope_GetData();
 

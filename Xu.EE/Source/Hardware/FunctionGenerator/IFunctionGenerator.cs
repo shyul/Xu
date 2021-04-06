@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IFunctionGenerator : IHardwareResouce
+    public interface IFunctionGenerator : IHardwareDevice
     {
         Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels { get; }
 

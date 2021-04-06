@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IOscilloscope : IHardwareResouce
+    public interface IOscilloscope : IHardwareDevice
     {
         // Define Trigger Channel
 
@@ -15,7 +15,7 @@ namespace Xu.EE
         void OscilloscopeAnalog_WriteSetting(string channelName);
 
 
-        OscilloscopeChannel DSO_TriggerSource { get; set; }
+        ITriggerSource DSO_TriggerSource { get; set; }
 
         double AnalogSampleRate { get; set; }
 

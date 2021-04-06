@@ -15,8 +15,6 @@ namespace Xu.EE
 
         public override void WriteSetting() => Device.OscilloscopeAnalog_WriteSetting(Name);
 
-        public bool Enabled { get; set; } = true;
-
         public AnalogCoupling Coupling { get; } = AnalogCoupling.DC;
 
         public double VerticalRange { get; set; } = 10;

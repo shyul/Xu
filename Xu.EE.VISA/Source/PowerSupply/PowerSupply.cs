@@ -26,6 +26,11 @@ namespace Xu.EE.Visa
 
         }
 
+        public bool PowerSupply_Enabled(string channelName = "all")
+        {
+            return false;
+        }
+
         public void PowerSupply_WriteSetting(string channelName)
         {
 

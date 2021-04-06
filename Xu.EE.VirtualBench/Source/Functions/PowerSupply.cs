@@ -23,12 +23,20 @@ namespace Xu.EE.VirtualBench
 
         public void PowerSupply_ON(string channelName = "all")
         {
-            Status = (NiVB_Status)NiPS_EnableAllOutputs(NiPS_Handle, true);
+            if (channelName == "all")
+                Status = (NiVB_Status)NiPS_EnableAllOutputs(NiPS_Handle, true);
         }
 
         public void PowerSupply_OFF(string channelName = "all")
         {
-            Status = (NiVB_Status)NiPS_EnableAllOutputs(NiPS_Handle, false);
+            if (channelName == "all")
+                Status = (NiVB_Status)NiPS_EnableAllOutputs(NiPS_Handle, false);
+        }
+
+        public bool PowerSupply_Enabled(string _)
+        {
+            Status = (NiVB_Status)NiPS_QueryOutputsEnabled(NiPS_Handle, out bool enabled);
+            return enabled;
         }
 
         public void PowerSupply_WriteSetting(string channelName)
@@ -152,6 +160,11 @@ namespace Xu.EE.VirtualBench
         private static extern int NiPS_EnableAllOutputs(
             IntPtr instrumentHandle,
             bool enableOutputs);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_PS_QueryOutputsEnabled", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiPS_QueryOutputsEnabled(
+            IntPtr instrumentHandle,
+            out bool enableOutputs);
 
         #endregion DLL Export
     }

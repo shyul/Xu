@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public class MultimeterChannel : IChannel
+    public class MultimeterChannel : IAnalogPort
     {
         public MultimeterChannel(string channelName, IMultimeter dmm)
         {
@@ -16,12 +16,19 @@ namespace Xu.EE
 
         public string Name { get; }
 
+        public bool Enabled { get; set; } = true;
+
         public IMultimeter Device { get; }
 
         public MultimeterConfig Config { get; set; }
 
         public void WriteSetting() => Device.Multimeter_WriteSetting(Name);
 
-        public double ReadOutput() => Device.Multimeter_Read(Name);
+        public double Value
+        {
+            get => Device.Multimeter_Read(Name);
+
+            set { }
+        }
     }
 }

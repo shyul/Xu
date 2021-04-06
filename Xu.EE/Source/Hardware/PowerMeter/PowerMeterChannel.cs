@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public class PowerMeterChannel : IChannel
+    public class PowerMeterChannel : IPort
     {
         public string Name { get; }
+
+        public bool Enabled { get; set; } = true;
 
         public IPowerMeter Device { get; }
 

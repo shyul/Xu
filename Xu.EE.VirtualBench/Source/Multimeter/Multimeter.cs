@@ -4,21 +4,127 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Xu.EE.VirtualBench
 {
     public partial class NiVB
     {
+        public void TestConfigDMM()
+        {
+            var ch = MultimeterChannels[MultimeterChannelName];
+            var config = ch.Config = new MultimeterDcVoltageConfig();
+            config.IsAutoRange = true;
+            ch.WriteSetting();
+            ch.ReadSetting();
+        }
+
+        public void TestReadDMM()
+        {
+            var ch = MultimeterChannels[MultimeterChannelName];
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(ch.Value);
+                Thread.Sleep(100);
+            }
+        }
+
         public Dictionary<string, MultimeterChannel> MultimeterChannels { get; } = new();
 
-        public const string MultimeterChannelName = "dmm1";
+        public const string MultimeterChannelName = "dmm/1";
 
-        public NiVBMultimeterChannel MultimeterChannel => MultimeterChannels[MultimeterChannelName] as NiVBMultimeterChannel;
-
-
-        public void Multimeter_WriteSetting(string channelName) 
+        public void Multimeter_WriteSetting(string channelName)
         {
-        
+            var ch = MultimeterChannels[channelName];
+            var config = ch.Config;
+
+            if (config is not null)
+            {
+                uint function = config switch
+                {
+                    MultimeterDcVoltageConfig => 0,
+                    MultimeterAcVoltageConfig => 1,
+                    MultimeterDcCurrentConfig => 2,
+                    MultimeterAcCurrentConfig => 3,
+                    MultimeterResistanceConfig => 4,
+                    MultimeterDiodeConfig => 5,
+                    _ => throw new Exception("Unsupported function: " + config.GetType().FullName)
+                };
+
+                Status = (NiVB_Status)NiDMM_ConfigureMeasurement(NiDMM_Handle, function, config.IsAutoRange, config.Range);
+
+                switch (config)
+                {
+                    case MultimeterDcVoltageConfigNiVB cfg:
+                        Status = (NiVB_Status)NiDMM_ConfigureDCVoltage(NiDMM_Handle, (uint)cfg.InputResistance);
+                        break;
+
+                    case MultimeterDcCurrentConfigNiVB cfg:
+                        Status = (NiVB_Status)NiDMM_ConfigureDCCurrent(NiDMM_Handle, (uint)cfg.Terminal);
+                        break;
+
+                    case MultimeterAcCurrentConfigNiVB cfg:
+                        Status = (NiVB_Status)NiDMM_ConfigureACCurrent(NiDMM_Handle, (uint)cfg.Terminal);
+                        break;
+                }
+            }
+        }
+
+        public void Multimeter_ReadSetting(string channelName = MultimeterChannelName)
+        {
+            var ch = MultimeterChannels[channelName];
+            Status = (NiVB_Status)NiDMM_QueryMeasurement(NiDMM_Handle, out uint function, out bool isAutoRange, out double range);
+
+            switch (function) 
+            {
+                case 0:
+                    if (ch.Config is not MultimeterDcVoltageConfigNiVB)
+                    {
+                        ch.Config = new MultimeterDcVoltageConfigNiVB();
+                    }
+
+                    Status = (NiVB_Status)NiDMM_QueryDCVoltage(NiDMM_Handle, out uint inputResistance);
+                    (ch.Config as MultimeterDcVoltageConfigNiVB).InputResistance = inputResistance == 0 ? NiVB_DMM_InputResistance.Res_10MOhm : NiVB_DMM_InputResistance.Res_10GOhm;
+                    break;
+
+                case 1 when ch.Config is not MultimeterAcVoltageConfig:
+                    ch.Config = new MultimeterAcVoltageConfig();
+                    break;
+
+                case 2:
+                    if (ch.Config is not MultimeterDcCurrentConfigNiVB)
+                    {
+                        ch.Config = new MultimeterDcCurrentConfigNiVB();
+                    }
+
+                    Status = (NiVB_Status)NiDMM_QueryDCCurrent(NiDMM_Handle, out uint autoRangeTerminalDc);
+                    (ch.Config as MultimeterDcCurrentConfigNiVB).Terminal = autoRangeTerminalDc == 0 ? NiVB_DMM_CurrentTerminal.Low : NiVB_DMM_CurrentTerminal.High;
+                    break;
+
+                case 3:
+                    if (ch.Config is not MultimeterAcCurrentConfigNiVB)
+                    {
+                        ch.Config = new MultimeterAcCurrentConfigNiVB();
+                    }
+
+                    Status = (NiVB_Status)NiDMM_QueryACCurrent(NiDMM_Handle, out uint autoRangeTerminalAc);
+                    (ch.Config as MultimeterAcCurrentConfigNiVB).Terminal = autoRangeTerminalAc == 0 ? NiVB_DMM_CurrentTerminal.Low : NiVB_DMM_CurrentTerminal.High;
+                    break;
+
+
+                case 4 when ch.Config is not MultimeterResistanceConfig:
+                    ch.Config = new MultimeterResistanceConfig();
+                    break;
+
+                case 5 when ch.Config is not MultimeterDiodeConfig:
+                    ch.Config = new MultimeterDiodeConfig();
+                    break;
+
+                default: throw new Exception("Unknown Function: " + function);
+            }
+
+            ch.Config.IsAutoRange = isAutoRange;
+            ch.Config.Range = range;
         }
 
         public double Multimeter_Read(string channelName)
@@ -46,7 +152,6 @@ namespace Xu.EE.VirtualBench
         private static extern int NiDMM_Close(
             IntPtr instrumentHandle);
 
-
         [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_ConfigureMeasurement", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiDMM_ConfigureMeasurement(
             IntPtr instrumentHandle,
@@ -65,6 +170,36 @@ namespace Xu.EE.VirtualBench
         private static extern int NiDMM_Read(
             IntPtr instrumentHandle,
             out double measurement);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_ConfigureDCVoltage", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiDMM_ConfigureDCVoltage(
+            IntPtr instrumentHandle,
+            uint inputResistance);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_ConfigureDCCurrent", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiDMM_ConfigureDCCurrent(
+            IntPtr instrumentHandle,
+            uint autoRangeTerminal);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_ConfigureACCurrent", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiDMM_ConfigureACCurrent(
+            IntPtr instrumentHandle,
+            uint autoRangeTerminal);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_QueryDCVoltage", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiDMM_QueryDCVoltage(
+            IntPtr instrumentHandle,
+            out uint inputResistance);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_QueryDCCurrent", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiDMM_QueryDCCurrent(
+            IntPtr instrumentHandle,
+            out uint autoRangeTerminal);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_DMM_QueryACCurrent", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiDMM_QueryACCurrent(
+            IntPtr instrumentHandle,
+            out uint autoRangeTerminal);
 
         #endregion DLL Export
     }

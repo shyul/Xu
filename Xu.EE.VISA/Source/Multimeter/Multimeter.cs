@@ -21,6 +21,11 @@ namespace Xu.EE.Visa
 
         }
 
+        public void Multimeter_ReadSetting(string channelName)
+        {
+
+        }
+
         public double Multimeter_Read(string channelName)
         {
             return 0;

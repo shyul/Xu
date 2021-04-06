@@ -34,7 +34,7 @@ namespace Xu.EE.VirtualBench
 
 
             Status = (NiVB_Status)NiDMM_Initialize(Handle, ResouceName, true, out NiDMM_Handle);
-            MultimeterChannels[MultimeterChannelName] = new NiVBMultimeterChannel(MultimeterChannelName, this);
+            MultimeterChannels[MultimeterChannelName] = new MultimeterChannel(MultimeterChannelName, this);
 
 
             Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);

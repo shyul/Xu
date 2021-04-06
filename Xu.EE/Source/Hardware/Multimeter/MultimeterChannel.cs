@@ -24,6 +24,8 @@ namespace Xu.EE
 
         public void WriteSetting() => Device.Multimeter_WriteSetting(Name);
 
+        public void ReadSetting() => Device.Multimeter_ReadSetting(Name);
+
         public double Value
         {
             get => Device.Multimeter_Read(Name);

@@ -18,6 +18,11 @@ namespace Xu.EE
         bool Value { get; set; }
     }
 
+    public interface ISerialDataInput : IDigitalPort
+    {
+        List<bool> Data { get; }
+    }
+
     public interface IAnalogPort : IPort
     {
         double Value { get; set; }

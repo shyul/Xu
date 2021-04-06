@@ -57,6 +57,8 @@ namespace Xu.EE.TestApp
             this.BtnP6WriteSettings = new System.Windows.Forms.Button();
             this.BtnPowerTurnON = new System.Windows.Forms.Button();
             this.BtnPowerTurnOFF = new System.Windows.Forms.Button();
+            this.BtnTestDMMConfig = new System.Windows.Forms.Button();
+            this.BtnTestDMMRead = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -309,11 +311,33 @@ namespace Xu.EE.TestApp
             this.BtnPowerTurnOFF.UseVisualStyleBackColor = true;
             this.BtnPowerTurnOFF.Click += new System.EventHandler(this.BtnPowerTurnOFF_Click);
             // 
+            // BtnTestDMMConfig
+            // 
+            this.BtnTestDMMConfig.Location = new System.Drawing.Point(443, 245);
+            this.BtnTestDMMConfig.Name = "BtnTestDMMConfig";
+            this.BtnTestDMMConfig.Size = new System.Drawing.Size(115, 23);
+            this.BtnTestDMMConfig.TabIndex = 32;
+            this.BtnTestDMMConfig.Text = "Test DMM Config";
+            this.BtnTestDMMConfig.UseVisualStyleBackColor = true;
+            this.BtnTestDMMConfig.Click += new System.EventHandler(this.BtnTestDMMConfig_Click);
+            // 
+            // BtnTestDMMRead
+            // 
+            this.BtnTestDMMRead.Location = new System.Drawing.Point(443, 274);
+            this.BtnTestDMMRead.Name = "BtnTestDMMRead";
+            this.BtnTestDMMRead.Size = new System.Drawing.Size(115, 23);
+            this.BtnTestDMMRead.TabIndex = 33;
+            this.BtnTestDMMRead.Text = "Test DMM Read";
+            this.BtnTestDMMRead.UseVisualStyleBackColor = true;
+            this.BtnTestDMMRead.Click += new System.EventHandler(this.BtnTestDMMRead_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnTestDMMRead);
+            this.Controls.Add(this.BtnTestDMMConfig);
             this.Controls.Add(this.BtnPowerTurnOFF);
             this.Controls.Add(this.BtnPowerTurnON);
             this.Controls.Add(this.BtnP6WriteSettings);
@@ -379,6 +403,8 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnP6WriteSettings;
         private System.Windows.Forms.Button BtnPowerTurnON;
         private System.Windows.Forms.Button BtnPowerTurnOFF;
+        private System.Windows.Forms.Button BtnTestDMMConfig;
+        private System.Windows.Forms.Button BtnTestDMMRead;
     }
 }
 

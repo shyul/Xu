@@ -15,7 +15,7 @@ namespace Xu.EE
         void OscilloscopeAnalog_WriteSetting(string channelName);
 
 
-        ITriggerSource DSO_TriggerSource { get; set; }
+        ITriggerSource Oscilloscope_TriggerSource { get; set; }
 
         double AnalogSampleRate { get; set; }
 

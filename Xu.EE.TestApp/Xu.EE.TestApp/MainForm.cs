@@ -106,5 +106,15 @@ namespace Xu.EE.TestApp
             TextBoxP6Voltage.Text = ch.Voltage.ToString();
             TextBoxP6Current.Text = ch.Current.ToString();
         }
+
+        private void BtnTestDMMConfig_Click(object sender, EventArgs e)
+        {
+            NiVB.TestConfigDMM();
+        }
+
+        private void BtnTestDMMRead_Click(object sender, EventArgs e)
+        {
+            NiVB.TestReadDMM();
+        }
     }
 }

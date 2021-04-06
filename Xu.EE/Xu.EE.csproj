@@ -71,6 +71,7 @@
     <Compile Include="Source\Hardware\NetworkAnalyzer\INetworkAnalyzer.cs" />
     <Compile Include="Source\Hardware\NetworkAnalyzer\NetworkAnalyzerPort.cs" />
     <Compile Include="Source\Hardware\Oscilloscope\OscilloscopeChannel.cs" />
+    <Compile Include="Source\Hardware\Oscilloscope\OscilloscopeDigitalChannel.cs" />
     <Compile Include="Source\Hardware\PowerMeter\PowerMeterChannel.cs" />
     <Compile Include="Source\Hardware\SignalGenerator\ISignalGenerator.cs" />
     <Compile Include="Source\Hardware\SignalGenerator\SignalGeneratorChannel.cs" />

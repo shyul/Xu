@@ -29,6 +29,7 @@ namespace Xu.EE.TestApp
 
         private void BtnSetFGEN_Click(object sender, EventArgs e)
         {
+            /*
             var config = new FunctionGeneratorSquareWaveConfig();
             NiVB.FunctionGeneratorChannel.Config = config;
 
@@ -36,6 +37,8 @@ namespace Xu.EE.TestApp
             config.Amplitude = TextBoxAmplitude.Text.ToDouble(0);
             config.DutyCycle = TextBoxDutyCycle.Text.ToDouble(0);
             config.DcOffset = TextBoxDcOffset.Text.ToDouble(0);
+
+
             NiVB.FunctionGeneratorChannel.WriteSetting();
             NiVB.FunctionGeneratorChannel.ReadSetting();
 
@@ -43,8 +46,23 @@ namespace Xu.EE.TestApp
             TextBoxFrequency.Text = config.Frequency.ToString();
             TextBoxAmplitude.Text = config.Amplitude.ToString();
             TextBoxDutyCycle.Text = config.DutyCycle.ToString();
-            TextBoxDcOffset.Text = config.DcOffset.ToString();
+            TextBoxDcOffset.Text = config.DcOffset.ToString();*/
 
+            var config = new FunctionGeneratorArbitraryConfig();
+            config.Waveform = new List<double>() { 1, 5, -2, 6, -3 };
+            NiVB.FunctionGeneratorChannel.Config = config;
+
+            config.SampleRate = TextBoxFrequency.Text.ToDouble(0);
+            config.Gain = TextBoxAmplitude.Text.ToDouble(0);
+            config.DcOffset = TextBoxDcOffset.Text.ToDouble(0);
+
+            NiVB.FunctionGeneratorChannel.WriteSetting();
+            NiVB.FunctionGeneratorChannel.ReadSetting();
+
+            config = NiVB.FunctionGeneratorChannel.Config as FunctionGeneratorArbitraryConfig;
+            TextBoxFrequency.Text = config.SampleRate.ToString();
+            TextBoxAmplitude.Text = config.Gain.ToString();
+            TextBoxDcOffset.Text = config.DcOffset.ToString();
         }
 
         private void BtnFgenON_Click(object sender, EventArgs e)

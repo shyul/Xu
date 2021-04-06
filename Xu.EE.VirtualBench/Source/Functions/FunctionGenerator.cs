@@ -22,9 +22,18 @@ namespace Xu.EE.VirtualBench
             FunctionGeneratorChannel ch = FunctionGeneratorChannels[channelName];
             FunctionGeneratorConfig config = ch.Config;
 
-            if (config is FunctionGeneratorArbitraryConfig arb)
+            if (config is FunctionGeneratorArbitraryConfig cfgArb)
             {
+                Status = (NiVB_Status)NiFGEN_ConfigureArbitraryWaveform(
+                    NiFGEN_Handle,
+                    cfgArb.Waveform.ToArray(),
+                    (ulong)cfgArb.Waveform.Count,
+                    (1 / cfgArb.SampleRate));
 
+                Status = (NiVB_Status)NiFGEN_ConfigureArbitraryWaveformGainAndOffset(
+                    NiFGEN_Handle,
+                    cfgArb.Gain,
+                    cfgArb.DcOffset);
             }
             else
             {
@@ -144,11 +153,25 @@ namespace Xu.EE.VirtualBench
             }
             else if (waveformMode == 1)
             {
+                if (ch.Config is not FunctionGeneratorArbitraryConfig)
+                {
+                    ch.Config = new FunctionGeneratorArbitraryConfig();
+                }
+                Status = (NiVB_Status)NiFGEN_QueryArbitraryWaveform(
+                    NiFGEN_Handle,
+                    out double sampleRate);
 
+                Status = (NiVB_Status)NiFGEN_QueryArbitraryWaveformGainAndOffset(
+                    NiFGEN_Handle,
+                    out double gain,
+                    out double dcOffset);
 
+                var config5 = ch.Config as FunctionGeneratorArbitraryConfig;
+
+                config5.SampleRate = sampleRate;
+                config5.Gain = gain;
+                config5.DcOffset = dcOffset;
             }
-
-
         }
 
         public void FunctionGenerator_ON(string channelName = FunctionGeneratorChannelName)

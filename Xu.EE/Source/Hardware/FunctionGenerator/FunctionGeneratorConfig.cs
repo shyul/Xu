@@ -11,13 +11,13 @@ namespace Xu.EE
         public double DcOffset { get; set; } = 0;
     }
 
-    public abstract class FunctionGeneratorArbitraryConfig : FunctionGeneratorConfig
+    public class FunctionGeneratorArbitraryConfig : FunctionGeneratorConfig
     {
         public double Gain { get; set; } = 1;
 
         public double SampleRate { get; set; } = 100e6;
 
-        public List<double> WaveForm { get; set; }
+        public List<double> Waveform { get; set; }
     }
 
     public class FunctionGeneratorDcConfig : FunctionGeneratorConfig

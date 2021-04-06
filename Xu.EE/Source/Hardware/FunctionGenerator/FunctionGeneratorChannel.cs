@@ -35,9 +35,15 @@ namespace Xu.EE
 
         public IFunctionGenerator Device { get; }
 
+        public FunctionGeneratorConfig Config { get; set; }
+
         public void WriteSetting() => Device.FunctionGenerator_WriteSetting(Name);
 
+        public void ReadSetting() => Device.FunctionGenerator_ReadSetting(Name);
 
+
+
+        /*
         public WaveFormType WaveFormType { get; set; } = WaveFormType.Triangle;
 
         public double Amplitude { get; set; }
@@ -48,16 +54,10 @@ namespace Xu.EE
 
         public double DutyCycle { get; set; }
 
-
-
-
-
         public bool IsArbitrary { get; set; } = false;
 
         public double ArbitrarySampleRate { get; set; }
 
-        public IEnumerable<double> ArbitraryWaveForm { get; set; }
-
-
+        public IEnumerable<double> ArbitraryWaveForm { get; set; }*/
     }
 }

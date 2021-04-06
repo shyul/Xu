@@ -66,6 +66,7 @@
     <Compile Include="Source\Hardware\DigitalControl\Pins\InputPin.cs" />
     <Compile Include="Source\Hardware\DigitalControl\Pins\ParallelPort.cs" />
     <Compile Include="Source\Hardware\FunctionGenerator\FunctionGeneratorChannel.cs" />
+    <Compile Include="Source\Hardware\FunctionGenerator\FunctionGeneratorConfig.cs" />
     <Compile Include="Source\Hardware\Multimeter\MultimeterChannel.cs" />
     <Compile Include="Source\Hardware\Multimeter\MultimeterConfig.cs" />
     <Compile Include="Source\Hardware\NetworkAnalyzer\INetworkAnalyzer.cs" />

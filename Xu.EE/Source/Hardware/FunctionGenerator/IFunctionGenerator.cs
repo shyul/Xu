@@ -12,6 +12,8 @@ namespace Xu.EE
 
         void FunctionGenerator_WriteSetting(string channelName);
 
+        void FunctionGenerator_ReadSetting(string channelName);
+
         void FunctionGenerator_ON(string channelName);
 
         void FunctionGenerator_OFF(string channelName);

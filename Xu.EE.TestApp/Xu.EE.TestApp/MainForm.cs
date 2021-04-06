@@ -29,11 +29,22 @@ namespace Xu.EE.TestApp
 
         private void BtnSetFGEN_Click(object sender, EventArgs e)
         {
-            NiVB.FunctionGeneratorChannel.Frequency = TextBoxFrequency.Text.ToDouble(0);
-            NiVB.FunctionGeneratorChannel.Amplitude = TextBoxAmplitude.Text.ToDouble(0);
-            NiVB.FunctionGeneratorChannel.DutyCycle = TextBoxDutyCycle.Text.ToDouble(0);
-            NiVB.FunctionGeneratorChannel.DcOffset = TextBoxDcOffset.Text.ToDouble(0);
+            var config = new FunctionGeneratorSquareWaveConfig();
+            NiVB.FunctionGeneratorChannel.Config = config;
+
+            config.Frequency = TextBoxFrequency.Text.ToDouble(0);
+            config.Amplitude = TextBoxAmplitude.Text.ToDouble(0);
+            config.DutyCycle = TextBoxDutyCycle.Text.ToDouble(0);
+            config.DcOffset = TextBoxDcOffset.Text.ToDouble(0);
             NiVB.FunctionGeneratorChannel.WriteSetting();
+            NiVB.FunctionGeneratorChannel.ReadSetting();
+
+            config = NiVB.FunctionGeneratorChannel.Config as FunctionGeneratorSquareWaveConfig;
+            TextBoxFrequency.Text = config.Frequency.ToString();
+            TextBoxAmplitude.Text = config.Amplitude.ToString();
+            TextBoxDutyCycle.Text = config.DutyCycle.ToString();
+            TextBoxDcOffset.Text = config.DcOffset.ToString();
+
         }
 
         private void BtnFgenON_Click(object sender, EventArgs e)

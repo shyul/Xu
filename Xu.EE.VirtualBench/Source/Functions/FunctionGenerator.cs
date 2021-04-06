@@ -19,32 +19,136 @@ namespace Xu.EE.VirtualBench
 
         public void FunctionGenerator_WriteSetting(string channelName)
         {
-            FunctionGeneratorChannel fgch = FunctionGeneratorChannels[channelName];
+            FunctionGeneratorChannel ch = FunctionGeneratorChannels[channelName];
+            FunctionGeneratorConfig config = ch.Config;
 
-            if (fgch.IsArbitrary)
+            if (config is FunctionGeneratorArbitraryConfig arb)
             {
-
 
             }
             else
             {
-                Console.WriteLine("Frequency = " + fgch.Frequency + " | DutyCycle = " + fgch.DutyCycle + " | Amplitude = " + fgch.Amplitude + " | DcOffset = " + fgch.DcOffset);
-
-                uint waveform = FunctionGeneratorChannels[channelName].WaveFormType switch
+                switch (config)
                 {
-                    WaveFormType.Sine => 0,
-                    WaveFormType.Square => 1,
-                    WaveFormType.Triangle => 2,
-                    WaveFormType.DC => 3,
-                    _ => throw new Exception("Unsupported WaveFormType: " + fgch.WaveFormType),
-                };
+                    case FunctionGeneratorTriangleWaveConfig cfg:
+                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                            NiFGEN_Handle, 2,
+                            cfg.Amplitude,
+                            cfg.DcOffset,
+                            cfg.Frequency,
+                            cfg.DutyCycle);
+                        break;
 
-                Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(NiFGEN_Handle, waveform,
-                    fgch.Amplitude,
-                    fgch.DcOffset,
-                    fgch.Frequency,
-                    fgch.DutyCycle);
+                    case FunctionGeneratorSquareWaveConfig cfg:
+                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                            NiFGEN_Handle, 1,
+                            cfg.Amplitude,
+                            cfg.DcOffset,
+                            cfg.Frequency,
+                            cfg.DutyCycle);
+                        break;
+
+                    case FunctionGeneratorSineWaveConfig cfg:
+                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                            NiFGEN_Handle, 0,
+                            cfg.Amplitude,
+                            cfg.DcOffset,
+                            cfg.Frequency,
+                            50);
+                        break;
+
+                    case FunctionGeneratorDcConfig cfg:
+                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                            NiFGEN_Handle, 3,
+                            1,
+                            cfg.DcOffset,
+                            0,
+                            50);
+                        break;
+
+                    default: throw new Exception("Unsupported WaveFormType: " + config.GetType().FullName);
+                }
+
+                //Console.WriteLine("Frequency = " + fgch.Frequency + " | DutyCycle = " + fgch.DutyCycle + " | Amplitude = " + fgch.Amplitude + " | DcOffset = " + fgch.DcOffset);
             }
+        }
+
+        public void FunctionGenerator_ReadSetting(string channelName)
+        {
+            FunctionGeneratorChannel ch = FunctionGeneratorChannels[channelName];
+
+            Status = (NiVB_Status)NiFGEN_QueryWaveformMode(
+                NiFGEN_Handle,
+                out uint waveformMode);
+
+            if (waveformMode == 0)
+            {
+                Status = (NiVB_Status)NiFGEN_QueryStandardWaveform(
+                    NiFGEN_Handle,
+                    out uint function,
+                    out double amplitude,
+                    out double dcOffset,
+                    out double frequency,
+                    out double dutyCycle);
+
+                switch (function)
+                {
+                    case 0:
+                        if (ch.Config is not FunctionGeneratorSineWaveConfig)
+                        {
+                            ch.Config = new FunctionGeneratorSineWaveConfig();
+                        }
+
+                        var config0 = ch.Config as FunctionGeneratorSineWaveConfig;
+                        config0.Amplitude = amplitude;
+                        config0.DcOffset = dcOffset;
+                        config0.Frequency = frequency;
+                        break;
+
+                    case 1:
+                        if (ch.Config is not FunctionGeneratorSquareWaveConfig)
+                        {
+                            ch.Config = new FunctionGeneratorSquareWaveConfig();
+                        }
+                        var config1 = ch.Config as FunctionGeneratorSquareWaveConfig;
+                        config1.Amplitude = amplitude;
+                        config1.DcOffset = dcOffset;
+                        config1.Frequency = frequency;
+                        config1.DutyCycle = dutyCycle;
+                        break;
+
+                    case 2:
+                        if (ch.Config is not FunctionGeneratorTriangleWaveConfig)
+                        {
+                            ch.Config = new FunctionGeneratorTriangleWaveConfig();
+                        }
+                        var config2 = ch.Config as FunctionGeneratorTriangleWaveConfig;
+                        config2.Amplitude = amplitude;
+                        config2.DcOffset = dcOffset;
+                        config2.Frequency = frequency;
+                        config2.DutyCycle = dutyCycle;
+                        break;
+
+                    case 3:
+                        if (ch.Config is not FunctionGeneratorDcConfig)
+                        {
+                            ch.Config = new FunctionGeneratorDcConfig();
+                        }
+
+                        var config3 = ch.Config as FunctionGeneratorDcConfig;
+                        config3.DcOffset = dcOffset;
+                        break;
+
+                    default: throw new Exception("Unknown Function: " + function);
+                }
+            }
+            else if (waveformMode == 1)
+            {
+
+
+            }
+
+
         }
 
         public void FunctionGenerator_ON(string channelName = FunctionGeneratorChannelName)
@@ -57,10 +161,6 @@ namespace Xu.EE.VirtualBench
             Status = (NiVB_Status)NiFGEN_Stop(NiFGEN_Handle);
         }
 
-
-
-
-
         #region DLL Export
 
         private IntPtr NiFGEN_Handle;
@@ -71,7 +171,6 @@ namespace Xu.EE.VirtualBench
             [MarshalAs(UnmanagedType.LPStr)] string deviceName,
             bool reset,
             out IntPtr instrumentHandle);
-
 
 
         [DllImport(DLL_NAME, EntryPoint = "niVB_FGEN_Close", CallingConvention = CallingConvention.Cdecl)]

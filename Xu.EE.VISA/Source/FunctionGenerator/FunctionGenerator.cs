@@ -20,22 +20,27 @@ namespace Xu.EE.Visa
 
         public void FunctionGenerator_OFF(string channelName)
         {
-            throw new NotImplementedException();
+
         }
 
         public void FunctionGenerator_ON(string channelName)
         {
-            throw new NotImplementedException();
+
         }
 
         public void FunctionGenerator_WriteSetting(string channelName)
         {
-            throw new NotImplementedException();
+
+        }
+
+        public void FunctionGenerator_ReadSetting(string channelName)
+        {
+
         }
 
         public void Open()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

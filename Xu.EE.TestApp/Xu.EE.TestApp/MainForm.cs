@@ -49,7 +49,7 @@ namespace Xu.EE.TestApp
             TextBoxDcOffset.Text = config.DcOffset.ToString();*/
 
             var config = new FunctionGeneratorArbitraryConfig();
-            config.Waveform = new List<double>() { 1, 5, -2, 6, -3 };
+            config.Waveform = new List<double>() { -1, 2, -2, 4, -3, 6, -4, 8, -5, 8, -4, 6, -3, 4, -2, 2, -1 };
             NiVB.FunctionGeneratorChannel.Config = config;
 
             config.SampleRate = TextBoxFrequency.Text.ToDouble(0);

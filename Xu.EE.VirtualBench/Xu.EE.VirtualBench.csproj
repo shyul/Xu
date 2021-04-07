@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Source\Functions\DigitalControl.cs" />
     <Compile Include="Source\Multimeter\MultimeterConfig.cs" />
-    <Compile Include="Source\Oscilloscope\NiVBOscilloscopeAnalogChannel.cs" />
     <Compile Include="Source\Oscilloscope\Oscilloscope.cs" />
     <Compile Include="Source\Functions\PowerSupply.cs" />
     <Compile Include="Source\Initialize.cs" />

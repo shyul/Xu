@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xu.EE.VirtualBench;
+using Xu.EE.Visa;
 
 namespace Xu.EE.TestApp
 {
     public partial class MainForm : Form
     {
         private NiVB NiVB { get; set; }// = new NiVB("VB8012-309528E");
-
+        private Oscilloscope MSOX { get; set; }
+             
         public MainForm()
         {
             InitializeComponent();
@@ -25,6 +27,12 @@ namespace Xu.EE.TestApp
             NiVB = new NiVB(TextBoxResouceName.Text);
             NiVB.Open();
             NiVB.GetCalibrationInfo();
+        }
+
+        private void BtnConnectMSO_Click(object sender, EventArgs e)
+        {
+            MSOX = new Oscilloscope(TextBoxKeySight.Text);
+            MSOX.Open();
         }
 
         private void BtnSetFGEN_Click(object sender, EventArgs e)
@@ -148,5 +156,7 @@ namespace Xu.EE.TestApp
         {
             NiVB.TestReadDMM();
         }
+
+
     }
 }

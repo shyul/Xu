@@ -72,7 +72,7 @@
   <ItemGroup>
     <Compile Include="Source\FunctionGenerator\FunctionGenerator.cs" />
     <Compile Include="Source\Multimeter\Multimeter.cs" />
-    <Compile Include="Source\Oscilloscope\MSOX\MSOX.cs" />
+    <Compile Include="Source\Oscilloscope\Infiniium.cs" />
     <Compile Include="Source\Oscilloscope\Oscilloscope.cs" />
     <Compile Include="Source\PowerSupply\PowerSupply.cs" />
     <Compile Include="Source\PowerSupply\Vendor\VersatilePower.cs" />

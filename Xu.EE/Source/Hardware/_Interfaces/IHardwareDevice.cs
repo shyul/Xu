@@ -12,6 +12,6 @@ namespace Xu.EE
 
         void Close();
 
-        string ResouceName { get; }
+        string ResourceName { get; }
     }
 }

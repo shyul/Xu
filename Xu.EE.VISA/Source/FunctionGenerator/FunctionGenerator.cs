@@ -16,7 +16,7 @@ namespace Xu.EE.Visa
 
         public Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels => throw new NotImplementedException();
 
-        public string ResouceName => throw new NotImplementedException();
+        public string ResourceName => throw new NotImplementedException();
 
         public void FunctionGenerator_OFF(string channelName)
         {

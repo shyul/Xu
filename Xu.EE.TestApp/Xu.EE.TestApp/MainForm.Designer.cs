@@ -59,6 +59,10 @@ namespace Xu.EE.TestApp
             this.BtnPowerTurnOFF = new System.Windows.Forms.Button();
             this.BtnTestDMMConfig = new System.Windows.Forms.Button();
             this.BtnTestDMMRead = new System.Windows.Forms.Button();
+            this.TextBoxKeySight = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.BtnConnectMSO = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -331,11 +335,51 @@ namespace Xu.EE.TestApp
             this.BtnTestDMMRead.UseVisualStyleBackColor = true;
             this.BtnTestDMMRead.Click += new System.EventHandler(this.BtnTestDMMRead_Click);
             // 
+            // TextBoxKeySight
+            // 
+            this.TextBoxKeySight.Location = new System.Drawing.Point(130, 64);
+            this.TextBoxKeySight.Name = "TextBoxKeySight";
+            this.TextBoxKeySight.Size = new System.Drawing.Size(236, 20);
+            this.TextBoxKeySight.TabIndex = 34;
+            this.TextBoxKeySight.Text = "USB0::0x0957::0x1799::MY54490786::INSTR";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(16, 94);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 35;
+            this.label6.Text = "VirtualBench Address";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 67);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(117, 13);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "KeySight MSO Address";
+            // 
+            // BtnConnectMSO
+            // 
+            this.BtnConnectMSO.Location = new System.Drawing.Point(372, 62);
+            this.BtnConnectMSO.Name = "BtnConnectMSO";
+            this.BtnConnectMSO.Size = new System.Drawing.Size(75, 23);
+            this.BtnConnectMSO.TabIndex = 37;
+            this.BtnConnectMSO.Text = "Connect";
+            this.BtnConnectMSO.UseVisualStyleBackColor = true;
+            this.BtnConnectMSO.Click += new System.EventHandler(this.BtnConnectMSO_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnConnectMSO);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.TextBoxKeySight);
             this.Controls.Add(this.BtnTestDMMRead);
             this.Controls.Add(this.BtnTestDMMConfig);
             this.Controls.Add(this.BtnPowerTurnOFF);
@@ -405,6 +449,10 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnPowerTurnOFF;
         private System.Windows.Forms.Button BtnTestDMMConfig;
         private System.Windows.Forms.Button BtnTestDMMRead;
+        private System.Windows.Forms.TextBox TextBoxKeySight;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button BtnConnectMSO;
     }
 }
 

@@ -12,6 +12,7 @@ namespace Xu.EE.Visa
     {
         public SpectrumAnalyzer(string resourceName) : base(resourceName)
         {
+            Open();
             Reset();
 
             if (!Model.Contains("FSQ")) throw new Exception("Not an FSQ!");

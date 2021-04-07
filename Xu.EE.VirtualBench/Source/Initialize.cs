@@ -17,14 +17,14 @@ namespace Xu.EE.VirtualBench
     {
         public NiVB(string resourceName)
         {
-            ResouceName = resourceName;
+            ResourceName = resourceName;
         }
 
         ~NiVB() => Dispose();
 
         public void Dispose() => Close();
 
-        public string ResouceName { get; private set; }
+        public string ResourceName { get; private set; }
 
         public void Open()
         {
@@ -32,18 +32,18 @@ namespace Xu.EE.VirtualBench
 
 
 
-            Status = (NiVB_Status)NiDMM_Initialize(Handle, ResouceName, true, out NiDMM_Handle);
+            Status = (NiVB_Status)NiDMM_Initialize(Handle, ResourceName, true, out NiDMM_Handle);
             MultimeterChannels[MultimeterChannelName] = new MultimeterChannel(MultimeterChannelName, this);
 
 
-            Status = (NiVB_Status)NiMSO_Initialize(Handle, ResouceName, true, out NiMSO_Handle);
-            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name] = new NiVBOscilloscopeAnalogChannel(OscilloscopeAnalogChannel1Name, this);
-            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name] = new NiVBOscilloscopeAnalogChannel(OscilloscopeAnalogChannel2Name, this);
+            Status = (NiVB_Status)NiMSO_Initialize(Handle, ResourceName, true, out NiMSO_Handle);
+            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name] = new OscilloscopeAnalogChannel(OscilloscopeAnalogChannel1Name, this);
+            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name] = new OscilloscopeAnalogChannel(OscilloscopeAnalogChannel2Name, this);
 
-            Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResouceName, true, out NiFGEN_Handle);
+            Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResourceName, true, out NiFGEN_Handle);
             FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(FunctionGeneratorChannelName, this);
 
-            Status = (NiVB_Status)NiPS_Initialize(Handle, ResouceName, true, out NiPS_Handle);
+            Status = (NiVB_Status)NiPS_Initialize(Handle, ResourceName, true, out NiPS_Handle);
             PowerSupplyChannels[PowerSupplyP6VName] = new PowerSupplyChannel(PowerSupplyP6VName, this, new Range<double>(0, 6), new Range<double>(0, 1));
             PowerSupplyChannels[PowerSupplyP25VName] = new PowerSupplyChannel(PowerSupplyP25VName, this, new Range<double>(0, 25), new Range<double>(0, 0.5));
             PowerSupplyChannels[PowerSupplyN25VName] = new PowerSupplyChannel(PowerSupplyN25VName, this, new Range<double>(-25, 0), new Range<double>(0, 0.5));
@@ -82,7 +82,7 @@ namespace Xu.EE.VirtualBench
             Timestamp calibrationDate = new();
             int recommendedCalibrationInterval = 0;
             int calibrationInterval = 0;
-            Status = (NiVB_Status)Cal_GetCalibrationInformation(Handle, ResouceName, ref calibrationDate, ref recommendedCalibrationInterval, ref calibrationInterval);
+            Status = (NiVB_Status)Cal_GetCalibrationInformation(Handle, ResourceName, ref calibrationDate, ref recommendedCalibrationInterval, ref calibrationInterval);
 
             long epoch = 0;
             double seconeds = 0;

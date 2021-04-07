@@ -14,7 +14,9 @@ namespace Xu.EE.Visa
     public abstract class ViClient : IDisposable, IEquatable<ViClient>
     {
         public ViClient(string resourceName)
-            => Open(resourceName);
+        {
+            ResourceName = resourceName;
+        }
 
         public virtual void Dispose() => Session?.Dispose();
 
@@ -30,19 +32,16 @@ namespace Xu.EE.Visa
 
         public string DeviceVersion { get; private set; } = "Unknown";
 
-        protected void Open(string resourceName)
+        public virtual void Open()
         {
             try
             {
-                ResourceName = resourceName;
-
                 using var rm = new ResourceManager();
                 Session = rm.Open(ResourceName) as MessageBasedSession;
 
                 //Reset();
                 ClearStatus();
                 while (!IsReady) { Thread.Sleep(200); }
-
 
                 string[] result = Query("*IDN?\n").Split(',');
                 if (result.Length > 3)
@@ -61,7 +60,7 @@ namespace Xu.EE.Visa
             catch (Exception exp)
             {
                 Session = null;
-                Console.WriteLine("Opening: " + resourceName + " | " + exp.Message);
+                Console.WriteLine("Opening: " + ResourceName + " | " + exp.Message);
             }
             finally
             {
@@ -69,7 +68,7 @@ namespace Xu.EE.Visa
             }
         }
 
-        public void Close() => Session.Dispose();
+        public virtual void Close() => Session.Dispose();
 
         public void Write(string cmd)
         {

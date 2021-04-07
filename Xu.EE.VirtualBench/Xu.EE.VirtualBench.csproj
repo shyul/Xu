@@ -62,9 +62,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Functions\DigtialIO.cs" />
+    <Compile Include="Source\Functions\Digtial_GPIO.cs" />
+    <Compile Include="Source\Functions\Digtial_I2C.cs" />
     <Compile Include="Source\Functions\Oscilloscope.cs" />
     <Compile Include="Source\Functions\PowerSupply.cs" />
+    <Compile Include="Source\Functions\Digtial_SPI.cs" />
     <Compile Include="Source\Initialize.cs" />
     <Compile Include="Source\Functions\FunctionGenerator.cs" />
     <Compile Include="Source\Functions\Multimeter.cs" />

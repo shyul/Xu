@@ -20,6 +20,10 @@ namespace Xu.EE
 
         public IMultimeter Device { get; }
 
+        public Range<double> Range => new(0, 10);
+
+        public bool IsAutoRange { get; set; } = true;
+
         public MultimeterConfig Config { get; set; }
 
         public void WriteSetting() => Device.Multimeter_WriteSetting(Name);

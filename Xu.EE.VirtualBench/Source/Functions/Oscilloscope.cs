@@ -102,8 +102,11 @@ namespace Xu.EE.VirtualBench
             OscilloscopeAnalog_WriteSetting(OscilloscopeAnalogChannel1Name);
             OscilloscopeAnalog_WriteSetting(OscilloscopeAnalogChannel2Name);
             
-            Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
-            Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
+            //Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
+            Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31", true);
+            //Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
+            Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 0, 1e9, 0, 2.0);
+
         }
 
         public void Oscilloscope_Autosetup() 
@@ -137,7 +140,7 @@ namespace Xu.EE.VirtualBench
 
             double[] analogData = new double[analogDataSize];
             ulong[] digitalData = new ulong[digitalDataSize];
-            Timestamp[] digitalSampleTimestamps = new Timestamp[digitalTimestampsSize];
+            uint[] digitalSampleTimestamps = new uint[digitalTimestampsSize];
 
             Status = (NiVB_Status)NiMSO_ReadAnalogDigitalU64(
                 NiMSO_Handle,
@@ -163,14 +166,18 @@ namespace Xu.EE.VirtualBench
 
             Console.WriteLine("triggerReason = " + triggerReason);
 
-            long epoch = 0;
-            double seconeds = 0;
-            ConvertTimestampToValues(analogT0, ref epoch, ref seconeds);
-            DateTime analogTime = TimeTool.FromEpoch(epoch).ToLocalTime();
-            Console.WriteLine("analogTime = " + analogTime);
+            Console.WriteLine("analog T0 = " + ConvertTimestampToValues(analogT0));
+            Console.WriteLine("digital T0 = " + ConvertTimestampToValues(digitalT0));
 
-            List<double> ch_1_data = new List<double>();
-            List<double> ch_2_data = new List<double>();
+            int j = 0;
+            foreach (var t0 in digitalSampleTimestamps) 
+            {
+                Console.WriteLine("Digital Sample [" + j + "] = " + t0 + " | " + digitalData[j]);
+                j++;
+            }
+
+            List<double> ch_1_data = new();
+            List<double> ch_2_data = new();
 
             for (int i = 0; i < analogData.Length; i++)
             {
@@ -182,6 +189,15 @@ namespace Xu.EE.VirtualBench
 
             OscilloscopeAnalogChannel1.Samples = ch_1_data;
             OscilloscopeAnalogChannel2.Samples = ch_2_data;
+        }
+
+        public DateTime ConvertTimestampToValues(Timestamp t0) 
+        {
+            ConvertTimestampToValues(t0, out long epoch, out double seconds);
+            Console.WriteLine("epoch = " + epoch + " | seconds = " + seconds);
+            DateTime t = TimeTool.FromEpoch(epoch).ToLocalTime();
+            t.AddMilliseconds(seconds * 1000);
+            return t;
         }
 
         public double AnalogSampleRate
@@ -210,11 +226,11 @@ namespace Xu.EE.VirtualBench
             Console.WriteLine("Bandwidth Limit = " + OscilloscopeAnalogChannel1.BandWidthLimit);
             Oscilloscope_Run();
             Oscilloscope_GetData();
-
+            /*
             foreach (double v in OscilloscopeAnalogChannel1.Samples)
             {
                 Console.Write(v.ToString("0.##") + ", ");
-            }
+            }*/
         }
 
         #region DLL Export
@@ -331,6 +347,12 @@ namespace Xu.EE.VirtualBench
         private static extern int NiMSO_Run(
             IntPtr instrumentHandle);
 
+        /*
+         * Transfers data from the instrument as long as the acquisition state is 
+         * Acquisition Complete. If the state is either Running or Triggered, this 
+         * method will wait until the state transitions to Acquisition Complete. If 
+         * the state is Stopped, this method returns an error.
+         */
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ReadAnalogDigitalU64", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiMSO_ReadAnalogDigitalU64(
             IntPtr instrumentHandle,
@@ -342,7 +364,7 @@ namespace Xu.EE.VirtualBench
             ulong[] digitalData,
             ulong digitalDataSize,
             out ulong digitalDataSizeOut,
-            Timestamp[] digitalSampleTimestamps,
+            uint[] digitalSampleTimestamps,
             ulong digitalSampleTimestampsSize,
             out ulong digitalSampleTimestampsSizeOut,
             out Timestamp digitalInitialTimestamp,

@@ -8,13 +8,40 @@ using System.Threading;
 
 namespace Xu.EE.VirtualBench
 {
+    public enum NiVB_DMM_InputResistance : uint
+    {
+        Res_10MOhm = 0,
+        Res_10GOhm = 1,
+    }
+
+    public enum NiVB_DMM_CurrentTerminal : uint
+    {
+        Low = 0,
+        High = 1,
+    }
+
+    public class MultimeterDcVoltageConfigNiVB : MultimeterDcVoltageConfig
+    {
+        public NiVB_DMM_InputResistance InputResistance { get; set; } = NiVB_DMM_InputResistance.Res_10MOhm;
+    }
+
+    public class MultimeterDcCurrentConfigNiVB : MultimeterDcCurrentConfig
+    {
+        public NiVB_DMM_CurrentTerminal Terminal { get; set; } = NiVB_DMM_CurrentTerminal.Low;
+    }
+
+    public class MultimeterAcCurrentConfigNiVB : MultimeterAcCurrentConfig
+    {
+        public NiVB_DMM_CurrentTerminal Terminal { get; set; } = NiVB_DMM_CurrentTerminal.Low;
+    }
+
     public partial class NiVB
     {
         public void TestConfigDMM()
         {
             var ch = MultimeterChannels[MultimeterChannelName];
             var config = ch.Config = new MultimeterDcVoltageConfig();
-            config.IsAutoRange = true;
+            ch.IsAutoRange = true;
             ch.WriteSetting();
             ch.ReadSetting();
         }
@@ -51,7 +78,7 @@ namespace Xu.EE.VirtualBench
                     _ => throw new Exception("Unsupported function: " + config.GetType().FullName)
                 };
 
-                Status = (NiVB_Status)NiDMM_ConfigureMeasurement(NiDMM_Handle, function, config.IsAutoRange, config.Range);
+                Status = (NiVB_Status)NiDMM_ConfigureMeasurement(NiDMM_Handle, function, ch.IsAutoRange, ch.Range.Maximum);
 
                 switch (config)
                 {
@@ -123,8 +150,8 @@ namespace Xu.EE.VirtualBench
                 default: throw new Exception("Unknown Function: " + function);
             }
 
-            ch.Config.IsAutoRange = isAutoRange;
-            ch.Config.Range = range;
+            ch.IsAutoRange = isAutoRange;
+            ch.Range.Set(0, range);
         }
 
         public double Multimeter_Read(string channelName)

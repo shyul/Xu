@@ -8,9 +8,7 @@ namespace Xu.EE
 {
     public abstract class MultimeterConfig
     {
-        public bool IsAutoRange { get; set; } = true;
 
-        public double Range { get; set; } = 10;
     }
 
     public class MultimeterDcVoltageConfig : MultimeterConfig

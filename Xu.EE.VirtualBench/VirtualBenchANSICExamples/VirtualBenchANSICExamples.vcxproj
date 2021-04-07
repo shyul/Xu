@@ -141,8 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="VirtualBench ANSI C Examples\niVB_MSO_Simple_Example.c" />
-    <ClCompile Include="VirtualBenchANSICExamples.cpp" />
+    <ClCompile Include="VirtualBench ANSI C Examples\niVB_MSO_Example.c" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="nivirtualbench.lib" />

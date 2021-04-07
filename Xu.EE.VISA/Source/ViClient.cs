@@ -18,7 +18,10 @@ namespace Xu.EE.Visa
             ResourceName = resourceName;
         }
 
-        public virtual void Dispose() => Session?.Dispose();
+        public virtual void Dispose() 
+        {
+            Close();
+        }
 
         protected MessageBasedSession Session { get; set; }
 
@@ -64,11 +67,12 @@ namespace Xu.EE.Visa
             }
             finally
             {
+                Console.WriteLine("Connected: " + VendorName + " | " + Model + " | " + SerialNumber + " | " + DeviceVersion);
                 // Send message connection is established
             }
         }
 
-        public virtual void Close() => Session.Dispose();
+        public virtual void Close() => Session?.Dispose();
 
         public void Write(string cmd)
         {

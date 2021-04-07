@@ -15,10 +15,15 @@ namespace Xu.EE.Visa
             //Reset();
         }
 
+        ~Oscilloscope() 
+        {
+            Dispose();
+        }
+
         public override void Open()
         {
             base.Open();
-            Console.WriteLine(VendorName + " | " + Model + " | " + SerialNumber + " | " + DeviceVersion);
+     
         }
 
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();

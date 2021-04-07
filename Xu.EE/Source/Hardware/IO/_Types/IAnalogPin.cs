@@ -8,6 +8,8 @@ namespace Xu.EE
 {
     public interface IAnalogPin : IPort
     {
+        Range<double> Range { get; }
+
         double Value { get; set; }
     }
 }

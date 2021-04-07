@@ -180,8 +180,8 @@ namespace Xu.EE.VirtualBench
                     ch_2_data.Add(analogData[i]);
             }
 
-            OscilloscopeAnalogChannel1.Result = ch_1_data;
-            OscilloscopeAnalogChannel2.Result = ch_2_data;
+            OscilloscopeAnalogChannel1.Samples = ch_1_data;
+            OscilloscopeAnalogChannel2.Samples = ch_2_data;
         }
 
         public double AnalogSampleRate
@@ -211,7 +211,7 @@ namespace Xu.EE.VirtualBench
             Oscilloscope_Run();
             Oscilloscope_GetData();
 
-            foreach (double v in OscilloscopeAnalogChannel1.Result)
+            foreach (double v in OscilloscopeAnalogChannel1.Samples)
             {
                 Console.Write(v.ToString("0.##") + ", ");
             }

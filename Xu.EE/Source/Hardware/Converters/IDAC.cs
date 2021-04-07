@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface ITransmitter : IPort
+    public interface IDAC : IDataAcquisition, IDataConsumer
     {
-        void StartTransmit();
-
-        bool IsTransmitting { get; }
-
         double SampleRate { get; set; }
+
+        Range<double> Range { get; }
 
         List<double> Samples { get; set; }
     }

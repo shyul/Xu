@@ -89,9 +89,9 @@
     <Compile Include="Source\Hardware\Instruments\SpectrumAnalyzer\ISpectrumAnalyzer.cs" />
     <Compile Include="Source\Hardware\Instruments\Oscilloscope\OscilloscopeAnalogChannel.cs" />
     <Compile Include="Source\Hardware\Instruments\PowerSupply\PowerSupplyChannel.cs" />
-    <Compile Include="Source\Hardware\Converters\IReceiver.cs" />
+    <Compile Include="Source\Hardware\Converters\IADC.cs" />
     <Compile Include="Source\Hardware\IO\_Types\ISerialDataInput.cs" />
-    <Compile Include="Source\Hardware\Converters\ITransmitter.cs" />
+    <Compile Include="Source\Hardware\Converters\IDAC.cs" />
     <Compile Include="Source\Hardware\IO\_Types\ITriggerSource.cs" />
     <Compile Include="Source\Hardware\_Types\AnalogCoupling.cs" />
     <Compile Include="Source\Hardware\_Types\PowerSupplyMode.cs" />

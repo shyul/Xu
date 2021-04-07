@@ -9,11 +9,7 @@ using Xu.EE;
 
 namespace Xu.EE.VirtualBench
 {
-    public partial class NiVB :
-        IOscilloscope,
-        IFunctionGenerator,
-        IMultimeter,
-        IPowerSupply
+    public partial class NiVB
     {
         public NiVB(string resourceName)
         {

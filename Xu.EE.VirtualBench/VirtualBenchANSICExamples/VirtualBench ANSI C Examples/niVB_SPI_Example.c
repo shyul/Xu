@@ -67,7 +67,7 @@ int main(void)
    niVB_SPI_InstrumentHandle spiHandle = NULL;
 
    /* Channel Configuration */
-   const char *bus = "virtualbench/spi/0";
+   const char *bus = "VB8012-309528E/spi/0";
    const double clockRate = 10000000.0;
    const niVB_Polarity clockPolarity = niVB_Polarity_IdleLow;
    const niVB_ClockPhase clockPhase = niVB_ClockPhase_FirstEdge;
@@ -96,6 +96,7 @@ int main(void)
       size_t i = 0;
 
       for (i = 0; i < numTransactions; ++i)
+      //while(true)
       {
          niVB_ErrorCheck(niVB_SPI_WriteRead(spiHandle, dataToWrite, transactionSize, bytesPerFrame, dataRead, transactionSize));
 
@@ -108,6 +109,7 @@ int main(void)
          printf("Read: ");
          printDataArray(dataRead, transactionSize);
          printf("\n");
+         //i++;
       }
    }
 

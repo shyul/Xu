@@ -9,7 +9,7 @@ using Xu.EE;
 
 namespace Xu.EE.VirtualBench
 {
-    public partial class NiVB
+    public partial class NiVB : IPowerSupply
     {
         public Dictionary<string, PowerSupplyChannel> PowerSupplyChannels { get; } = new();
 

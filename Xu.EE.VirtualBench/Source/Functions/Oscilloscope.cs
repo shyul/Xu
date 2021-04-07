@@ -9,7 +9,7 @@ using Xu.EE;
 
 namespace Xu.EE.VirtualBench
 {
-    public partial class NiVB
+    public partial class NiVB : IOscilloscope
     {
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
 

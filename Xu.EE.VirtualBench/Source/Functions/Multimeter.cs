@@ -35,7 +35,7 @@ namespace Xu.EE.VirtualBench
         public NiVB_DMM_CurrentTerminal Terminal { get; set; } = NiVB_DMM_CurrentTerminal.Low;
     }
 
-    public partial class NiVB
+    public partial class NiVB : IMultimeter
     {
         public void TestConfigDMM()
         {
@@ -102,7 +102,7 @@ namespace Xu.EE.VirtualBench
             var ch = MultimeterChannels[channelName];
             Status = (NiVB_Status)NiDMM_QueryMeasurement(NiDMM_Handle, out uint function, out bool isAutoRange, out double range);
 
-            switch (function) 
+            switch (function)
             {
                 case 0:
                     if (ch.Config is not MultimeterDcVoltageConfigNiVB)

@@ -79,6 +79,8 @@
     <Compile Include="Source\Hardware\Instruments\SignalGenerator\ISignalGenerator.cs" />
     <Compile Include="Source\Hardware\Instruments\SignalGenerator\SignalGeneratorChannel.cs" />
     <Compile Include="Source\Hardware\Instruments\SpectrumAnalyzer\SpectrumAnalyzerChannel.cs" />
+    <Compile Include="Source\Hardware\IO\Serial\I2C.cs" />
+    <Compile Include="Source\Hardware\IO\Serial\ISpiMaster.cs" />
     <Compile Include="Source\Hardware\IO\_Types\IAnalogPin.cs" />
     <Compile Include="Source\Hardware\IO\_Types\IDigitalPin.cs" />
     <Compile Include="Source\Hardware\IO\_Types\IPort.cs" />

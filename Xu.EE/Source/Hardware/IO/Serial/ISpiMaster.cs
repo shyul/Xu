@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xu.EE.VirtualBench
+namespace Xu.EE
 {
-    public partial class NiVB
+    public interface ISpiMaster : IHardwareDevice
     {
-
     }
 }

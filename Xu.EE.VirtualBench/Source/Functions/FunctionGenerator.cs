@@ -9,7 +9,7 @@ using Xu.EE;
 
 namespace Xu.EE.VirtualBench
 {
-    public partial class NiVB
+    public partial class NiVB : IFunctionGenerator
     {
         public Dictionary<string, FunctionGeneratorChannel> FunctionGeneratorChannels { get; } = new();
 

@@ -49,7 +49,8 @@ namespace Xu.EE.TestApp
             TextBoxDcOffset.Text = config.DcOffset.ToString();*/
 
             var config = new FunctionGeneratorArbitraryConfig();
-            config.Waveform = new List<double>() { -1, 2, -2, 4, -3, 6, -4, 8, -5, 8, -4, 6, -3, 4, -2, 2, -1 };
+            //config.Waveform = new List<double>() { -1, 2, -2, 4, -3, 6, -4, 8, -5, 8, -4, 6, -3, 4, -2, 2, -1 };
+            config.Waveform = new List<double>() { 0, 0, 0, 0.8, -0.5, 1.25, -1.0, 1.5, -1.8, 1.1, -2.6, 1.1, -1.8, 1.5, -1.0, 1.25, -0.5, 0.8, 0, 0, 0 };
             NiVB.FunctionGeneratorChannel.Config = config;
 
             config.SampleRate = TextBoxFrequency.Text.ToDouble(0);
@@ -78,6 +79,8 @@ namespace Xu.EE.TestApp
         private void BtnTestMSO_Click(object sender, EventArgs e)
         {
             NiVB.TestMSO();
+
+
         }
 
         private void BtnP25WriteSettings_Click(object sender, EventArgs e)

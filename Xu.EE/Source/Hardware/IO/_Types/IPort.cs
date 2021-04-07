@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IDigitalControl
+    public interface IPort
     {
+        string Name { get; }
 
+        bool Enabled { get; }
     }
 }

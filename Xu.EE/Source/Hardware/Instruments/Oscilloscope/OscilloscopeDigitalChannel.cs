@@ -17,9 +17,11 @@ namespace Xu.EE
 
         public bool Value { get => Data is not null ? Data.Last() : false; set { } }
 
+        public double Threshold => throw new NotImplementedException();
+
         public override void WriteSetting()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public class MultimeterChannel : IAnalogPort
+    public class MultimeterChannel : IAnalogPin
     {
         public MultimeterChannel(string channelName, IMultimeter dmm)
         {

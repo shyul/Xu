@@ -15,7 +15,7 @@ namespace Xu.EE
 
         public override void WriteSetting() => Device.OscilloscopeAnalog_WriteSetting(Name);
 
-        public AnalogCoupling Coupling { get; } = AnalogCoupling.DC;
+        public AnalogCoupling Coupling { get; set; } = AnalogCoupling.DC;
 
         public double VerticalRange { get; set; } = 10;
 
@@ -29,7 +29,9 @@ namespace Xu.EE
 
         public virtual double SampleRate { get; set; } = 500e6;
 
+        public double InputImpedance { get; set; } = 1e6;
 
+        public double BandWidthLimit { get; set; } = 10e9;
 
 
         public List<double> Result { get; set; }

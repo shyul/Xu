@@ -13,8 +13,7 @@ namespace Xu.EE.VirtualBench
         IOscilloscope,
         IFunctionGenerator,
         IMultimeter,
-        IPowerSupply,
-        IDigitalControl
+        IPowerSupply
     {
         public NiVB(string resourceName)
         {

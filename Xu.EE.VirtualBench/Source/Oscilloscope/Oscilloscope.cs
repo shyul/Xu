@@ -13,11 +13,15 @@ namespace Xu.EE.VirtualBench
     {
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
 
+        //public Dictionary<string, >
+        
         public const string OscilloscopeAnalogChannel1Name = "mso/1";
         public const string OscilloscopeAnalogChannel2Name = "mso/2";
 
         public OscilloscopeAnalogChannel OscilloscopeAnalogChannel1 => OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name];
         public OscilloscopeAnalogChannel OscilloscopeAnalogChannel2 => OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name];
+
+
 
         public ITriggerSource Oscilloscope_TriggerSource
         {
@@ -50,6 +54,46 @@ namespace Xu.EE.VirtualBench
                 channel.VerticalOffset,
                 channel.ProbeAttenuation.ToUInt32(1),
                 (uint)(channel.Coupling == AnalogCoupling.DC ? 1 : 0));
+
+            if (channel.BandWidthLimit > 100e6) channel.BandWidthLimit = 100e6;
+            else if (channel.BandWidthLimit < 20e6) channel.BandWidthLimit = 20e6;
+
+            Status = (NiVB_Status)NiMSO_ConfigureAnalogChannelCharacteristics(
+                NiMSO_Handle,
+                channel.Name,
+                (uint)(channel.InputImpedance <= 50 ? 1 : 0),
+                channel.BandWidthLimit);
+
+            OscilloscopeAnalog_ReadSetting(channelName);
+        }
+
+        public void OscilloscopeAnalog_ReadSetting(string channelName)
+        {
+            var channel = OscilloscopeAnalogChannels[channelName];
+            
+            Status = (NiVB_Status)NiMSO_QueryAnalogChannel(
+                NiMSO_Handle,
+                channel.Name,
+                out bool enabled,
+                out double verticalRange,
+                out double verticalOffset,
+                out uint probeAttenuation,
+                out uint coupling);
+
+            channel.Enabled = enabled;
+            channel.VerticalRange = verticalRange;
+            channel.VerticalOffset = verticalOffset;
+            channel.ProbeAttenuation = probeAttenuation;
+            channel.Coupling = (coupling == 0) ? AnalogCoupling.AC : AnalogCoupling.DC;
+
+            Status = (NiVB_Status)NiMSO_QueryAnalogChannelCharacteristics(
+                NiMSO_Handle,
+                channel.Name,
+                out uint inputImpedance, //  (uint)(channel.InputImpedance <= 50 ? 1 : 0),
+                out double bandWidthLimit);
+
+            channel.InputImpedance = inputImpedance == 1 ? 50 : 1e6;
+            channel.BandWidthLimit = bandWidthLimit;
         }
 
         public void Oscilloscope_WriteSetting()
@@ -60,6 +104,11 @@ namespace Xu.EE.VirtualBench
             
             Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
             Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
+        }
+
+        public void Oscilloscope_Autosetup() 
+        {
+            Status = (NiVB_Status)NiMSO_Autosetup(NiMSO_Handle);
         }
 
         public void Oscilloscope_Run()
@@ -157,6 +206,8 @@ namespace Xu.EE.VirtualBench
             //Status = (NiVB_Status)NiMSO_ConfigureAnalogChannel(NiMSO_Handle, "mso/1:2", true, 10, 0, 1, 1);
             Oscilloscope_TriggerSource = OscilloscopeAnalogChannel1;
             Oscilloscope_WriteSetting();
+
+            Console.WriteLine("Bandwidth Limit = " + OscilloscopeAnalogChannel1.BandWidthLimit);
             Oscilloscope_Run();
             Oscilloscope_GetData();
 
@@ -181,9 +232,20 @@ namespace Xu.EE.VirtualBench
         private static extern int NiMSO_Autosetup(
             IntPtr instrumentHandle);
 
+
+
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_Close", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiMSO_Close(
             IntPtr instrumentHandle);
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_QueryEnabledAnalogChannels", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_QueryEnabledAnalogChannels(
+            IntPtr instrumentHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string channel,
+            long channelsSize,
+            out long channelsSizeOut);
+
 
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureAnalogChannel", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiMSO_ConfigureAnalogChannel(
@@ -195,11 +257,42 @@ namespace Xu.EE.VirtualBench
             uint probeAttenuation, // 1 = 1x, 10 = 10x
             uint verticalCoupling); // 0 = AC, 1 = DC
 
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_QueryAnalogChannel", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_QueryAnalogChannel(
+            IntPtr instrumentHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string channel,
+            out bool enableChannel,
+            out double verticalRange,
+            out double verticalOffset,
+            out uint probeAttenuation, // 1 = 1x, 10 = 10x
+            out uint verticalCoupling); // 0 = AC, 1 = DC
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureAnalogChannelCharacteristics", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_ConfigureAnalogChannelCharacteristics(
+            IntPtr instrumentHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string channel,
+            uint inputImpedance, // 0 = 1MOhm, 1 = 50Ohm
+            double bandwidthLimit);
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_QueryAnalogChannelCharacteristics", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_QueryAnalogChannelCharacteristics(
+            IntPtr instrumentHandle,
+            [MarshalAs(UnmanagedType.LPStr)] string channel,
+            out uint inputImpedance, // 0 = 1MOhm, 1 = 50Ohm
+            out double bandwidthLimit);
+
+
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_EnableDigitalChannels", CallingConvention = CallingConvention.Cdecl)]
         private static extern int NiMSO_EnableDigitalChannels(
             IntPtr instrumentHandle,
             [MarshalAs(UnmanagedType.LPStr)] string channel,
             bool enableChannel);
+
+
+        [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureDigitalThreshold", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int NiMSO_ConfigureDigitalThreshold(
+            IntPtr instrumentHandle,
+            double threshold);
 
 
         [DllImport(DLL_NAME, EntryPoint = "niVB_MSO_ConfigureTiming", CallingConvention = CallingConvention.Cdecl)]

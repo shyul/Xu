@@ -26,8 +26,8 @@ namespace Xu.EE.VirtualBench
             {
                 Status = (NiVB_Status)NiFGEN_ConfigureArbitraryWaveform(
                     NiFGEN_Handle,
-                    cfgArb.Waveform.ToArray(),
-                    (ulong)cfgArb.Waveform.Count,
+                    cfgArb.Samples.ToArray(),
+                    (ulong)cfgArb.Samples.Count,
                     (1 / cfgArb.SampleRate));
 
                 Status = (NiVB_Status)NiFGEN_ConfigureArbitraryWaveformGainAndOffset(
@@ -155,7 +155,7 @@ namespace Xu.EE.VirtualBench
             {
                 if (ch.Config is not FunctionGeneratorArbitraryConfig)
                 {
-                    ch.Config = new FunctionGeneratorArbitraryConfig();
+                    ch.Config = new FunctionGeneratorArbitraryConfig(ch);
                 }
                 Status = (NiVB_Status)NiFGEN_QueryArbitraryWaveform(
                     NiFGEN_Handle,

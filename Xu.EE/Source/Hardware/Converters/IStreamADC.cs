@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public enum WaveFormType : int
+    public interface IStreamADC
     {
-        DC,
-        Sine,
-        Square,
-        Triangle,
 
-        Unknown = 0,
     }
 }

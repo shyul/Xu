@@ -11,13 +11,48 @@ namespace Xu.EE
         public double DcOffset { get; set; } = 0;
     }
 
-    public class FunctionGeneratorArbitraryConfig : FunctionGeneratorConfig
+    public class FunctionGeneratorArbitraryConfig : FunctionGeneratorConfig, IFiniteDAC
     {
+        public FunctionGeneratorArbitraryConfig(FunctionGeneratorChannel channel)
+        {
+            Channel = channel;
+        }
+
+        public FunctionGeneratorChannel Channel { get; }
+
         public double Gain { get; set; } = 1;
 
         public double SampleRate { get; set; } = 100e6;
 
-        public List<double> Waveform { get; set; }
+        public Range<double> Range { get; } = new Range<double>(-5, 5);
+
+        public List<double> Samples { get; set; }
+
+
+
+        public bool IsReady => false;
+
+        public string Name => Channel.Name;
+
+        public bool Enabled => Channel.Enabled && Channel.Config == this;
+
+        public void DataIsUpdated(IDataProvider provider)
+        {
+
+        }
+
+        public void Dispose()
+        {
+
+        }
+
+        public void Start()
+        {
+
+            Channel.Enabled = true;
+        }
+
+
     }
 
     public class FunctionGeneratorDcConfig : FunctionGeneratorConfig

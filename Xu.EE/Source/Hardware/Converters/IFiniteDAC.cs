@@ -6,23 +6,12 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public interface IADC : IDataAcquisition, IDataProvider
+    public interface IFiniteDAC : IDataAcquisition, IDataConsumer
     {
         double SampleRate { get; set; }
 
         Range<double> Range { get; }
 
-        double BandWidthLimit { get; }
-
         List<double> Samples { get; set; }
-    }
-
-    public interface IDataAcquisition : IPort
-    {
-        void Start();
-
-
-        // Shall I assign this to ITriggerSource?
-        bool IsReady { get; }
     }
 }

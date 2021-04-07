@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public class OscilloscopeAnalogChannel : OscilloscopeChannel, IADC
+    public class OscilloscopeAnalogChannel : OscilloscopeChannel, IFiniteADC
     {
         public OscilloscopeAnalogChannel(string channelName, IOscilloscope device) : base(channelName, device)
         {

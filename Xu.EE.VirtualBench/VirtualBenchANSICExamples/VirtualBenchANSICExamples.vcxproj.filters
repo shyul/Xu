@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VirtualBench ANSI C Examples\niVB_MSO_Example.c">
+    <ClCompile Include="VirtualBench ANSI C Examples\niVB_Dig_Example.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualBench ANSI C Examples\niVB_SPI_Example.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

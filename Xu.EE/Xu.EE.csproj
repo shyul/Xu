@@ -63,6 +63,8 @@
     <Folder Include="Source\Filters\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Hardware\Converters\IStreamADC.cs" />
+    <Compile Include="Source\Hardware\Converters\IStreamDAC.cs" />
     <Compile Include="Source\Hardware\IO\InputPin.cs" />
     <Compile Include="Source\Hardware\IO\ParallelPort.cs" />
     <Compile Include="Source\Hardware\Instruments\FunctionGenerator\FunctionGeneratorChannel.cs" />
@@ -89,14 +91,13 @@
     <Compile Include="Source\Hardware\Instruments\SpectrumAnalyzer\ISpectrumAnalyzer.cs" />
     <Compile Include="Source\Hardware\Instruments\Oscilloscope\OscilloscopeAnalogChannel.cs" />
     <Compile Include="Source\Hardware\Instruments\PowerSupply\PowerSupplyChannel.cs" />
-    <Compile Include="Source\Hardware\Converters\IADC.cs" />
+    <Compile Include="Source\Hardware\Converters\IFiniteADC.cs" />
     <Compile Include="Source\Hardware\IO\_Types\ISerialDataInput.cs" />
-    <Compile Include="Source\Hardware\Converters\IDAC.cs" />
+    <Compile Include="Source\Hardware\Converters\IFiniteDAC.cs" />
     <Compile Include="Source\Hardware\IO\_Types\ITriggerSource.cs" />
-    <Compile Include="Source\Hardware\_Types\AnalogCoupling.cs" />
-    <Compile Include="Source\Hardware\_Types\PowerSupplyMode.cs" />
-    <Compile Include="Source\Hardware\_Types\TriggerEdge.cs" />
-    <Compile Include="Source\Hardware\_Types\WaveFormType.cs" />
+    <Compile Include="Source\Hardware\IO\AnalogCoupling.cs" />
+    <Compile Include="Source\Hardware\Instruments\PowerSupply\PowerSupplyMode.cs" />
+    <Compile Include="Source\Hardware\IO\TriggerEdge.cs" />
     <Compile Include="Source\Math\Calculate.cs" />
     <Compile Include="Source\Math\Decade.cs" />
     <Compile Include="Source\FFT\FFT.cs" />

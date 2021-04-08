@@ -14,7 +14,7 @@ namespace Xu.EE.VirtualBench
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
 
         //public Dictionary<string, >
-        
+
         public const string OscilloscopeAnalogChannel1Name = "mso/1";
         public const string OscilloscopeAnalogChannel2Name = "mso/2";
 
@@ -70,7 +70,7 @@ namespace Xu.EE.VirtualBench
         public void OscilloscopeAnalog_ReadSetting(string channelName)
         {
             var channel = OscilloscopeAnalogChannels[channelName];
-            
+
             Status = (NiVB_Status)NiMSO_QueryAnalogChannel(
                 NiMSO_Handle,
                 channel.Name,
@@ -101,7 +101,7 @@ namespace Xu.EE.VirtualBench
             OscilloscopeTiming_WriteSetting();
             OscilloscopeAnalog_WriteSetting(OscilloscopeAnalogChannel1Name);
             OscilloscopeAnalog_WriteSetting(OscilloscopeAnalogChannel2Name);
-            
+
             //Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31, mso/clk0:1", true);
             Status = (NiVB_Status)NiMSO_EnableDigitalChannels(NiMSO_Handle, "mso/d0:31", true);
             //Status = (NiVB_Status)NiMSO_ConfigureAdvancedDigitalTiming(NiMSO_Handle, 1, 1e9, 0, 0.0);
@@ -109,7 +109,7 @@ namespace Xu.EE.VirtualBench
 
         }
 
-        public void Oscilloscope_Autosetup() 
+        public void Oscilloscope_Autosetup()
         {
             Status = (NiVB_Status)NiMSO_Autosetup(NiMSO_Handle);
         }
@@ -170,7 +170,7 @@ namespace Xu.EE.VirtualBench
             Console.WriteLine("digital T0 = " + ConvertTimestampToValues(digitalT0));
 
             int j = 0;
-            foreach (var t0 in digitalSampleTimestamps) 
+            foreach (var t0 in digitalSampleTimestamps)
             {
                 Console.WriteLine("Digital Sample [" + j + "] = " + t0 + " | " + digitalData[j]);
                 j++;
@@ -191,7 +191,7 @@ namespace Xu.EE.VirtualBench
             OscilloscopeAnalogChannel2.Samples = ch_2_data;
         }
 
-        public DateTime ConvertTimestampToValues(Timestamp t0) 
+        public DateTime ConvertTimestampToValues(Timestamp t0)
         {
             ConvertTimestampToValues(t0, out long epoch, out double seconds);
             Console.WriteLine("epoch = " + epoch + " | seconds = " + seconds);

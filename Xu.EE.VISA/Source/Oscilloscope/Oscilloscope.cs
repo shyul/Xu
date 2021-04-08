@@ -15,7 +15,7 @@ namespace Xu.EE.Visa
             //Reset();
         }
 
-        ~Oscilloscope() 
+        ~Oscilloscope()
         {
             Dispose();
         }
@@ -23,7 +23,7 @@ namespace Xu.EE.Visa
         public override void Open()
         {
             base.Open();
-     
+
         }
 
         public Dictionary<string, OscilloscopeAnalogChannel> OscilloscopeAnalogChannels { get; } = new();
@@ -83,7 +83,7 @@ namespace Xu.EE.Visa
             // :CHAN1:COUP AC | DC
 
 
-     
+
 
             var ch = OscilloscopeAnalogChannels[channelName];
             string config = ":CHAN" + channelName +
@@ -134,7 +134,25 @@ namespace Xu.EE.Visa
 
         public void Oscilloscope_Run()
         {
+            // :WAV:DATA?
+            // :ACQuire:POINts 500
 
+            /*
+                myScope.WriteString ":SYSTem:HEADer OFF"
+                myScope.WriteString ":ACQuire:MODE RTIME"
+                myScope.WriteString ":ACQuire:COMPlete 100"
+                myScope.WriteString ":WAVeform:SOURce CHANnel1"
+                myScope.WriteString ":WAVeform:FORMat BYTE" // ASC
+                myScope.WriteString ":ACQuire:COUNt 8"
+                myScope.WriteString ":ACQuire:POINts 500"
+                myScope.WriteString ":DIGitize CHANnel1"
+
+            //:WAVeform:POINts?\n 50000
+
+                myScope.WriteString ":WAVeform:DATA?"
+             
+             
+             */
         }
 
 

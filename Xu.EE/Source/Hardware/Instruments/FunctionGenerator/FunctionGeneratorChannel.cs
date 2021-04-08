@@ -8,11 +8,14 @@ namespace Xu.EE
 {
     public class FunctionGeneratorChannel : IPort
     {
-        public FunctionGeneratorChannel(string channelName, IFunctionGenerator fgen)
+        public FunctionGeneratorChannel(int chNum, string channelName, IFunctionGenerator fgen)
         {
+            ChannelNumber = chNum;
             Name = channelName;
             Device = fgen;
         }
+
+        public int ChannelNumber { get; }
 
         public string Name { get; }
 

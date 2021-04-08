@@ -8,11 +8,14 @@ namespace Xu.EE
 {
     public abstract class OscilloscopeChannel : ITriggerSource
     {
-        protected OscilloscopeChannel(string channelName, IOscilloscope device)
+        protected OscilloscopeChannel(int chNum, string channelName, IOscilloscope device)
         {
+            ChannelNumber = chNum;
             Name = channelName;
             Device = device;
         }
+
+        public int ChannelNumber { get; }
 
         public string Name { get; }
 

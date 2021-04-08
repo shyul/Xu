@@ -29,22 +29,22 @@ namespace Xu.EE.VirtualBench
 
 
             Status = (NiVB_Status)NiDMM_Initialize(Handle, ResourceName, true, out NiDMM_Handle);
-            MultimeterChannels[MultimeterChannelName] = new MultimeterChannel(MultimeterChannelName, this);
+            MultimeterChannels[MultimeterChannelName] = new MultimeterChannel(1, MultimeterChannelName, this);
 
 
             Status = (NiVB_Status)NiMSO_Initialize(Handle, ResourceName, true, out NiMSO_Handle);
-            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name] = new OscilloscopeAnalogChannel(OscilloscopeAnalogChannel1Name, this);
-            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name] = new OscilloscopeAnalogChannel(OscilloscopeAnalogChannel2Name, this);
+            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel1Name] = new OscilloscopeAnalogChannel(1, OscilloscopeAnalogChannel1Name, this);
+            OscilloscopeAnalogChannels[OscilloscopeAnalogChannel2Name] = new OscilloscopeAnalogChannel(2, OscilloscopeAnalogChannel2Name, this);
 
             Status = (NiVB_Status)NiFGEN_Initialize(Handle, ResourceName, true, out NiFGEN_Handle);
-            FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(FunctionGeneratorChannelName, this);
+            FunctionGeneratorChannels[FunctionGeneratorChannelName] = new FunctionGeneratorChannel(1, FunctionGeneratorChannelName, this);
 
             Status = (NiVB_Status)NiPS_Initialize(Handle, ResourceName, true, out NiPS_Handle);
             PowerSupplyChannels[PowerSupplyP6VName] = new PowerSupplyChannel(PowerSupplyP6VName, this, new Range<double>(0, 6), new Range<double>(0, 1));
             PowerSupplyChannels[PowerSupplyP25VName] = new PowerSupplyChannel(PowerSupplyP25VName, this, new Range<double>(0, 25), new Range<double>(0, 0.5));
             PowerSupplyChannels[PowerSupplyN25VName] = new PowerSupplyChannel(PowerSupplyN25VName, this, new Range<double>(-25, 0), new Range<double>(0, 0.5));
-        
-        
+
+
         }
 
         public void Close()
@@ -60,7 +60,7 @@ namespace Xu.EE.VirtualBench
             PowerSupply_OFF();
 
 
-            
+
 
 
 

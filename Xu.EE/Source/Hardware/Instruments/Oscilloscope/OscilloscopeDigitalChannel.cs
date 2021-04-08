@@ -8,7 +8,7 @@ namespace Xu.EE
 {
     public class OscilloscopeDigitalChannel : OscilloscopeChannel, ISerialDataInput
     {
-        public OscilloscopeDigitalChannel(string channelName, IOscilloscope device) : base(channelName, device)
+        public OscilloscopeDigitalChannel(int chNum, string channelName, IOscilloscope device) : base(chNum, channelName, device)
         {
 
         }

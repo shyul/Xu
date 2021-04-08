@@ -8,7 +8,7 @@ namespace Xu.EE
 {
     public class OscilloscopeAnalogChannel : OscilloscopeChannel, IFiniteADC
     {
-        public OscilloscopeAnalogChannel(string channelName, IOscilloscope device) : base(channelName, device)
+        public OscilloscopeAnalogChannel(int chNum, string channelName, IOscilloscope device) : base(chNum, channelName, device)
         {
 
         }

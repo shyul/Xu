@@ -8,11 +8,14 @@ namespace Xu.EE
 {
     public class MultimeterChannel : IAnalogPin
     {
-        public MultimeterChannel(string channelName, IMultimeter dmm)
+        public MultimeterChannel(int chNum, string channelName, IMultimeter dmm)
         {
+            ChannelNumber = chNum;
             Name = channelName;
             Device = dmm;
         }
+
+        public int ChannelNumber { get; }
 
         public string Name { get; }
 

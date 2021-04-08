@@ -144,6 +144,20 @@ namespace Xu
             }
         }
 
+        public MultiPeriod Invert(Period pd)
+        {
+            MultiPeriod result = new(pd);
+
+            foreach (Period pdm in PeriodList)
+            {
+                result.Remove(pdm);
+            }
+
+            return result;
+        }
+
+        public MultiPeriod Invert() => Invert(new Period(Start, Stop));
+
         public void Add(Period pd)
         {
             if (!IsReadOnly)
@@ -206,6 +220,15 @@ namespace Xu
             return isModified;
         }
 
+        public void Remove(MultiPeriod mp)
+        {
+            var mp_ = mp.Invert(new Period(Start, Stop));
+            foreach (var pd in mp_)
+            {
+                Remove(pd);
+            }
+        }
+
         [IgnoreDataMember]
         public bool IsCurrent
         {
@@ -247,5 +270,7 @@ namespace Xu
                 return DateTime.MinValue;
             }
         }
+
+
     }
 }

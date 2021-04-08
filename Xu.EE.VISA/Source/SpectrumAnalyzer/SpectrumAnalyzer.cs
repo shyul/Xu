@@ -10,6 +10,26 @@ namespace Xu.EE.Visa
 {
     public class SpectrumAnalyzer : ViClient, ISpectrumAnalyzer
     {
+        public Dictionary<string, SpectrumAnalyzerChannel> SpectrumAnalyzerChannels { get; }
+
+        public ITriggerSource SpectrumAnalyzer_TriggerSource { get; set; }
+
+        public void SpectrumAnalyzer_WriteSetting()
+        {
+
+        }
+
+        public void SpectrumAnalyzer_WriteSetting(string channelName)
+        {
+            var ch = SpectrumAnalyzerChannels[channelName];
+
+
+        }
+        public void SpectrumAnalyzer_ReadSetting(string channelName)
+        {
+
+        }
+
         public SpectrumAnalyzer(string resourceName) : base(resourceName)
         {
             Open();

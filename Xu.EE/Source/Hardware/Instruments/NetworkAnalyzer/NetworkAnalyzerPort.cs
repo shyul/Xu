@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public abstract class NetworkAnalyzerPort
+    public class NetworkAnalyzerPort
     {
+
+        public double Power { get; set; }
     }
 }

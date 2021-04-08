@@ -8,6 +8,6 @@ namespace Xu.EE
 {
     public interface INetworkAnalyzer
     {
-        // SOUR:CAT?
+
     }
 }

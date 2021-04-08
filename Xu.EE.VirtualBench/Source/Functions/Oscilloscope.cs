@@ -52,7 +52,7 @@ namespace Xu.EE.VirtualBench
                 channel.Enabled,
                 channel.VerticalRange,
                 channel.VerticalOffset,
-                channel.ProbeAttenuation.ToUInt32(1),
+                channel.Attenuation.ToUInt32(1),
                 (uint)(channel.Coupling == AnalogCoupling.DC ? 1 : 0));
 
             if (channel.BandWidthLimit > 100e6) channel.BandWidthLimit = 100e6;
@@ -61,7 +61,7 @@ namespace Xu.EE.VirtualBench
             Status = (NiVB_Status)NiMSO_ConfigureAnalogChannelCharacteristics(
                 NiMSO_Handle,
                 channel.Name,
-                (uint)(channel.InputImpedance <= 50 ? 1 : 0),
+                (uint)(channel.Impedance <= 50 ? 1 : 0),
                 channel.BandWidthLimit);
 
             OscilloscopeAnalog_ReadSetting(channelName);
@@ -83,7 +83,7 @@ namespace Xu.EE.VirtualBench
             channel.Enabled = enabled;
             channel.VerticalRange = verticalRange;
             channel.VerticalOffset = verticalOffset;
-            channel.ProbeAttenuation = probeAttenuation;
+            channel.Attenuation = probeAttenuation;
             channel.Coupling = (coupling == 0) ? AnalogCoupling.AC : AnalogCoupling.DC;
 
             Status = (NiVB_Status)NiMSO_QueryAnalogChannelCharacteristics(
@@ -92,7 +92,7 @@ namespace Xu.EE.VirtualBench
                 out uint inputImpedance, //  (uint)(channel.InputImpedance <= 50 ? 1 : 0),
                 out double bandWidthLimit);
 
-            channel.InputImpedance = inputImpedance == 1 ? 50 : 1e6;
+            channel.Impedance = inputImpedance == 1 ? 50 : 1e6;
             channel.BandWidthLimit = bandWidthLimit;
         }
 

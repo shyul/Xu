@@ -19,24 +19,35 @@ namespace Xu.EE
 
 
 
-        public DateTime UpdateTime => throw new NotImplementedException();
+
+        public DateTime UpdateTime { get; private set; } = DateTime.MinValue;
+
+
+        private List<IDataConsumer> DataConsumers { get; set; } = new List<IDataConsumer>();
 
         public bool AddDataConsumer(IDataConsumer idk)
         {
-            throw new NotImplementedException();
+            if (!DataConsumers.Contains(idk))
+            {
+                DataConsumers.Add(idk);
+                return true;
+            }
+            return false;
         }
 
         public bool RemoveDataConsumer(IDataConsumer idk)
         {
-            throw new NotImplementedException();
+            if (DataConsumers.Contains(idk))
+            {
+                DataConsumers.RemoveAll(n => n == idk);
+                return true;
+            }
+            return false;
         }
 
 
 
-        public bool IsReady => throw new NotImplementedException();
-
-
-        public AnalogCoupling Coupling { get; set; } = AnalogCoupling.DC;
+        public bool IsReady { get; set; } = true;
 
         public double VerticalRange
         {
@@ -62,7 +73,19 @@ namespace Xu.EE
 
         public Range<double> Range { get; } = new(-5, 5);
 
-        public double ProbeAttenuation { get; set; } = 1;
+
+
+        public AnalogCoupling Coupling { get; set; } = AnalogCoupling.DC;
+
+        public double Impedance { get; set; } = 1e6;
+
+        public double Attenuation { get; set; } = 1;
+
+        public double BandWidthLimit { get; set; } = 10e9;
+
+        public OscilloscopeAnalogProbe Probe { get; set; } = null;
+
+
 
         public double TriggerLevel { get; set; }
 
@@ -70,12 +93,6 @@ namespace Xu.EE
 
         public virtual double SampleRate { get; set; } = 500e6;
 
-        public double InputImpedance { get; set; } = 1e6;
-
-        public double BandWidthLimit { get; set; } = 10e9;
-
         public List<double> Samples { get; set; }
-
-
     }
 }

@@ -74,6 +74,17 @@ namespace Xu.EE.Visa
 
         public virtual void Close() => Session?.Dispose();
 
+        public void Write(string cmd, Dictionary<string, string> paramList)
+        {
+            string s = ":" + cmd + ":";
+            foreach (var sc in paramList)
+            {
+                s += sc.Key + " " + sc.Value + ";";
+            }
+
+            Write(s.Trim(';') + "\n");
+        }
+
         public void Write(string cmd)
         {
             WriteNoErrorCheck(cmd);
@@ -87,6 +98,7 @@ namespace Xu.EE.Visa
 
         private void WriteNoErrorCheck(string cmd)
         {
+            Console.WriteLine("Write Only: " + cmd);
             try
             {
                 lock (Session)
@@ -135,6 +147,24 @@ namespace Xu.EE.Visa
             }
         }
 
+        public void Query(string cmd, Dictionary<string, string> paramList)
+        {
+            string s = ":" + cmd + ":";
+            foreach (var sc in paramList.Keys)
+            {
+                s += sc + "?;";
+            }
+
+            var list = Query(s.Trim(';') + "\n").Split(';');
+
+            int i = 0;
+            foreach (var sc in paramList.Keys)
+            {
+                paramList[sc] = list[i];
+                i++;
+            }
+        }
+
         public string Query(string cmd)
         {
             string res = QueryNoErrorCheck(cmd);
@@ -150,6 +180,7 @@ namespace Xu.EE.Visa
 
         private string QueryNoErrorCheck(string cmd)
         {
+            Console.WriteLine("Query: " + cmd);
             try
             {
                 string res = null;
@@ -159,6 +190,8 @@ namespace Xu.EE.Visa
                     Session.RawIO.Write(ReplaceCommonEscapeSequences(cmd));
                     res = Session.RawIO.ReadString();
                 }
+
+                Console.WriteLine("Query Result: " + res);
 
                 return res;
             }

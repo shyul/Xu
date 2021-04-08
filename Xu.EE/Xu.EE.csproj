@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Source\Hardware\Converters\IStreamADC.cs" />
     <Compile Include="Source\Hardware\Converters\IStreamDAC.cs" />
+    <Compile Include="Source\Hardware\Instruments\Oscilloscope\OscilloscopeAnalogProbe.cs" />
     <Compile Include="Source\Hardware\IO\InputPin.cs" />
     <Compile Include="Source\Hardware\IO\ParallelPort.cs" />
     <Compile Include="Source\Hardware\Instruments\FunctionGenerator\FunctionGeneratorChannel.cs" />

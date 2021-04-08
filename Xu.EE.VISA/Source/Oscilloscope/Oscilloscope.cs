@@ -86,14 +86,17 @@ namespace Xu.EE.Visa
 
 
             var ch = OscilloscopeAnalogChannels[channelName];
-            string config = ":CHAN" + channelName +
-                ":RANG " + ch.VerticalRange +
-                ";OFFS " + ch.VerticalOffset +
-                ";COUP " + (ch.Coupling == AnalogCoupling.AC ? "AC" : "DC") +
-                ";IMP " + (ch.Impedance == 50 ? "FIFTY" : "ONEM") + //FIFTY
-                ";DISP " + (ch.Enabled ? "1" : "0") +
-                ";BWL 0" +
-                ";INV 0";
+
+            Dictionary<string, string> param = new();
+            param["RANG"] = ch.VerticalRange.ToString("0.####");
+            param["OFFS"] = ch.VerticalOffset.ToString("0.####");
+            param["COUP"] = ch.Coupling == AnalogCoupling.AC ? "AC" : "DC";
+            param["IMP"] = ch.Impedance == 50 ? "FIFTY" : "ONEM";
+            param["DISP"] = ch.Enabled ? "1" : "0";
+            param["BWL"] =  "0";
+            param["INV"] =  "0";
+
+            Write("CHAN" + ch.ChannelNumber.ToString(), param);
         }
 
         /*

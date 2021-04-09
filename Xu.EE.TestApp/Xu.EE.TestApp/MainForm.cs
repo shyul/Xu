@@ -16,7 +16,9 @@ namespace Xu.EE.TestApp
     {
         private NiVB NiVB { get; set; }// = new NiVB("VB8012-309528E");
         private Oscilloscope MSOX { get; set; }
-             
+
+        private FunctionGenerator FGEN{ get; set; }
+
         public MainForm()
         {
             InitializeComponent();
@@ -33,6 +35,29 @@ namespace Xu.EE.TestApp
         {
             MSOX = new Oscilloscope(TextBoxKeySight.Text);
             MSOX.Open();
+        }
+
+        private void BtnConnectFGEN_Click(object sender, EventArgs e)
+        {
+            FGEN = new FunctionGenerator(TextBoxKeySightFGEN.Text);
+            FGEN.Open();
+
+            var config =  new FunctionGeneratorSineWavePhaseConfig();
+
+            FGEN.Channel1.Config = config;
+            config.Frequency = 94256.1245671212;
+            config.Amplitude = 1.238883423;
+            config.DcOffset = 0.121664121;
+            config.Phase = 12.66766664;
+
+            FGEN.Channel1.WriteSetting();
+            FGEN.Channel1.ReadSetting();
+
+            config = FGEN.Channel1.Config as FunctionGeneratorSineWavePhaseConfig;
+
+            Console.WriteLine("Frequency = " + config.Frequency + " | Phase = " + config.Phase + " | Amplitude = " + config.Amplitude + " | DcOffset = " + config.DcOffset);
+
+            FGEN.Channel1.Enabled = true;
         }
 
         private void BtnSetFGEN_Click(object sender, EventArgs e)

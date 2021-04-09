@@ -63,6 +63,9 @@ namespace Xu.EE.TestApp
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.BtnConnectMSO = new System.Windows.Forms.Button();
+            this.BtnConnectFGEN = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.TextBoxKeySightFGEN = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -371,11 +374,41 @@ namespace Xu.EE.TestApp
             this.BtnConnectMSO.UseVisualStyleBackColor = true;
             this.BtnConnectMSO.Click += new System.EventHandler(this.BtnConnectMSO_Click);
             // 
+            // BtnConnectFGEN
+            // 
+            this.BtnConnectFGEN.Location = new System.Drawing.Point(372, 33);
+            this.BtnConnectFGEN.Name = "BtnConnectFGEN";
+            this.BtnConnectFGEN.Size = new System.Drawing.Size(75, 23);
+            this.BtnConnectFGEN.TabIndex = 40;
+            this.BtnConnectFGEN.Text = "Connect";
+            this.BtnConnectFGEN.UseVisualStyleBackColor = true;
+            this.BtnConnectFGEN.Click += new System.EventHandler(this.BtnConnectFGEN_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 38);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(122, 13);
+            this.label8.TabIndex = 39;
+            this.label8.Text = "KeySight FGEN Address";
+            // 
+            // TextBoxKeySightFGEN
+            // 
+            this.TextBoxKeySightFGEN.Location = new System.Drawing.Point(130, 35);
+            this.TextBoxKeySightFGEN.Name = "TextBoxKeySightFGEN";
+            this.TextBoxKeySightFGEN.Size = new System.Drawing.Size(236, 20);
+            this.TextBoxKeySightFGEN.TabIndex = 38;
+            this.TextBoxKeySightFGEN.Text = "USB0::0x0957::0x2C07::MY59001326::INSTR";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnConnectFGEN);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.TextBoxKeySightFGEN);
             this.Controls.Add(this.BtnConnectMSO);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -453,6 +486,9 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button BtnConnectMSO;
+        private System.Windows.Forms.Button BtnConnectFGEN;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox TextBoxKeySightFGEN;
     }
 }
 

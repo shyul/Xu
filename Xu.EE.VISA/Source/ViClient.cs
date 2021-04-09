@@ -76,10 +76,10 @@ namespace Xu.EE.Visa
 
         public void Write(string cmd, Dictionary<string, string> paramList)
         {
-            string s = ":" + cmd + ":";
+            string s = cmd + ":";
             foreach (var sc in paramList)
             {
-                s += sc.Key + " " + sc.Value + ";";
+                s += sc.Key + " " + sc.Value + "\n";
             }
 
             Write(s.Trim(';') + "\n");
@@ -149,7 +149,7 @@ namespace Xu.EE.Visa
 
         public void Query(string cmd, Dictionary<string, string> paramList)
         {
-            string s = ":" + cmd + ":";
+            string s = cmd + ":";
             foreach (var sc in paramList.Keys)
             {
                 s += sc + "?;";
@@ -160,7 +160,7 @@ namespace Xu.EE.Visa
             int i = 0;
             foreach (var sc in paramList.Keys)
             {
-                paramList[sc] = list[i];
+                paramList[sc] = list[i].Trim();
                 i++;
             }
         }

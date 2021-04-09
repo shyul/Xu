@@ -29,6 +29,7 @@ namespace Xu.EE
         public List<double> Samples { get; set; }
 
 
+        #region DAC Interface
 
         public bool IsReady => false;
 
@@ -52,7 +53,7 @@ namespace Xu.EE
             Channel.Enabled = true;
         }
 
-
+        #endregion DAC Interface
     }
 
     public class FunctionGeneratorDcConfig : FunctionGeneratorConfig
@@ -65,6 +66,11 @@ namespace Xu.EE
         public double Amplitude { get; set; } = 1;
 
         public double Frequency { get; set; } = 5e5;
+    }
+
+    public class FunctionGeneratorSineWavePhaseConfig : FunctionGeneratorSineWaveConfig
+    {
+        public double Phase { get; set; } = 0;
     }
 
     public class FunctionGeneratorSquareWaveConfig : FunctionGeneratorSineWaveConfig

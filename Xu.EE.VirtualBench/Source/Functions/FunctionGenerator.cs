@@ -37,46 +37,35 @@ namespace Xu.EE.VirtualBench
             }
             else
             {
-                switch (config)
+                Status = config switch
                 {
-                    case FunctionGeneratorTriangleWaveConfig cfg:
-                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
-                            NiFGEN_Handle, 2,
-                            cfg.Amplitude,
-                            cfg.DcOffset,
-                            cfg.Frequency,
-                            cfg.DutyCycle);
-                        break;
+                    FunctionGeneratorTriangleWaveConfig cfg => (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                                                                    NiFGEN_Handle, 2,
+                                                                    cfg.Amplitude,
+                                                                    cfg.DcOffset,
+                                                                    cfg.Frequency,
+                                                                    cfg.DutyCycle),
+                    FunctionGeneratorSquareWaveConfig cfg => (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                                                                    NiFGEN_Handle, 1,
+                                                                    cfg.Amplitude,
+                                                                    cfg.DcOffset,
+                                                                    cfg.Frequency,
+                                                                    cfg.DutyCycle),
+                    FunctionGeneratorSineWaveConfig cfg => (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                                                                    NiFGEN_Handle, 0,
+                                                                    cfg.Amplitude,
+                                                                    cfg.DcOffset,
+                                                                    cfg.Frequency,
+                                                                    50),
+                    FunctionGeneratorDcConfig cfg => (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
+                                                                    NiFGEN_Handle, 3,
+                                                                    1,
+                                                                    cfg.DcOffset,
+                                                                    0,
+                                                                    50),
 
-                    case FunctionGeneratorSquareWaveConfig cfg:
-                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
-                            NiFGEN_Handle, 1,
-                            cfg.Amplitude,
-                            cfg.DcOffset,
-                            cfg.Frequency,
-                            cfg.DutyCycle);
-                        break;
-
-                    case FunctionGeneratorSineWaveConfig cfg:
-                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
-                            NiFGEN_Handle, 0,
-                            cfg.Amplitude,
-                            cfg.DcOffset,
-                            cfg.Frequency,
-                            50);
-                        break;
-
-                    case FunctionGeneratorDcConfig cfg:
-                        Status = (NiVB_Status)NiFGEN_ConfigureStandardWaveform(
-                            NiFGEN_Handle, 3,
-                            1,
-                            cfg.DcOffset,
-                            0,
-                            50);
-                        break;
-
-                    default: throw new Exception("Unsupported WaveFormType: " + config.GetType().FullName);
-                }
+                    _ => throw new Exception("Unsupported WaveFormType: " + config.GetType().FullName),
+                };
 
                 //Console.WriteLine("Frequency = " + fgch.Frequency + " | DutyCycle = " + fgch.DutyCycle + " | Amplitude = " + fgch.Amplitude + " | DcOffset = " + fgch.DcOffset);
             }

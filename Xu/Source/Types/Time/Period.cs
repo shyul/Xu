@@ -122,6 +122,12 @@ namespace Xu
             }
         }
 
+        public void Insert(Period pd) 
+        {
+            Insert(pd.Start);
+            Insert(pd.Stop);
+        }
+
         public void ChopStart(DateTime time)
         {
             if (IsCurrent)
@@ -240,7 +246,7 @@ namespace Xu
             {
                 s1.SetStart(s1.Stop); // Become Empty
             }
-            else if (s1.Intersect(s2))
+            else if (s1.Intersects(s2))
             {
                 if (s1.Start < s2.Start)
                     s1.SetStop(s2.Start);
@@ -284,7 +290,7 @@ namespace Xu
 
         public bool Contains(DateTime time) => time >= Start && time < Stop;
         public bool Contains(Period pd) => pd.Start >= Start && pd.Stop <= Stop;
-        public bool Intersect(Period pd) => (pd.Start >= Start && pd.Start <= Stop) || (pd.Stop >= Start && pd.Stop <= Stop) || (Start >= pd.Start && Start <= pd.Stop) || (Stop >= pd.Start && Stop <= pd.Stop);
+        public bool Intersects(Period pd) => (pd.Start >= Start && pd.Start <= Stop) || (pd.Stop >= Start && pd.Stop <= Stop) || (Start >= pd.Start && Start <= pd.Stop) || (Stop >= pd.Start && Stop <= pd.Stop);
 
         //public bool Intersect(Period pd)
 

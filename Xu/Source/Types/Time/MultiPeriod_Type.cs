@@ -80,7 +80,7 @@ namespace Xu
                     Period pd = PeriodList.Last().Key;
                     foreach (var item in PeriodList.Reverse())
                     {
-                        if (pd.Intersect(item.Key))
+                        if (pd.Intersects(item.Key))
                         {
                             pd.Insert(item.Key.Start);
                             pd.Insert(item.Key.Stop);
@@ -144,7 +144,7 @@ namespace Xu
 
                     foreach (Period existPd in PeriodList.Keys)
                     {
-                        if (pd.Intersect(existPd))
+                        if (pd.Intersects(existPd))
                         {
                             toRemove.CheckAdd(existPd);
 
@@ -194,7 +194,7 @@ namespace Xu
 
                         foreach (Period item in PeriodList.Keys)
                         {
-                            if (pd.Intersect(item))
+                            if (pd.Intersects(item))
                             {
                                 isModified = true;
 
@@ -271,7 +271,7 @@ namespace Xu
 
         public IEnumerable<KeyValuePair<Period, T>> Get(DateTime time) => PeriodList.Where(n => n.Key.Contains(time));
 
-        public IEnumerable<KeyValuePair<Period, T>> Get(Period pd) => PeriodList.Where(n => n.Key.Intersect(pd));
+        public IEnumerable<KeyValuePair<Period, T>> Get(Period pd) => PeriodList.Where(n => n.Key.Intersects(pd));
 
         public IEnumerator<KeyValuePair<Period, T>> GetEnumerator() => PeriodList.GetEnumerator();
 

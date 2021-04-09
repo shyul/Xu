@@ -137,10 +137,21 @@ namespace Xu
         {
             lock (PeriodList)
             {
-                if (PeriodList.Contains(pd)) return true;
-                foreach (Period item in PeriodList) if (item.Contains(pd)) return true;
-                return false;
-                //return Get(pd).Count() > 0;
+                if (PeriodList.Contains(pd)) 
+                    return true;
+                else
+                    return PeriodList.Where(n => n.Contains(pd)).Count() > 0;
+            }
+        }
+
+        public bool Intersects(Period pd)
+        {
+            lock (PeriodList)
+            {
+                if (PeriodList.Contains(pd))
+                    return true;
+                else
+                    return PeriodList.Where(n => n.Intersects(pd)).Count() > 0;
             }
         }
 
@@ -166,7 +177,7 @@ namespace Xu
                     List<Period> ToRemove = new();
                     foreach (Period item in PeriodList)
                     {
-                        if (item.Intersect(pd))
+                        if (item.Intersects(pd))
                         {
                             ToRemove.Add(item);
                             pd += item;
@@ -176,6 +187,13 @@ namespace Xu
                     PeriodList.Add(pd);
                 }
         }
+
+        public void Add(MultiPeriod mp) 
+        {
+            mp.RunEach(pd => Add(pd));
+        }
+
+        
 
         public bool Remove(Period pd)
         {
@@ -195,7 +213,7 @@ namespace Xu
 
                     foreach (Period item in PeriodList)
                     {
-                        if (pd.Intersect(item))
+                        if (pd.Intersects(item))
                         {
                             isModified = true;
 
@@ -270,7 +288,5 @@ namespace Xu
                 return DateTime.MinValue;
             }
         }
-
-
     }
 }

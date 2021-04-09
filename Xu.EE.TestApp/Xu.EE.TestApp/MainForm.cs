@@ -42,20 +42,22 @@ namespace Xu.EE.TestApp
             FGEN = new FunctionGenerator(TextBoxKeySightFGEN.Text);
             FGEN.Open();
 
-            var config =  new FunctionGeneratorSineWavePhaseConfig();
+            var config = new FunctionGeneratorArbitraryConfig(FGEN.Channel1);
+            //var config = new FunctionGeneratorTriangleWaveConfig();
 
             FGEN.Channel1.Config = config;
-            config.Frequency = 94256.1245671212;
-            config.Amplitude = 1.238883423;
-            config.DcOffset = 0.121664121;
-            config.Phase = 12.66766664;
+            //config.Frequency = 94256.1245671212;
+           // config.Amplitude = 1.238883423;
+            config.DcOffset = 2;
+            //config.Phase = 12.66766664;
+            //config.DutyCycle = 50;
 
             FGEN.Channel1.WriteSetting();
             FGEN.Channel1.ReadSetting();
 
-            config = FGEN.Channel1.Config as FunctionGeneratorSineWavePhaseConfig;
+            //config = FGEN.Channel1.Config as FunctionGeneratorTriangleWaveConfig;
 
-            Console.WriteLine("Frequency = " + config.Frequency + " | Phase = " + config.Phase + " | Amplitude = " + config.Amplitude + " | DcOffset = " + config.DcOffset);
+            //Console.WriteLine("Frequency = " + config.Frequency + " | Phase = " + config.Phase + " | Amplitude = " + config.Amplitude + " | DcOffset = " + config.DcOffset + " | DutyCycle = " + config.DutyCycle);
 
             FGEN.Channel1.Enabled = true;
         }

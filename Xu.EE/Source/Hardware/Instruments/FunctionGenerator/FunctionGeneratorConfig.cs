@@ -8,7 +8,7 @@ namespace Xu.EE
 {
     public abstract class FunctionGeneratorConfig
     {
-        public double DcOffset { get; set; } = 0;
+        public virtual double DcOffset { get; set; } = 0;
     }
 
     public class FunctionGeneratorArbitraryConfig : FunctionGeneratorConfig, IFiniteDAC
@@ -27,6 +27,12 @@ namespace Xu.EE
         public Range<double> Range { get; } = new Range<double>(-5, 5);
 
         public List<double> Samples { get; set; }
+
+        public double Amplitude 
+        {
+           get => Range.Maximum - Range.Minimum;
+        }
+
 
 
         #region DAC Interface
@@ -66,10 +72,7 @@ namespace Xu.EE
         public double Amplitude { get; set; } = 1;
 
         public double Frequency { get; set; } = 5e5;
-    }
 
-    public class FunctionGeneratorSineWavePhaseConfig : FunctionGeneratorSineWaveConfig
-    {
         public double Phase { get; set; } = 0;
     }
 

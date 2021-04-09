@@ -52,6 +52,7 @@ namespace Xu.EE
         public double VerticalRange
         {
             get => Range.Maximum - Range.Minimum;
+
             set
             {
                 double offset = VerticalOffset;

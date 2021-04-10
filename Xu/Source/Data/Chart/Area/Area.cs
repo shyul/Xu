@@ -187,6 +187,8 @@ namespace Xu.Chart
             }
         }
 
+        public virtual void RemoveSeries() => Series.RunEach(ser => RemoveSeries(ser));
+
         #region Coordinate
 
         public Rectangle Bounds { get; set; } = new Rectangle();

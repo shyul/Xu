@@ -74,7 +74,7 @@ namespace Xu.EE.Visa
             else if (config is FunctionGeneratorTriangleWaveConfig cfgTrian)
             {
                 param["FUNC"] = "RAMP";
-                param["FREQ"] = cfgTrian.Frequency.ToString("0.#####"); // " SIN";
+                param["FREQ"] = cfgTrian.Frequency.ToString("0.#####");
                 param["VOLT"] = cfgTrian.Amplitude.ToString("0.#####");
                 param["VOLT:OFFS"] = cfgTrian.DcOffset.ToString("0.#####");
                 param["PHAS"] = cfgTrian.Phase.ToString("0.#####");
@@ -82,8 +82,10 @@ namespace Xu.EE.Visa
             }
             else if (config is FunctionGeneratorSquareWaveConfig cfgSquare)
             {
+                //[SOURce[1|2]:]FREQuency:MODE {CW|LIST|SWEep|FIXed}
+                //[SOURce[1|2]:]FREQuency:MODE?
                 param["FUNC"] = "SQU";
-                param["FREQ"] = cfgSquare.Frequency.ToString("0.#####"); // " SIN";
+                param["FREQ"] = cfgSquare.Frequency.ToString("0.#####");
                 param["VOLT"] = cfgSquare.Amplitude.ToString("0.#####");
                 param["VOLT:OFFS"] = cfgSquare.DcOffset.ToString("0.#####");
                 param["PHAS"] = cfgSquare.Phase.ToString("0.#####");

@@ -22,7 +22,7 @@ namespace Xu.EE
 
         public static double PhaseDifference(IEnumerable<double> signal1, IEnumerable<double> signal2)
         {
-            
+
             double ref1 = signal1.Average();
             double ref2 = signal2.Average();
 
@@ -31,7 +31,7 @@ namespace Xu.EE
 
             List<(int index, double s1, double s2)> list = new();
 
-            for (int i = 0; i < count; i++) 
+            for (int i = 0; i < count; i++)
             {
                 list.Add((i, signal1.ElementAt(i), signal2.ElementAt(2)));
             }
@@ -42,14 +42,38 @@ namespace Xu.EE
                 var (index, s1, s2) = list[i];
                 var (index_next, s1_next, s2_next) = list[i + 1];
 
-                if(s1_prev < ref1 && s1 >= ref1 && s1_next > ref1) 
+                if (s1_prev < ref1 && s1 >= ref1 && s1_next > ref1)
                 {
-                
+                    // detected rising edige, add the point to list
                 }
 
             }
 
             return 0;
         }
+
+        public static void Frequency(TriggerEdge triggerEdge, IEnumerable<double> signal)
+        {
+
+
+        }
+    }
+
+    public class WaveForm
+    {
+        public WaveForm()
+        {
+
+        }
+
+        public List<double> Data { get; } = new();
+
+        public TriggerEdge TriggerEdge { get; }
+
+        // Get Cycle Length..
+
+        // Get Average Amplitude
+
+        // Compare Phase Shift with another WaveForm
     }
 }

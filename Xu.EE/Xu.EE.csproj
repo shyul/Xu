@@ -108,6 +108,7 @@
     <Compile Include="Source\FFT\Waveform.cs" />
     <Compile Include="Source\FFT\WindowFunctions.cs" />
     <Compile Include="Source\Math\Interpolation.cs" />
+    <Compile Include="Source\Signal\SignalTool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

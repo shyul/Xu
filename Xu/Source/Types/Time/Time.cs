@@ -144,6 +144,9 @@ namespace Xu
         public static bool operator ==(Time s1, DateTime s2) => s1.Equals(s2);
         public static bool operator !=(Time s1, DateTime s2) => !s1.Equals(s2);
 
+        public static bool operator ==(DateTime s2, Time s1) => s1.Equals(s2);
+        public static bool operator !=(DateTime s2, Time s1) => !s1.Equals(s2);
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() == typeof(Time))

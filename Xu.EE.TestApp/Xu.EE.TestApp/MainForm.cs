@@ -184,6 +184,14 @@ namespace Xu.EE.TestApp
             NiVB.TestReadDMM();
         }
 
+        private void BtnTestImportAlteraPins_Click(object sender, EventArgs e)
+        {
+            OpenFile.Filter = "Comma-separated values file (*.csv) | *.csv";
 
+            if (OpenFile.ShowDialog() == DialogResult.OK)
+            {
+                Altera.ReadPinoutFile(OpenFile.FileName);
+            }
+        }
     }
 }

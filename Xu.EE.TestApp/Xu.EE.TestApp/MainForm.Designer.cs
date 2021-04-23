@@ -66,6 +66,8 @@ namespace Xu.EE.TestApp
             this.BtnConnectFGEN = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.TextBoxKeySightFGEN = new System.Windows.Forms.TextBox();
+            this.BtnTestImportAlteraPins = new System.Windows.Forms.Button();
+            this.OpenFile = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -401,11 +403,26 @@ namespace Xu.EE.TestApp
             this.TextBoxKeySightFGEN.TabIndex = 38;
             this.TextBoxKeySightFGEN.Text = "USB0::0x0957::0x2C07::MY59001326::INSTR";
             // 
+            // BtnTestImportAlteraPins
+            // 
+            this.BtnTestImportAlteraPins.Location = new System.Drawing.Point(595, 339);
+            this.BtnTestImportAlteraPins.Name = "BtnTestImportAlteraPins";
+            this.BtnTestImportAlteraPins.Size = new System.Drawing.Size(135, 23);
+            this.BtnTestImportAlteraPins.TabIndex = 41;
+            this.BtnTestImportAlteraPins.Text = "Import Altera Pins";
+            this.BtnTestImportAlteraPins.UseVisualStyleBackColor = true;
+            this.BtnTestImportAlteraPins.Click += new System.EventHandler(this.BtnTestImportAlteraPins_Click);
+            // 
+            // OpenFile
+            // 
+            this.OpenFile.FileName = "pin.csv";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnTestImportAlteraPins);
             this.Controls.Add(this.BtnConnectFGEN);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.TextBoxKeySightFGEN);
@@ -489,6 +506,8 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnConnectFGEN;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox TextBoxKeySightFGEN;
+        private System.Windows.Forms.Button BtnTestImportAlteraPins;
+        private System.Windows.Forms.OpenFileDialog OpenFile;
     }
 }
 

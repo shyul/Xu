@@ -7,33 +7,13 @@ using System.Threading.Tasks;
 
 namespace Xu.EE
 {
-    public class FPGAPin 
+    public class FPGAPin : SchematicPin
     {
-        public string Designator { get; set; }
-
-        public string Name { get; set; }
-
         public string DiffName { get; set; }
 
         public string Bank { get; set; }
 
         public string VREFGroup { get; set; }
-
-        public bool IsClock { get; set; } = false;
-
-        public bool IsLowActive { get; set; } = false;
-
-        public PinType Type { get; set; } = PinType.Passive;
-    }
-
-
-    public enum PinType : int
-    {
-        Passive = 0,
-        Input = 1,
-        Output = 2,
-        IO = 3,
-        Power = 4,
     }
 
     public static class Altera

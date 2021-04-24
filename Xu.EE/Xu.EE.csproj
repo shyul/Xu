@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Altium\Altera.cs" />
+    <Compile Include="Source\Altium\Schematic.cs" />
     <Compile Include="Source\Hardware\Converters\IStreamADC.cs" />
     <Compile Include="Source\Hardware\Converters\IStreamDAC.cs" />
     <Compile Include="Source\Hardware\Instruments\FunctionGenerator\FunctionGeneratorArbitraryConfig.cs" />

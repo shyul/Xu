@@ -193,5 +193,15 @@ namespace Xu.EE.TestApp
                 Altera.ReadPinoutFile(OpenFile.FileName);
             }
         }
+
+        private void BtnImportCSVPins_Click(object sender, EventArgs e)
+        {
+            OpenFile.Filter = "Comma-separated values file (*.csv) | *.csv";
+
+            if (OpenFile.ShowDialog() == DialogResult.OK)
+            {
+                Schematic.ReadPinoutFile(OpenFile.FileName);
+            }
+        }
     }
 }

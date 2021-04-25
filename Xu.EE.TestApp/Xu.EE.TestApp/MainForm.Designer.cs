@@ -68,6 +68,7 @@ namespace Xu.EE.TestApp
             this.TextBoxKeySightFGEN = new System.Windows.Forms.TextBox();
             this.BtnTestImportAlteraPins = new System.Windows.Forms.Button();
             this.OpenFile = new System.Windows.Forms.OpenFileDialog();
+            this.BtnImportCSVPins = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -417,11 +418,22 @@ namespace Xu.EE.TestApp
             // 
             this.OpenFile.FileName = "pin.csv";
             // 
+            // BtnImportCSVPins
+            // 
+            this.BtnImportCSVPins.Location = new System.Drawing.Point(596, 368);
+            this.BtnImportCSVPins.Name = "BtnImportCSVPins";
+            this.BtnImportCSVPins.Size = new System.Drawing.Size(135, 23);
+            this.BtnImportCSVPins.TabIndex = 42;
+            this.BtnImportCSVPins.Text = "Import Csv Pins";
+            this.BtnImportCSVPins.UseVisualStyleBackColor = true;
+            this.BtnImportCSVPins.Click += new System.EventHandler(this.BtnImportCSVPins_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnImportCSVPins);
             this.Controls.Add(this.BtnTestImportAlteraPins);
             this.Controls.Add(this.BtnConnectFGEN);
             this.Controls.Add(this.label8);
@@ -508,6 +520,7 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.TextBox TextBoxKeySightFGEN;
         private System.Windows.Forms.Button BtnTestImportAlteraPins;
         private System.Windows.Forms.OpenFileDialog OpenFile;
+        private System.Windows.Forms.Button BtnImportCSVPins;
     }
 }
 

@@ -190,7 +190,7 @@ namespace Xu.EE.TestApp
 
             if (OpenFile.ShowDialog() == DialogResult.OK)
             {
-                Altera.ReadPinoutFile(OpenFile.FileName);
+                Altera.ReadPinoutFileCycloneV(OpenFile.FileName);
             }
         }
 

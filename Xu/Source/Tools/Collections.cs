@@ -190,7 +190,12 @@ namespace Xu
             return (parent.Children.Count == 0);
         }
 
-        public static IEnumerable<T> SelectType<T, T2>(this IEnumerable<T2> source) where T : class
+        public static IEnumerable<T> Where<T, T2>(this IEnumerable<T2> source) where T : class
+        {
+            return source.Where(n => n is T).Select(n => n as T);
+        }
+
+        public static IEnumerable<T> Where<T>(this IEnumerable<IDependable> source) where T : class
         {
             return source.Where(n => n is T).Select(n => n as T);
         }
@@ -209,7 +214,7 @@ namespace Xu
 
         public static void RunEach<T>(this IEnumerable<T> source, Action<T> action) => (source is List<T> l ? l : source.ToList()).ForEach(action);
 
-        public static List<T> Last<T>(this IEnumerable<T> source, int i, int count) 
+        public static List<T> Last<T>(this IEnumerable<T> source, int i, int count)
         {
             if (i >= source.Count())
                 return new();

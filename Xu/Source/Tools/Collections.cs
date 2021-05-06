@@ -200,6 +200,11 @@ namespace Xu
             return source.Where(n => n is T).Select(n => n as T);
         }
 
+        public static IEnumerable<T> Where<T>(this IEnumerable<IDataConsumer> source) where T : class
+        {
+            return source.Where(n => n is T).Select(n => n as T);
+        }
+
         public static List<(T s1, T s2)> SelectPair<T>(this IEnumerable<T> source) where T : IEquatable<T>
         {
             List<(T s1, T s2)> res = new();

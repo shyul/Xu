@@ -69,6 +69,8 @@ namespace Xu.EE.TestApp
             this.BtnTestImportAlteraPins = new System.Windows.Forms.Button();
             this.OpenFile = new System.Windows.Forms.OpenFileDialog();
             this.BtnImportCSVPins = new System.Windows.Forms.Button();
+            this.BtnTestFTDI = new System.Windows.Forms.Button();
+            this.BtnTestFTDISendData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -428,11 +430,33 @@ namespace Xu.EE.TestApp
             this.BtnImportCSVPins.UseVisualStyleBackColor = true;
             this.BtnImportCSVPins.Click += new System.EventHandler(this.BtnImportCSVPins_Click);
             // 
+            // BtnTestFTDI
+            // 
+            this.BtnTestFTDI.Location = new System.Drawing.Point(68, 401);
+            this.BtnTestFTDI.Name = "BtnTestFTDI";
+            this.BtnTestFTDI.Size = new System.Drawing.Size(114, 23);
+            this.BtnTestFTDI.TabIndex = 43;
+            this.BtnTestFTDI.Text = "Test FTDI";
+            this.BtnTestFTDI.UseVisualStyleBackColor = true;
+            this.BtnTestFTDI.Click += new System.EventHandler(this.BtnTestFTDI_Click);
+            // 
+            // BtnTestFTDISendData
+            // 
+            this.BtnTestFTDISendData.Location = new System.Drawing.Point(188, 401);
+            this.BtnTestFTDISendData.Name = "BtnTestFTDISendData";
+            this.BtnTestFTDISendData.Size = new System.Drawing.Size(145, 23);
+            this.BtnTestFTDISendData.TabIndex = 44;
+            this.BtnTestFTDISendData.Text = "Test FTDI Send Data";
+            this.BtnTestFTDISendData.UseVisualStyleBackColor = true;
+            this.BtnTestFTDISendData.Click += new System.EventHandler(this.BtnTestFTDISendData_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnTestFTDISendData);
+            this.Controls.Add(this.BtnTestFTDI);
             this.Controls.Add(this.BtnImportCSVPins);
             this.Controls.Add(this.BtnTestImportAlteraPins);
             this.Controls.Add(this.BtnConnectFGEN);
@@ -521,6 +545,8 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnTestImportAlteraPins;
         private System.Windows.Forms.OpenFileDialog OpenFile;
         private System.Windows.Forms.Button BtnImportCSVPins;
+        private System.Windows.Forms.Button BtnTestFTDI;
+        private System.Windows.Forms.Button BtnTestFTDISendData;
     }
 }
 

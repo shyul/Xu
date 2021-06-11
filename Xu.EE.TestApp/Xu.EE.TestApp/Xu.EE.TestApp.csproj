@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ADAR1000.cs" />
+    <Compile Include="FTD2XX_NET.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

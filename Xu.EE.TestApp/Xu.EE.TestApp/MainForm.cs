@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xu.EE.VirtualBench;
 using Xu.EE.Visa;
+using FTD2XX_NET;
+using System.Threading;
 
 namespace Xu.EE.TestApp
 {
@@ -202,6 +204,73 @@ namespace Xu.EE.TestApp
             {
                 Schematic.ReadPinoutFile(OpenFile.FileName);
             }
+        }
+
+        FTDI.FT_STATUS FtdiStatus { get; set; } = FTDI.FT_STATUS.FT_OK;
+        FTDI FtdiDevice { get; set; } = new FTDI();
+
+        uint FtdiDevCount { get; set; } = 0;
+
+        FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceList { get; set; } = new FTDI.FT_DEVICE_INFO_NODE[] { };
+
+        private void BtnTestFTDI_Click(object sender, EventArgs e)
+        {
+            uint devcount = 0;
+
+            try
+            {
+                FtdiStatus = FtdiDevice.GetNumberOfDevices(ref devcount);
+                Console.WriteLine("Device Count = " + devcount);
+                FtdiDevCount = devcount;
+               
+
+            }
+            catch
+            {
+                Console.WriteLine("Driver not loaded");
+            }
+
+            if (devcount > 0)
+            {
+                //FtdiDevice.GetDeviceList()
+
+                //FtdiStatus = FtdiDevice.OpenByDescription("UM232H");  // could replace line below
+                FtdiStatus = FtdiDevice.OpenByIndex(0);
+                
+
+                
+                FtdiStatus = FTDI.FT_STATUS.FT_OK;
+                FtdiStatus |= FtdiDevice.SPI_Init();
+
+
+                Console.WriteLine(FtdiStatus);
+                Thread.Sleep(10);
+                FtdiDevice.SPI_CS_Enable();
+                Thread.Sleep(10);
+                /*
+                FtdiStatus = FtdiDevice.GetDeviceList(FtdiDeviceList);
+
+                foreach(var dev in FtdiDeviceList) 
+                {
+                    Console.WriteLine(dev.Description);
+                
+                }*/
+                //FtdiStatus = FtdiDevice
+            }
+        }
+
+        private void BtnTestFTDISendData_Click(object sender, EventArgs e)
+        {
+            byte i = 0;
+
+            while(true)
+            {
+                FtdiDevice.SPI_Write(i);
+                i++;
+                Thread.Sleep(10);
+            }
+
+            //FtdiDevice.SPI_Enable();
         }
     }
 }

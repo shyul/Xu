@@ -261,11 +261,12 @@ namespace Xu.EE.TestApp
 
         private void BtnTestFTDISendData_Click(object sender, EventArgs e)
         {
-            byte i = 0;
+            ushort i = 0;
 
             while(true)
             {
-                FtdiDevice.SPI_Write(i);
+                //FtdiDevice.SPI_Write(i);
+                FtdiDevice.SPI_Write(i, new byte[] { 0x5A, (byte)(i & 0xFF), 0xA5 });
                 i++;
                 Thread.Sleep(10);
             }

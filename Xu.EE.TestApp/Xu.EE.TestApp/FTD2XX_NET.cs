@@ -6983,7 +6983,7 @@ namespace FTD2XX_NET
             FT_STATUS status = FT_STATUS.FT_OK;
             status |= SetTimeouts(5000, 5000);
             status |= SetLatency(16);
-            status |= SetFlowControl(FTDI.FT_FLOW_CONTROL.FT_FLOW_RTS_CTS, 0x00, 0x00);
+            status |= SetFlowControl(FT_FLOW_CONTROL.FT_FLOW_RTS_CTS, 0x00, 0x00);
             status |= SetBitMode(0x00, 0x00);        //Reset controller
             status |= SetBitMode(0x00, 0x02);        // MPSSE mode
             status |= FlushBuffer();                 // 
@@ -7016,6 +7016,21 @@ namespace FTD2XX_NET
         {
             Write(new byte[] { 0x13, 0x7, data });
 
+        }
+
+        public void SPI_Write(int address, byte[] data) 
+        {
+            List<byte> spi_send_data = new List<byte>();
+
+            spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)((address >> 8) & 0x7F) });
+            spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)(address & 0xFF) });
+
+            foreach(var d in data) 
+            {
+                spi_send_data.AddRange(new byte[] { 0x13, 0x7, d });
+            }
+
+            Write(spi_send_data.ToArray());
         }
     }
 }

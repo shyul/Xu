@@ -207,45 +207,51 @@ namespace Xu.EE.TestApp
         }
 
         FTDI.FT_STATUS FtdiStatus { get; set; } = FTDI.FT_STATUS.FT_OK;
-        FTDI FtdiDevice { get; set; } = new FTDI();
+        FTDI ftd { get; set; } = new FTDI();
 
-        uint FtdiDevCount { get; set; } = 0;
+        uint FtdiDevCount = 0;
 
-        FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceList { get; set; } = new FTDI.FT_DEVICE_INFO_NODE[] { };
+        FTDI.FT_DEVICE_INFO_NODE[] FtdiDeviceList { get; set; }
 
         private void BtnTestFTDI_Click(object sender, EventArgs e)
         {
-            uint devcount = 0;
+     
 
             try
             {
-                FtdiStatus = FtdiDevice.GetNumberOfDevices(ref devcount);
-                Console.WriteLine("Device Count = " + devcount);
-                FtdiDevCount = devcount;
-               
+                FtdiStatus = ftd.GetNumberOfDevices(ref FtdiDevCount);
+                Console.WriteLine("Device Count = " + FtdiDevCount);
+                //this.FtdiDevCount = FtdiDevCount;
+                FtdiDeviceList = new FTDI.FT_DEVICE_INFO_NODE[FtdiDevCount];
+                ftd.GetDeviceList(FtdiDeviceList);
 
+                for(int i = 0; i < FtdiDevCount; i++) 
+                {
+                    FTDI.FT_DEVICE_INFO_NODE dev = FtdiDeviceList[i];
+                    Console.WriteLine("Id = " + dev.ID + " Desc = " + dev.Description + " sn = " + dev.SerialNumber);
+                }
             }
             catch
             {
                 Console.WriteLine("Driver not loaded");
             }
 
-            if (devcount > 0)
+            if (FtdiDevCount > 0)
             {
                 //FtdiDevice.GetDeviceList()
 
                 //FtdiStatus = FtdiDevice.OpenByDescription("UM232H");  // could replace line below
-                FtdiStatus = FtdiDevice.OpenByIndex(0);
+                FtdiStatus = ftd.OpenByIndex(0);
                 
 
                 
                 FtdiStatus = FTDI.FT_STATUS.FT_OK;
-                FtdiStatus |= FtdiDevice.SPI_Init();
+                FtdiStatus |= ftd.MPSSE_Init_SPI();
 
 
                 Console.WriteLine(FtdiStatus);
                 Thread.Sleep(10);
-                FtdiDevice.SPI_CS_Enable();
+                ftd.SPI_CS_Enable();
                 Thread.Sleep(10);
                 /*
                 FtdiStatus = FtdiDevice.GetDeviceList(FtdiDeviceList);
@@ -263,15 +269,32 @@ namespace Xu.EE.TestApp
         {
             ushort i = 0;
 
-            while(true)
+            while (true)
             {
-                //FtdiDevice.SPI_Write(i);
-                FtdiDevice.SPI_Write(i, new byte[] { 0x5A, (byte)(i & 0xFF), 0xA5 });
+                ftd.SPI_Write(i, new byte[] { 0x5A, (byte)(i & 0xFF), 0xA5 });
                 i++;
-                Thread.Sleep(10);
+                Thread.Sleep(20);
             }
 
             //FtdiDevice.SPI_Enable();
+        }
+
+        private void BtnTestFTDIRecvData_Click(object sender, EventArgs e)
+        {
+            ushort i = 0;
+
+            while (true)
+            {
+                int j = 5;
+                var data = ftd.SPI_Read(i, j);
+                foreach(byte d in data) 
+                {
+                    j--;
+                    Console.WriteLine(j + ": 0x" + d.ToString("X"));
+                }
+                i++;
+                Thread.Sleep(20);
+            }
         }
     }
 }

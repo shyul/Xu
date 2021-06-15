@@ -5680,6 +5680,37 @@ namespace FTD2XX_NET
             return ftStatus;
         }
 
+        public FT_STATUS SetUSBParameters(uint dwInTransferSize, uint dwOutTransferSize)
+        {            
+            // Initialise ftStatus to something other than FT_OK
+            FT_STATUS ftStatus = FT_STATUS.FT_OTHER_ERROR;
+
+            // If the DLL hasn't been loaded, just return here
+            if (hFTD2XXDLL == IntPtr.Zero)
+                return ftStatus;
+
+            // Check for our required function pointers being set up
+            if (pFT_SetUSBParameters != IntPtr.Zero)
+            {
+                tFT_SetUSBParameters FT_SetUSBParameters = Marshal.GetDelegateForFunctionPointer(pFT_SetUSBParameters, typeof(tFT_SetUSBParameters)) as tFT_SetUSBParameters;
+
+                if (ftHandle != IntPtr.Zero)
+                {
+                    // Call FT_GetQueueStatus
+                    ftStatus = FT_SetUSBParameters(ftHandle, dwInTransferSize, dwOutTransferSize);
+                }
+            }
+            else
+            {
+                if (pFT_SetUSBParameters == IntPtr.Zero)
+                {
+                    Console.WriteLine("Failed to load function FT_SetUSBParameters.");
+                }
+            }
+
+            return ftStatus;
+        }
+
         //**************************************************************************
         // GetTxBytesWaiting
         //**************************************************************************
@@ -6916,6 +6947,76 @@ namespace FTD2XX_NET
         }
         #endregion
 
+        public FT_STATUS SyncMPSSEInterface(byte badCommand = 0xAB)
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+            uint cnt = 0;
+
+            // Enable internal loop-back 
+            status |= Write(new byte[] { 0x84 });
+            status |= GetRxBytesAvailable(ref cnt);
+
+            if (cnt != 0)
+            {
+                Console.WriteLine("Error - MPSSE receive buffer should be empty: " + status + ", Count = " + cnt);
+                status |= SetBitMode(0x00, 0x00); // Reset controller
+                Close();
+                return status;
+            }
+
+            status |= Write(new byte[] { badCommand });
+
+            bool bCommandEchod = false;
+            var (status_read, readBuffer) = Read();
+            status |= status_read;
+
+            //Read out the data from input buffer 
+            for (int dwCount = 0; dwCount < readBuffer.Length - 1; dwCount++) //Check if Bad command and echo command are received 
+            {
+                if ((readBuffer[dwCount] == 0xFA) && (readBuffer[dwCount + 1] == 0xAB))
+                {
+                    //Console.WriteLine(readBuffer[dwCount].ToString("X") + " | " + readBuffer[dwCount + 1].ToString("X"));
+                    bCommandEchod = true;
+                    break;
+                }
+            }
+
+            if (bCommandEchod == false)
+            {
+                Console.WriteLine("Error in synchronizing the MPSSE\n");
+                Close();
+                return status;
+            }
+
+            // Disable internal loop-back 
+            status |= Write(new byte[] { 0x85 });
+            status |= GetRxBytesAvailable(ref cnt);
+
+            if (cnt != 0)
+            {
+                Console.WriteLine("Error - MPSSE receive buffer should be empty: " + status + ", Count = " + cnt);
+                status |= SetBitMode(0x00, 0x00); // Reset controller
+                Close();
+                return status;
+            }
+
+            Console.WriteLine("MPSSE Synchronized!");
+
+            return status;
+        }
+
+        public FT_STATUS FlushBuffer()
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+            uint bytesCount = 0;
+            status |= GetRxBytesAvailable(ref bytesCount);
+
+            if (status == FT_STATUS.FT_OK && bytesCount > 0)
+                return status |= Read(new byte[] { }, bytesCount, ref bytesCount);
+            else
+                return status;
+        }
+
         public FT_STATUS Write(byte[] data)
         {
             uint NumBytesSent = 0;
@@ -6931,91 +7032,101 @@ namespace FTD2XX_NET
                 return status;
         }
 
-        public FT_STATUS SyncMPSSEInterface(byte badCommand = 0xAA)
-        {
-            uint bytesCount = 0;
-            var status = Write(new byte[] { badCommand }, 1, ref bytesCount);
-            Console.WriteLine("Bytes Written = " + bytesCount);
-            if (status != FT_STATUS.FT_OK) return status;
-
-            status = GetRxBytesAvailable(ref bytesCount);
-            if (status != FT_STATUS.FT_OK) return status;
-
-            if (status == FT_STATUS.FT_OK)// && bytesCount == 2)
-            {
-                byte[] readBuffer = new byte[] { };
-                status = Read(readBuffer, bytesCount, ref bytesCount);
-
-                if (readBuffer.Length > 0)
-                {
-                    Console.WriteLine("Received Length = " + readBuffer.Length);
-                    foreach (var b in readBuffer)
-
-                        Console.WriteLine("0x" + b.ToString("X"));
-                }
-
-                if (status == FT_STATUS.FT_OK && readBuffer.Length == 2 && readBuffer[0] == 0xFA && readBuffer[1] == badCommand)
-                {
-
-                    return FT_STATUS.FT_OK;
-                }
-
-            }
-            return FT_STATUS.FT_OK;
-            //return FT_STATUS.FT_XU_EXCEPTION;
-        }
-
-        public FT_STATUS FlushBuffer()
-        {
-            uint bytesCount = 0;
-            GetRxBytesAvailable(ref bytesCount);
-
-            if (bytesCount > 0)
-                return Read(new byte[] { }, bytesCount, ref bytesCount);
-            else
-                return FT_STATUS.FT_OK;
-        }
-
-        //public byte[] OutputBuffer { get; } = new byte[512](); 
-
-        public FT_STATUS SPI_Init() 
+        public (FT_STATUS status, byte[] data) Read()
         {
             FT_STATUS status = FT_STATUS.FT_OK;
-            status |= SetTimeouts(5000, 5000);
-            status |= SetLatency(16);
-            status |= SetFlowControl(FT_FLOW_CONTROL.FT_FLOW_RTS_CTS, 0x00, 0x00);
-            status |= SetBitMode(0x00, 0x00);        //Reset controller
-            status |= SetBitMode(0x00, 0x02);        // MPSSE mode
-            status |= FlushBuffer();                 // 
+            uint cnt = 0;
+            // wait until the return bytes are ready.
+            do
+            {
+                status |= GetRxBytesAvailable(ref cnt);
+            }
+            while (status == FT_STATUS.FT_OK && cnt == 0);
+
+            byte[] readBuffer = new byte[cnt];
+            status |= Read(readBuffer, cnt, ref cnt);
+
+            if (status != FT_STATUS.FT_OK) // || cnt != length)
+            {
+                Console.WriteLine("Read Error: cnt = " + cnt);
+            }
+
+            return (status, readBuffer);
+        }
+
+        //public FT_STATUS Write(byte[] data, ref uint numBytesWritten) => Write(data, data.Length, ref numBytesWritten);
+
+        public FT_STATUS MPSSE_Init_SPI()
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+
+            Console.WriteLine("\nConfigure port for MPSSE use ...");
+            status |= ResetDevice();
+            status |= FlushBuffer(); // Read out the data from FT2232H receive buffer 
+            status |= SetUSBParameters(65536, 65536); // Set USB request transfer sizes to 64K
+            status |= SetCharacters(0, false, 0, false); // Disable event and error characters 
+            status |= SetTimeouts(5000, 5000); // Sets the read and write timeouts in milliseconds  
+            status |= SetLatency(1); // Set the latency timer to 1mS (default is 16mS) 
+            status |= SetFlowControl(FT_FLOW_CONTROL.FT_FLOW_RTS_CTS, 0x00, 0x00); // Turn on flow control to synchronize IN requests
+            status |= SetBitMode(0x00, 0x00); // Reset controller
+            status |= SetBitMode(0x00, 0x02); // Enable MPSSE mode
+            Thread.Sleep(50);
+
             status |= SyncMPSSEInterface();
+            // 0x8A Use 60MHz master clock (disable divide by 5)
+            // 0x97 Turn off adaptive clocking (may be needed for ARM) 
+            // 0x8D Disable three-phase clocking 
             status |= Write(new byte[] { 0x8A, 0x97, 0x8D });
             Thread.Sleep(10);
-            status |= Write(new byte[] { 0x80, 0x00, 0x0B });
-            Thread.Sleep(10);
+
+            // 0x86 Set TCK frequency  
+            // TCK = 60MHz /((1 + [(1 +0xValueH*256) OR 0xValueL])*2) 
             ushort clockDiv = 5;
             status |= Write(new byte[] { 0x86, (byte)(clockDiv & 0xFF), (byte)(clockDiv >> 8 & 0xFF) });
             Thread.Sleep(20);
 
+            // Set initial states of the MPSSE interface  
+            //  - low byte, both pin directions and output values 
+            //  Pin name  Signal  Direction  Config  Initial State  Config 
+            //  ADBUS0    TCK/SK  output    1  high    1 
+            //  ADBUS1    TDI/DO  output    1  low    0 
+            //  ADBUS2    TDO/DI  input    0      0 
+            //  ADBUS3    TMS/CS  output    1  high    1 
+            //  ADBUS4    GPIOL0  output    1  low    0 
+            //  ADBUS5    GPIOL1  output    1  low    0 
+            //  ADBUS6    GPIOL2  output    1  high    1 
+            //  ADBUS7    GPIOL3  output    1  high    1 
+
+            status |= Write(new byte[] { 0x80, 0xC9, 0xFB }); // 0x80 (Low Byte) | Initial Value | Direction  //  { 0x80, 0x00, 0x0B });
+
+            // Note that since the data in subsequent sections will be clocked on the rising edge, the  
+            //  inital clock state of high is selected.  Clocks will be generated as high-low-high. 
+
+            //  For example, in this case, data changes on the rising edge to give it enough time 
+            //  to have it available at the device, which will accept data *into* the target device  
+            //  on the falling edge.   
+
+            // Set initial states of the MPSSE interface  
+            //  - high byte, both pin directions and output values 
+            //  Pin name  Signal  Direction  Config  Initial State  Config 
+            //  ACBUS0    GPIOH0  input    0      0 
+            //  ACBUS1    GPIOH1  input    0      0 
+            //  ACBUS2    GPIOH2  input    0      0 
+            //  ACBUS3    GPIOH3  input    0      0 
+            //  ACBUS4    GPIOH4  input    0      0 
+            //  ACBUS5    GPIOH5  input    0      0 
+            //  ACBUS6    GPIOH6  input    0      0 
+            //  ACBUS7    GPIOH7  input    0      0
+
+            status |= Write(new byte[] { 0x82, 0x0, 0x0 });
+
+            Thread.Sleep(10);
+
+
+
             status |= Write(new byte[] { 0x85 });
 
             return status;
-        }
-
-        public void SPI_CS_Enable() 
-        {
-            for (int i = 0; i < 5; i++)
-            {
-
-                Write(new byte[] { 0x80, 0x08, 0x0B });
-                Thread.Sleep(10);
-            }
-        
-        }
-
-        public void SPI_Write(byte data) 
-        {
-            Write(new byte[] { 0x13, 0x7, data });
-
         }
 
         public void SPI_Write(int address, byte[] data) 
@@ -7031,6 +7142,155 @@ namespace FTD2XX_NET
             }
 
             Write(spi_send_data.ToArray());
+
+        }
+
+        public byte[] SPI_Read(int address, int length = 1)
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+            List<byte> spi_send_data = new List<byte>();
+            spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)((1 << 7) + ((address >> 8) & 0x7F)) });
+            spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)(address & 0xFF) });
+            for (int i = 0; i < length; i++)
+            {
+                spi_send_data.AddRange(new byte[] { 0x26, 0x7 });
+            }
+            status |= Write(spi_send_data.ToArray());
+            Thread.Sleep(20);
+
+            var (status_read, readBuffer) = Read();
+            status |= status_read;
+
+            if (status != FT_STATUS.FT_OK || readBuffer.Length != length)
+            {
+                Console.WriteLine("SPI_Read Error: cnt = " + readBuffer.Length);
+            }
+
+            return readBuffer;
+        }
+
+        public FT_STATUS GPIO_Write_L(byte data, byte direction) => GPIO_Write(data, direction, 0x80);
+        
+        public FT_STATUS GPIO_Write_H(byte data, byte direction) => GPIO_Write(data, direction, 0x82);
+
+        public FT_STATUS GPIO_Write(byte data, byte direction, byte command = 0x80)
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+
+            status |= Write(new byte[] { command, data, direction });
+            Thread.Sleep(2);
+
+            return status;
+        }
+
+        public (FT_STATUS status, byte data) GPIO_Read_L() => GPIO_Read(0x81);
+
+        public (FT_STATUS status, byte data) GPIO_Read_H() => GPIO_Read(0x83);
+
+        public (FT_STATUS status, byte data) GPIO_Read(byte command = 0x81)
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+
+            status |= Write(new byte[] { command });
+            Thread.Sleep(2);
+            var (status_read, readBuffer) = Read();
+            status |= status_read;
+
+            if (readBuffer.Length != 1 || status != FT_STATUS.FT_OK)
+            {
+                return (FT_STATUS.FT_OTHER_ERROR, 0);
+            }
+            else
+                return (status, readBuffer[0]);
+        }
+
+
+
+
+        public void SPI_CS_Enable()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+
+                Write(new byte[] { 0x80, 0x08, 0x0B });
+                Thread.Sleep(10);
+            }
+
         }
     }
 }
+
+/*
+public void SPI_Write(int address, byte[] data)
+{
+    List<byte> spi_send_data = new List<byte>();
+    int length = data.Length - 1 + 2;
+    spi_send_data.AddRange(new byte[] { 0x10, (byte)(length & 0xFF), (byte)((length >> 8) & 0xFF), (byte)((0 << 7) + ((address >> 8) & 0x7F)), (byte)(address & 0xFF) });
+    spi_send_data.AddRange(data);
+    Write(spi_send_data.ToArray());
+}*/
+
+/*
+public FT_STATUS SyncMPSSEInterface(byte badCommand = 0xAA)
+{
+    FT_STATUS status = FT_STATUS.FT_OK;
+    uint bytesCount = 0;
+    status = Write(new byte[] { badCommand }, 1, ref bytesCount);
+    Console.WriteLine("Bytes Written = " + bytesCount);
+    if (status != FT_STATUS.FT_OK) return status;
+
+    status = GetRxBytesAvailable(ref bytesCount);
+    if (status != FT_STATUS.FT_OK) return status;
+
+    if (status == FT_STATUS.FT_OK)// && bytesCount == 2)
+    {
+        byte[] readBuffer = new byte[] { };
+        status = Read(readBuffer, bytesCount, ref bytesCount);
+
+        if (readBuffer.Length > 0)
+        {
+            Console.WriteLine("Received Length = " + readBuffer.Length);
+            foreach (var b in readBuffer)
+
+                Console.WriteLine("0x" + b.ToString("X"));
+        }
+
+        if (status == FT_STATUS.FT_OK && readBuffer.Length == 2 && readBuffer[0] == 0xFA && readBuffer[1] == badCommand)
+        {
+
+            return FT_STATUS.FT_OK;
+        }
+
+    }
+    return FT_STATUS.FT_OK;
+    //return FT_STATUS.FT_XU_EXCEPTION;
+}*/
+
+//public byte[] OutputBuffer { get; } = new byte[512](); 
+/*
+public FT_STATUS SPI_Init() 
+{
+    FT_STATUS status = FT_STATUS.FT_OK;
+
+    Console.WriteLine("\nConfigure port for MPSSE use ...");
+    status |= ResetDevice();
+
+    status |= SetTimeouts(5000, 5000);
+    status |= SetLatency(16);
+    status |= SetFlowControl(FT_FLOW_CONTROL.FT_FLOW_RTS_CTS, 0x00, 0x00);
+    status |= SetBitMode(0x00, 0x00);        //Reset controller
+    status |= SetBitMode(0x00, 0x02);        // MPSSE mode
+    status |= FlushBuffer();                 // 
+    status |= SyncMPSSEInterface();
+    status |= Write(new byte[] { 0x8A, 0x97, 0x8D });
+    Thread.Sleep(10);
+    status |= Write(new byte[] { 0x80, 0x00, 0x0B });
+    Thread.Sleep(10);
+    ushort clockDiv = 5;
+    status |= Write(new byte[] { 0x86, (byte)(clockDiv & 0xFF), (byte)(clockDiv >> 8 & 0xFF) });
+    Thread.Sleep(20);
+
+    status |= Write(new byte[] { 0x85 });
+
+    return status;
+}*/

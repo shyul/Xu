@@ -71,6 +71,7 @@ namespace Xu.EE.TestApp
             this.BtnImportCSVPins = new System.Windows.Forms.Button();
             this.BtnTestFTDI = new System.Windows.Forms.Button();
             this.BtnTestFTDISendData = new System.Windows.Forms.Button();
+            this.BtnTestFTDIRecvData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnInitialize
@@ -450,11 +451,22 @@ namespace Xu.EE.TestApp
             this.BtnTestFTDISendData.UseVisualStyleBackColor = true;
             this.BtnTestFTDISendData.Click += new System.EventHandler(this.BtnTestFTDISendData_Click);
             // 
+            // BtnTestFTDIRecvData
+            // 
+            this.BtnTestFTDIRecvData.Location = new System.Drawing.Point(348, 401);
+            this.BtnTestFTDIRecvData.Name = "BtnTestFTDIRecvData";
+            this.BtnTestFTDIRecvData.Size = new System.Drawing.Size(145, 23);
+            this.BtnTestFTDIRecvData.TabIndex = 45;
+            this.BtnTestFTDIRecvData.Text = "Test FTDI Receive Data";
+            this.BtnTestFTDIRecvData.UseVisualStyleBackColor = true;
+            this.BtnTestFTDIRecvData.Click += new System.EventHandler(this.BtnTestFTDIRecvData_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.BtnTestFTDIRecvData);
             this.Controls.Add(this.BtnTestFTDISendData);
             this.Controls.Add(this.BtnTestFTDI);
             this.Controls.Add(this.BtnImportCSVPins);
@@ -547,6 +559,7 @@ namespace Xu.EE.TestApp
         private System.Windows.Forms.Button BtnImportCSVPins;
         private System.Windows.Forms.Button BtnTestFTDI;
         private System.Windows.Forms.Button BtnTestFTDISendData;
+        private System.Windows.Forms.Button BtnTestFTDIRecvData;
     }
 }
 

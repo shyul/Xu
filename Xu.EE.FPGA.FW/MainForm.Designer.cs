@@ -35,6 +35,10 @@ namespace Xu.EE.FPGA.FW
             this.BtnExportCSVFile = new System.Windows.Forms.Button();
             this.BtnImportAltiumPinMapReport = new System.Windows.Forms.Button();
             this.BtnExportXilinxXDCFile = new System.Windows.Forms.Button();
+            this.BtnImportAlteraPackageFile = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnExportNets = new System.Windows.Forms.Button();
+            this.BtnImportQuartusPinFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnImportXilinxPackageFile
@@ -53,7 +57,7 @@ namespace Xu.EE.FPGA.FW
             // 
             // BtnExportCSVFile
             // 
-            this.BtnExportCSVFile.Location = new System.Drawing.Point(12, 230);
+            this.BtnExportCSVFile.Location = new System.Drawing.Point(12, 438);
             this.BtnExportCSVFile.Name = "BtnExportCSVFile";
             this.BtnExportCSVFile.Size = new System.Drawing.Size(239, 52);
             this.BtnExportCSVFile.TabIndex = 1;
@@ -63,7 +67,7 @@ namespace Xu.EE.FPGA.FW
             // 
             // BtnImportAltiumPinMapReport
             // 
-            this.BtnImportAltiumPinMapReport.Location = new System.Drawing.Point(12, 70);
+            this.BtnImportAltiumPinMapReport.Location = new System.Drawing.Point(147, 98);
             this.BtnImportAltiumPinMapReport.Name = "BtnImportAltiumPinMapReport";
             this.BtnImportAltiumPinMapReport.Size = new System.Drawing.Size(239, 52);
             this.BtnImportAltiumPinMapReport.TabIndex = 2;
@@ -73,19 +77,63 @@ namespace Xu.EE.FPGA.FW
             // 
             // BtnExportXilinxXDCFile
             // 
-            this.BtnExportXilinxXDCFile.Location = new System.Drawing.Point(12, 128);
+            this.BtnExportXilinxXDCFile.Location = new System.Drawing.Point(12, 192);
             this.BtnExportXilinxXDCFile.Name = "BtnExportXilinxXDCFile";
             this.BtnExportXilinxXDCFile.Size = new System.Drawing.Size(239, 52);
             this.BtnExportXilinxXDCFile.TabIndex = 3;
-            this.BtnExportXilinxXDCFile.Text = "Export Xilinx XDC File";
+            this.BtnExportXilinxXDCFile.Text = "Export Vivado XDC File";
             this.BtnExportXilinxXDCFile.UseVisualStyleBackColor = true;
             this.BtnExportXilinxXDCFile.Click += new System.EventHandler(this.BtnExportXilinxXDCFile_Click);
+            // 
+            // BtnImportAlteraPackageFile
+            // 
+            this.BtnImportAlteraPackageFile.Location = new System.Drawing.Point(307, 12);
+            this.BtnImportAlteraPackageFile.Name = "BtnImportAlteraPackageFile";
+            this.BtnImportAlteraPackageFile.Size = new System.Drawing.Size(239, 52);
+            this.BtnImportAlteraPackageFile.TabIndex = 4;
+            this.BtnImportAlteraPackageFile.Text = "Import Altera Package File";
+            this.BtnImportAlteraPackageFile.UseVisualStyleBackColor = true;
+            this.BtnImportAlteraPackageFile.Click += new System.EventHandler(this.BtnImportAlteraPackageFile_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(307, 192);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(239, 52);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Export Quartus QSF File";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BtnExportNets
+            // 
+            this.BtnExportNets.Location = new System.Drawing.Point(307, 429);
+            this.BtnExportNets.Name = "BtnExportNets";
+            this.BtnExportNets.Size = new System.Drawing.Size(239, 52);
+            this.BtnExportNets.TabIndex = 6;
+            this.BtnExportNets.Text = "Export Nets";
+            this.BtnExportNets.UseVisualStyleBackColor = true;
+            this.BtnExportNets.Click += new System.EventHandler(this.BtnExportNets_Click);
+            // 
+            // BtnImportQuartusPinFile
+            // 
+            this.BtnImportQuartusPinFile.Location = new System.Drawing.Point(307, 250);
+            this.BtnImportQuartusPinFile.Name = "BtnImportQuartusPinFile";
+            this.BtnImportQuartusPinFile.Size = new System.Drawing.Size(239, 52);
+            this.BtnImportQuartusPinFile.TabIndex = 7;
+            this.BtnImportQuartusPinFile.Text = "Import Quartus Pin File";
+            this.BtnImportQuartusPinFile.UseVisualStyleBackColor = true;
+            this.BtnImportQuartusPinFile.Click += new System.EventHandler(this.BtnImportQuartusPinFile_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
+            this.Controls.Add(this.BtnImportQuartusPinFile);
+            this.Controls.Add(this.BtnExportNets);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnImportAlteraPackageFile);
             this.Controls.Add(this.BtnExportXilinxXDCFile);
             this.Controls.Add(this.BtnImportAltiumPinMapReport);
             this.Controls.Add(this.BtnExportCSVFile);
@@ -93,6 +141,7 @@ namespace Xu.EE.FPGA.FW
             this.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -105,6 +154,10 @@ namespace Xu.EE.FPGA.FW
         private System.Windows.Forms.Button BtnExportCSVFile;
         private System.Windows.Forms.Button BtnImportAltiumPinMapReport;
         private System.Windows.Forms.Button BtnExportXilinxXDCFile;
+        private System.Windows.Forms.Button BtnImportAlteraPackageFile;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnExportNets;
+        private System.Windows.Forms.Button BtnImportQuartusPinFile;
     }
 }
 

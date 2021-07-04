@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-namespace Xu.EE.FPGA
+namespace Xu.EE.FPGA.FW
 {
     static class Program
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Xu.EE.TestApp
+namespace Xu.EE.FPGA
 {
     partial class MainForm
     {

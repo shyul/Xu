@@ -12,7 +12,7 @@ using Xu.EE.Visa;
 using FTD2XX_NET;
 using System.Threading;
 
-namespace Xu.EE.TestApp
+namespace Xu.EE.FPGA
 {
     public partial class MainForm : Form
     {
@@ -207,7 +207,8 @@ namespace Xu.EE.TestApp
         }
 
         FTDI.FT_STATUS FtdiStatus { get; set; } = FTDI.FT_STATUS.FT_OK;
-        FTDI ftd { get; set; } = new FTDI();
+        FTDI FTDI_Channel_B { get; set; } = new FTDI();
+        FTDI FTDI_Channel_A { get; set; } = new FTDI();
 
         uint FtdiDevCount = 0;
 
@@ -219,11 +220,11 @@ namespace Xu.EE.TestApp
 
             try
             {
-                FtdiStatus = ftd.GetNumberOfDevices(ref FtdiDevCount);
+                FtdiStatus = FTDI_Channel_B.GetNumberOfDevices(ref FtdiDevCount);
                 Console.WriteLine("Device Count = " + FtdiDevCount);
                 //this.FtdiDevCount = FtdiDevCount;
                 FtdiDeviceList = new FTDI.FT_DEVICE_INFO_NODE[FtdiDevCount];
-                ftd.GetDeviceList(FtdiDeviceList);
+                FTDI_Channel_B.GetDeviceList(FtdiDeviceList);
 
                 for(int i = 0; i < FtdiDevCount; i++) 
                 {
@@ -236,22 +237,27 @@ namespace Xu.EE.TestApp
                 Console.WriteLine("Driver not loaded");
             }
 
-            if (FtdiDevCount > 0)
+            if (FtdiDevCount > 1)
             {
                 //FtdiDevice.GetDeviceList()
 
                 //FtdiStatus = FtdiDevice.OpenByDescription("UM232H");  // could replace line below
-                FtdiStatus = ftd.OpenByIndex(0);
-                
+                FtdiStatus = FTDI_Channel_B.OpenBySerialNumber("FT4Q1LCFB");//.OpenByIndex(1);
 
-                
+                FtdiStatus = FTDI_Channel_A.OpenBySerialNumber("FT4Q1LCFA");//.OpenByIndex(1);
+
                 FtdiStatus = FTDI.FT_STATUS.FT_OK;
-                FtdiStatus |= ftd.MPSSE_Init_SPI();
+                FtdiStatus |= FTDI_Channel_B.MPSSE_Init_SPI();
+                FtdiStatus |= FTDI_Channel_B.Write(FTDI.SPI_CS_H);
+                FtdiStatus |= FTDI_Channel_A.Write(new byte[] { 0x82, 0x1, 0x1 });
+
+                FtdiStatus |= FTDI_Channel_A.MPSSE_Init_SPI();
+                FtdiStatus |= FTDI_Channel_A.Write(new byte[] { 0x82, 0x0, 0x1F });
 
 
                 Console.WriteLine(FtdiStatus);
                 Thread.Sleep(10);
-                ftd.SPI_CS_Enable();
+                FTDI_Channel_B.SPI_CS_Enable();
                 Thread.Sleep(10);
                 /*
                 FtdiStatus = FtdiDevice.GetDeviceList(FtdiDeviceList);
@@ -267,26 +273,46 @@ namespace Xu.EE.TestApp
 
         private void BtnTestFTDISendData_Click(object sender, EventArgs e)
         {
-            ushort i = 0;
+            FTDI_Channel_B.SPI_Write(0x0, new byte[] { 0x81 });
+            FTDI_Channel_B.SPI_Write(0x0, new byte[] { 0x18 });
 
+            FTDI_Channel_B.SPI_Write(0x400, new byte[] { 0x55 });
+            FTDI_Channel_B.SPI_Write(0x38, new byte[] { 0x60 });
+            FTDI_Channel_B.SPI_Write(0x2E, new byte[] { 0x7F });
+            FTDI_Channel_B.SPI_Write(0x34, new byte[] { 0x08 });
+            FTDI_Channel_B.SPI_Write(0x35, new byte[] { 0x55 });
+            FTDI_Channel_B.SPI_Write(0x31, new byte[] { 0x20 });
+            FTDI_Channel_B.SPI_Write(0x12, new byte[] { 0xFF });
+
+            FTDI_Channel_B.SPI_Write(0x18, new byte[] { 0x36 });
+            FTDI_Channel_B.SPI_Write(0x19, new byte[] { 0x35 });
+            FTDI_Channel_B.SPI_Write(0x28, new byte[] { 0x01 });
+            /*
             while (true)
             {
                 ftd.SPI_Write(i, new byte[] { 0x5A, (byte)(i & 0xFF), 0xA5 });
                 i++;
                 Thread.Sleep(20);
             }
-
+            */
             //FtdiDevice.SPI_Enable();
         }
 
         private void BtnTestFTDIRecvData_Click(object sender, EventArgs e)
         {
             ushort i = 0;
-
+            int j = 0x19;
+            var data = FTDI_Channel_B.SPI_Read(j, j + 1);
+            foreach (byte d in data)
+            {
+                Console.WriteLine("addr: 0x" + j.ToString("X") + " - data: 0x" + d.ToString("X"));
+                j--;
+            }
+            /*
             while (true)
             {
                 int j = 5;
-                var data = ftd.SPI_Read(i, j);
+                var data = ftd_b.SPI_Read(i, j);
                 foreach(byte d in data) 
                 {
                     j--;
@@ -294,7 +320,7 @@ namespace Xu.EE.TestApp
                 }
                 i++;
                 Thread.Sleep(20);
-            }
+            }*/
         }
     }
 }

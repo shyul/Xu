@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace Xu.EE.FPGA.Properties
+namespace Xu.EE.FPGA.FW.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
@@ -43,7 +43,7 @@ namespace Xu.EE.FPGA.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xu.EE.TestApp.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xu.EE.FPGA.FW.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

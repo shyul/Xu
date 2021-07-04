@@ -7081,23 +7081,23 @@ namespace FTD2XX_NET
 
             // 0x86 Set TCK frequency  
             // TCK = 60MHz /((1 + [(1 +0xValueH*256) OR 0xValueL])*2) 
-            ushort clockDiv = 5;
+            ushort clockDiv = 10;
             status |= Write(new byte[] { 0x86, (byte)(clockDiv & 0xFF), (byte)(clockDiv >> 8 & 0xFF) });
             Thread.Sleep(20);
 
             // Set initial states of the MPSSE interface  
             //  - low byte, both pin directions and output values 
             //  Pin name  Signal  Direction  Config  Initial State  Config 
-            //  ADBUS0    TCK/SK  output    1  high    1 
-            //  ADBUS1    TDI/DO  output    1  low    0 
-            //  ADBUS2    TDO/DI  input    0      0 
-            //  ADBUS3    TMS/CS  output    1  high    1 
-            //  ADBUS4    GPIOL0  output    1  low    0 
-            //  ADBUS5    GPIOL1  output    1  low    0 
-            //  ADBUS6    GPIOL2  output    1  high    1 
-            //  ADBUS7    GPIOL3  output    1  high    1 
+            //  ADBUS0    TCK/SK  output    1  low    0 CLK
+            //  ADBUS1    TDI/DO  output    1  low    0  MOSI
+            //  ADBUS2    TDO/DI  input    0      1        MISO
+            //  ADBUS3    TMS/CS  output    1  high    1    CS
+            //  ADBUS4    GPIOL0  input    1  low    1  CS.B
+            //  ADBUS5    GPIOL1  input    1  low    0  HOLD
+            //  ADBUS6    GPIOL2  input    1  low    1  CS.C
+            //  ADBUS7    GPIOL3  input    1  low    0  SCLK INV EN
 
-            status |= Write(new byte[] { 0x80, 0xC9, 0xFB }); // 0x80 (Low Byte) | Initial Value | Direction  //  { 0x80, 0x00, 0x0B });
+            //status |= SPI_CS_H();// Write(new byte[] { 0x80, 0x0C, 0x0B }); // 0x80 (Low Byte) | Initial Value | Direction  //  { 0x80, 0x00, 0x0B });
 
             // Note that since the data in subsequent sections will be clocked on the rising edge, the  
             //  inital clock state of high is selected.  Clocks will be generated as high-low-high. 
@@ -7118,7 +7118,7 @@ namespace FTD2XX_NET
             //  ACBUS6    GPIOH6  input    0      0 
             //  ACBUS7    GPIOH7  input    0      0
 
-            status |= Write(new byte[] { 0x82, 0x0, 0x0 });
+            //status |= Write(new byte[] { 0x82, 0x0, 0x0 });
 
             Thread.Sleep(10);
 
@@ -7129,34 +7129,47 @@ namespace FTD2XX_NET
             return status;
         }
 
-        public void SPI_Write(int address, byte[] data) 
-        {
-            List<byte> spi_send_data = new List<byte>();
+        //public FT_STATUS
 
+        public static byte[] SPI_CS_H { get; } = new byte[] { 0x80, 0x5C, 0xFB };
+        public static byte[] SPI_CS_L { get; } = new byte[] { 0x80, 0x54, 0xFB };
+
+        public FT_STATUS SPI_Write(int address, byte[] data)
+        {
+            FT_STATUS status = FT_STATUS.FT_OK;
+            List<byte> spi_send_data = new List<byte>();
+            spi_send_data.AddRange(SPI_CS_L);
             spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)((address >> 8) & 0x7F) });
             spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)(address & 0xFF) });
-
-            foreach(var d in data) 
+         
+            foreach (var d in data) 
             {
                 spi_send_data.AddRange(new byte[] { 0x13, 0x7, d });
             }
 
-            Write(spi_send_data.ToArray());
+            spi_send_data.AddRange(SPI_CS_H);
 
+            status |= Write(spi_send_data.ToArray());
+            Thread.Sleep(20);
+            return status;
         }
 
         public byte[] SPI_Read(int address, int length = 1)
         {
             FT_STATUS status = FT_STATUS.FT_OK;
             List<byte> spi_send_data = new List<byte>();
+            spi_send_data.AddRange(SPI_CS_L);
             spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)((1 << 7) + ((address >> 8) & 0x7F)) });
             spi_send_data.AddRange(new byte[] { 0x13, 0x7, (byte)(address & 0xFF) });
             for (int i = 0; i < length; i++)
             {
                 spi_send_data.AddRange(new byte[] { 0x26, 0x7 });
             }
+            spi_send_data.AddRange(SPI_CS_H);
+     
             status |= Write(spi_send_data.ToArray());
             Thread.Sleep(20);
+    
 
             var (status_read, readBuffer) = Read();
             status |= status_read;

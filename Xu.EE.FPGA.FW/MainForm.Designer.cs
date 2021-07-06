@@ -39,6 +39,7 @@ namespace Xu.EE.FPGA.FW
             this.button1 = new System.Windows.Forms.Button();
             this.BtnExportNets = new System.Windows.Forms.Button();
             this.BtnImportQuartusPinFile = new System.Windows.Forms.Button();
+            this.BtnImportVivadoIOPlacedReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnImportXilinxPackageFile
@@ -125,11 +126,22 @@ namespace Xu.EE.FPGA.FW
             this.BtnImportQuartusPinFile.UseVisualStyleBackColor = true;
             this.BtnImportQuartusPinFile.Click += new System.EventHandler(this.BtnImportQuartusPinFile_Click);
             // 
+            // BtnImportVivadoIOPlacedReport
+            // 
+            this.BtnImportVivadoIOPlacedReport.Location = new System.Drawing.Point(12, 250);
+            this.BtnImportVivadoIOPlacedReport.Name = "BtnImportVivadoIOPlacedReport";
+            this.BtnImportVivadoIOPlacedReport.Size = new System.Drawing.Size(239, 52);
+            this.BtnImportVivadoIOPlacedReport.TabIndex = 8;
+            this.BtnImportVivadoIOPlacedReport.Text = "Import Vivado IO Placed Report";
+            this.BtnImportVivadoIOPlacedReport.UseVisualStyleBackColor = true;
+            this.BtnImportVivadoIOPlacedReport.Click += new System.EventHandler(this.BtnImportVivadoIOPlacedReport_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
+            this.Controls.Add(this.BtnImportVivadoIOPlacedReport);
             this.Controls.Add(this.BtnImportQuartusPinFile);
             this.Controls.Add(this.BtnExportNets);
             this.Controls.Add(this.button1);
@@ -158,6 +170,7 @@ namespace Xu.EE.FPGA.FW
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BtnExportNets;
         private System.Windows.Forms.Button BtnImportQuartusPinFile;
+        private System.Windows.Forms.Button BtnImportVivadoIOPlacedReport;
     }
 }
 

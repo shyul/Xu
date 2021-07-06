@@ -195,10 +195,50 @@ namespace Xu.EE.FPGA.FW
 
                 foreach(var pin in PinList.Values.Where(n => n.AssignedName != n.NetName).OrderBy(n => n.AssignedName)) 
                 {
-                    Console.WriteLine("Found Assignment Difference: " + pin.NetName + " | " + pin.AssignedName);
+                    Console.WriteLine("Found Assignment Difference: " + pin.Designator + "\t| " + pin.PinName + "\t| " + pin.NetName + "\t| " + pin.AssignedName);
                 }
 
                 Console.WriteLine("\n\nQuartus Pin Imported: " + i);
+            }
+        }
+
+        public void ImportVivadoIOPlacedReport(string rptFileName)
+        {
+            if (File.Exists(rptFileName))
+            {
+                using var fs = new FileStream(rptFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                using StreamReader sr = new(fs);
+
+                int i = 0;
+
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine().Trim();
+
+                    if (line.StartsWith("|") && line.Split('|') is string[] fields && fields.Length == 23 && !line.Contains("Pin Number"))
+                    {
+                        //Console.WriteLine(ToStringWithIndex(fields));
+                        i++;
+
+                        string pinDesignator = fields[1].Trim().ToUpper();
+                        FPGAPin pin = PinList[pinDesignator];
+                        pin.AssignedName = fields[2].Trim().ToUpper();
+
+                        if (pin.AssignedName.Contains("DDR4_")) pin.AssignedName = pin.AssignedName.Replace("DDR4_", "PS_DDR_");
+
+                        string voltage = fields[13].Trim().ToUpper();
+                        if (voltage.Length > 0 && voltage != "0.0") pin.AssignedName = voltage;
+
+                    }
+
+                }
+
+                foreach (var pin in PinList.Values.Where(n => n.AssignedName != n.NetName && !(n.PinName == "GND" && n.NetName == "VSS")).OrderBy(n => n.AssignedName))
+                {
+                    Console.WriteLine("Found Assignment Difference: " + pin.Designator + "\t| " + pin.PinName + "\t| " + pin.NetName + "\t| " + pin.AssignedName);
+                }
+
+                Console.WriteLine("\n\nVivado Report: Pin Imported: " + i);
             }
         }
 
@@ -321,7 +361,7 @@ namespace Xu.EE.FPGA.FW
             StringBuilder sb = new(FPGAPin.CsvHeader);
             foreach (var pin in PinList.OrderBy(n => n.Value.Bank).ThenBy(n => n.Value.IOType).ThenBy(n => n.Value.PinName).ThenBy(n => n.Value.Designator))
             {
-                sb.AppendLine(pin.Value.CsvLine);
+                sb.AppendLine(pin.Value.CsvLine);// 
             }
 
             File.WriteAllText(csvFileName, sb.ToString());
@@ -333,7 +373,14 @@ namespace Xu.EE.FPGA.FW
 
             foreach (var pin in PinList.Values.Where(n => n.IsIO && n.NetName.Length > 0 && !n.NetName.StartsWith("Net")).OrderBy(n => n.NetName).ThenBy(n => n.Designator))
             {
-                sb.AppendLine(pin.NetName.ToLower().Replace('.', 'p'));
+                string pinName = pin.NetName.ToLower().Replace('.', 'p');
+
+                if (pinName.EndsWith("_p"))
+                    pinName = pinName.Substring(0, pinName.Length - 2) + "_P";
+                else if (pinName.EndsWith("_n"))
+                    pinName = pinName.Substring(0, pinName.Length - 2) + "_N";
+
+                sb.AppendLine(pinName + ",");
             }
 
             File.WriteAllText(fileName, sb.ToString());
@@ -358,12 +405,26 @@ namespace Xu.EE.FPGA.FW
 
             foreach (var pin in PinList.Values.Where(n => n.IsIO && n.NetName.Length > 0 && !n.NetName.StartsWith("Net")).OrderBy(n => n.Bank).ThenBy(n => n.IOType).ThenBy(n => n.PairName).ThenBy(n => n.NetName).ThenBy(n => n.Designator))
             {
-                sb.AppendLine("set_property -dict {PACKAGE_PIN " + pin.Designator + " IOSTANDARD " + pin.IOStandard + "} [get_ports " + pin.NetName.ToLower().Replace('.', 'p') + "]");
+                string pinName = pin.NetName.ToLower().Replace('.', 'p');
+
+                if (pinName.EndsWith("_p")) 
+                    pinName = pinName.Substring(0, pinName.Length - 2) + "_P";
+                else if (pinName.EndsWith("_n"))
+                    pinName = pinName.Substring(0, pinName.Length - 2) + "_N";
+
+                sb.AppendLine("set_property -dict {PACKAGE_PIN " + pin.Designator + " IOSTANDARD " + pin.IOStandard + "} [get_ports " + pinName + "]");
             }
 
             foreach (var pin in PinList.Values.Where(n => n.IsIO && n.NetName.Length > 0 && !n.NetName.StartsWith("Net")).OrderBy(n => n.Bank).ThenBy(n => n.IOType).ThenBy(n => n.PairName).ThenBy(n => n.NetName).ThenBy(n => n.Designator))
             {
-                sb.AppendLine("set_property DIRECTION OUT [get_ports " + pin.NetName.ToLower().Replace('.', 'p') + "]");
+                string pinName = pin.NetName.ToLower().Replace('.', 'p');
+
+                if (pinName.EndsWith("_p"))
+                    pinName = pinName.Substring(0, pinName.Length - 2) + "_P";
+                else if (pinName.EndsWith("_n"))
+                    pinName = pinName.Substring(0, pinName.Length - 2) + "_N";
+
+                sb.AppendLine("set_property DIRECTION OUT [get_ports " + pinName + "]");
                 //set_property  DIRECTION OUT [get_ports DAC_D11_N]
             }
 

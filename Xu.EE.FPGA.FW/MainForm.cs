@@ -106,5 +106,15 @@ namespace Xu.EE.FPGA.FW
                 FPGA.ImportQuartusPinFile(OpenFile.FileName);
             }
         }
+
+        private void BtnImportVivadoIOPlacedReport_Click(object sender, EventArgs e)
+        {
+            OpenFile.Filter = "Report File (*.rpt) | *.rpt";
+
+            if (OpenFile.ShowDialog() == DialogResult.OK && FPGA is not null && OpenFile.FileName.Contains("_io_placed"))
+            {
+                FPGA.ImportVivadoIOPlacedReport(OpenFile.FileName);
+            }
+        }
     }
 }

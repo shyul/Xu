@@ -193,9 +193,9 @@ namespace Xu.EE.FPGA.FW
                     }
                 }
 
-                foreach(var pin in PinList.Values.Where(n => n.AssignedName != n.NetName).OrderBy(n => n.AssignedName)) 
+                foreach(var pin in PinList.Values.Where(n => n.AssignedName != n.NetName.Replace('.', 'p').ToUpper() && !(n.PinName == "GND" && n.NetName == "VSS")).OrderBy(n => n.AssignedName)) 
                 {
-                    Console.WriteLine("Found Assignment Difference: " + pin.Designator + "\t| " + pin.PinName + "\t| " + pin.NetName + "\t| " + pin.AssignedName);
+                    Console.WriteLine("Found Assignment Difference," + pin.Designator + "," + pin.PinName + "," + pin.NetName + "," + pin.AssignedName);
                 }
 
                 Console.WriteLine("\n\nQuartus Pin Imported: " + i);
@@ -233,9 +233,9 @@ namespace Xu.EE.FPGA.FW
 
                 }
 
-                foreach (var pin in PinList.Values.Where(n => n.AssignedName != n.NetName && !(n.PinName == "GND" && n.NetName == "VSS")).OrderBy(n => n.AssignedName))
+                foreach (var pin in PinList.Values.Where(n => n.AssignedName != n.NetName.Replace('.', 'p').ToUpper() && !(n.PinName == "GND" && n.NetName == "VSS")).OrderBy(n => n.AssignedName))
                 {
-                    Console.WriteLine("Found Assignment Difference: " + pin.Designator + "\t| " + pin.PinName + "\t| " + pin.NetName + "\t| " + pin.AssignedName);
+                    Console.WriteLine("Found Assignment Difference," + pin.Designator + "," + pin.PinName + "," + pin.NetName + "," + pin.AssignedName);
                 }
 
                 Console.WriteLine("\n\nVivado Report: Pin Imported: " + i);

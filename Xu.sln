@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xu", "Xu\Xu.csproj", "{C405
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xu.EE", "Xu.EE\Xu.EE.csproj", "{C405F46D-C5B1-4AFF-A335-8BC0760770C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xu.Test.Mosaic", "..\Xu.Test\Xu.Test.Mosaic\Xu.Test.Mosaic.csproj", "{20D3A7A5-3A45-40CA-AE78-F593A45250A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Debug|x64.Build.0 = Debug|x64
 		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Release|x64.ActiveCfg = Release|x64
 		{C405F46D-C5B1-4AFF-A335-8BC0760770C0}.Release|x64.Build.0 = Release|x64
+		{20D3A7A5-3A45-40CA-AE78-F593A45250A0}.Debug|x64.ActiveCfg = Debug|x64
+		{20D3A7A5-3A45-40CA-AE78-F593A45250A0}.Debug|x64.Build.0 = Debug|x64
+		{20D3A7A5-3A45-40CA-AE78-F593A45250A0}.Release|x64.ActiveCfg = Release|x64
+		{20D3A7A5-3A45-40CA-AE78-F593A45250A0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
